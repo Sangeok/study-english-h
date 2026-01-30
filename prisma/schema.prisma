@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // 소셜 로그인 연결
+  accounts      Account[]
+  sessions      Session[]
+
+  // 학습 관련 필드(추가 예정정)
+}
+
+model Account {
+  id            String    @id
+  userId        String
+  providerId    String   
+  accountId     String    
+  accessToken   String?   @db.Text
+  refreshToken  String?   @db.Text
+  idToken       String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope         String?
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+}
+
+model Session {
+  id            String    @id
+  token         String    
+  expiresAt     DateTime 
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  ipAddress     String?
+  userAgent     String?
+  
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
