@@ -9,18 +9,119 @@
 
 ---
 
+## ⚠️ 기술 스택 전제 조건
+
+### 현재 프로젝트 환경 (Phase 1-5 완료 상태)
+| 항목 | 기술 | 비고 |
+|------|------|------|
+| **인증** | Better Auth v1.4 | NextAuth 아님 |
+| **ORM** | Prisma 7 + `@prisma/adapter-pg` | Prisma 5 아님 |
+| **Prisma Client 경로** | `@/lib/generated/prisma` | 커스텀 output |
+| **DB Import** | `import prisma from "@/lib/db"` | default export |
+| **DB** | PostgreSQL (Neon) | 클라우드 |
+| **프레임워크** | Next.js 16, React 19 | App Router |
+| **아키텍처** | Feature-Sliced Design (FSD) | 계층 구조 적용 |
+| **CSS** | Tailwind CSS 4 | PostCSS 사용 |
+| **세션 헬퍼** | `getSessionFromRequest(req)` | `shared/lib/get-session.ts` |
+| **차트 라이브러리** | Recharts | 데이터 시각화 |
+
+### 사전 요구사항
+
+- Phase 1-2 완료: UserProfile 모델, 세션 헬퍼 (`getSessionFromRequest()`) 구현
+- Phase 1-3 완료: 어휘 학습 시스템 (FlashcardSession, UserVocabulary)
+- Phase 1-4 완료: 발음 진단 시스템 (PronunciationAttempt)
+- Phase 1-5 완료: 게이미피케이션 (UserStreak, UserLeague, UserAchievement)
+- Better Auth 인증 시스템 정상 동작
+- PostgreSQL (Neon Cloud) 데이터베이스 연결 정상
+
+### 추가 필요 의존성
+
+```bash
+# Recharts (데이터 시각화)
+npm install recharts
+
+# Zod (검증)
+npm install zod
+```
+
+---
+
 ## 🎯 Phase 목표
 
 ### 핵심 목표
-- ✅ 메인 대시보드 UI
-- ✅ 학습 통계 시각화 (Recharts)
-- ✅ 일일/주간/월간 통계
-- ✅ 카테고리별 학습 현황
-- ✅ 프로그레스 트래커
+- [ ] 메인 대시보드 UI
+- [ ] 학습 통계 시각화 (Recharts)
+- [ ] 일일/주간/월간 통계
+- [ ] 카테고리별 학습 현황
+- [ ] 프로그레스 트래커
 
 ---
 
 ## 🏗️ 구현 단계
+
+### Step 0.5: Zod 검증 스키마 구현
+
+#### 0.5.1 대시보드 검증 스키마
+`lib/dashboard/validation.ts`:
+```typescript
+import { z } from "zod"
+
+/**
+ * 대시보드 통계 조회 스키마
+ */
+export const dashboardStatsSchema = z.object({
+  period: z.enum(["day", "week", "month", "all"]).default("week"),
+})
+
+export type DashboardStatsInput = z.infer<typeof dashboardStatsSchema>
+
+/**
+ * 대시보드 통계 응답 타입
+ */
+export interface DashboardStatsResponse {
+  profile: {
+    level: string
+    totalXP: number
+    totalWordLearned: number
+    masteredWords: number
+    reviewNeeded: number
+    pronunciationScore: number
+  }
+  streak: {
+    current: number
+    longest: number
+    freezeCount: number
+  }
+  league: {
+    tier: number
+    points: number
+  }
+  periodStats: {
+    totalQuizzes: number
+    quizAccuracy: number
+    totalSessions: number
+    totalStudyTime: number
+    avgAccuracy: number
+    dailyStats: Array<{
+      date: string
+      studyTime: number
+      sessions: number
+    }>
+  }
+  categoryStats: Array<{
+    category: string
+    count: number
+  }>
+  recentActivity: Array<{
+    type: string
+    description: string
+    timestamp: Date
+    result: string
+  }>
+}
+```
+
+---
 
 ### Step 1: 통계 집계 API 구현 (1-2일차)
 
@@ -28,12 +129,13 @@
 `app/api/dashboard/stats/route.ts`:
 ```typescript
 import { NextResponse } from "next/server"
-import { auth } from "@/lib/auth"
-import { prisma } from "@/lib/db"
+import { getSessionFromRequest } from "@/shared/lib/get-session"
+import prisma from "@/lib/db"
+import { dashboardStatsSchema, type DashboardStatsResponse } from "@/lib/dashboard/validation"
 
 export async function GET(req: Request) {
   try {
-    const session = await auth()
+    const session = await getSessionFromRequest(req)
 
     if (!session?.user?.id) {
       return NextResponse.json(
@@ -43,7 +145,18 @@ export async function GET(req: Request) {
     }
 
     const { searchParams } = new URL(req.url)
-    const period = searchParams.get('period') || 'week' // day, week, month, all
+    const parsed = dashboardStatsSchema.safeParse({
+      period: searchParams.get('period'),
+    })
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "유효하지 않은 기간 파라미터", details: parsed.error.flatten() },
+        { status: 400 }
+      )
+    }
+
+    const { period } = parsed.data
 
     const userId = session.user.id
 
@@ -603,66 +716,134 @@ export default function DashboardPage() {
 
 ---
 
+## 📁 FSD 디렉토리 구조
+
+Phase 1-6에서 생성할 FSD 기반 디렉토리:
+
+```
+study-eng-h/
+├── app/
+│   ├── api/
+│   │   └── dashboard/
+│   │       └── stats/
+│   │           └── route.ts             # 대시보드 통계 API
+│   └── dashboard/
+│       └── page.tsx                     # 메인 대시보드 페이지
+├── lib/
+│   └── dashboard/
+│       └── validation.ts                # Zod 검증 스키마
+└── package.json                         # recharts 의존성 추가
+```
+
+> **참고**:
+> - `shared/lib/get-session.ts` (세션 헬퍼)는 Phase 1-2에서 생성됨
+> - 기존 Prisma 모델들 (UserProfile, UserStreak, UserLeague 등)을 조회만 함
+> - Recharts는 `npm install recharts`로 설치 필요
+
+---
+
 ## ✅ 완료 체크리스트
 
+### 사전 작업
+- [ ] Phase 1-2~1-5 완료 확인 (모든 기능 구현됨)
+- [ ] Recharts 설치 (`npm install recharts`)
+- [ ] Zod 설치 (`npm install zod`)
+
+### 검증
+- [ ] Zod 검증 스키마 구현 (validation.ts)
+- [ ] API 요청 검증 (period 파라미터)
+- [ ] 응답 타입 정의 (DashboardStatsResponse)
+
 ### API
-- [ ] 통계 집계 API
-- [ ] 기간별 통계
-- [ ] 카테고리별 통계
-- [ ] 최근 활동 조회
+- [ ] 통계 집계 API (`GET /api/dashboard/stats`)
+- [ ] 기간별 통계 (`getPeriodStats()`)
+- [ ] 일별 통계 (`getDailyStats()`)
+- [ ] 카테고리별 통계 (`getCategoryStats()`)
+- [ ] 최근 활동 조회 (`getRecentActivity()`)
 
 ### UI
-- [ ] 메인 대시보드
+- [ ] 메인 대시보드 페이지 (`/dashboard`)
+- [ ] 주요 통계 카드 (XP, 단어, 스트릭, 리그)
+- [ ] 복습 필요 알림 (reviewNeeded > 0)
 - [ ] 차트 시각화 (Recharts)
-- [ ] 통계 카드
+- [ ] 통계 요약 섹션 (퀴즈/플래시카드/발음)
 - [ ] 최근 활동 목록
+- [ ] 빠른 시작 버튼 (퀴즈/플래시카드/발음)
 
 ### 차트
 - [ ] 일별 학습 시간 (Line Chart)
 - [ ] 카테고리별 분포 (Pie Chart)
-- [ ] 프로그레스 바
+- [ ] 발음 점수 프로그레스 바
+- [ ] 반응형 차트 크기 (ResponsiveContainer)
 
 ---
 
 ## 🧪 테스트 시나리오
 
 ### 통계 API
-1. ✅ 기간별 데이터 정확성
-2. ✅ 집계 로직 검증
-3. ✅ 성능 최적화
+1. [ ] 기간별 데이터 정확성 (day/week/month/all 파라미터 검증)
+2. [ ] Zod 검증 (잘못된 period 값 400 에러)
+3. [ ] 집계 로직 검증 (퀴즈 정확도 계산 = (정답/전체) * 100)
+4. [ ] 성능 최적화 (대시보드 로딩 < 1초)
+5. [ ] 빈 데이터 처리 (신규 사용자 0값 반환)
 
 ### UI
-1. ✅ 차트 렌더링
-2. ✅ 반응형 디자인
-3. ✅ 로딩 상태
+1. [ ] 차트 렌더링 (Recharts Line/Pie 차트 정상 표시)
+2. [ ] 반응형 디자인 (모바일/태블릿/데스크톱 레이아웃)
+3. [ ] 로딩 상태 (스피너 표시 → 데이터 로드 완료)
+4. [ ] 에러 처리 (API 실패 시 에러 메시지)
+
+### Zod 검증
+1. [ ] period 파라미터 검증 ("day" | "week" | "month" | "all")
+2. [ ] 잘못된 값 거부 (예: "invalid" → 400 에러)
+3. [ ] 기본값 적용 (파라미터 없을 때 "week")
 
 ---
 
-## 🚀 최종 완료
+## 🚀 다음 단계
 
 Phase 1-6 완료 후:
-- ✅ 모든 Phase 1 기능 통합
-- ✅ 전체 시스템 테스트
-- ✅ 베타 런칭 준비
+- Phase 1 전체 기능 통합 테스트
+- 전체 시스템 성능 최적화
+- 베타 런칭 준비 (사용자 피드백 수집)
 
----
-
-## 📚 Recharts 설치
-
-```bash
-npm install recharts
-```
+### Phase 2 대시보드 고도화 방향 (참고)
+- 실시간 학습 통계 업데이트 (WebSocket)
+- 고급 차트 (Bar Chart, Area Chart, Radar Chart)
+- 커스텀 리포트 생성 (PDF 내보내기)
+- 학습 목표 설정 및 추적
+- 친구 비교 및 리더보드 통합
+- 일일/주간/월간 학습 리포트 이메일 발송
 
 ---
 
 ## 🎉 Phase 1 전체 완료!
 
 이제 모든 Phase 1 기능이 구현되었습니다:
-- ✅ Phase 1-1: 인증 시스템
-- ✅ Phase 1-2: AI 레벨 진단 및 퀴즈
-- ✅ Phase 1-3: 어휘 학습 및 SRS
-- ✅ Phase 1-4: 발음 진단
-- ✅ Phase 1-5: 게이미피케이션
-- ✅ Phase 1-6: 대시보드 및 통계
+- [ ] Phase 1-1: 인증 시스템 (Better Auth + 카카오 로그인)
+- [ ] Phase 1-2: AI 레벨 진단 및 퀴즈
+- [ ] Phase 1-3: 어휘 학습 및 SRS (플래시카드)
+- [ ] Phase 1-4: 발음 진단 (Web Speech API)
+- [ ] Phase 1-5: 게이미피케이션 (스트릭, 리그, 배지)
+- [ ] Phase 1-6: 대시보드 및 통계 (Recharts 시각화)
 
-**다음 단계**: 베타 테스트 및 사용자 피드백 수집
+**다음 단계**: 전체 시스템 통합 테스트 → 베타 런칭 → 사용자 피드백 수집
+
+---
+
+## 📝 변경 이력
+
+| 일자 | 변경 내용 |
+|------|-----------|
+| 2026-01-30 | 초안 작성 |
+| 2026-01-30 | 기술 스택 전제 조건 테이블 추가 |
+| 2026-01-30 | 사전 요구사항 섹션 추가 (Phase 1-2~1-5 의존성) |
+| 2026-01-30 | NextAuth → Better Auth 전환 반영 (`getSessionFromRequest`) |
+| 2026-01-30 | Prisma import 방식 수정 (default export) |
+| 2026-01-30 | Zod 검증 스키마 추가 (Step 0.5) |
+| 2026-01-30 | API 응답 타입 정의 추가 (DashboardStatsResponse) |
+| 2026-01-30 | FSD 디렉토리 구조 섹션 추가 |
+| 2026-01-30 | 체크리스트/테스트 시나리오 표기 통일 (`[ ]`) |
+| 2026-01-30 | 테스트 시나리오 구체화 (검증 조건 및 예상 값 포함) |
+| 2026-01-30 | Phase 2 대시보드 고도화 방향 추가 |
+| 2026-01-30 | Recharts 설치 중복 제거 (기술 스택 표에 통합) |

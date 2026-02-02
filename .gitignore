@@ -36,6 +36,17 @@ yarn-error.log*
 # vercel
 .vercel
 
+.agent
+.agents
+.claude
+.cursor
+.gemini
+.github
+.opencode
+
+/docs
+/prisma/seed-quiz.ts
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

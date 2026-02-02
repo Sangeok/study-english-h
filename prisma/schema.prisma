@@ -20,7 +20,9 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  // 학습 관련 필드(추가 예정정)
+  profile       UserProfile?
+  diagnoses     LevelDiagnosis[]
+  quizAttempts  UserQuizAttempt[]
 }
 
 model Account {
@@ -46,7 +48,7 @@ model Account {
 
 model Session {
   id            String    @id
-  token         String    
+  token         String    @unique
   expiresAt     DateTime 
 
   createdAt     DateTime  @default(now())
@@ -70,4 +72,91 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model UserProfile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  level           String    @default("A1")    // CEFR 레벨
+  totalXP         Int       @default(0)
+  lastStudyDate   DateTime?
+
+  // 약점 영역 (JSON): {"동사": 45.5, "형용사": 30.0}
+  weaknessAreas   Json?
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model QuizQuestion { // 퀴즈 질문
+  id              String   @id @default(cuid())
+  koreanHint      String   // 한글 힌트
+  contextHintKo   String?  // 상황 설명 힌트 (한국어)
+  englishWord     String   // 정답 영어 단어
+  sentence        String   // 문맥 문장 (빈칸 포함)
+  difficulty      String   // A1, A2, B1, B2, C1, C2
+  category        String   // daily, business, toeic, travel, idioms
+
+  options         QuizOption[]
+  attempts        UserQuizAttempt[]
+
+  createdAt       DateTime @default(now())
+
+  @@index([difficulty, category])
+}
+
+model UserQuizAttempt {
+  id              String   @id @default(cuid())
+  userId          String
+  questionId      String
+  selectedAnswer  String
+  isCorrect       Boolean
+  timeSpent       Int      // 초 단위
+  hintLevel       Int      @default(0)  // 0(없음), 1(상황), 2(전체)
+  attemptedAt     DateTime @default(now())
+
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([userId, attemptedAt])
+}
+
+model WeaknessArea { // 약점 영역(카테고리별 정확도)
+  id              String   @id @default(cuid())
+  diagnosisId     String
+  category        String   // 동사, 형용사, 명사 등(약점 영역)
+  accuracy        Float    // 정확도 %
+
+  diagnosis       LevelDiagnosis @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
+
+  @@index([diagnosisId])
+}
+
+model LevelDiagnosis {
+  id              String    @id @default(cuid())
+  userId          String
+  totalScore      Int       // 0-100
+  cefrLevel       String    // A1, A2, B1, B2, C1, C2
+  completedAt     DateTime  @default(now())
+
+  weaknessAreas   WeaknessArea[]
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model QuizOption { // 퀴즈 문제의 선택지
+  id              String   @id @default(cuid())
+  questionId      String
+  text            String
+  isCorrect       Boolean
+  order           Int      // 1-4
+
+  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
 }

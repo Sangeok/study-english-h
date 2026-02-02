@@ -1,5 +1,7 @@
-import LoginPage from "@/pages/login/ui";
+import LoginPage from "@/views/login/ui";
+import { requireUnAuth } from "@/shared/lib";
 
-export default function Login() {
+export default async function Login() {
+  await requireUnAuth();
   return <LoginPage />;
 }
