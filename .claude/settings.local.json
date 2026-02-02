@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(npx prisma generate:*)",
+      "Bash(npx tsx:*)",
+      "Bash(node check-hints.js:*)",
+      "Bash(node check-hints.mjs:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx next build)",
+      "Bash(grep:*)",
+      "Bash(ls:*)"
     ]
   }
 }

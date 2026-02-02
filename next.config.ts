@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    optimizePackageImports: ["@tanstack/react-query", "@prisma/client"],
+  },
 };
 
 export default nextConfig;
