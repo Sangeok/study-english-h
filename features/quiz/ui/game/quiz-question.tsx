@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import type { QuizQuestion } from "@/entities/question";
-import { calculateQuestionXP } from "../../lib/quiz-xp";
+import { cn } from "@/lib/utils";
 import { getDifficultyStyle } from "@/shared/constants";
+import { calculateQuestionXP } from "../../lib/quiz-xp";
+import { useOptionSelection } from "../../hooks/use-option-selection";
 
 interface QuizQuestionProps {
   question: QuizQuestion;
@@ -14,6 +15,43 @@ interface QuizQuestionProps {
   onHintRequest: () => void;
 }
 
+const OPTION_LABELS = ["A", "B", "C", "D"] as const;
+
+function HintButtonContent({ hintLevel }: { hintLevel: 0 | 1 | 2 }) {
+  if (hintLevel === 0) {
+    return (
+      <>
+        <span className="text-sm">💡</span>
+        <span className="text-sm font-semibold">힌트 보기</span>
+      </>
+    );
+  }
+  return (
+    <>
+      <span className="text-sm">🔍</span>
+      <span className="text-sm font-semibold">전체 힌트 보기</span>
+    </>
+  );
+}
+
+function getOptionClassName(isSelected: boolean, isSelecting: boolean) {
+  if (isSelected)
+    return "border-violet-400 bg-gradient-to-r from-violet-500/30 to-indigo-500/30 shadow-xl shadow-violet-500/20 scale-[1.02]";
+  if (isSelecting) return "border-violet-300 bg-violet-400/20 scale-[0.98]";
+  return "border-white/20 hover:border-violet-400/50 hover:bg-white/10 hover:shadow-lg";
+}
+
+function getLabelClassName(isSelected: boolean) {
+  if (isSelected)
+    return "border-violet-400 bg-gradient-to-br from-violet-500 to-indigo-500 text-white shadow-lg";
+  return "border-white/30 bg-white/10 text-white/60 group-hover:border-violet-400/50 group-hover:text-white/80";
+}
+
+function getOptionTextClassName(isSelected: boolean) {
+  if (isSelected) return "text-white font-semibold";
+  return "text-white/80 group-hover:text-white";
+}
+
 export function QuizQuestion({
   question,
   selectedAnswer,
@@ -22,28 +60,9 @@ export function QuizQuestion({
   hintLevel,
   onHintRequest,
 }: QuizQuestionProps) {
-  const [selectingOption, setSelectingOption] = useState<string | null>(null);
-  const [sparkles, setSparkles] = useState<{ x: number; y: number; id: number }[]>([]);
+  const { selectingOption, sparkles, handleSelect } = useOptionSelection(question.id, onAnswer);
   const difficultyStyle = getDifficultyStyle(question.difficulty);
   const currentXP = calculateQuestionXP(true, hintLevel);
-
-  const handleSelect = (optionText: string) => {
-    setSelectingOption(optionText);
-
-    const newSparkles = Array.from({ length: 6 }, (_, i) => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      id: Date.now() + i,
-    }));
-    setSparkles(newSparkles);
-
-    setTimeout(() => {
-      onAnswer(question.id, optionText);
-      setSelectingOption(null);
-    }, 250);
-
-    setTimeout(() => setSparkles([]), 1000);
-  };
 
   return (
     <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-5 shadow-2xl border border-white/20 relative overflow-hidden">
@@ -116,17 +135,7 @@ export function QuizQuestion({
               aria-label={hintLevel === 0 ? "힌트 보기" : "전체 힌트 보기"}
               className="w-full mb-4 py-2.5 px-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {hintLevel === 0 ? (
-                <>
-                  <span className="text-sm">💡</span>
-                  <span className="text-sm font-semibold">힌트 보기</span>
-                </>
-              ) : (
-                <>
-                  <span className="text-sm">🔍</span>
-                  <span className="text-sm font-semibold">전체 힌트 보기</span>
-                </>
-              )}
+              <HintButtonContent hintLevel={hintLevel} />
             </button>
           )}
         </div>
@@ -143,36 +152,33 @@ export function QuizQuestion({
           {question.options.map((option, idx) => {
             const isSelected = selectedAnswer === option.text;
             const isSelecting = selectingOption === option.text;
-            const optionLabels = ["A", "B", "C", "D"];
 
             return (
               <button
                 key={idx}
                 onClick={() => handleSelect(option.text)}
                 disabled={disabled}
-                className={`group relative w-full px-4 py-3 rounded-xl border-2 text-left transition-all duration-200 ${
-                  isSelected
-                    ? "border-violet-400 bg-gradient-to-r from-violet-500/30 to-indigo-500/30 shadow-xl shadow-violet-500/20 scale-[1.02]"
-                    : isSelecting
-                    ? "border-violet-300 bg-violet-400/20 scale-[0.98]"
-                    : "border-white/20 hover:border-violet-400/50 hover:bg-white/10 hover:shadow-lg"
-                } disabled:opacity-30 disabled:cursor-not-allowed`}
+                className={cn(
+                  "group relative w-full px-4 py-3 rounded-xl border-2 text-left transition-all duration-200",
+                  getOptionClassName(isSelected, isSelecting),
+                  "disabled:opacity-30 disabled:cursor-not-allowed"
+                )}
               >
                 <div className="relative flex items-center gap-3">
                   <div
-                    className={`w-8 h-8 rounded-lg border-2 flex items-center justify-center font-black text-sm transition-all duration-200 flex-shrink-0 ${
-                      isSelected
-                        ? "border-violet-400 bg-gradient-to-br from-violet-500 to-indigo-500 text-white shadow-lg"
-                        : "border-white/30 bg-white/10 text-white/60 group-hover:border-violet-400/50 group-hover:text-white/80"
-                    }`}
+                    className={cn(
+                      "w-8 h-8 rounded-lg border-2 flex items-center justify-center font-black text-sm transition-all duration-200 flex-shrink-0",
+                      getLabelClassName(isSelected)
+                    )}
                   >
-                    {optionLabels[idx]}
+                    {OPTION_LABELS[idx]}
                   </div>
 
                   <span
-                    className={`flex-1 text-sm md:text-base font-medium transition-colors leading-snug ${
-                      isSelected ? "text-white font-semibold" : "text-white/80 group-hover:text-white"
-                    }`}
+                    className={cn(
+                      "flex-1 text-sm md:text-base font-medium transition-colors leading-snug",
+                      getOptionTextClassName(isSelected)
+                    )}
                   >
                     {option.text}
                   </span>
@@ -197,35 +203,6 @@ export function QuizQuestion({
           })}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes sparkle {
-          0% {
-            transform: translate(0, 0) scale(0);
-            opacity: 1;
-          }
-          50% {
-            transform: translate(20px, -20px) scale(1);
-            opacity: 1;
-          }
-          100% {
-            transform: translate(40px, -40px) scale(0);
-            opacity: 0;
-          }
-        }
-
-        @keyframes checkPop {
-          0% {
-            transform: scale(0) rotate(-90deg);
-          }
-          50% {
-            transform: scale(1.2) rotate(5deg);
-          }
-          100% {
-            transform: scale(1) rotate(0deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

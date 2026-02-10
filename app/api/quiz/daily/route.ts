@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { checkDiagnosisStatus, getSessionFromRequest } from "@/shared/lib";
+import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
+import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
-import { shuffleArray } from "@/shared/utils";
+import { shuffleArray } from "@/shared/lib";
 
 export async function GET(req: Request) {
   try {

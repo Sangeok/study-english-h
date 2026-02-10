@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { generateDiagnosisQuestions } from "@/features/diagnosis/lib";
-import { checkDiagnosisStatus, getSessionFromRequest } from "@/shared/lib";
+import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
+import { getSessionFromRequest } from "@/shared/lib/get-session";
 
 export async function GET(req: Request) {
   try {

@@ -3,7 +3,10 @@
  * 최근 학습 활동 조회 Hook
  */
 
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "./query-keys";
 
 export interface QuizActivity {
   date: string;
@@ -48,7 +51,7 @@ async function fetchRecentActivity(limit: number = 10): Promise<RecentActivityRe
 
 export function useRecentActivity(limit: number = 10) {
   return useQuery({
-    queryKey: ["profile", "recent-activity", limit],
+    queryKey: queryKeys.profile.recentActivity(limit),
     queryFn: () => fetchRecentActivity(limit),
     staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
     retry: 1,

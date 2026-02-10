@@ -13,4 +13,9 @@ export const queryKeys = {
     all: ["flashcard"] as const,
     session: (mode: string) => [...queryKeys.flashcard.all, "session", mode] as const,
   },
+  profile: {
+    all: ["profile"] as const,
+    stats: () => [...queryKeys.profile.all, "stats"] as const,
+    recentActivity: (limit: number) => [...queryKeys.profile.all, "recent-activity", limit] as const,
+  },
 } as const;

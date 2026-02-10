@@ -1,6 +1,6 @@
 /**
- * Recent Activity Component
- * 최근 학습 활동 표시
+ * Recent Activity Widget
+ * 최근 학습 활동 표시 (퀴즈 + 플래시카드 통합)
  */
 
 "use client";
@@ -64,10 +64,31 @@ export function RecentActivity({ className = "", limit = 7 }: RecentActivityProp
     }
   };
 
+  type AccuracyLevel = 'excellent' | 'good' | 'needsWork';
+
+  function getAccuracyLevel(accuracy: number): AccuracyLevel {
+    if (accuracy >= 80) return 'excellent';
+    if (accuracy >= 60) return 'good';
+    return 'needsWork';
+  }
+
+  const accuracyStyles: Record<AccuracyLevel, string> = {
+    excellent: "bg-green-100 text-green-700",
+    good: "bg-yellow-100 text-yellow-700",
+    needsWork: "bg-orange-100 text-orange-700",
+  };
+
+  const accuracyLabels: Record<AccuracyLevel, string> = {
+    excellent: "훌륭해요!",
+    good: "괜찮아요",
+    needsWork: "힘내세요",
+  };
+
   const renderActivity = (activity: Activity) => {
     if (activity.type === "quiz") {
       const accuracy = Math.round((activity.correctAnswers / activity.totalQuestions) * 100);
       const avgTime = Math.round(activity.totalTime / activity.totalQuestions);
+      const accuracyLevel = getAccuracyLevel(accuracy);
 
       return (
         <div
@@ -91,16 +112,8 @@ export function RecentActivity({ className = "", limit = 7 }: RecentActivityProp
                 <span>평균 {avgTime}초</span>
               </div>
             </div>
-            <div
-              className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                accuracy >= 80
-                  ? "bg-green-100 text-green-700"
-                  : accuracy >= 60
-                  ? "bg-yellow-100 text-yellow-700"
-                  : "bg-orange-100 text-orange-700"
-              }`}
-            >
-              {accuracy >= 80 ? "훌륭해요!" : accuracy >= 60 ? "괜찮아요" : "힘내세요"}
+            <div className={`px-3 py-1 rounded-full text-xs font-semibold ${accuracyStyles[accuracyLevel]}`}>
+              {accuracyLabels[accuracyLevel]}
             </div>
           </div>
         </div>

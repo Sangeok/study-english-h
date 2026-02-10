@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { getSessionFromRequest } from "@/shared/lib";
+import { getSessionFromRequest } from "@/shared/lib/get-session";
 
 /**
  * GET /api/profile/recent-activity

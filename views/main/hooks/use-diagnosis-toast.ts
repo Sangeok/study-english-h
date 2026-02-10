@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/shared/ui";
-import { ROUTES, QUERY_PARAMS } from "@/shared/constants/routes";
+import { ROUTES, QUERY_PARAMS } from "@/shared/constants";
 
 /**
  * 진단 완료 후 리다이렉트 시 토스트 메시지 자동 표시

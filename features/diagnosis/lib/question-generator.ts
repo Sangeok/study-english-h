@@ -1,6 +1,6 @@
 import prisma from "@/lib/db";
 import type { DiagnosisQuestion } from "@/entities/question";
-import { shuffleArray } from "@/shared/utils";
+import { shuffleArray } from "@/shared/lib";
 
 export async function generateDiagnosisQuestions(): Promise<DiagnosisQuestion[]> {
   const distribution = [

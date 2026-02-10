@@ -3,7 +3,10 @@
  * 사용자 프로필 통계 조회 Hook
  */
 
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "./query-keys";
 
 export interface ProfileStats {
   level: string;
@@ -31,7 +34,7 @@ async function fetchProfileStats(): Promise<ProfileStats> {
 
 export function useProfileStats() {
   return useQuery({
-    queryKey: ["profile", "stats"],
+    queryKey: queryKeys.profile.stats(),
     queryFn: fetchProfileStats,
     staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
     retry: 1,
