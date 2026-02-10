@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/shared/ui";
-import { ROUTES } from "@/shared/constants/routes";
+import { ROUTES } from "@/shared/constants";
 import type { DiagnosisStatusResponse } from "@/features/diagnosis";
 
 interface UseMainPageHandlersProps {

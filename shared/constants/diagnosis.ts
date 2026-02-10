@@ -1,0 +1,1 @@
+export const DIAGNOSIS_TIME_LIMIT_SECONDS = 300; // 5분

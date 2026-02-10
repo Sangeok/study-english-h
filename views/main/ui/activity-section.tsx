@@ -1,4 +1,4 @@
-import { RecentActivity } from "@/shared/ui";
+import { RecentActivity } from "@/widgets/recent-activity";
 import { SectionWrapper } from "./section-wrapper";
 
 interface ActivitySectionProps {

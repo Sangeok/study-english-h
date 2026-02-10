@@ -1,12 +1,19 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+export type StatCardGradient = 'purple' | 'violet' | 'indigo';
+
+const statGradientStyles: Record<StatCardGradient, string> = {
+  purple: "bg-gradient-to-br from-purple-100 to-purple-200",
+  violet: "bg-gradient-to-br from-violet-100 to-violet-200",
+  indigo: "bg-gradient-to-br from-indigo-100 to-indigo-200",
+};
+
 export interface StatCardProps {
   icon: string;
   label: string;
   value: string | number;
-  gradientFrom: string;
-  gradientTo: string;
+  gradient: StatCardGradient;
   footer?: ReactNode;
   isLoading?: boolean;
   className?: string;
@@ -16,8 +23,7 @@ export function StatCard({
   icon,
   label,
   value,
-  gradientFrom,
-  gradientTo,
+  gradient,
   footer,
   isLoading = false,
   className
@@ -34,7 +40,7 @@ export function StatCard({
         <div
           className={cn(
             "w-16 h-16 rounded-2xl flex items-center justify-center",
-            `bg-gradient-to-br from-${gradientFrom} to-${gradientTo}`
+            statGradientStyles[gradient]
           )}
         >
           <span className="text-3xl">{icon}</span>

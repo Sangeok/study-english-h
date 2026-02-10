@@ -1,5 +1,5 @@
 import { DiagnosisTest } from "@/features/diagnosis";
-import { preventDiagnosisRetake } from "@/shared/lib";
+import { preventDiagnosisRetake } from "@/shared/lib/diagnosis-guards";
 
 export default async function DiagnosisPage() {
   // 진단 재실행 방지 (이미 완료 시 자동 리다이렉트)

@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+export type FloatingCardGradient = 'purple' | 'violet' | 'indigo';
+
 export interface FloatingCardProps {
   icon: string;
   title: string;
@@ -10,8 +12,14 @@ export interface FloatingCardProps {
   position?: string;
   children?: ReactNode;
   className?: string;
-  gradient?: 'purple' | 'violet' | 'indigo';
+  gradient?: FloatingCardGradient;
 }
+
+const floatingGradientStyles: Record<FloatingCardGradient, string> = {
+  purple: "bg-gradient-to-br from-purple-500 to-purple-600 text-white",
+  violet: "bg-gradient-to-br from-violet-500 to-violet-600 text-white",
+  indigo: "bg-gradient-to-br from-indigo-500 to-indigo-600 text-white",
+};
 
 export function FloatingCard({
   icon,
@@ -25,7 +33,7 @@ export function FloatingCard({
   gradient
 }: FloatingCardProps) {
   const gradientClass = gradient
-    ? `bg-gradient-to-br from-${gradient}-500 to-${gradient}-600 text-white`
+    ? floatingGradientStyles[gradient]
     : "bg-white border border-purple-100";
 
   return (

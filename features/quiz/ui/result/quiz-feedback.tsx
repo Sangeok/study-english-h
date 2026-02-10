@@ -10,16 +10,21 @@ import { QuizDetailResults } from "./quiz-detail-results";
 import { QuizFeedbackActions } from "./quiz-feedback-actions";
 import { Confetti } from "@/shared/ui";
 import { useAnimatedCounter } from "@/shared/lib";
+import { QUIZ_CONFETTI, QUIZ_PERFORMANCE_THRESHOLDS } from "@/shared/constants/quiz";
 
 interface QuizFeedbackProps {
   result: QuizSubmitResponse;
 }
 
 const getPerformanceMessage = (accuracy: number) => {
-  if (accuracy >= 90) return { emoji: "🌟", title: "완벽해요!", message: "놀라운 실력이에요!" };
-  if (accuracy >= 80) return { emoji: "🎉", title: "훌륭해요!", message: "정말 잘하셨어요!" };
-  if (accuracy >= 70) return { emoji: "👍", title: "잘했어요!", message: "좋은 결과예요!" };
-  if (accuracy >= 60) return { emoji: "💪", title: "좋아요!", message: "계속 노력하세요!" };
+  if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.PERFECT)
+    return { emoji: "🌟", title: "완벽해요!", message: "놀라운 실력이에요!" };
+  if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.EXCELLENT)
+    return { emoji: "🎉", title: "훌륭해요!", message: "정말 잘하셨어요!" };
+  if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.GOOD)
+    return { emoji: "👍", title: "잘했어요!", message: "좋은 결과예요!" };
+  if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.FAIR)
+    return { emoji: "💪", title: "좋아요!", message: "계속 노력하세요!" };
   return { emoji: "🌱", title: "시작이에요!", message: "다음엔 더 잘할 거예요!" };
 };
 
@@ -29,10 +34,14 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
   const [showDetails, setShowDetails] = useState(false);
   const xpCounter = useAnimatedCounter(summary.xpEarned);
   const performance = getPerformanceMessage(summary.accuracy);
+  const confettiCount =
+    summary.accuracy >= QUIZ_CONFETTI.HIGH_ACCURACY_THRESHOLD
+      ? QUIZ_CONFETTI.HIGH_COUNT
+      : QUIZ_CONFETTI.LOW_COUNT;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden relative">
-      <Confetti count={summary.accuracy >= 80 ? 80 : 50} />
+      <Confetti count={confettiCount} />
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute top-20 -right-32 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl animate-float"

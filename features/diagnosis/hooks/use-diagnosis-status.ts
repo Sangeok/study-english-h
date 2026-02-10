@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/shared/lib/query-keys";
+import { queryKeys } from "@/shared/lib";
 import { fetchDiagnosisStatus } from "../lib/diagnosis-api";
 
 export function useDiagnosisStatus() {

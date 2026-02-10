@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 import { submitQuiz, type QuizSubmission } from "../lib/quiz-api";
 import { QuizQuestion } from "./game/quiz-question";
-import { QuizFeedback } from "./feedback/quiz-feedback";
+import { QuizFeedback } from "./result/quiz-feedback";
 import { QuizHeader } from "./game/quiz-header";
 import { QuizNavigation } from "./game/quiz-navigation";
 import { QuizLoading } from "./status/quiz-loading";
@@ -17,14 +18,13 @@ import { useQuizNavigation } from "../hooks/use-quiz-navigation";
 
 export function QuizContainer() {
   const router = useRouter();
-  const { questions, userLevel, isLoading, isError } = useDailyQuiz();
+  const { questions, userLevel, isLoading, isError, refetch } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
 
   const submitMutation = useMutation({
     mutationFn: submitQuiz,
     onError: (error) => {
       console.error("Quiz submit error:", error);
-      alert("퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.");
     },
   });
 
@@ -49,7 +49,7 @@ export function QuizContainer() {
   }
 
   if (isError) {
-    return <QuizError onRetry={() => window.location.reload()} />;
+    return <QuizError onRetry={refetch} />;
   }
 
   if (questions.length === 0) {
@@ -83,9 +83,10 @@ export function QuizContainer() {
       <div className="relative z-10 flex-1 overflow-y-auto px-4 py-3">
         <div className="max-w-5xl mx-auto">
           <div
-            className={`transition-all duration-300 ${
-              isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
-            }`}
+            className={cn(
+              "transition-all duration-300 opacity-100 scale-100",
+              isTransitioning && "opacity-0 scale-95"
+            )}
           >
             <QuizQuestion
               question={currentQuestion}
@@ -98,6 +99,16 @@ export function QuizContainer() {
           </div>
         </div>
       </div>
+
+      {submitMutation.isError && (
+        <div className="relative z-10 px-4 py-2">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-red-400 text-sm text-center py-2 bg-red-500/10 rounded-lg border border-red-500/20">
+              퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.
+            </div>
+          </div>
+        </div>
+      )}
 
       <QuizNavigation
         isFirstQuestion={currentIndex === 0}
