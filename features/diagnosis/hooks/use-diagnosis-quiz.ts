@@ -4,7 +4,8 @@ import { useCallback } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import type { DiagnosisAnswer, DiagnosisQuestion } from "@/entities/question";
-import { apiClient, ApiError, queryKeys, DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/lib";
+import { apiClient, ApiError, queryKeys } from "@/shared/lib";
+import { DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/constants";
 
 interface DiagnosisStartResponse {
   questions: DiagnosisQuestion[];

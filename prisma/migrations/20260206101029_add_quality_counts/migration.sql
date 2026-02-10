@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "flashcard_sessions" ADD COLUMN     "easyCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "forgotCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "hardCount" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "normalCount" INTEGER NOT NULL DEFAULT 0;

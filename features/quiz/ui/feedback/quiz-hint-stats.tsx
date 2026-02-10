@@ -1,4 +1,4 @@
-import type { QuizSummary } from "../lib/quiz-api";
+import type { QuizSummary } from "../../lib/quiz-api";
 
 interface QuizHintStatsProps {
   hintStats: QuizSummary["hintStats"];
@@ -45,7 +45,8 @@ export function QuizHintStats({ hintStats, correctBaseXP, xpEarned }: QuizHintSt
           <div className="mt-4 p-4 bg-violet-400/10 rounded-2xl border border-violet-400/20">
             <p className="text-sm text-purple-700 text-center">
               힌트 없이 풀었다면{" "}
-              <span className="text-amber-600 font-bold text-base">+{correctBaseXP - xpEarned} XP</span> 더 받을 수 있었어요
+              <span className="text-amber-600 font-bold text-base">+{correctBaseXP - xpEarned} XP</span> 더 받을 수
+              있었어요
             </p>
           </div>
         )}

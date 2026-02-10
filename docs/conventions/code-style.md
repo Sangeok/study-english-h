@@ -24,6 +24,92 @@ TypeScript + React(Next.js) 관행을 기준으로 작성합니다.
 
 ---
 
+## 조건부 로직 규칙 (AI 작성 포함)
+
+AI를 활용해 작성한 코드도 아래 규칙을 **우선 적용**한다.
+
+### 1) 중첩 깊이 제한
+
+- `if/else` 중첩은 **최대 2단계**
+- 3단계 이상이면 **조기 반환** 또는 **함수 분리**로 평탄화
+
+### 2) 긴 else-if 체인 금지
+
+- 분기 3개 이상이면 **lookup map/전략 함수**로 전환
+- 열거형/문자열 분기는 `Record` 매핑 우선
+
+### 3) 삼항 연산자 제한
+
+- **JSX 내 삼항 연산자 전면 금지** (조건부 렌더링, className, style 값 모두 포함)
+- 단순 boolean 분기는 `&&` 사용
+- 조건부 className은 `cn()` + `&&` 사용
+- 조건부 style 값은 return 전에 변수로 추출
+- 비 JSX 코드에서 중첩 삼항은 금지, **명명된 변수/함수**로 분리
+
+### 4) 조건식에서 부수효과 금지
+
+- 조건식 내부에서 상태 변경/IO 수행 금지
+- 조건 계산과 실행 로직을 분리
+
+### 5) 의도 드러내기
+
+- 복잡한 조건은 `isEligible`, `shouldShow` 같은 함수로 추출
+- 조건식에 의미가 드러나지 않으면 **읽기 비용이 급증**한다
+
+### 예시
+
+```ts
+// ❌ 깊은 중첩
+if (user) {
+  if (user.profile) {
+    if (user.profile.active) {
+      enableFeature()
+    }
+  }
+}
+
+// ✅ 조기 반환
+if (!user?.profile?.active) return
+enableFeature()
+```
+
+```ts
+// ❌ 긴 else-if 체인
+if (status === "idle") return "대기"
+if (status === "loading") return "로딩"
+if (status === "success") return "완료"
+
+// ✅ 매핑 기반 분기
+const labelByStatus: Record<Status, string> = {
+  idle: "대기",
+  loading: "로딩",
+  success: "완료",
+}
+return labelByStatus[status]
+```
+
+```ts
+// ❌ 중첩 삼항
+const label = isAdmin ? (isActive ? "관리자" : "휴면") : "사용자"
+
+// ✅ 함수 분리
+const label = getUserLabel({ isAdmin, isActive })
+
+function getUserLabel({
+  isAdmin,
+  isActive,
+}: {
+  isAdmin: boolean
+  isActive: boolean
+}) {
+  if (!isAdmin) return "사용자"
+  if (!isActive) return "휴면"
+  return "관리자"
+}
+```
+
+---
+
 ## React 렌더링 규칙
 
 ### 1) 파생 상태는 렌더링 중 계산
@@ -42,16 +128,45 @@ useEffect(() => {
 const fullName = firstName + " " + lastName
 ```
 
-### 2) 조건부 렌더링은 명시적으로
+### 2) JSX 내 삼항 연산자 전면 금지
 
-조건 값이 `0`/`NaN` 가능성이 있으면 `&&` 대신 **삼항 연산자** 사용.
+조건부 렌더링, className, style 값 모두 삼항 금지. 아래 패턴을 사용한다.
 
 ```tsx
-// ❌ count가 0이면 "0"이 렌더링됨
-{count && <Badge count={count} />}
+import { cn } from "@/lib/utils";
 
-// ✅ 명시적 렌더링
-{count > 0 ? <Badge count={count} /> : null}
+// ── 조건부 렌더링 ──────────────────────────────────────
+// ❌ FORBIDDEN
+{!diagnosisCompleted ? <DiagnosisButton /> : <StudyButton />}
+
+// ✅ 단순 boolean → &&
+{!diagnosisCompleted && <DiagnosisButton onClick={onDiagnosisClick} />}
+{diagnosisCompleted && <StudyButton onClick={onQuizClick} />}
+
+// ✅ 복잡한 분기 → 컴포넌트 추출 + early return
+function HeroCta({ diagnosisCompleted, ... }: Props) {
+  if (!diagnosisCompleted) return <DiagnosisButton />;
+  return <StudyButton />;
+}
+
+// ⚠️ 숫자/nullable → 명시적 불리언 변환 필수
+{count > 0 && <Badge count={count} />}  // ✅
+{count && <Badge count={count} />}       // ❌ 0이면 "0" 렌더링
+
+// ── 조건부 className ───────────────────────────────────
+// ❌ FORBIDDEN
+<div className={mounted ? "opacity-100" : "opacity-0"} />
+
+// ✅ cn() + &&
+<div className={cn("base", mounted && "opacity-100")} />
+
+// ── 조건부 style 값 ────────────────────────────────────
+// ❌ FORBIDDEN
+<div style={{ animation: mounted ? "fadeIn 0.6s forwards" : "none" }} />
+
+// ✅ return 전에 변수 추출
+const animation = mounted ? "fadeIn 0.6s forwards" : "none";
+<div style={{ animation }} />
 ```
 
 ### 3) 렌더링하지 않을 때는 `null`

@@ -1,0 +1,2658 @@
+[
+  {
+    "word": "afternoon",
+    "meaning": "오후",
+    "pronunciation": "ˌæf.tərˈnuːn",
+    "exampleSentence": "Let's meet this afternoon.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "age",
+    "meaning": "나이",
+    "pronunciation": "eɪdʒ",
+    "exampleSentence": "What's your age?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "airport",
+    "meaning": "공항",
+    "pronunciation": "ˈer.pɔːrt",
+    "exampleSentence": "We're going to the airport.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "animal",
+    "meaning": "동물",
+    "pronunciation": "ˈæn.ɪ.məl",
+    "exampleSentence": "I like animals.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "answer",
+    "meaning": "대답하다, 대답",
+    "pronunciation": "ˈæn.sər",
+    "exampleSentence": "Please answer the question.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "apple",
+    "meaning": "사과",
+    "pronunciation": "ˈæp.əl",
+    "exampleSentence": "I ate an apple for breakfast.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "arm",
+    "meaning": "팔",
+    "pronunciation": "ɑːrm",
+    "exampleSentence": "Raise your arms.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "ask",
+    "meaning": "묻다",
+    "pronunciation": "æsk",
+    "exampleSentence": "Can I ask you a question?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "baby",
+    "meaning": "아기",
+    "pronunciation": "ˈbeɪ.bi",
+    "exampleSentence": "The baby is sleeping.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bad",
+    "meaning": "나쁜",
+    "pronunciation": "bæd",
+    "exampleSentence": "This is bad weather.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bag",
+    "meaning": "가방",
+    "pronunciation": "bæɡ",
+    "exampleSentence": "My bag is heavy.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "ball",
+    "meaning": "공",
+    "pronunciation": "bɔːl",
+    "exampleSentence": "Throw the ball to me.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "banana",
+    "meaning": "바나나",
+    "pronunciation": "bəˈnæn.ə",
+    "exampleSentence": "Monkeys like bananas.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bathroom",
+    "meaning": "욕실",
+    "pronunciation": "ˈbæθ.ruːm",
+    "exampleSentence": "The bathroom is upstairs.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "be",
+    "meaning": "~이다",
+    "pronunciation": "biː",
+    "exampleSentence": "I am happy.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "beautiful",
+    "meaning": "아름다운",
+    "pronunciation": "ˈbjuː.tə.fəl",
+    "exampleSentence": "What a beautiful flower!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bed",
+    "meaning": "침대",
+    "pronunciation": "bed",
+    "exampleSentence": "I sleep on my bed.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "big",
+    "meaning": "큰",
+    "pronunciation": "bɪɡ",
+    "exampleSentence": "That's a big elephant!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bird",
+    "meaning": "새",
+    "pronunciation": "bɜːrd",
+    "exampleSentence": "A bird is singing.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "black",
+    "meaning": "검은색",
+    "pronunciation": "blæk",
+    "exampleSentence": "He wears a black shirt.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "blue",
+    "meaning": "파란색",
+    "pronunciation": "bluː",
+    "exampleSentence": "The sky is blue.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "body",
+    "meaning": "몸",
+    "pronunciation": "ˈbɑː.di",
+    "exampleSentence": "Exercise is good for your body.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "book",
+    "meaning": "책",
+    "pronunciation": "bʊk",
+    "exampleSentence": "She is reading a book.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "boy",
+    "meaning": "소년",
+    "pronunciation": "bɔɪ",
+    "exampleSentence": "The boy is playing soccer.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bread",
+    "meaning": "빵",
+    "pronunciation": "bred",
+    "exampleSentence": "I like fresh bread.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "brother",
+    "meaning": "형제, 오빠, 형",
+    "pronunciation": "ˈbrʌð.ər",
+    "exampleSentence": "My brother is in college.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "bus",
+    "meaning": "버스",
+    "pronunciation": "bʌs",
+    "exampleSentence": "I take the bus to work.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "buy",
+    "meaning": "사다",
+    "pronunciation": "baɪ",
+    "exampleSentence": "I want to buy this.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "can",
+    "meaning": "~할 수 있다",
+    "pronunciation": "kæn",
+    "exampleSentence": "I can swim.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "car",
+    "meaning": "자동차",
+    "pronunciation": "kɑːr",
+    "exampleSentence": "He drives a red car.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "carrot",
+    "meaning": "당근",
+    "pronunciation": "ˈkær.ət",
+    "exampleSentence": "Rabbits eat carrots.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "cat",
+    "meaning": "고양이",
+    "pronunciation": "kæt",
+    "exampleSentence": "The cat is sleeping on the sofa.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "chair",
+    "meaning": "의자",
+    "pronunciation": "tʃer",
+    "exampleSentence": "Sit on this chair.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "chicken",
+    "meaning": "닭",
+    "pronunciation": "ˈtʃɪk.ɪn",
+    "exampleSentence": "The chicken lays eggs.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "child",
+    "meaning": "아이",
+    "pronunciation": "tʃaɪld",
+    "exampleSentence": "The child is crying.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "city",
+    "meaning": "도시",
+    "pronunciation": "ˈsɪt.i",
+    "exampleSentence": "I live in a big city.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "clean",
+    "meaning": "깨끗한",
+    "pronunciation": "kliːn",
+    "exampleSentence": "My room is clean.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "close",
+    "meaning": "닫다, 닫힌",
+    "pronunciation": "kloʊz",
+    "exampleSentence": "Close the window, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "clothes",
+    "meaning": "옷",
+    "pronunciation": "kloʊðz",
+    "exampleSentence": "I need new clothes.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "cloud",
+    "meaning": "구름",
+    "pronunciation": "klaʊd",
+    "exampleSentence": "There are clouds in the sky.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "coffee",
+    "meaning": "커피",
+    "pronunciation": "ˈkɔː.fi",
+    "exampleSentence": "Do you want some coffee?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "cold",
+    "meaning": "차가운, 추운",
+    "pronunciation": "koʊld",
+    "exampleSentence": "The water is too cold.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "color",
+    "meaning": "색깔",
+    "pronunciation": "ˈkʌl.ər",
+    "exampleSentence": "What color do you like?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "come",
+    "meaning": "오다",
+    "pronunciation": "kʌm",
+    "exampleSentence": "Come with me!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "computer",
+    "meaning": "컴퓨터",
+    "pronunciation": "kəmˈpjuː.tər",
+    "exampleSentence": "I use a computer every day.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "country",
+    "meaning": "나라",
+    "pronunciation": "ˈkʌn.tri",
+    "exampleSentence": "What country are you from?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "cow",
+    "meaning": "소",
+    "pronunciation": "kaʊ",
+    "exampleSentence": "The cow gives us milk.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "day",
+    "meaning": "날, 하루",
+    "pronunciation": "deɪ",
+    "exampleSentence": "Have a nice day!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "dirty",
+    "meaning": "더러운",
+    "pronunciation": "ˈdɜːr.ti",
+    "exampleSentence": "Your hands are dirty.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "do",
+    "meaning": "하다",
+    "pronunciation": "duː",
+    "exampleSentence": "What do you do?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "doctor",
+    "meaning": "의사",
+    "pronunciation": "ˈdɑːk.tər",
+    "exampleSentence": "The doctor is examining the patient.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "dog",
+    "meaning": "개",
+    "pronunciation": "dɔːɡ",
+    "exampleSentence": "My dog loves to play fetch.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "door",
+    "meaning": "문",
+    "pronunciation": "dɔːr",
+    "exampleSentence": "Close the door, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "down",
+    "meaning": "아래로",
+    "pronunciation": "daʊn",
+    "exampleSentence": "Sit down, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "drink",
+    "meaning": "마시다",
+    "pronunciation": "drɪŋk",
+    "exampleSentence": "Do you want to drink coffee?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "ear",
+    "meaning": "귀",
+    "pronunciation": "ɪr",
+    "exampleSentence": "I can't hear with this ear.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "easy",
+    "meaning": "쉬운",
+    "pronunciation": "ˈiː.zi",
+    "exampleSentence": "This test is easy.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "eat",
+    "meaning": "먹다",
+    "pronunciation": "iːt",
+    "exampleSentence": "Let's eat dinner together.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "egg",
+    "meaning": "계란",
+    "pronunciation": "eɡ",
+    "exampleSentence": "I eat eggs for breakfast.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "evening",
+    "meaning": "저녁",
+    "pronunciation": "ˈiːv.nɪŋ",
+    "exampleSentence": "We have dinner in the evening.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "eye",
+    "meaning": "눈",
+    "pronunciation": "aɪ",
+    "exampleSentence": "She has blue eyes.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "face",
+    "meaning": "얼굴",
+    "pronunciation": "feɪs",
+    "exampleSentence": "Wash your face.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "family",
+    "meaning": "가족",
+    "pronunciation": "ˈfæm.əl.i",
+    "exampleSentence": "I love my family.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "fast",
+    "meaning": "빠른",
+    "pronunciation": "fæst",
+    "exampleSentence": "He is a fast runner.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "father",
+    "meaning": "아버지",
+    "pronunciation": "ˈfɑː.ðər",
+    "exampleSentence": "My father works in a bank.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "finger",
+    "meaning": "손가락",
+    "pronunciation": "ˈfɪŋ.ɡər",
+    "exampleSentence": "I have five fingers on each hand.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "fish",
+    "meaning": "물고기",
+    "pronunciation": "fɪʃ",
+    "exampleSentence": "I have a pet fish.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "five",
+    "meaning": "다섯, 5",
+    "pronunciation": "faɪv",
+    "exampleSentence": "I have five fingers.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "flower",
+    "meaning": "꽃",
+    "pronunciation": "ˈflaʊ.ər",
+    "exampleSentence": "These flowers are beautiful.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "food",
+    "meaning": "음식",
+    "pronunciation": "fuːd",
+    "exampleSentence": "This food is delicious.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "foot",
+    "meaning": "발",
+    "pronunciation": "fʊt",
+    "exampleSentence": "My feet hurt.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "four",
+    "meaning": "넷, 4",
+    "pronunciation": "fɔːr",
+    "exampleSentence": "A car has four wheels.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "friend",
+    "meaning": "친구",
+    "pronunciation": "frend",
+    "exampleSentence": "She is my best friend.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "fruit",
+    "meaning": "과일",
+    "pronunciation": "fruːt",
+    "exampleSentence": "Fruit is good for health.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "game",
+    "meaning": "게임, 경기",
+    "pronunciation": "ɡeɪm",
+    "exampleSentence": "Let's play a game.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "garden",
+    "meaning": "정원",
+    "pronunciation": "ˈɡɑːr.dən",
+    "exampleSentence": "There are flowers in the garden.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "get",
+    "meaning": "얻다, 가져오다",
+    "pronunciation": "ɡet",
+    "exampleSentence": "Get me some water, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "girl",
+    "meaning": "소녀",
+    "pronunciation": "ɡɜːrl",
+    "exampleSentence": "The girl is singing.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "give",
+    "meaning": "주다",
+    "pronunciation": "ɡɪv",
+    "exampleSentence": "Give me the book, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "go",
+    "meaning": "가다",
+    "pronunciation": "ɡoʊ",
+    "exampleSentence": "Let's go to the park.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "good",
+    "meaning": "좋은",
+    "pronunciation": "ɡʊd",
+    "exampleSentence": "That's a good idea!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "goodbye",
+    "meaning": "안녕히 가세요",
+    "pronunciation": "ɡʊdˈbaɪ",
+    "exampleSentence": "Goodbye! See you later.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "green",
+    "meaning": "초록색",
+    "pronunciation": "ɡriːn",
+    "exampleSentence": "The grass is green.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hair",
+    "meaning": "머리카락",
+    "pronunciation": "her",
+    "exampleSentence": "She has long hair.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hand",
+    "meaning": "손",
+    "pronunciation": "hænd",
+    "exampleSentence": "Wash your hands before eating.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "happy",
+    "meaning": "행복한",
+    "pronunciation": "ˈhæp.i",
+    "exampleSentence": "She feels happy today.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hard",
+    "meaning": "어려운, 단단한",
+    "pronunciation": "hɑːrd",
+    "exampleSentence": "This question is hard.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hat",
+    "meaning": "모자",
+    "pronunciation": "hæt",
+    "exampleSentence": "I like your hat.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "have",
+    "meaning": "가지다",
+    "pronunciation": "hæv",
+    "exampleSentence": "I have a dog.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "head",
+    "meaning": "머리",
+    "pronunciation": "hed",
+    "exampleSentence": "I have a headache.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hear",
+    "meaning": "듣다",
+    "pronunciation": "hɪr",
+    "exampleSentence": "Can you hear me?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "heart",
+    "meaning": "심장, 마음",
+    "pronunciation": "hɑːrt",
+    "exampleSentence": "My heart is beating fast.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hello",
+    "meaning": "안녕하세요",
+    "pronunciation": "həˈloʊ",
+    "exampleSentence": "Hello! How are you?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "help",
+    "meaning": "돕다, 도움",
+    "pronunciation": "help",
+    "exampleSentence": "Can you help me?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "here",
+    "meaning": "여기",
+    "pronunciation": "hɪr",
+    "exampleSentence": "Come here, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "horse",
+    "meaning": "말",
+    "pronunciation": "hɔːrs",
+    "exampleSentence": "The horse is running.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hot",
+    "meaning": "뜨거운, 더운",
+    "pronunciation": "hɑːt",
+    "exampleSentence": "It's very hot today.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "hotel",
+    "meaning": "호텔",
+    "pronunciation": "hoʊˈtel",
+    "exampleSentence": "We stayed at a nice hotel.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "house",
+    "meaning": "집",
+    "pronunciation": "haʊs",
+    "exampleSentence": "We live in a big house.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "idea",
+    "meaning": "생각, 아이디어",
+    "pronunciation": "aɪˈdiː.ə",
+    "exampleSentence": "That's a good idea!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "juice",
+    "meaning": "주스",
+    "pronunciation": "dʒuːs",
+    "exampleSentence": "Orange juice is healthy.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "kitchen",
+    "meaning": "부엌",
+    "pronunciation": "ˈkɪtʃ.ən",
+    "exampleSentence": "Mom is cooking in the kitchen.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "know",
+    "meaning": "알다",
+    "pronunciation": "noʊ",
+    "exampleSentence": "I don't know the answer.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "language",
+    "meaning": "언어",
+    "pronunciation": "ˈlæŋ.ɡwɪdʒ",
+    "exampleSentence": "English is a global language.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "left",
+    "meaning": "왼쪽",
+    "pronunciation": "left",
+    "exampleSentence": "The store is on your left.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "leg",
+    "meaning": "다리",
+    "pronunciation": "leɡ",
+    "exampleSentence": "My legs are tired.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "like",
+    "meaning": "좋아하다",
+    "pronunciation": "laɪk",
+    "exampleSentence": "I like playing soccer.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "listen",
+    "meaning": "듣다",
+    "pronunciation": "ˈlɪs.ən",
+    "exampleSentence": "Listen to the music.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "long",
+    "meaning": "긴",
+    "pronunciation": "lɔːŋ",
+    "exampleSentence": "She has long hair.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "love",
+    "meaning": "사랑하다, 사랑",
+    "pronunciation": "lʌv",
+    "exampleSentence": "I love chocolate.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "make",
+    "meaning": "만들다",
+    "pronunciation": "meɪk",
+    "exampleSentence": "She makes delicious cake.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "man",
+    "meaning": "남자",
+    "pronunciation": "mæn",
+    "exampleSentence": "That man is my teacher.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "may",
+    "meaning": "~해도 된다, ~일지도 모른다",
+    "pronunciation": "meɪ",
+    "exampleSentence": "May I come in?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "meat",
+    "meaning": "고기",
+    "pronunciation": "miːt",
+    "exampleSentence": "I don't eat meat.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "milk",
+    "meaning": "우유",
+    "pronunciation": "mɪlk",
+    "exampleSentence": "I drink milk in the morning.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "money",
+    "meaning": "돈",
+    "pronunciation": "ˈmʌn.i",
+    "exampleSentence": "I need more money.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "month",
+    "meaning": "월, 달",
+    "pronunciation": "mʌnθ",
+    "exampleSentence": "January is the first month of the year.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "moon",
+    "meaning": "달",
+    "pronunciation": "muːn",
+    "exampleSentence": "The moon is bright tonight.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "morning",
+    "meaning": "아침",
+    "pronunciation": "ˈmɔːr.nɪŋ",
+    "exampleSentence": "I wake up early in the morning.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "mother",
+    "meaning": "어머니",
+    "pronunciation": "ˈmʌð.ər",
+    "exampleSentence": "My mother is a doctor.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "mouth",
+    "meaning": "입",
+    "pronunciation": "maʊθ",
+    "exampleSentence": "Open your mouth.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "movie",
+    "meaning": "영화",
+    "pronunciation": "ˈmuː.vi",
+    "exampleSentence": "Let's watch a movie.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "music",
+    "meaning": "음악",
+    "pronunciation": "ˈmjuː.zɪk",
+    "exampleSentence": "I like listening to music.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "must",
+    "meaning": "~해야 한다",
+    "pronunciation": "mʌst",
+    "exampleSentence": "You must study hard.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "name",
+    "meaning": "이름",
+    "pronunciation": "neɪm",
+    "exampleSentence": "What's your name?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "need",
+    "meaning": "필요하다",
+    "pronunciation": "niːd",
+    "exampleSentence": "I need a new pen.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "new",
+    "meaning": "새로운",
+    "pronunciation": "nuː",
+    "exampleSentence": "I bought a new phone.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "night",
+    "meaning": "밤",
+    "pronunciation": "naɪt",
+    "exampleSentence": "Good night! See you tomorrow.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "no",
+    "meaning": "아니요",
+    "pronunciation": "noʊ",
+    "exampleSentence": "No, I don't want to go.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "nose",
+    "meaning": "코",
+    "pronunciation": "noʊz",
+    "exampleSentence": "My nose is red.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "number",
+    "meaning": "숫자",
+    "pronunciation": "ˈnʌm.bər",
+    "exampleSentence": "Write down your phone number.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "nurse",
+    "meaning": "간호사",
+    "pronunciation": "nɜːrs",
+    "exampleSentence": "The nurse is very helpful.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "old",
+    "meaning": "오래된, 늙은",
+    "pronunciation": "oʊld",
+    "exampleSentence": "This is an old building.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "one",
+    "meaning": "하나, 1",
+    "pronunciation": "wʌn",
+    "exampleSentence": "I have one brother.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "onion",
+    "meaning": "양파",
+    "pronunciation": "ˈʌn.jən",
+    "exampleSentence": "Cutting onions makes me cry.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "open",
+    "meaning": "열다, 열린",
+    "pronunciation": "ˈoʊ.pən",
+    "exampleSentence": "Please open the door.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "orange",
+    "meaning": "오렌지",
+    "pronunciation": "ˈɔːr.ɪndʒ",
+    "exampleSentence": "I love orange juice.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "pants",
+    "meaning": "바지",
+    "pronunciation": "pænts",
+    "exampleSentence": "These pants are too big.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "paper",
+    "meaning": "종이",
+    "pronunciation": "ˈpeɪ.pər",
+    "exampleSentence": "Give me a piece of paper.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "park",
+    "meaning": "공원",
+    "pronunciation": "pɑːrk",
+    "exampleSentence": "Let's go to the park.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "pen",
+    "meaning": "펜",
+    "pronunciation": "pen",
+    "exampleSentence": "Can I borrow your pen?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "pencil",
+    "meaning": "연필",
+    "pronunciation": "ˈpen.səl",
+    "exampleSentence": "Write with a pencil.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "people",
+    "meaning": "사람들",
+    "pronunciation": "ˈpiː.pəl",
+    "exampleSentence": "Many people are here.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "person",
+    "meaning": "사람",
+    "pronunciation": "ˈpɜːr.sən",
+    "exampleSentence": "That person is nice.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "phone",
+    "meaning": "전화",
+    "pronunciation": "foʊn",
+    "exampleSentence": "Where is my phone?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "photo",
+    "meaning": "사진",
+    "pronunciation": "ˈfoʊ.t̬oʊ",
+    "exampleSentence": "Let's take a photo.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "picture",
+    "meaning": "그림, 사진",
+    "pronunciation": "ˈpɪk.tʃər",
+    "exampleSentence": "This is a nice picture.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "plane",
+    "meaning": "비행기",
+    "pronunciation": "pleɪn",
+    "exampleSentence": "I'm flying on a plane.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "play",
+    "meaning": "놀다",
+    "pronunciation": "pleɪ",
+    "exampleSentence": "Children love to play outside.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "please",
+    "meaning": "제발, 부탁합니다",
+    "pronunciation": "pliːz",
+    "exampleSentence": "Could you help me, please?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "potato",
+    "meaning": "감자",
+    "pronunciation": "pəˈteɪ.toʊ",
+    "exampleSentence": "I like fried potatoes.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "price",
+    "meaning": "가격",
+    "pronunciation": "praɪs",
+    "exampleSentence": "What's the price?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "problem",
+    "meaning": "문제",
+    "pronunciation": "ˈprɑː.bləm",
+    "exampleSentence": "This is a difficult problem.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "put",
+    "meaning": "놓다",
+    "pronunciation": "pʊt",
+    "exampleSentence": "Put your bag on the table.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "question",
+    "meaning": "질문",
+    "pronunciation": "ˈkwes.tʃən",
+    "exampleSentence": "I have a question.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "rain",
+    "meaning": "비",
+    "pronunciation": "reɪn",
+    "exampleSentence": "It's raining outside.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "read",
+    "meaning": "읽다",
+    "pronunciation": "riːd",
+    "exampleSentence": "I like to read books.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "red",
+    "meaning": "빨간색",
+    "pronunciation": "red",
+    "exampleSentence": "I like red roses.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "restaurant",
+    "meaning": "식당",
+    "pronunciation": "ˈres.tə.rɑːnt",
+    "exampleSentence": "This restaurant is expensive.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "rice",
+    "meaning": "쌀, 밥",
+    "pronunciation": "raɪs",
+    "exampleSentence": "We eat rice every day.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "right",
+    "meaning": "옳은, 오른쪽",
+    "pronunciation": "raɪt",
+    "exampleSentence": "Turn right at the corner.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "room",
+    "meaning": "방",
+    "pronunciation": "ruːm",
+    "exampleSentence": "This is my room.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "run",
+    "meaning": "달리다",
+    "pronunciation": "rʌn",
+    "exampleSentence": "He can run very fast.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "say",
+    "meaning": "말하다",
+    "pronunciation": "seɪ",
+    "exampleSentence": "What did you say?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "school",
+    "meaning": "학교",
+    "pronunciation": "skuːl",
+    "exampleSentence": "The children go to school every day.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "see",
+    "meaning": "보다",
+    "pronunciation": "siː",
+    "exampleSentence": "I can see a bird.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sell",
+    "meaning": "팔다",
+    "pronunciation": "sel",
+    "exampleSentence": "They sell fresh fruit.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sheep",
+    "meaning": "양",
+    "pronunciation": "ʃiːp",
+    "exampleSentence": "Sheep have white wool.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "shirt",
+    "meaning": "셔츠",
+    "pronunciation": "ʃɜːrt",
+    "exampleSentence": "He's wearing a blue shirt.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "shoes",
+    "meaning": "신발",
+    "pronunciation": "ʃuːz",
+    "exampleSentence": "Take off your shoes.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "shop",
+    "meaning": "가게, 쇼핑하다",
+    "pronunciation": "ʃɑːp",
+    "exampleSentence": "Let's go shopping.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "short",
+    "meaning": "짧은",
+    "pronunciation": "ʃɔːrt",
+    "exampleSentence": "He wears short pants.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "should",
+    "meaning": "~해야 한다",
+    "pronunciation": "ʃʊd",
+    "exampleSentence": "You should eat vegetables.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sister",
+    "meaning": "자매, 언니, 누나",
+    "pronunciation": "ˈsɪs.tər",
+    "exampleSentence": "I have two sisters.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sit",
+    "meaning": "앉다",
+    "pronunciation": "sɪt",
+    "exampleSentence": "Please sit down.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sky",
+    "meaning": "하늘",
+    "pronunciation": "skaɪ",
+    "exampleSentence": "The sky is clear.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sleep",
+    "meaning": "자다",
+    "pronunciation": "sliːp",
+    "exampleSentence": "I need to sleep early tonight.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "slow",
+    "meaning": "느린",
+    "pronunciation": "sloʊ",
+    "exampleSentence": "The turtle is very slow.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "small",
+    "meaning": "작은",
+    "pronunciation": "smɔːl",
+    "exampleSentence": "This is a small box.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "snow",
+    "meaning": "눈",
+    "pronunciation": "snoʊ",
+    "exampleSentence": "It's snowing today.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "song",
+    "meaning": "노래",
+    "pronunciation": "sɔːŋ",
+    "exampleSentence": "This is my favorite song.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sorry",
+    "meaning": "미안한",
+    "pronunciation": "ˈsɔːr.i",
+    "exampleSentence": "I'm sorry for being late.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "speak",
+    "meaning": "말하다",
+    "pronunciation": "spiːk",
+    "exampleSentence": "Do you speak English?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sport",
+    "meaning": "스포츠, 운동",
+    "pronunciation": "spɔːrt",
+    "exampleSentence": "Soccer is a popular sport.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "stand",
+    "meaning": "서다",
+    "pronunciation": "stænd",
+    "exampleSentence": "Stand up, please.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "star",
+    "meaning": "별",
+    "pronunciation": "stɑːr",
+    "exampleSentence": "I can see stars at night.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "store",
+    "meaning": "상점",
+    "pronunciation": "stɔːr",
+    "exampleSentence": "The store is closed.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "story",
+    "meaning": "이야기",
+    "pronunciation": "ˈstɔːr.i",
+    "exampleSentence": "Tell me a story.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "street",
+    "meaning": "거리",
+    "pronunciation": "striːt",
+    "exampleSentence": "Our house is on Main Street.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "student",
+    "meaning": "학생",
+    "pronunciation": "ˈstuː.dənt",
+    "exampleSentence": "I am a student.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "study",
+    "meaning": "공부하다",
+    "pronunciation": "ˈstʌd.i",
+    "exampleSentence": "I study English every day.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "sun",
+    "meaning": "태양",
+    "pronunciation": "sʌn",
+    "exampleSentence": "The sun is shining.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "table",
+    "meaning": "테이블, 책상",
+    "pronunciation": "ˈteɪ.bəl",
+    "exampleSentence": "Put the book on the table.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "take",
+    "meaning": "가져가다, 타다",
+    "pronunciation": "teɪk",
+    "exampleSentence": "Take your umbrella.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "tall",
+    "meaning": "키가 큰",
+    "pronunciation": "tɔːl",
+    "exampleSentence": "My brother is tall.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "tea",
+    "meaning": "차",
+    "pronunciation": "tiː",
+    "exampleSentence": "I prefer tea to coffee.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "teacher",
+    "meaning": "선생님",
+    "pronunciation": "ˈtiː.tʃər",
+    "exampleSentence": "Our teacher is very kind.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "tell",
+    "meaning": "말하다, 알리다",
+    "pronunciation": "tel",
+    "exampleSentence": "Tell me your name.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "thank",
+    "meaning": "감사하다",
+    "pronunciation": "θæŋk",
+    "exampleSentence": "Thank you very much!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "there",
+    "meaning": "저기",
+    "pronunciation": "ðer",
+    "exampleSentence": "Put it over there.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "think",
+    "meaning": "생각하다",
+    "pronunciation": "θɪŋk",
+    "exampleSentence": "I think it's a good idea.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "three",
+    "meaning": "셋, 3",
+    "pronunciation": "θriː",
+    "exampleSentence": "There are three apples.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "ticket",
+    "meaning": "표, 티켓",
+    "pronunciation": "ˈtɪk.ɪt",
+    "exampleSentence": "I need two tickets.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "time",
+    "meaning": "시간",
+    "pronunciation": "taɪm",
+    "exampleSentence": "What time is it now?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "today",
+    "meaning": "오늘",
+    "pronunciation": "təˈdeɪ",
+    "exampleSentence": "What are you doing today?",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "tomato",
+    "meaning": "토마토",
+    "pronunciation": "təˈmeɪ.toʊ",
+    "exampleSentence": "Tomatoes are red.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "tomorrow",
+    "meaning": "내일",
+    "pronunciation": "təˈmɔːr.oʊ",
+    "exampleSentence": "See you tomorrow!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "train",
+    "meaning": "기차",
+    "pronunciation": "treɪn",
+    "exampleSentence": "The train is fast.",
+    "category": "travel",
+    "level": "A1"
+  },
+  {
+    "word": "tree",
+    "meaning": "나무",
+    "pronunciation": "triː",
+    "exampleSentence": "There's a big tree in the park.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "two",
+    "meaning": "둘, 2",
+    "pronunciation": "tuː",
+    "exampleSentence": "I have two eyes.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "up",
+    "meaning": "위로",
+    "pronunciation": "ʌp",
+    "exampleSentence": "Look up at the sky.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "vegetable",
+    "meaning": "채소",
+    "pronunciation": "ˈvedʒ.tə.bəl",
+    "exampleSentence": "Eat your vegetables!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "walk",
+    "meaning": "걷다",
+    "pronunciation": "wɔːk",
+    "exampleSentence": "I walk to school every day.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "want",
+    "meaning": "원하다",
+    "pronunciation": "wɑːnt",
+    "exampleSentence": "I want to eat pizza.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "water",
+    "meaning": "물",
+    "pronunciation": "ˈwɔː.tər",
+    "exampleSentence": "I need to drink some water.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "weather",
+    "meaning": "날씨",
+    "pronunciation": "ˈweð.ər",
+    "exampleSentence": "The weather is nice today.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "week",
+    "meaning": "주, 주간",
+    "pronunciation": "wiːk",
+    "exampleSentence": "There are seven days in a week.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "white",
+    "meaning": "흰색",
+    "pronunciation": "waɪt",
+    "exampleSentence": "Snow is white.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "will",
+    "meaning": "~할 것이다",
+    "pronunciation": "wɪl",
+    "exampleSentence": "I will help you.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "wind",
+    "meaning": "바람",
+    "pronunciation": "wɪnd",
+    "exampleSentence": "The wind is strong.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "window",
+    "meaning": "창문",
+    "pronunciation": "ˈwɪn.doʊ",
+    "exampleSentence": "Open the window for fresh air.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "woman",
+    "meaning": "여자",
+    "pronunciation": "ˈwʊm.ən",
+    "exampleSentence": "The woman is wearing a hat.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "word",
+    "meaning": "단어",
+    "pronunciation": "wɜːrd",
+    "exampleSentence": "I don't know this word.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "work",
+    "meaning": "일하다, 일",
+    "pronunciation": "wɜːrk",
+    "exampleSentence": "He works in an office.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "write",
+    "meaning": "쓰다",
+    "pronunciation": "raɪt",
+    "exampleSentence": "Write your name here.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "year",
+    "meaning": "년, 해",
+    "pronunciation": "jɪr",
+    "exampleSentence": "Happy New Year!",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "yellow",
+    "meaning": "노란색",
+    "pronunciation": "ˈjel.oʊ",
+    "exampleSentence": "The sun is yellow.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "yes",
+    "meaning": "네, 예",
+    "pronunciation": "jes",
+    "exampleSentence": "Yes, I agree with you.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "yesterday",
+    "meaning": "어제",
+    "pronunciation": "ˈjes.tər.deɪ",
+    "exampleSentence": "I went to the park yesterday.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "young",
+    "meaning": "젊은",
+    "pronunciation": "jʌŋ",
+    "exampleSentence": "She is young and energetic.",
+    "category": "daily",
+    "level": "A1"
+  },
+  {
+    "word": "accomplish",
+    "meaning": "성취하다",
+    "pronunciation": "əˈkʌm.plɪʃ",
+    "exampleSentence": "We accomplished our mission successfully.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "accurate",
+    "meaning": "정확한",
+    "pronunciation": "ˈæk.jər.ət",
+    "exampleSentence": "Your answer is accurate.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "achieve",
+    "meaning": "달성하다",
+    "pronunciation": "əˈtʃiːv",
+    "exampleSentence": "We need to achieve our goals this year.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "admire",
+    "meaning": "존경하다",
+    "pronunciation": "ədˈmaɪər",
+    "exampleSentence": "I admire her courage.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "advantage",
+    "meaning": "이점",
+    "pronunciation": "ədˈvæn.tɪdʒ",
+    "exampleSentence": "There are many advantages to this plan.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "adventure",
+    "meaning": "모험",
+    "pronunciation": "ədˈven.tʃər",
+    "exampleSentence": "Life is an adventure.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "advertise",
+    "meaning": "광고하다",
+    "pronunciation": "ˈæd.və.taɪz",
+    "exampleSentence": "We need to advertise our products.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "afraid",
+    "meaning": "두려운",
+    "pronunciation": "əˈfreɪd",
+    "exampleSentence": "Don't be afraid of making mistakes.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "agent",
+    "meaning": "대리인",
+    "pronunciation": "ˈeɪ.dʒənt",
+    "exampleSentence": "Contact our travel agent for bookings.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "agriculture",
+    "meaning": "농업",
+    "pronunciation": "ˈæɡ.rɪ.kʌl.tʃər",
+    "exampleSentence": "Agriculture is important for the economy.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "allow",
+    "meaning": "허락하다",
+    "pronunciation": "əˈlaʊ",
+    "exampleSentence": "Please allow me to explain.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "ancient",
+    "meaning": "고대의",
+    "pronunciation": "ˈeɪn.ʃənt",
+    "exampleSentence": "We visited ancient ruins.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "announce",
+    "meaning": "발표하다",
+    "pronunciation": "əˈnaʊns",
+    "exampleSentence": "The company will announce the results tomorrow.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "annual",
+    "meaning": "연간의",
+    "pronunciation": "ˈæn.ju.əl",
+    "exampleSentence": "We hold an annual meeting.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "apartment",
+    "meaning": "아파트",
+    "pronunciation": "əˈpɑːt.mənt",
+    "exampleSentence": "They live in a small apartment.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "apologize",
+    "meaning": "사과하다",
+    "pronunciation": "əˈpɒl.ə.dʒaɪz",
+    "exampleSentence": "I apologize for being late.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "appearance",
+    "meaning": "외모",
+    "pronunciation": "əˈpɪə.rəns",
+    "exampleSentence": "Don't judge by appearance.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "apply",
+    "meaning": "지원하다",
+    "pronunciation": "əˈplaɪ",
+    "exampleSentence": "She decided to apply for the job.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "appointment",
+    "meaning": "약속, 예약",
+    "pronunciation": "əˈpɔɪnt.mənt",
+    "exampleSentence": "I have a doctor's appointment at 3pm.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "appreciate",
+    "meaning": "감사하다",
+    "pronunciation": "əˈpriː.ʃi.eɪt",
+    "exampleSentence": "We appreciate your help.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "approach",
+    "meaning": "접근하다",
+    "pronunciation": "əˈprəʊtʃ",
+    "exampleSentence": "We need a different approach.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "appropriate",
+    "meaning": "적절한",
+    "pronunciation": "əˈprəʊ.pri.ət",
+    "exampleSentence": "Choose appropriate clothing.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "approve",
+    "meaning": "승인하다",
+    "pronunciation": "əˈpruːv",
+    "exampleSentence": "The manager approved the plan.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "arrange",
+    "meaning": "준비하다",
+    "pronunciation": "əˈreɪndʒ",
+    "exampleSentence": "Can you arrange a meeting?",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "arrive",
+    "meaning": "도착하다",
+    "pronunciation": "əˈraɪv",
+    "exampleSentence": "The train will arrive in 10 minutes.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "article",
+    "meaning": "기사",
+    "pronunciation": "ˈɑː.tɪ.kəl",
+    "exampleSentence": "I read an interesting article yesterday.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "assignment",
+    "meaning": "과제",
+    "pronunciation": "əˈsaɪn.mənt",
+    "exampleSentence": "Complete your assignment by Friday.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "atmosphere",
+    "meaning": "분위기",
+    "pronunciation": "ˈæt.mə.sfɪər",
+    "exampleSentence": "The restaurant has a nice atmosphere.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "attach",
+    "meaning": "첨부하다",
+    "pronunciation": "əˈtætʃ",
+    "exampleSentence": "Please attach the file to your email.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "attitude",
+    "meaning": "태도",
+    "pronunciation": "ˈæt.ɪ.tjuːd",
+    "exampleSentence": "She has a positive attitude.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "attorney",
+    "meaning": "변호사",
+    "pronunciation": "əˈtɜː.ni",
+    "exampleSentence": "Consult with an attorney.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "audience",
+    "meaning": "청중",
+    "pronunciation": "ˈɔː.di.əns",
+    "exampleSentence": "The audience applauded loudly.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "authority",
+    "meaning": "권한",
+    "pronunciation": "ɔːˈθɒr.ə.ti",
+    "exampleSentence": "Who has the authority to decide?",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "automatic",
+    "meaning": "자동의",
+    "pronunciation": "ˌɔː.təˈmæt.ɪk",
+    "exampleSentence": "The door opens automatically.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "available",
+    "meaning": "이용 가능한",
+    "pronunciation": "əˈveɪ.lə.bəl",
+    "exampleSentence": "The manager is available this afternoon.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "aware",
+    "meaning": "알고 있는",
+    "pronunciation": "əˈweər",
+    "exampleSentence": "Are you aware of the problem?",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "background",
+    "meaning": "배경",
+    "pronunciation": "ˈbæk.ɡraʊnd",
+    "exampleSentence": "Tell me about your educational background.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "baggage",
+    "meaning": "수하물",
+    "pronunciation": "ˈbæɡ.ɪdʒ",
+    "exampleSentence": "Please collect your baggage at carousel 3.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "balance",
+    "meaning": "균형, 잔액",
+    "pronunciation": "ˈbæl.əns",
+    "exampleSentence": "Check your bank account balance.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "behave",
+    "meaning": "행동하다",
+    "pronunciation": "bɪˈheɪv",
+    "exampleSentence": "Children should behave properly.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "benefit",
+    "meaning": "혜택",
+    "pronunciation": "ˈben.ɪ.fɪt",
+    "exampleSentence": "The company offers great employee benefits.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "besides",
+    "meaning": "게다가",
+    "pronunciation": "bɪˈsaɪdz",
+    "exampleSentence": "Besides English, she speaks French.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "bill",
+    "meaning": "계산서",
+    "pronunciation": "bɪl",
+    "exampleSentence": "Can I have the bill, please?",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "board",
+    "meaning": "탑승하다",
+    "pronunciation": "bɔːrd",
+    "exampleSentence": "Passengers should board the plane now.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "booking",
+    "meaning": "예약",
+    "pronunciation": "ˈbʊk.ɪŋ",
+    "exampleSentence": "I made a hotel booking online.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "borrow",
+    "meaning": "빌리다",
+    "pronunciation": "ˈbɒr.əʊ",
+    "exampleSentence": "Can I borrow your pen?",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "branch",
+    "meaning": "지점",
+    "pronunciation": "brɑːntʃ",
+    "exampleSentence": "Our company has many branches.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "brief",
+    "meaning": "간단한",
+    "pronunciation": "briːf",
+    "exampleSentence": "Give me a brief summary.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "budget",
+    "meaning": "예산",
+    "pronunciation": "ˈbʌdʒ.ɪt",
+    "exampleSentence": "We need to stay within our budget.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "campaign",
+    "meaning": "캠페인",
+    "pronunciation": "kæmˈpeɪn",
+    "exampleSentence": "Launch a marketing campaign.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "cancel",
+    "meaning": "취소하다",
+    "pronunciation": "ˈkæn.səl",
+    "exampleSentence": "I need to cancel my reservation.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "capable",
+    "meaning": "유능한",
+    "pronunciation": "ˈkeɪ.pə.bəl",
+    "exampleSentence": "She is very capable.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "capacity",
+    "meaning": "수용력",
+    "pronunciation": "kəˈpæs.ə.ti",
+    "exampleSentence": "The hall has a capacity of 500 people.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "career",
+    "meaning": "경력",
+    "pronunciation": "kəˈrɪər",
+    "exampleSentence": "She has a successful career in finance.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "casual",
+    "meaning": "평상시의",
+    "pronunciation": "ˈkæʒ.u.əl",
+    "exampleSentence": "Wear casual clothes.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "category",
+    "meaning": "범주",
+    "pronunciation": "ˈkæt.ə.ɡər.i",
+    "exampleSentence": "Products are divided into categories.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "celebrate",
+    "meaning": "축하하다",
+    "pronunciation": "ˈsel.ə.breɪt",
+    "exampleSentence": "Let's celebrate your success!",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "certain",
+    "meaning": "확실한",
+    "pronunciation": "ˈsɜː.tən",
+    "exampleSentence": "I'm certain that we will succeed.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "certificate",
+    "meaning": "증명서",
+    "pronunciation": "səˈtɪf.ɪ.kət",
+    "exampleSentence": "You need a birth certificate to apply.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "challenge",
+    "meaning": "도전",
+    "pronunciation": "ˈtʃæl.ɪndʒ",
+    "exampleSentence": "This project is a real challenge.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "chamber",
+    "meaning": "방",
+    "pronunciation": "ˈtʃeɪm.bər",
+    "exampleSentence": "The chamber of commerce meeting.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "charge",
+    "meaning": "요금",
+    "pronunciation": "tʃɑːrdʒ",
+    "exampleSentence": "There is no charge for this service.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "characteristic",
+    "meaning": "특징",
+    "pronunciation": "ˌkær.ək.təˈrɪs.tɪk",
+    "exampleSentence": "What are the main characteristics of this product?",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "collaborate",
+    "meaning": "협력하다",
+    "pronunciation": "kəˈlæb.ə.reɪt",
+    "exampleSentence": "We need to collaborate with other departments.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "colleague",
+    "meaning": "동료",
+    "pronunciation": "ˈkɒl.iːɡ",
+    "exampleSentence": "My colleague helped me with the report.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "commitment",
+    "meaning": "약속, 헌신",
+    "pronunciation": "kəˈmɪt.mənt",
+    "exampleSentence": "We appreciate your commitment to the project.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "compensation",
+    "meaning": "보상",
+    "pronunciation": "ˌkɒm.penˈseɪ.ʃən",
+    "exampleSentence": "The company offers competitive compensation.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "competitive",
+    "meaning": "경쟁력 있는",
+    "pronunciation": "kəmˈpet.ɪ.tɪv",
+    "exampleSentence": "We offer competitive prices.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "component",
+    "meaning": "구성 요소",
+    "pronunciation": "kəmˈpəʊ.nənt",
+    "exampleSentence": "This is a key component of the system.",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "comprehensive",
+    "meaning": "포괄적인",
+    "pronunciation": "ˌkɒm.prɪˈhen.sɪv",
+    "exampleSentence": "We need a comprehensive analysis.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "conduct",
+    "meaning": "수행하다",
+    "pronunciation": "kənˈdʌkt",
+    "exampleSentence": "We will conduct a survey next week.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "conference",
+    "meaning": "회의",
+    "pronunciation": "ˈkɒn.fər.əns",
+    "exampleSentence": "The conference starts at 9am.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "confirm",
+    "meaning": "확인하다",
+    "pronunciation": "kənˈfɜːm",
+    "exampleSentence": "Please confirm your attendance.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "considerable",
+    "meaning": "상당한",
+    "pronunciation": "kənˈsɪd.ər.ə.bəl",
+    "exampleSentence": "There has been considerable progress.",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "consistent",
+    "meaning": "일관된",
+    "pronunciation": "kənˈsɪs.tənt",
+    "exampleSentence": "We need consistent quality.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "consolidate",
+    "meaning": "통합하다",
+    "pronunciation": "kənˈsɒl.ɪ.deɪt",
+    "exampleSentence": "We plan to consolidate our offices.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "constraint",
+    "meaning": "제약",
+    "pronunciation": "kənˈstreɪnt",
+    "exampleSentence": "Budget constraints limit our options.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "contingency",
+    "meaning": "비상 대책",
+    "pronunciation": "kənˈtɪn.dʒən.si",
+    "exampleSentence": "We have a contingency plan.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "coordinate",
+    "meaning": "조정하다",
+    "pronunciation": "kəʊˈɔː.dɪ.neɪt",
+    "exampleSentence": "She will coordinate the event.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "criteria",
+    "meaning": "기준",
+    "pronunciation": "kraɪˈtɪə.ri.ə",
+    "exampleSentence": "What are the selection criteria?",
+    "category": "toeic",
+    "level": "B2"
+  },
+  {
+    "word": "crucial",
+    "meaning": "중요한",
+    "pronunciation": "ˈkruː.ʃəl",
+    "exampleSentence": "This is a crucial decision.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "custody",
+    "meaning": "보관",
+    "pronunciation": "ˈkʌs.tə.di",
+    "exampleSentence": "The documents are in safe custody.",
+    "category": "travel",
+    "level": "B2"
+  },
+  {
+    "word": "dedicate",
+    "meaning": "전념하다",
+    "pronunciation": "ˈded.ɪ.keɪt",
+    "exampleSentence": "He dedicated his life to research.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "delegate",
+    "meaning": "위임하다",
+    "pronunciation": "ˈdel.ɪ.ɡeɪt",
+    "exampleSentence": "You need to delegate some tasks.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "deliberate",
+    "meaning": "신중한",
+    "pronunciation": "dɪˈlɪb.ər.ət",
+    "exampleSentence": "This was a deliberate decision.",
+    "category": "toeic",
+    "level": "B2"
+  },
+  {
+    "word": "demonstrate",
+    "meaning": "입증하다",
+    "pronunciation": "ˈdem.ən.streɪt",
+    "exampleSentence": "The data demonstrates our point.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "deteriorate",
+    "meaning": "악화되다",
+    "pronunciation": "dɪˈtɪə.ri.ə.reɪt",
+    "exampleSentence": "The situation has deteriorated.",
+    "category": "toeic",
+    "level": "C1"
+  },
+  {
+    "word": "devise",
+    "meaning": "고안하다",
+    "pronunciation": "dɪˈvaɪz",
+    "exampleSentence": "We need to devise a new strategy.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "diligent",
+    "meaning": "근면한",
+    "pronunciation": "ˈdɪl.ɪ.dʒənt",
+    "exampleSentence": "She is a diligent worker.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "diminish",
+    "meaning": "감소하다",
+    "pronunciation": "dɪˈmɪn.ɪʃ",
+    "exampleSentence": "The effects will diminish over time.",
+    "category": "toeic",
+    "level": "C1"
+  },
+  {
+    "word": "discrepancy",
+    "meaning": "불일치",
+    "pronunciation": "dɪˈskrep.ən.si",
+    "exampleSentence": "There's a discrepancy in the records.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "encompass",
+    "meaning": "포함하다",
+    "pronunciation": "ɪnˈkʌm.pəs",
+    "exampleSentence": "The project encompasses several areas.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "endeavor",
+    "meaning": "노력",
+    "pronunciation": "ɪnˈdev.ər",
+    "exampleSentence": "We wish you success in your endeavors.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "facilitate",
+    "meaning": "용이하게 하다",
+    "pronunciation": "fəˈsɪl.ɪ.teɪt",
+    "exampleSentence": "This will facilitate communication.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "mitigate",
+    "meaning": "완화하다",
+    "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+    "exampleSentence": "We need to mitigate the risks.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "paramount",
+    "meaning": "최고의",
+    "pronunciation": "ˈpær.ə.maʊnt",
+    "exampleSentence": "Safety is of paramount importance.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "perpetuate",
+    "meaning": "영속시키다",
+    "pronunciation": "pəˈpet.ju.eɪt",
+    "exampleSentence": "We must not perpetuate these mistakes.",
+    "category": "toeic",
+    "level": "C2"
+  },
+  {
+    "word": "prevalent",
+    "meaning": "널리 퍼진",
+    "pronunciation": "ˈprev.əl.ənt",
+    "exampleSentence": "This practice is prevalent in the industry.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "profound",
+    "meaning": "깊은",
+    "pronunciation": "prəˈfaʊnd",
+    "exampleSentence": "This had a profound impact.",
+    "category": "toeic",
+    "level": "C2"
+  },
+  {
+    "word": "scrutinize",
+    "meaning": "면밀히 조사하다",
+    "pronunciation": "ˈskruː.tɪ.naɪz",
+    "exampleSentence": "We need to scrutinize the contract.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "sophisticated",
+    "meaning": "정교한",
+    "pronunciation": "səˈfɪs.tɪ.keɪ.tɪd",
+    "exampleSentence": "This is a sophisticated system.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "substantiate",
+    "meaning": "입증하다",
+    "pronunciation": "səbˈstæn.ʃi.eɪt",
+    "exampleSentence": "You need to substantiate your claims.",
+    "category": "business",
+    "level": "C2"
+  }
+]

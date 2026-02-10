@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
 }
 
@@ -23,6 +23,8 @@ model User {
   profile       UserProfile?
   diagnoses     LevelDiagnosis[]
   quizAttempts  UserQuizAttempt[]
+  vocabularies      UserVocabulary[]
+  flashcardSessions FlashcardSession[]
 }
 
 model Account {
@@ -80,9 +82,16 @@ model UserProfile {
   level           String    @default("A1")    // CEFR 레벨
   totalXP         Int       @default(0)
   lastStudyDate   DateTime?
+  currentStreak   Int       @default(0)
+  longestStreak   Int       @default(0)
 
   // 약점 영역 (JSON): {"동사": 45.5, "형용사": 30.0}
   weaknessAreas   Json?
+
+  // 어휘 학습 통계
+  totalWordLearned Int @default(0)
+  masteredWords    Int @default(0)
+  reviewNeeded     Int @default(0)
 
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -159,4 +168,65 @@ model QuizOption { // 퀴즈 문제의 선택지
   question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@index([questionId])
+}
+
+// 어휘 콘텐츠 모델
+model Vocabulary {
+  id              String   @id @default(cuid())
+  word            String   @unique
+  meaning         String
+  pronunciation   String?
+  exampleSentence String?
+  category        String   // daily, business, toeic, travel
+  level           String   // A1-C2
+  audioUrl        String?
+  userProgress    UserVocabulary[]
+  createdAt       DateTime @default(now())
+
+  @@index([level, category])
+  @@map("vocabularies")
+}
+
+// 사용자 어휘 진행 상황 (SRS 핵심)
+model UserVocabulary {
+  id              String   @id @default(cuid())
+  userId          String
+  vocabularyId    String
+  masteryLevel    String   @default("new")
+  repetitions     Int      @default(0)
+  easeFactor      Float    @default(2.5)
+  interval        Int      @default(1)
+  lastReviewDate  DateTime?
+  nextReviewDate  DateTime @default(now())
+  totalReviews    Int      @default(0)
+  correctCount    Int      @default(0)
+  incorrectCount  Int      @default(0)
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vocabulary      Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, vocabularyId])
+  @@index([userId, nextReviewDate])
+  @@index([userId, masteryLevel])
+  @@map("user_vocabularies")
+}
+
+// 플래시카드 세션 추적
+model FlashcardSession {
+  id              String   @id @default(cuid())
+  userId          String
+  mode            String
+  vocabularyCount Int
+  accuracy        Float
+  duration        Int
+  easyCount       Int      @default(0)
+  normalCount     Int      @default(0)
+  hardCount       Int      @default(0)
+  forgotCount     Int      @default(0)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("flashcard_sessions")
 }

@@ -4,13 +4,13 @@ import { useCallback, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { submitQuiz, type QuizSubmission } from "../lib/quiz-api";
-import { QuizQuestion } from "./quiz-question";
-import { QuizFeedback } from "./quiz-feedback";
-import { QuizHeader } from "./quiz-header";
-import { QuizNavigation } from "./quiz-navigation";
-import { QuizLoading } from "./quiz-loading";
-import { QuizError } from "./quiz-error";
-import { QuizEmpty } from "./quiz-empty";
+import { QuizQuestion } from "./game/quiz-question";
+import { QuizFeedback } from "./feedback/quiz-feedback";
+import { QuizHeader } from "./game/quiz-header";
+import { QuizNavigation } from "./game/quiz-navigation";
+import { QuizLoading } from "./status/quiz-loading";
+import { QuizError } from "./status/quiz-error";
+import { QuizEmpty } from "./status/quiz-empty";
 import { useDailyQuiz } from "../hooks/use-daily-quiz";
 import { useQuizAnswers } from "../hooks/use-quiz-answers";
 import { useQuizNavigation } from "../hooks/use-quiz-navigation";
@@ -34,7 +34,11 @@ export function QuizContainer() {
   }, [submitMutation]);
 
   const { currentIndex, isTransitioning, goNext, goPrevious } = useQuizNavigation(questions.length, handleSubmit);
-  const { answers, hintLevels, handleAnswer, handleHintRequest } = useQuizAnswers(questions, currentIndex, submitMutation.isSuccess);
+  const { answers, hintLevels, handleAnswer, handleHintRequest } = useQuizAnswers(
+    questions,
+    currentIndex,
+    submitMutation.isSuccess
+  );
 
   useEffect(() => {
     answersRef.current = answers;
@@ -78,7 +82,11 @@ export function QuizContainer() {
 
       <div className="relative z-10 flex-1 overflow-y-auto px-4 py-3">
         <div className="max-w-5xl mx-auto">
-          <div className={`transition-all duration-300 ${isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}>
+          <div
+            className={`transition-all duration-300 ${
+              isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+            }`}
+          >
             <QuizQuestion
               question={currentQuestion}
               selectedAnswer={answers[currentQuestion.id]?.selectedAnswer}

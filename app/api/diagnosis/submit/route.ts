@@ -3,6 +3,7 @@ import prisma from "@/lib/db";
 import { calculateDiagnosisScore } from "@/features/diagnosis";
 import type { DiagnosisAnswer } from "@/entities/question";
 import { getSessionFromRequest } from "@/shared/lib";
+import { getStreakUpdateData } from "@/shared/lib/update-streak";
 
 export async function POST(req: Request) {
   try {
@@ -22,6 +23,9 @@ export async function POST(req: Request) {
       acc[area.category] = area.accuracy;
       return acc;
     }, {} as Record<string, number>);
+
+    // streak 데이터 선행 조회
+    const streakData = await getStreakUpdateData(userId);
 
     // 진단 결과 저장 + UserProfile upsert 병렬 실행
     const [diagnosis] = await Promise.all([
@@ -47,10 +51,16 @@ export async function POST(req: Request) {
           userId,
           level: result.cefrLevel,
           weaknessAreas: weaknessAreaMap,
+          lastStudyDate: streakData.lastStudyDate,
+          currentStreak: streakData.currentStreak,
+          longestStreak: streakData.longestStreak,
         },
         update: {
           level: result.cefrLevel,
           weaknessAreas: weaknessAreaMap,
+          lastStudyDate: streakData.lastStudyDate,
+          currentStreak: streakData.currentStreak,
+          longestStreak: streakData.longestStreak,
         },
       }),
     ]);

@@ -1,0 +1,514 @@
+[
+  {
+    "word": "achieve",
+    "meaning": "달성하다",
+    "pronunciation": "əˈtʃiːv",
+    "exampleSentence": "We need to achieve our goals this year.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "advantage",
+    "meaning": "이점",
+    "pronunciation": "ədˈvæn.tɪdʒ",
+    "exampleSentence": "There are many advantages to this plan.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "airport",
+    "meaning": "공항",
+    "pronunciation": "ˈeə.pɔːrt",
+    "exampleSentence": "We arrived at the airport early.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "announce",
+    "meaning": "발표하다",
+    "pronunciation": "əˈnaʊns",
+    "exampleSentence": "The company will announce the results tomorrow.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "apartment",
+    "meaning": "아파트",
+    "pronunciation": "əˈpɑːt.mənt",
+    "exampleSentence": "They live in a small apartment.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "apply",
+    "meaning": "지원하다",
+    "pronunciation": "əˈplaɪ",
+    "exampleSentence": "She decided to apply for the job.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "appointment",
+    "meaning": "약속, 예약",
+    "pronunciation": "əˈpɔɪnt.mənt",
+    "exampleSentence": "I have a doctor's appointment at 3pm.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "arrive",
+    "meaning": "도착하다",
+    "pronunciation": "əˈraɪv",
+    "exampleSentence": "The train will arrive in 10 minutes.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "article",
+    "meaning": "기사",
+    "pronunciation": "ˈɑː.tɪ.kəl",
+    "exampleSentence": "I read an interesting article yesterday.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "attach",
+    "meaning": "첨부하다",
+    "pronunciation": "əˈtætʃ",
+    "exampleSentence": "Please attach the file to your email.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "available",
+    "meaning": "이용 가능한",
+    "pronunciation": "əˈveɪ.lə.bəl",
+    "exampleSentence": "The manager is available this afternoon.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "background",
+    "meaning": "배경",
+    "pronunciation": "ˈbæk.ɡraʊnd",
+    "exampleSentence": "Tell me about your educational background.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "baggage",
+    "meaning": "수하물",
+    "pronunciation": "ˈbæɡ.ɪdʒ",
+    "exampleSentence": "Please collect your baggage at carousel 3.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "balance",
+    "meaning": "균형, 잔액",
+    "pronunciation": "ˈbæl.əns",
+    "exampleSentence": "Check your bank account balance.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "benefit",
+    "meaning": "혜택",
+    "pronunciation": "ˈben.ɪ.fɪt",
+    "exampleSentence": "The company offers great employee benefits.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "bill",
+    "meaning": "계산서",
+    "pronunciation": "bɪl",
+    "exampleSentence": "Can I have the bill, please?",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "board",
+    "meaning": "탑승하다",
+    "pronunciation": "bɔːrd",
+    "exampleSentence": "Passengers should board the plane now.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "booking",
+    "meaning": "예약",
+    "pronunciation": "ˈbʊk.ɪŋ",
+    "exampleSentence": "I made a hotel booking online.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "budget",
+    "meaning": "예산",
+    "pronunciation": "ˈbʌdʒ.ɪt",
+    "exampleSentence": "We need to stay within our budget.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "cancel",
+    "meaning": "취소하다",
+    "pronunciation": "ˈkæn.səl",
+    "exampleSentence": "I need to cancel my reservation.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "career",
+    "meaning": "경력",
+    "pronunciation": "kəˈrɪər",
+    "exampleSentence": "She has a successful career in finance.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "certain",
+    "meaning": "확실한",
+    "pronunciation": "ˈsɜː.tən",
+    "exampleSentence": "I'm certain that we will succeed.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "certificate",
+    "meaning": "증명서",
+    "pronunciation": "səˈtɪf.ɪ.kət",
+    "exampleSentence": "You need a birth certificate to apply.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "challenge",
+    "meaning": "도전",
+    "pronunciation": "ˈtʃæl.ɪndʒ",
+    "exampleSentence": "This project is a real challenge.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "characteristic",
+    "meaning": "특징",
+    "pronunciation": "ˌkær.ək.təˈrɪs.tɪk",
+    "exampleSentence": "What are the main characteristics of this product?",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "collaborate",
+    "meaning": "협력하다",
+    "pronunciation": "kəˈlæb.ə.reɪt",
+    "exampleSentence": "We need to collaborate with other departments.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "colleague",
+    "meaning": "동료",
+    "pronunciation": "ˈkɒl.iːɡ",
+    "exampleSentence": "My colleague helped me with the report.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "commitment",
+    "meaning": "약속, 헌신",
+    "pronunciation": "kəˈmɪt.mənt",
+    "exampleSentence": "We appreciate your commitment to the project.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "compensation",
+    "meaning": "보상",
+    "pronunciation": "ˌkɒm.penˈseɪ.ʃən",
+    "exampleSentence": "The company offers competitive compensation.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "competitive",
+    "meaning": "경쟁력 있는",
+    "pronunciation": "kəmˈpet.ɪ.tɪv",
+    "exampleSentence": "We offer competitive prices.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "component",
+    "meaning": "구성 요소",
+    "pronunciation": "kəmˈpəʊ.nənt",
+    "exampleSentence": "This is a key component of the system.",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "comprehensive",
+    "meaning": "포괄적인",
+    "pronunciation": "ˌkɒm.prɪˈhen.sɪv",
+    "exampleSentence": "We need a comprehensive analysis.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "conduct",
+    "meaning": "수행하다",
+    "pronunciation": "kənˈdʌkt",
+    "exampleSentence": "We will conduct a survey next week.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "conference",
+    "meaning": "회의",
+    "pronunciation": "ˈkɒn.fər.əns",
+    "exampleSentence": "The conference starts at 9am.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "confirm",
+    "meaning": "확인하다",
+    "pronunciation": "kənˈfɜːm",
+    "exampleSentence": "Please confirm your attendance.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "considerable",
+    "meaning": "상당한",
+    "pronunciation": "kənˈsɪd.ər.ə.bəl",
+    "exampleSentence": "There has been considerable progress.",
+    "category": "toeic",
+    "level": "B1"
+  },
+  {
+    "word": "consistent",
+    "meaning": "일관된",
+    "pronunciation": "kənˈsɪs.tənt",
+    "exampleSentence": "We need consistent quality.",
+    "category": "business",
+    "level": "B1"
+  },
+  {
+    "word": "consolidate",
+    "meaning": "통합하다",
+    "pronunciation": "kənˈsɒl.ɪ.deɪt",
+    "exampleSentence": "We plan to consolidate our offices.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "constraint",
+    "meaning": "제약",
+    "pronunciation": "kənˈstreɪnt",
+    "exampleSentence": "Budget constraints limit our options.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "contingency",
+    "meaning": "비상 대책",
+    "pronunciation": "kənˈtɪn.dʒən.si",
+    "exampleSentence": "We have a contingency plan.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "coordinate",
+    "meaning": "조정하다",
+    "pronunciation": "kəʊˈɔː.dɪ.neɪt",
+    "exampleSentence": "She will coordinate the event.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "criteria",
+    "meaning": "기준",
+    "pronunciation": "kraɪˈtɪə.ri.ə",
+    "exampleSentence": "What are the selection criteria?",
+    "category": "toeic",
+    "level": "B2"
+  },
+  {
+    "word": "crucial",
+    "meaning": "중요한",
+    "pronunciation": "ˈkruː.ʃəl",
+    "exampleSentence": "This is a crucial decision.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "custody",
+    "meaning": "보관",
+    "pronunciation": "ˈkʌs.tə.di",
+    "exampleSentence": "The documents are in safe custody.",
+    "category": "travel",
+    "level": "B2"
+  },
+  {
+    "word": "dedicate",
+    "meaning": "전념하다",
+    "pronunciation": "ˈded.ɪ.keɪt",
+    "exampleSentence": "He dedicated his life to research.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "delegate",
+    "meaning": "위임하다",
+    "pronunciation": "ˈdel.ɪ.ɡeɪt",
+    "exampleSentence": "You need to delegate some tasks.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "deliberate",
+    "meaning": "신중한",
+    "pronunciation": "dɪˈlɪb.ər.ət",
+    "exampleSentence": "This was a deliberate decision.",
+    "category": "toeic",
+    "level": "B2"
+  },
+  {
+    "word": "demonstrate",
+    "meaning": "입증하다",
+    "pronunciation": "ˈdem.ən.streɪt",
+    "exampleSentence": "The data demonstrates our point.",
+    "category": "business",
+    "level": "B2"
+  },
+  {
+    "word": "deteriorate",
+    "meaning": "악화되다",
+    "pronunciation": "dɪˈtɪə.ri.ə.reɪt",
+    "exampleSentence": "The situation has deteriorated.",
+    "category": "toeic",
+    "level": "C1"
+  },
+  {
+    "word": "devise",
+    "meaning": "고안하다",
+    "pronunciation": "dɪˈvaɪz",
+    "exampleSentence": "We need to devise a new strategy.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "diligent",
+    "meaning": "근면한",
+    "pronunciation": "ˈdɪl.ɪ.dʒənt",
+    "exampleSentence": "She is a diligent worker.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "diminish",
+    "meaning": "감소하다",
+    "pronunciation": "dɪˈmɪn.ɪʃ",
+    "exampleSentence": "The effects will diminish over time.",
+    "category": "toeic",
+    "level": "C1"
+  },
+  {
+    "word": "discrepancy",
+    "meaning": "불일치",
+    "pronunciation": "dɪˈskrep.ən.si",
+    "exampleSentence": "There's a discrepancy in the records.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "encompass",
+    "meaning": "포함하다",
+    "pronunciation": "ɪnˈkʌm.pəs",
+    "exampleSentence": "The project encompasses several areas.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "endeavor",
+    "meaning": "노력",
+    "pronunciation": "ɪnˈdev.ər",
+    "exampleSentence": "We wish you success in your endeavors.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "facilitate",
+    "meaning": "용이하게 하다",
+    "pronunciation": "fəˈsɪl.ɪ.teɪt",
+    "exampleSentence": "This will facilitate communication.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "mitigate",
+    "meaning": "완화하다",
+    "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+    "exampleSentence": "We need to mitigate the risks.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "paramount",
+    "meaning": "최고의",
+    "pronunciation": "ˈpær.ə.maʊnt",
+    "exampleSentence": "Safety is of paramount importance.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "perpetuate",
+    "meaning": "영속시키다",
+    "pronunciation": "pəˈpet.ju.eɪt",
+    "exampleSentence": "We must not perpetuate these mistakes.",
+    "category": "toeic",
+    "level": "C2"
+  },
+  {
+    "word": "prevalent",
+    "meaning": "널리 퍼진",
+    "pronunciation": "ˈprev.əl.ənt",
+    "exampleSentence": "This practice is prevalent in the industry.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "profound",
+    "meaning": "깊은",
+    "pronunciation": "prəˈfaʊnd",
+    "exampleSentence": "This had a profound impact.",
+    "category": "toeic",
+    "level": "C2"
+  },
+  {
+    "word": "scrutinize",
+    "meaning": "면밀히 조사하다",
+    "pronunciation": "ˈskruː.tɪ.naɪz",
+    "exampleSentence": "We need to scrutinize the contract.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "sophisticated",
+    "meaning": "정교한",
+    "pronunciation": "səˈfɪs.tɪ.keɪ.tɪd",
+    "exampleSentence": "This is a sophisticated system.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "substantiate",
+    "meaning": "입증하다",
+    "pronunciation": "səbˈstæn.ʃi.eɪt",
+    "exampleSentence": "You need to substantiate your claims.",
+    "category": "business",
+    "level": "C2"
+  }
+]

@@ -44,3 +44,6 @@ export const DIAGNOSIS_TIME_LIMIT_SECONDS = 300; // 5분
 // 퀴즈 관련 상수
 export const DEFAULT_QUIZ_COUNT = 10;
 export const WEAKNESS_QUESTION_RATIO = 0.5; // 50%
+
+// 라우트 상수
+export { ROUTES, QUERY_PARAMS } from "./routes";

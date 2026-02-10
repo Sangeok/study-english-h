@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { DiagnosisQuestion } from "@/entities/question";
-import { getDifficultyStyle } from "@/shared/lib/constants";
+import { getDifficultyStyle } from "@/shared/constants";
 
 interface DiagnosisQuestionCardProps {
   question: DiagnosisQuestion;
@@ -58,13 +58,13 @@ export function DiagnosisQuestionCard({
             <div className="inline-block px-6 py-3 bg-gradient-to-br from-purple-100 to-violet-100 rounded-2xl mb-4">
               <span className="text-sm font-medium text-purple-700">한국어 힌트</span>
             </div>
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-6">
-              {question.koreanHint}
-            </h3>
+            <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-6">{question.koreanHint}</h3>
           </div>
 
           <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-6 mb-8 border border-purple-100">
-            <p className="text-xl md:text-2xl text-purple-900 text-center leading-relaxed font-medium">{question.sentence}</p>
+            <p className="text-xl md:text-2xl text-purple-900 text-center leading-relaxed font-medium">
+              {question.sentence}
+            </p>
           </div>
 
           <div className="space-y-4">
@@ -124,23 +124,6 @@ export function DiagnosisQuestionCard({
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scale-in {
-          from {
-            transform: scale(0);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-
-        .animate-scale-in {
-          animation: scale-in 0.3s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 }

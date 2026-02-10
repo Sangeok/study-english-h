@@ -1,4 +1,4 @@
-import type { QuizSummary } from "../lib/quiz-api";
+import type { QuizSummary } from "../../lib/quiz-api";
 
 interface QuizAccuracyCardProps {
   summary: QuizSummary;

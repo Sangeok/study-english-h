@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { BASE_XP_PER_QUESTION, calculateQuestionXP, type QuizResult } from "@/features/quiz/lib";
 import { getSessionFromRequest } from "@/shared/lib";
+import { getStreakUpdateData } from "@/shared/lib/update-streak";
 
 interface QuizSubmission {
   questionId: string;
@@ -90,17 +91,23 @@ export async function POST(req: Request) {
     const correctCount = results.filter((r) => r.isCorrect).length;
     const accuracy = results.length > 0 ? (correctCount / results.length) * 100 : 0;
 
-    // UserProfile upsert (XP 적립 및 학습일 업데이트)
+    // UserProfile upsert (XP 적립, 학습일, streak 업데이트)
+    const streakData = await getStreakUpdateData(userId);
+
     await prisma.userProfile.upsert({
       where: { userId },
       create: {
         userId,
         totalXP: totalXP,
-        lastStudyDate: new Date(),
+        lastStudyDate: streakData.lastStudyDate,
+        currentStreak: streakData.currentStreak,
+        longestStreak: streakData.longestStreak,
       },
       update: {
         totalXP: { increment: totalXP },
-        lastStudyDate: new Date(),
+        lastStudyDate: streakData.lastStudyDate,
+        currentStreak: streakData.currentStreak,
+        longestStreak: streakData.longestStreak,
       },
     });
 
