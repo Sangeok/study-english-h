@@ -1,0 +1,402 @@
+[
+  {
+    "word": "accomplish",
+    "meaning": "성취하다",
+    "pronunciation": "əˈkʌm.plɪʃ",
+    "exampleSentence": "We accomplished our mission successfully.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "accurate",
+    "meaning": "정확한",
+    "pronunciation": "ˈæk.jər.ət",
+    "exampleSentence": "Your answer is accurate.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "admire",
+    "meaning": "존경하다",
+    "pronunciation": "ədˈmaɪər",
+    "exampleSentence": "I admire her courage.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "adventure",
+    "meaning": "모험",
+    "pronunciation": "ədˈven.tʃər",
+    "exampleSentence": "Life is an adventure.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "advertise",
+    "meaning": "광고하다",
+    "pronunciation": "ˈæd.və.taɪz",
+    "exampleSentence": "We need to advertise our products.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "afraid",
+    "meaning": "두려운",
+    "pronunciation": "əˈfreɪd",
+    "exampleSentence": "Don't be afraid of making mistakes.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "agent",
+    "meaning": "대리인",
+    "pronunciation": "ˈeɪ.dʒənt",
+    "exampleSentence": "Contact our travel agent for bookings.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "agriculture",
+    "meaning": "농업",
+    "pronunciation": "ˈæɡ.rɪ.kʌl.tʃər",
+    "exampleSentence": "Agriculture is important for the economy.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "allow",
+    "meaning": "허락하다",
+    "pronunciation": "əˈlaʊ",
+    "exampleSentence": "Please allow me to explain.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "ancient",
+    "meaning": "고대의",
+    "pronunciation": "ˈeɪn.ʃənt",
+    "exampleSentence": "We visited ancient ruins.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "annual",
+    "meaning": "연간의",
+    "pronunciation": "ˈæn.ju.əl",
+    "exampleSentence": "We hold an annual meeting.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "apologize",
+    "meaning": "사과하다",
+    "pronunciation": "əˈpɒl.ə.dʒaɪz",
+    "exampleSentence": "I apologize for being late.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "appearance",
+    "meaning": "외모",
+    "pronunciation": "əˈpɪə.rəns",
+    "exampleSentence": "Don't judge by appearance.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "appreciate",
+    "meaning": "감사하다",
+    "pronunciation": "əˈpriː.ʃi.eɪt",
+    "exampleSentence": "We appreciate your help.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "approach",
+    "meaning": "접근하다",
+    "pronunciation": "əˈprəʊtʃ",
+    "exampleSentence": "We need a different approach.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "appropriate",
+    "meaning": "적절한",
+    "pronunciation": "əˈprəʊ.pri.ət",
+    "exampleSentence": "Choose appropriate clothing.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "approve",
+    "meaning": "승인하다",
+    "pronunciation": "əˈpruːv",
+    "exampleSentence": "The manager approved the plan.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "arrange",
+    "meaning": "준비하다",
+    "pronunciation": "əˈreɪndʒ",
+    "exampleSentence": "Can you arrange a meeting?",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "assignment",
+    "meaning": "과제",
+    "pronunciation": "əˈsaɪn.mənt",
+    "exampleSentence": "Complete your assignment by Friday.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "atmosphere",
+    "meaning": "분위기",
+    "pronunciation": "ˈæt.mə.sfɪər",
+    "exampleSentence": "The restaurant has a nice atmosphere.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "attitude",
+    "meaning": "태도",
+    "pronunciation": "ˈæt.ɪ.tjuːd",
+    "exampleSentence": "She has a positive attitude.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "attorney",
+    "meaning": "변호사",
+    "pronunciation": "əˈtɜː.ni",
+    "exampleSentence": "Consult with an attorney.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "audience",
+    "meaning": "청중",
+    "pronunciation": "ˈɔː.di.əns",
+    "exampleSentence": "The audience applauded loudly.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "authority",
+    "meaning": "권한",
+    "pronunciation": "ɔːˈθɒr.ə.ti",
+    "exampleSentence": "Who has the authority to decide?",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "automatic",
+    "meaning": "자동의",
+    "pronunciation": "ˌɔː.təˈmæt.ɪk",
+    "exampleSentence": "The door opens automatically.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "aware",
+    "meaning": "알고 있는",
+    "pronunciation": "əˈweər",
+    "exampleSentence": "Are you aware of the problem?",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "background",
+    "meaning": "배경",
+    "pronunciation": "ˈbæk.ɡraʊnd",
+    "exampleSentence": "Tell me about your educational background.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "balance",
+    "meaning": "균형",
+    "pronunciation": "ˈbæl.əns",
+    "exampleSentence": "Maintain a good work-life balance.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "behave",
+    "meaning": "행동하다",
+    "pronunciation": "bɪˈheɪv",
+    "exampleSentence": "Children should behave properly.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "benefit",
+    "meaning": "혜택",
+    "pronunciation": "ˈben.ɪ.fɪt",
+    "exampleSentence": "What are the benefits of this plan?",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "besides",
+    "meaning": "게다가",
+    "pronunciation": "bɪˈsaɪdz",
+    "exampleSentence": "Besides English, she speaks French.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "bill",
+    "meaning": "계산서",
+    "pronunciation": "bɪl",
+    "exampleSentence": "May I have the bill, please?",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "board",
+    "meaning": "탑승하다",
+    "pronunciation": "bɔːrd",
+    "exampleSentence": "Passengers should board now.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "booking",
+    "meaning": "예약",
+    "pronunciation": "ˈbʊk.ɪŋ",
+    "exampleSentence": "Confirm your booking online.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "borrow",
+    "meaning": "빌리다",
+    "pronunciation": "ˈbɒr.əʊ",
+    "exampleSentence": "Can I borrow your pen?",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "branch",
+    "meaning": "지점",
+    "pronunciation": "brɑːntʃ",
+    "exampleSentence": "Our company has many branches.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "brief",
+    "meaning": "간단한",
+    "pronunciation": "briːf",
+    "exampleSentence": "Give me a brief summary.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "budget",
+    "meaning": "예산",
+    "pronunciation": "ˈbʌdʒ.ɪt",
+    "exampleSentence": "We need to plan our budget.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "campaign",
+    "meaning": "캠페인",
+    "pronunciation": "kæmˈpeɪn",
+    "exampleSentence": "Launch a marketing campaign.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "cancel",
+    "meaning": "취소하다",
+    "pronunciation": "ˈkæn.səl",
+    "exampleSentence": "I need to cancel my reservation.",
+    "category": "travel",
+    "level": "A2"
+  },
+  {
+    "word": "capable",
+    "meaning": "유능한",
+    "pronunciation": "ˈkeɪ.pə.bəl",
+    "exampleSentence": "She is very capable.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "capacity",
+    "meaning": "수용력",
+    "pronunciation": "kəˈpæs.ə.ti",
+    "exampleSentence": "The hall has a capacity of 500 people.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "career",
+    "meaning": "경력",
+    "pronunciation": "kəˈrɪər",
+    "exampleSentence": "She has a successful career.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "casual",
+    "meaning": "평상시의",
+    "pronunciation": "ˈkæʒ.u.əl",
+    "exampleSentence": "Wear casual clothes.",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "category",
+    "meaning": "범주",
+    "pronunciation": "ˈkæt.ə.ɡər.i",
+    "exampleSentence": "Products are divided into categories.",
+    "category": "toeic",
+    "level": "A2"
+  },
+  {
+    "word": "celebrate",
+    "meaning": "축하하다",
+    "pronunciation": "ˈsel.ə.breɪt",
+    "exampleSentence": "Let's celebrate your success!",
+    "category": "daily",
+    "level": "A2"
+  },
+  {
+    "word": "certificate",
+    "meaning": "증명서",
+    "pronunciation": "səˈtɪf.ɪ.kət",
+    "exampleSentence": "You need a certificate to apply.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "challenge",
+    "meaning": "도전",
+    "pronunciation": "ˈtʃæl.ɪndʒ",
+    "exampleSentence": "This is a big challenge.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "chamber",
+    "meaning": "방",
+    "pronunciation": "ˈtʃeɪm.bər",
+    "exampleSentence": "The chamber of commerce meeting.",
+    "category": "business",
+    "level": "A2"
+  },
+  {
+    "word": "charge",
+    "meaning": "요금",
+    "pronunciation": "tʃɑːrdʒ",
+    "exampleSentence": "There is no charge for this service.",
+    "category": "travel",
+    "level": "A2"
+  }
+]

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import type { QuizQuestion } from "@/entities/question";
-import { calculateQuestionXP } from "../lib/quiz-xp";
-import { getDifficultyStyle } from "@/shared/lib/constants";
+import { calculateQuestionXP } from "../../lib/quiz-xp";
+import { getDifficultyStyle } from "@/shared/constants";
 
 interface QuizQuestionProps {
   question: QuizQuestion;
@@ -14,7 +14,14 @@ interface QuizQuestionProps {
   onHintRequest: () => void;
 }
 
-export function QuizQuestion({ question, selectedAnswer, onAnswer, disabled = false, hintLevel, onHintRequest }: QuizQuestionProps) {
+export function QuizQuestion({
+  question,
+  selectedAnswer,
+  onAnswer,
+  disabled = false,
+  hintLevel,
+  onHintRequest,
+}: QuizQuestionProps) {
   const [selectingOption, setSelectingOption] = useState<string | null>(null);
   const [sparkles, setSparkles] = useState<{ x: number; y: number; id: number }[]>([]);
   const difficultyStyle = getDifficultyStyle(question.difficulty);
@@ -126,7 +133,9 @@ export function QuizQuestion({ question, selectedAnswer, onAnswer, disabled = fa
 
         <div className="relative mb-4">
           <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10">
-            <p className="text-base md:text-lg text-white/95 text-center leading-relaxed font-medium">{question.sentence}</p>
+            <p className="text-base md:text-lg text-white/95 text-center leading-relaxed font-medium">
+              {question.sentence}
+            </p>
           </div>
         </div>
 

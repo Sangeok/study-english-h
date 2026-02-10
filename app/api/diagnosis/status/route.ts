@@ -9,12 +9,14 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 });
     }
 
-    const { hasCompleted, latestDiagnosis } = await checkDiagnosisStatus(session.user.id);
+    const { hasCompleted, latestDiagnosis, canRetake, daysUntilRetake } = await checkDiagnosisStatus(session.user.id);
 
     return NextResponse.json({
       hasCompleted,
       cefrLevel: latestDiagnosis?.cefrLevel ?? null,
       completedAt: latestDiagnosis?.completedAt ?? null,
+      canRetake,
+      daysUntilRetake,
     });
   } catch (error) {
     console.error("Diagnosis status error:", error);

@@ -11,7 +11,12 @@
       "Bash(npx tsc:*)",
       "Bash(npx next build)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint:*)"
     ]
   }
 }

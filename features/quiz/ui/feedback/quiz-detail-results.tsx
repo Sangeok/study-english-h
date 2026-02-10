@@ -1,4 +1,4 @@
-import type { QuizResult } from "../lib/quiz-api";
+import type { QuizResult } from "../../lib/quiz-api";
 
 interface QuizDetailResultsProps {
   results: QuizResult[];
@@ -20,7 +20,10 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
               <p className="text-sm text-purple-700">문제별 정답 확인</p>
             </div>
           </div>
-          <button onClick={onToggle} className="px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-900 font-medium transition-colors">
+          <button
+            onClick={onToggle}
+            className="px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-900 font-medium transition-colors"
+          >
             {showDetails ? "숨기기" : "보기"}
           </button>
         </div>
@@ -42,7 +45,9 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
                   <div className="flex items-start gap-4">
-                    <div className={`flex-shrink-0 w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center shadow-md`}>
+                    <div
+                      className={`flex-shrink-0 w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center shadow-md`}
+                    >
                       <span className="text-white font-bold text-lg">{idx + 1}</span>
                     </div>
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { QuizSubmitResponse } from "../lib/quiz-api";
+import type { QuizSubmitResponse } from "../../lib/quiz-api";
 import { QuizFeedbackHeader } from "./quiz-feedback-header";
 import { QuizAccuracyCard } from "./quiz-accuracy-card";
 import { QuizHintStats } from "./quiz-hint-stats";
@@ -52,12 +52,19 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
         <div className="max-w-4xl mx-auto">
           <QuizFeedbackHeader performance={performance} />
           <QuizAccuracyCard summary={summary} xpCounter={xpCounter} />
-          <QuizHintStats hintStats={summary.hintStats} correctBaseXP={summary.correctBaseXP} xpEarned={summary.xpEarned} />
-          <QuizDetailResults results={results} showDetails={showDetails} onToggle={() => setShowDetails((prev) => !prev)} />
+          <QuizHintStats
+            hintStats={summary.hintStats}
+            correctBaseXP={summary.correctBaseXP}
+            xpEarned={summary.xpEarned}
+          />
+          <QuizDetailResults
+            results={results}
+            showDetails={showDetails}
+            onToggle={() => setShowDetails((prev) => !prev)}
+          />
           <QuizFeedbackActions onGoMain={() => router.push("/main")} onRetry={() => router.push("/quiz")} />
         </div>
       </div>
-
     </div>
   );
 }
