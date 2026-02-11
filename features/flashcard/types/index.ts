@@ -62,3 +62,12 @@ export interface SubmitResponse {
 
 // Study mode types
 export type StudyMode = "flashcard" | "matching" | "choice" | "typing" | "listening";
+
+// Session result (from review submission, stored in sessionStorage)
+export interface SessionResult {
+  xp: number;
+  accuracy: number;
+  total: number;
+  correct: number;
+  results?: ReviewResult[];
+}
