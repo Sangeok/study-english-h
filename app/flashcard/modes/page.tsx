@@ -7,6 +7,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ModeCard {
   id: string;
@@ -60,6 +61,13 @@ const modes: ModeCard[] = [
   },
 ];
 
+function getModeCardClassName(available: boolean): string {
+  if (available) {
+    return "bg-white hover:scale-105 hover:shadow-2xl cursor-pointer";
+  }
+  return "bg-gray-100 opacity-60 cursor-not-allowed";
+}
+
 export default function ModesPage() {
   const router = useRouter();
 
@@ -85,11 +93,10 @@ export default function ModesPage() {
               key={mode.id}
               onClick={() => handleModeClick(mode)}
               disabled={!mode.available}
-              className={`relative p-8 rounded-2xl shadow-lg transition-all duration-300 ${
-                mode.available
-                  ? "bg-white hover:scale-105 hover:shadow-2xl cursor-pointer"
-                  : "bg-gray-100 opacity-60 cursor-not-allowed"
-              }`}
+              className={cn(
+                "relative p-8 rounded-2xl shadow-lg transition-all duration-300",
+                getModeCardClassName(mode.available)
+              )}
             >
               {/* Coming Soon Badge */}
               {!mode.available && (
