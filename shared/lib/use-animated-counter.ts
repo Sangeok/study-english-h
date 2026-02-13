@@ -8,20 +8,20 @@ export function useAnimatedCounter(
   steps: number = 60
 ) {
   const [value, setValue] = useState(0);
+  const safeTarget = Math.max(0, target);
 
   useEffect(() => {
-    if (target <= 0) {
-      setValue(0);
+    if (safeTarget <= 0) {
       return;
     }
 
-    const increment = target / steps;
+    const increment = safeTarget / steps;
     let current = 0;
 
     const timer = setInterval(() => {
       current += increment;
-      if (current >= target) {
-        setValue(target);
+      if (current >= safeTarget) {
+        setValue(safeTarget);
         clearInterval(timer);
       } else {
         setValue(Math.floor(current));
@@ -29,7 +29,11 @@ export function useAnimatedCounter(
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [duration, steps, target]);
+  }, [duration, steps, safeTarget]);
+
+  if (safeTarget <= 0) {
+    return 0;
+  }
 
   return value;
 }

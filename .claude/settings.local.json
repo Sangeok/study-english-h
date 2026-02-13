@@ -16,7 +16,10 @@
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run lint:*)"
+      "Bash(npm run lint:*)",
+      "Bash(node -e:*)",
+      "Bash(npx prisma db execute:*)",
+      "Bash(npx dotenv:*)"
     ]
   }
 }

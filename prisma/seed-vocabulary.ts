@@ -1,13 +1,17 @@
 /**
  * Vocabulary Seed Script
  *
- * Seeds the database with 1000 vocabulary entries distributed across:
- * - Levels: 200 A1, 200 A2, 200 B1, 200 B2, 100 C1, 100 C2
+ * Seeds the database with 1500 vocabulary entries distributed across:
+ * - Levels: 250 A1, 250 A2, 250 B1, 250 B2, 250 C1, 250 C2
  * - Categories: 40% daily, 25% toeic, 20% business, 15% travel
  */
 
 import prisma from "../lib/db";
 import baseVocabularies from "./data/vocabularies.json";
+import extraA1A2 from "./data/vocabularies-extra-a1-a2.json";
+import extraB1B2 from "./data/vocabularies-extra-b1-b2.json";
+import extraC1C2 from "./data/vocabularies-extra-c1-c2.json";
+import extraSupplement from "./data/vocabularies-extra-supplement.json";
 
 // Additional vocabulary data to reach 1000 entries
 const additionalVocabulariesA2 = [
@@ -167,11 +171,6 @@ async function main() {
     const existingCount = await prisma.vocabulary.count();
     console.log(`📊 Existing vocabularies: ${existingCount}`);
 
-    if (existingCount >= 1000) {
-      console.log("✅ Database already has 1000+ vocabularies. Skipping seed.");
-      return;
-    }
-
     // Delete existing vocabularies (if you want a fresh start)
     // Uncomment the next two lines to clear existing data
     // await prisma.vocabulary.deleteMany({});
@@ -180,6 +179,10 @@ async function main() {
     // Combine all vocabulary data
     const allVocabularies = [
       ...baseVocabularies,
+      ...extraA1A2,
+      ...extraB1B2,
+      ...extraC1C2,
+      ...extraSupplement,
       ...additionalVocabulariesA2,
       ...additionalVocabulariesB1,
       ...additionalVocabulariesB2,
