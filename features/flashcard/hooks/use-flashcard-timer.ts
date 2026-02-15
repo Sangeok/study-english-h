@@ -6,11 +6,17 @@
 
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export function useFlashcardTimer() {
-  const sessionStartRef = useRef<number>(Date.now());
-  const cardStartRef = useRef<number>(Date.now());
+  const sessionStartRef = useRef<number>(0);
+  const cardStartRef = useRef<number>(0);
+
+  useEffect(() => {
+    const now = Date.now();
+    sessionStartRef.current = now;
+    cardStartRef.current = now;
+  }, []);
 
   /**
    * Start timing a new card
@@ -23,6 +29,10 @@ export function useFlashcardTimer() {
    * Get time spent on current card in seconds
    */
   const getCardTime = (): number => {
+    if (cardStartRef.current === 0) {
+      return 0;
+    }
+
     const elapsed = Date.now() - cardStartRef.current;
     return Math.floor(elapsed / 1000);
   };
@@ -31,6 +41,10 @@ export function useFlashcardTimer() {
    * Get total session duration in seconds
    */
   const getSessionDuration = (): number => {
+    if (sessionStartRef.current === 0) {
+      return 0;
+    }
+
     const elapsed = Date.now() - sessionStartRef.current;
     return Math.floor(elapsed / 1000);
   };

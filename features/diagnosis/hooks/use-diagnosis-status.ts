@@ -1,12 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/shared/lib";
+import { ApiError, queryKeys } from "@/shared/lib";
 import { fetchDiagnosisStatus } from "../lib/diagnosis-api";
 
-export function useDiagnosisStatus() {
+export function useDiagnosisStatus(enabled: boolean = true) {
   return useQuery({
     queryKey: queryKeys.diagnosis.status(),
     queryFn: fetchDiagnosisStatus,
-    staleTime: 5 * 60 * 1000, // 5분
+    enabled,
+    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
+    retry: (failureCount, error) => {
+      if (error instanceof ApiError && error.status === 401) {
+        return false;
+      }
+
+      return failureCount < 1;
+    },
   });
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { StatsGrid } from "./stats-grid";
 import { MasteryBreakdown } from "./mastery-breakdown";
@@ -32,32 +32,27 @@ function getMotivationText(accuracy: number): string {
 export function SessionResultContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [sessionResult, setSessionResult] = useState<SessionResult | null>(null);
-
-  useEffect(() => {
-    const storedResult = sessionStorage.getItem("flashcard-result");
-    if (storedResult) {
-      try {
-        const parsed = JSON.parse(storedResult);
-        setSessionResult(parsed);
-        sessionStorage.removeItem("flashcard-result");
-        return;
-      } catch (e) {
-        console.error("Failed to parse session result:", e);
+  const [sessionResult] = useState<SessionResult>(() => {
+    if (typeof window !== "undefined") {
+      const storedResult = sessionStorage.getItem("flashcard-result");
+      if (storedResult) {
+        try {
+          const parsed = JSON.parse(storedResult) as SessionResult;
+          sessionStorage.removeItem("flashcard-result");
+          return parsed;
+        } catch (e) {
+          console.error("Failed to parse session result:", e);
+        }
       }
     }
 
-    setSessionResult({
+    return {
       xp: Number(searchParams.get("xp") || 0),
       accuracy: Number(searchParams.get("accuracy") || 0),
       total: Number(searchParams.get("total") || 0),
       correct: Number(searchParams.get("correct") || 0),
-    });
-  }, [searchParams]);
-
-  if (!sessionResult) {
-    return null;
-  }
+    };
+  });
 
   const { xp, accuracy, total, correct, results } = sessionResult;
 

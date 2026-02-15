@@ -18,7 +18,14 @@ import { useQuizNavigation } from "../hooks/use-quiz-navigation";
 
 export function QuizContainer() {
   const router = useRouter();
-  const { questions, userLevel, isLoading, isError, refetch } = useDailyQuiz();
+  const {
+    questions,
+    userLevel,
+    isLoading,
+    isError,
+    refetch,
+    isDiagnosisRequired,
+  } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
 
   const submitMutation = useMutation({
@@ -45,6 +52,10 @@ export function QuizContainer() {
   }, [answers]);
 
   if (isLoading) {
+    return <QuizLoading />;
+  }
+
+  if (isDiagnosisRequired) {
     return <QuizLoading />;
   }
 

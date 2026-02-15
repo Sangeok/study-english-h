@@ -6,6 +6,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { ApiError, apiClient } from "./api-client";
 import { queryKeys } from "./query-keys";
 
 export interface ProfileStats {
@@ -23,20 +24,22 @@ export interface ProfileStats {
 }
 
 async function fetchProfileStats(): Promise<ProfileStats> {
-  const response = await fetch("/api/profile/stats");
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch profile stats");
-  }
-
-  return response.json();
+  return apiClient.get<ProfileStats>("/api/profile/stats");
 }
 
-export function useProfileStats() {
+export function useProfileStats(enabled: boolean = true) {
   return useQuery({
     queryKey: queryKeys.profile.stats(),
     queryFn: fetchProfileStats,
-    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
-    retry: 1,
+    enabled,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    retry: (failureCount, error) => {
+      if (error instanceof ApiError && error.status === 401) {
+        return false;
+      }
+
+      return failureCount < 1;
+    },
   });
 }

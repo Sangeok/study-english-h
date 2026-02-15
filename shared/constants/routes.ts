@@ -1,5 +1,6 @@
 export const ROUTES = {
   HOME: "/",
+  LOGIN: "/login",
   QUIZ: "/quiz",
   DIAGNOSIS: "/diagnosis",
   FLASHCARD_MODES: "/flashcard/modes",

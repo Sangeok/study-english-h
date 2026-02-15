@@ -2,6 +2,28 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 
+interface QuizActivity {
+  date: string;
+  type: "quiz";
+  totalQuestions: number;
+  correctAnswers: number;
+  totalTime: number;
+}
+
+interface FlashcardActivity {
+  date: string;
+  type: "flashcard";
+  mode: string;
+  vocabularyCount: number;
+  duration: number;
+  qualityCounts: {
+    easy: number;
+    normal: number;
+    hard: number;
+    forgot: number;
+  };
+}
+
 /**
  * GET /api/profile/recent-activity
  * 최근 학습 활동 조회 (퀴즈, 플래시카드)
@@ -56,7 +78,7 @@ export async function GET(req: Request) {
     ]);
 
     // 퀴즈 시도를 날짜별로 그룹화
-    const quizByDate = recentQuizzes.reduce((acc, attempt) => {
+    const quizByDate = recentQuizzes.reduce<Record<string, QuizActivity>>((acc, attempt) => {
       const date = attempt.attemptedAt.toISOString().split("T")[0];
       if (!acc[date]) {
         acc[date] = {
@@ -71,10 +93,10 @@ export async function GET(req: Request) {
       if (attempt.isCorrect) acc[date].correctAnswers++;
       acc[date].totalTime += attempt.timeSpent;
       return acc;
-    }, {} as Record<string, any>);
+    }, {});
 
     // 플래시카드 세션 변환
-    const flashcardActivities = recentFlashcards.map((session) => ({
+    const flashcardActivities: FlashcardActivity[] = recentFlashcards.map((session) => ({
       date: session.createdAt.toISOString().split("T")[0],
       type: "flashcard" as const,
       mode: session.mode,

@@ -1,29 +1,26 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { QuizQuestion } from "@/entities/question";
 import type { QuizSubmission } from "../lib/quiz-api";
 
 export function useQuizAnswers(questions: QuizQuestion[], currentIndex: number, isQuizSubmitted: boolean) {
   const [answers, setAnswers] = useState<Record<string, QuizSubmission>>({});
   const [hintLevels, setHintLevels] = useState<Record<string, 0 | 1 | 2>>({});
-  const [startTimes, setStartTimes] = useState<Record<string, number>>({});
+  const startTimesRef = useRef<Record<string, number>>({});
 
   useEffect(() => {
     if (questions.length > 0 && !isQuizSubmitted) {
       const currentQuestionId = questions[currentIndex]?.id;
-      if (currentQuestionId && !startTimes[currentQuestionId]) {
-        setStartTimes((prev) => ({
-          ...prev,
-          [currentQuestionId]: Date.now(),
-        }));
+      if (currentQuestionId && !startTimesRef.current[currentQuestionId]) {
+        startTimesRef.current[currentQuestionId] = Date.now();
       }
     }
-  }, [currentIndex, questions, isQuizSubmitted, startTimes]);
+  }, [currentIndex, questions, isQuizSubmitted]);
 
   const handleAnswer = useCallback(
     (questionId: string, answer: string) => {
-      const startTime = startTimes[questionId] ?? Date.now();
+      const startTime = startTimesRef.current[questionId] ?? Date.now();
       const timeSpent = Math.floor((Date.now() - startTime) / 1000);
 
       setAnswers((prev) => ({
@@ -36,7 +33,7 @@ export function useQuizAnswers(questions: QuizQuestion[], currentIndex: number, 
         },
       }));
     },
-    [hintLevels, startTimes]
+    [hintLevels]
   );
 
   const handleHintRequest = useCallback(() => {

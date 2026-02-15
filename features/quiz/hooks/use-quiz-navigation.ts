@@ -1,27 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export function useQuizNavigation(totalQuestions: number, onSubmit: () => void) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [rawIndex, setRawIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  useEffect(() => {
-    if (totalQuestions === 0) {
-      setCurrentIndex(0);
-      return;
-    }
-
-    if (currentIndex > totalQuestions - 1) {
-      setCurrentIndex(0);
-    }
-  }, [currentIndex, totalQuestions]);
+  const currentIndex =
+    totalQuestions <= 0 || rawIndex > totalQuestions - 1 ? 0 : rawIndex;
 
   const goNext = useCallback(() => {
     if (currentIndex < totalQuestions - 1) {
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentIndex((prev) => prev + 1);
+        setRawIndex(currentIndex + 1);
         setIsTransitioning(false);
       }, 300);
       return;
@@ -35,10 +27,10 @@ export function useQuizNavigation(totalQuestions: number, onSubmit: () => void) 
   const goPrevious = useCallback(() => {
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentIndex((prev) => Math.max(0, prev - 1));
+      setRawIndex(Math.max(0, currentIndex - 1));
       setIsTransitioning(false);
     }, 300);
-  }, []);
+  }, [currentIndex]);
 
   return {
     currentIndex,

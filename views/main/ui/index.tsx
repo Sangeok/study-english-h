@@ -1,46 +1,60 @@
 "use client";
 
 import { useDiagnosisStatus } from "@/features/diagnosis";
-import { useProfileStats } from "@/shared/lib";
+import { ApiError, useProfileStats } from "@/shared/lib";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
 import { useDiagnosisToast } from "../hooks/use-diagnosis-toast";
-import { Navigation } from "./navigation";
 import { HeroSection } from "./hero-section";
 import { QuickAccessSection } from "./quick-access-section";
 import { ProgressSection } from "./progress-section";
 import { ActivitySection } from "./activity-section";
 import { FooterCTA } from "./footer-cta";
 
-export default function MainPage() {
-  const { data: diagnosisStatus, isLoading: diagnosisLoading, isError: diagnosisError } = useDiagnosisStatus();
-  const { data: profileStats, isLoading: statsLoading, isError: statsError } = useProfileStats();
+interface MainPageProps {
+  isAuthenticated: boolean;
+}
 
-  // 비즈니스 로직을 커스텀 훅으로 분리
-  const handlers = useMainPageHandlers({ diagnosisStatus });
-  useDiagnosisToast(); // Toast 로직 자동 실행
+const DEFAULT_STATS = {
+  totalXP: 0,
+  streak: 0,
+  totalWordLearned: 0,
+  vocabularyProgress: 0,
+  level: "A1",
+} as const;
 
-  const isLoading = diagnosisLoading || statsLoading;
-  const hasError = diagnosisError || statsError;
-  const diagnosisCompleted = diagnosisLoading ? null : (diagnosisStatus?.hasCompleted ?? false);
+function isAuthError(error: unknown): boolean {
+  return error instanceof ApiError && error.status === 401;
+}
 
-  // 실제 데이터 또는 기본값
-  const stats = profileStats || {
-    totalXP: 0,
-    streak: 0,
-    totalWordLearned: 0,
-    vocabularyProgress: 0,
-    level: "A1",
-  };
+export default function MainPage({ isAuthenticated }: MainPageProps) {
+  const {
+    data: diagnosisStatus,
+    isLoading: diagnosisLoading,
+    isError: diagnosisFailed,
+    error: diagnosisError,
+  } = useDiagnosisStatus(isAuthenticated);
+  const {
+    data: profileStats,
+    isLoading: statsLoading,
+    isError: statsFailed,
+    error: statsError,
+  } = useProfileStats(isAuthenticated);
+
+  const handlers = useMainPageHandlers({ diagnosisStatus, isAuthenticated });
+  useDiagnosisToast();
+
+  const diagnosisHasNonAuthError = diagnosisFailed && !isAuthError(diagnosisError);
+  const statsHasNonAuthError = statsFailed && !isAuthError(statsError);
+  const hasError = diagnosisHasNonAuthError || statsHasNonAuthError;
+  const isLoading = isAuthenticated && (diagnosisLoading || statsLoading);
+  const diagnosisCompleted = isAuthenticated && !diagnosisLoading ? (diagnosisStatus?.hasCompleted ?? false) : false;
+
+  const stats = profileStats || DEFAULT_STATS;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden">
-      <Navigation
-        streak={stats.streak}
-        isLoading={isLoading}
-      />
-
       <HeroSection
-        diagnosisCompleted={diagnosisCompleted ?? false}
+        diagnosisCompleted={diagnosisCompleted}
         onDiagnosisClick={handlers.handleDiagnosisClick}
         onQuizClick={handlers.handleQuizClick}
       />
@@ -59,7 +73,7 @@ export default function MainPage() {
         <>
           <QuickAccessSection
             diagnosisStatus={diagnosisStatus}
-            diagnosisCompleted={diagnosisCompleted ?? false}
+            diagnosisCompleted={diagnosisCompleted}
             handlers={handlers}
           />
 
@@ -69,19 +83,19 @@ export default function MainPage() {
             level={stats.level}
             weaknessAreas={profileStats?.weaknessAreas}
             isLoading={isLoading}
-            diagnosisCompleted={diagnosisCompleted ?? false}
+            diagnosisCompleted={diagnosisCompleted}
             onViewAllStats={() => handlers.handleComingSoon("상세 통계")}
           />
 
           <ActivitySection
-            diagnosisCompleted={diagnosisCompleted ?? false}
+            diagnosisCompleted={diagnosisCompleted}
             isLoading={isLoading}
             onQuizClick={handlers.handleQuizClick}
             onChallengeClick={() => handlers.handleComingSoon("데일리 챌린지")}
           />
 
           <FooterCTA
-            diagnosisCompleted={diagnosisCompleted ?? false}
+            diagnosisCompleted={diagnosisCompleted}
             onQuizClick={handlers.handleQuizClick}
             onFlashcardClick={handlers.handleFlashcardClick}
           />
