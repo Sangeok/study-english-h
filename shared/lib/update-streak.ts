@@ -75,6 +75,40 @@ export function calculateStreakUpdate(
 }
 
 /**
+ * 조회 시점 기준으로 유효한 currentStreak를 계산
+ * - 마지막 학습일이 오늘/어제(KST)이면 저장된 streak 유지
+ * - 그 외는 연속이 끊긴 상태로 간주하여 0 반환
+ */
+export function calculateEffectiveCurrentStreak(
+  lastStudyDate: Date | null,
+  currentStreak: number,
+  now: Date = new Date()
+): number {
+  if (!lastStudyDate || currentStreak <= 0) {
+    return 0;
+  }
+
+  const todayKST = toKSTDateString(now);
+  const lastKST = toKSTDateString(lastStudyDate);
+
+  if (lastKST === todayKST) {
+    return currentStreak;
+  }
+
+  const kstOffset = 9 * 60 * 60 * 1000;
+  const todayKSTDate = new Date(now.getTime() + kstOffset);
+  todayKSTDate.setUTCHours(0, 0, 0, 0);
+  const yesterdayKSTDate = new Date(todayKSTDate.getTime() - 24 * 60 * 60 * 1000);
+  const yesterdayKST = yesterdayKSTDate.toISOString().split("T")[0];
+
+  if (lastKST === yesterdayKST) {
+    return currentStreak;
+  }
+
+  return 0;
+}
+
+/**
  * DB에서 현재 프로필을 읽고 streak 업데이트 데이터를 반환
  */
 export async function getStreakUpdateData(

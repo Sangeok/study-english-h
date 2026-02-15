@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { DiagnosisAnswer } from "@/entities/question";
 import { queryKeys } from "@/shared/lib";
@@ -21,7 +21,7 @@ export function useDiagnosisQuiz() {
     mutationFn: submitDiagnosis,
   });
 
-  const questions = data?.questions ?? [];
+  const questions = useMemo(() => data?.questions ?? [], [data?.questions]);
   const timeLimit = data?.timeLimit ?? DIAGNOSIS_TIME_LIMIT_SECONDS;
 
   const submit = useCallback(

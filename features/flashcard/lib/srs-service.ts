@@ -7,7 +7,7 @@
 
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
-import { calculateNextReview, isReviewDue, type ReviewQuality, type MasteryLevel } from "./srs-algorithm";
+import { calculateNextReview, type ReviewQuality, type MasteryLevel } from "./srs-algorithm";
 
 // Extended vocabulary with user progress
 export interface VocabularyWithProgress extends Vocabulary {
@@ -108,7 +108,7 @@ export async function recordReview(
   isCorrect: boolean
 ): Promise<UserVocabulary> {
   // Get current user vocabulary record or create new one
-  let userVocab = await prisma.userVocabulary.findUnique({
+  const userVocab = await prisma.userVocabulary.findUnique({
     where: {
       userId_vocabularyId: {
         userId,

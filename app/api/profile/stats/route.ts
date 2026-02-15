@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { calculateEffectiveCurrentStreak } from "@/shared/lib/update-streak";
 
 /**
  * GET /api/profile/stats
@@ -56,11 +57,15 @@ export async function GET(req: Request) {
     // 어휘 진행률 계산 (숙달 단어 / 전체 학습 단어)
     const vocabularyProgress =
       profile.totalWordLearned > 0 ? Math.round((profile.masteredWords / profile.totalWordLearned) * 100) : 0;
+    const effectiveStreak = calculateEffectiveCurrentStreak(
+      profile.lastStudyDate,
+      profile.currentStreak
+    );
 
     return NextResponse.json({
       level: profile.level,
       totalXP: profile.totalXP,
-      streak: profile.currentStreak,
+      streak: effectiveStreak,
       longestStreak: profile.longestStreak,
       totalWordLearned: profile.totalWordLearned,
       masteredWords: profile.masteredWords,
