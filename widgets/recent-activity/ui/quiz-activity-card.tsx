@@ -2,9 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import type { QuizActivity } from "@/shared/lib";
+import { ACCURACY_LABELS, ACCURACY_STYLES } from "../config/accuracy-config";
 import {
-  ACCURACY_LABELS,
-  ACCURACY_STYLES,
   getAccuracyLevel,
   getAverageSeconds,
   getQuizAccuracy,
