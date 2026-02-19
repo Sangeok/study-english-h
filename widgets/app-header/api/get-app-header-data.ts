@@ -36,6 +36,7 @@ export async function getAppHeaderData(): Promise<AppHeaderData> {
         currentStreak: true,
       },
     });
+
     const effectiveStreak = calculateEffectiveCurrentStreak(
       profile?.lastStudyDate ?? null,
       profile?.currentStreak ?? DEFAULT_STREAK
@@ -57,3 +58,4 @@ export async function getAppHeaderData(): Promise<AppHeaderData> {
     };
   }
 }
+
