@@ -1,0 +1,2 @@
+export const QUIZ_TRANSITION_DURATION_MS = 300;
+

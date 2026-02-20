@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { QuizSubmitResponse } from "../../lib/quiz-api";
+import type { QuizSubmitResponse } from "../../types";
 import { QuizFeedbackHeader } from "./quiz-feedback-header";
 import { QuizAccuracyCard } from "./quiz-accuracy-card";
 import { QuizHintStats } from "./quiz-hint-stats";

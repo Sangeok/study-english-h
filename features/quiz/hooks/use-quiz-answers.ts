@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { QuizQuestion } from "@/entities/question";
-import type { QuizSubmission } from "../lib/quiz-api";
+import type { QuizSubmission } from "../types";
+import { getMaxHintLevel } from "../lib/quiz-hint-logic";
 
 export function useQuizAnswers(questions: QuizQuestion[], currentIndex: number, isQuizSubmitted: boolean) {
   const [answers, setAnswers] = useState<Record<string, QuizSubmission>>({});
@@ -42,7 +43,7 @@ export function useQuizAnswers(questions: QuizQuestion[], currentIndex: number, 
 
     setHintLevels((prev) => {
       const current = prev[currentQuestion.id] ?? 0;
-      const maxLevel = currentQuestion.contextHint ? 2 : 1;
+      const maxLevel = getMaxHintLevel(currentQuestion.contextHint);
       return {
         ...prev,
         [currentQuestion.id]: Math.min(current + 1, maxLevel) as 0 | 1 | 2,

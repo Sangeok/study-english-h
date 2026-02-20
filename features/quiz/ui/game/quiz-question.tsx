@@ -1,9 +1,21 @@
 "use client";
 
+import { Check, Lightbulb, Search } from "lucide-react";
 import type { QuizQuestion } from "@/entities/question";
 import { cn } from "@/lib/utils";
 import { getDifficultyStyle } from "@/shared/constants";
+import {
+  QUIZ_OPTION_LABEL_STYLES,
+  QUIZ_OPTION_STYLES,
+  QUIZ_OPTION_TEXT_STYLES,
+} from "../../config/quiz-option-styles";
 import { calculateQuestionXP } from "../../lib/quiz-xp";
+import {
+  canRequestMoreHints,
+  getHintButtonLabel,
+  shouldShowContextHint,
+  shouldShowKoreanHint,
+} from "../../lib/quiz-hint-logic";
 import { useOptionSelection } from "../../hooks/use-option-selection";
 
 interface QuizQuestionProps {
@@ -21,35 +33,18 @@ function HintButtonContent({ hintLevel }: { hintLevel: 0 | 1 | 2 }) {
   if (hintLevel === 0) {
     return (
       <>
-        <span className="text-sm">💡</span>
+        <Lightbulb className="h-4 w-4" />
         <span className="text-sm font-semibold">힌트 보기</span>
       </>
     );
   }
+
   return (
     <>
-      <span className="text-sm">🔍</span>
+      <Search className="h-4 w-4" />
       <span className="text-sm font-semibold">전체 힌트 보기</span>
     </>
   );
-}
-
-function getOptionClassName(isSelected: boolean, isSelecting: boolean) {
-  if (isSelected)
-    return "border-violet-400 bg-gradient-to-r from-violet-500/30 to-indigo-500/30 shadow-xl shadow-violet-500/20 scale-[1.02]";
-  if (isSelecting) return "border-violet-300 bg-violet-400/20 scale-[0.98]";
-  return "border-white/20 hover:border-violet-400/50 hover:bg-white/10 hover:shadow-lg";
-}
-
-function getLabelClassName(isSelected: boolean) {
-  if (isSelected)
-    return "border-violet-400 bg-gradient-to-br from-violet-500 to-indigo-500 text-white shadow-lg";
-  return "border-white/30 bg-white/10 text-white/60 group-hover:border-violet-400/50 group-hover:text-white/80";
-}
-
-function getOptionTextClassName(isSelected: boolean) {
-  if (isSelected) return "text-white font-semibold";
-  return "text-white/80 group-hover:text-white";
 }
 
 export function QuizQuestion({
@@ -63,6 +58,11 @@ export function QuizQuestion({
   const { selectingOption, sparkles, handleSelect } = useOptionSelection(question.id, onAnswer);
   const difficultyStyle = getDifficultyStyle(question.difficulty);
   const currentXP = calculateQuestionXP(true, hintLevel);
+  const showHintBlock = hintLevel > 0;
+  const showContextHint = shouldShowContextHint(hintLevel, question.contextHint);
+  const showKoreanHint = shouldShowKoreanHint(hintLevel, question.contextHint);
+  const canRequestMoreHint = canRequestMoreHints(hintLevel, question.contextHint);
+  const hintButtonAriaLabel = getHintButtonLabel(hintLevel);
 
   return (
     <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-5 shadow-2xl border border-white/20 relative overflow-hidden">
@@ -100,9 +100,9 @@ export function QuizQuestion({
             </div>
           </div>
 
-          {hintLevel > 0 && (
+          {showHintBlock && (
             <div className="mb-4 space-y-2 animate-slide-down" role="region" aria-label="힌트 영역">
-              {hintLevel >= 1 && question.contextHint && (
+              {showContextHint && (
                 <div className="bg-amber-400/20 rounded-xl p-3 border border-amber-400/30">
                   <div className="flex items-start gap-2">
                     <span className="text-lg">📝</span>
@@ -114,7 +114,7 @@ export function QuizQuestion({
                 </div>
               )}
 
-              {(hintLevel >= 2 || (hintLevel >= 1 && !question.contextHint)) && (
+              {showKoreanHint && (
                 <div className="bg-violet-400/20 rounded-xl p-3 border border-violet-400/30">
                   <div className="flex items-start gap-2">
                     <span className="text-lg">🇰🇷</span>
@@ -128,11 +128,11 @@ export function QuizQuestion({
             </div>
           )}
 
-          {((question.contextHint && hintLevel < 2) || (!question.contextHint && hintLevel < 1)) && (
+          {canRequestMoreHint && (
             <button
               onClick={onHintRequest}
               disabled={disabled}
-              aria-label={hintLevel === 0 ? "힌트 보기" : "전체 힌트 보기"}
+              aria-label={hintButtonAriaLabel}
               className="w-full mb-4 py-2.5 px-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <HintButtonContent hintLevel={hintLevel} />
@@ -142,9 +142,7 @@ export function QuizQuestion({
 
         <div className="relative mb-4">
           <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10">
-            <p className="text-base md:text-lg text-white/95 text-center leading-relaxed font-medium">
-              {question.sentence}
-            </p>
+            <p className="text-base md:text-lg text-white/95 text-center leading-relaxed font-medium">{question.sentence}</p>
           </div>
         </div>
 
@@ -153,6 +151,18 @@ export function QuizQuestion({
             const isSelected = selectedAnswer === option.text;
             const isSelecting = selectingOption === option.text;
 
+            let optionContainerStyle: string = QUIZ_OPTION_STYLES.default;
+            if (isSelected) {
+              optionContainerStyle = QUIZ_OPTION_STYLES.selected;
+            } else if (isSelecting) {
+              optionContainerStyle = QUIZ_OPTION_STYLES.selecting;
+            }
+
+            const optionLabelStyle: string = isSelected
+              ? QUIZ_OPTION_LABEL_STYLES.selected
+              : QUIZ_OPTION_LABEL_STYLES.default;
+            const optionTextStyle: string = isSelected ? QUIZ_OPTION_TEXT_STYLES.selected : QUIZ_OPTION_TEXT_STYLES.default;
+
             return (
               <button
                 key={idx}
@@ -160,7 +170,7 @@ export function QuizQuestion({
                 disabled={disabled}
                 className={cn(
                   "group relative w-full px-4 py-3 rounded-xl border-2 text-left transition-all duration-200",
-                  getOptionClassName(isSelected, isSelecting),
+                  optionContainerStyle,
                   "disabled:opacity-30 disabled:cursor-not-allowed"
                 )}
               >
@@ -168,18 +178,13 @@ export function QuizQuestion({
                   <div
                     className={cn(
                       "w-8 h-8 rounded-lg border-2 flex items-center justify-center font-black text-sm transition-all duration-200 flex-shrink-0",
-                      getLabelClassName(isSelected)
+                      optionLabelStyle
                     )}
                   >
                     {OPTION_LABELS[idx]}
                   </div>
 
-                  <span
-                    className={cn(
-                      "flex-1 text-sm md:text-base font-medium transition-colors leading-snug",
-                      getOptionTextClassName(isSelected)
-                    )}
-                  >
+                  <span className={cn("flex-1 text-sm md:text-base font-medium transition-colors leading-snug", optionTextStyle)}>
                     {option.text}
                   </span>
 
@@ -188,9 +193,7 @@ export function QuizQuestion({
                       className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-violet-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg"
                       style={{ animation: "checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)" }}
                     >
-                      <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
+                      <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
                     </div>
                   )}
                 </div>
