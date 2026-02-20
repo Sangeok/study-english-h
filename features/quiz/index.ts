@@ -1,9 +1,5 @@
 export { QuizContainer } from "./ui";
-export { BASE_XP_PER_QUESTION, QUIZ_HINT_XP_MULTIPLIER, calculateQuestionXP, fetchDailyQuiz, submitQuiz } from "./lib";
-export type {
-  QuizQuestion as QuizQuestionType,
-  QuizSubmission,
-  QuizResult,
-  QuizSummary,
-  QuizSubmitResponse,
-} from "./lib";
+export { fetchDailyQuiz, submitQuiz } from "./api/quiz-api";
+export { BASE_XP_PER_QUESTION, QUIZ_HINT_XP_MULTIPLIER } from "./config/quiz-xp-config";
+export { calculateQuestionXP } from "./lib/quiz-xp";
+export type { QuizSubmission, QuizResult, QuizSummary, QuizSubmitResponse } from "./types";

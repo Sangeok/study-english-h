@@ -1,4 +1,4 @@
-import type { QuizSummary } from "../../lib/quiz-api";
+import type { QuizSummary } from "../../types";
 
 interface QuizHintStatsProps {
   hintStats: QuizSummary["hintStats"];

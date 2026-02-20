@@ -1,12 +1,21 @@
-import type { QuizSummary } from "../../lib/quiz-api";
+import type { QuizSummary } from "../../types";
 
 interface QuizAccuracyCardProps {
   summary: QuizSummary;
   xpCounter: number;
 }
 
+function getCircleFilter(accuracy: number): string {
+  if (accuracy >= 80) {
+    return "drop-shadow(0 0 8px rgba(139, 92, 246, 0.5))";
+  }
+
+  return "none";
+}
+
 export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) {
   const accuracyPercentage = summary.accuracy;
+  const circleFilter = getCircleFilter(accuracyPercentage);
 
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
@@ -40,7 +49,7 @@ export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) 
                     className="transition-all duration-2000 ease-out"
                     style={{
                       animation: "drawCircle 2s ease-out forwards",
-                      filter: accuracyPercentage >= 80 ? "drop-shadow(0 0 8px rgba(139, 92, 246, 0.5))" : "none",
+                      filter: circleFilter,
                     }}
                   />
                   <defs>
@@ -72,7 +81,7 @@ export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) 
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-orange-700 mb-1">획득 XP</div>
-                    <div className="text-4xl font-bold text-orange-900 animate-count-up">+{xpCounter}</div>
+                    <div className="text-4xl font-bold text-orange-900 animate-quiz-count-up">+{xpCounter}</div>
                   </div>
                 </div>
               </div>
@@ -95,23 +104,7 @@ export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) 
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes count-up {
-          from {
-            opacity: 0;
-            transform: scale(0.5);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        .animate-count-up {
-          animation: count-up 0.5s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 }
+

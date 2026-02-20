@@ -210,6 +210,28 @@
     }
   }
 
+  @keyframes quiz-expand {
+    from {
+      opacity: 0;
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 2000px;
+    }
+  }
+
+  @keyframes quiz-count-up {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
   --animate-hero-fade-up: heroFadeUp 0.6s ease-out both;
   --animate-float: float linear infinite;
   --animate-slide-in-left: slide-in-left 0.6s ease-out;
@@ -217,6 +239,8 @@
   --animate-fade-in: fade-in 0.6s ease-out;
   --animate-slide-up: slide-up 0.6s ease-out forwards;
   --animate-slide-down: slide-down 0.3s ease-out;
+  --animate-quiz-expand: quiz-expand 0.5s ease-out forwards;
+  --animate-quiz-count-up: quiz-count-up 0.5s ease-out forwards;
   --animate-bounce-gentle: bounce-gentle 2s ease-in-out infinite;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

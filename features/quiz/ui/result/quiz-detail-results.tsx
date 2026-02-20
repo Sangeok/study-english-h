@@ -1,4 +1,6 @@
-import type { QuizResult } from "../../lib/quiz-api";
+import { cn } from "@/lib/utils";
+import { QUIZ_RESULT_ITEM_STYLES, type QuizResultStatus } from "../../config";
+import type { QuizResult } from "../../types";
 
 interface QuizDetailResultsProps {
   results: QuizResult[];
@@ -6,7 +8,25 @@ interface QuizDetailResultsProps {
   onToggle: () => void;
 }
 
+function getResultStatus(isCorrect: boolean): QuizResultStatus {
+  if (isCorrect) {
+    return "correct";
+  }
+
+  return "incorrect";
+}
+
+function getToggleLabel(showDetails: boolean): string {
+  if (showDetails) {
+    return "숨기기";
+  }
+
+  return "보기";
+}
+
 export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetailResultsProps) {
+  const toggleLabel = getToggleLabel(showDetails);
+
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
       <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-purple-100">
@@ -24,29 +44,32 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
             onClick={onToggle}
             className="px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-900 font-medium transition-colors"
           >
-            {showDetails ? "숨기기" : "보기"}
+            {toggleLabel}
           </button>
         </div>
 
         {showDetails && (
-          <div className="space-y-3 animate-expand">
+          <div className="space-y-3 animate-quiz-expand">
             {results.map((item, idx) => {
-              const isCorrect = item.isCorrect;
-              const bgColor = isCorrect ? "from-emerald-50 to-green-50" : "from-rose-50 to-pink-50";
-              const borderColor = isCorrect ? "border-emerald-200" : "border-rose-200";
-              const iconBg = isCorrect
-                ? "bg-gradient-to-br from-emerald-500 to-green-600"
-                : "bg-gradient-to-br from-rose-500 to-pink-600";
+              const status = getResultStatus(item.isCorrect);
+              const styles = QUIZ_RESULT_ITEM_STYLES[status];
 
               return (
                 <div
                   key={idx}
-                  className={`bg-gradient-to-br ${bgColor} rounded-2xl p-5 border ${borderColor} hover:shadow-lg transition-all duration-300`}
+                  className={cn(
+                    "bg-gradient-to-br rounded-2xl p-5 border hover:shadow-lg transition-all duration-300",
+                    styles.background,
+                    styles.border
+                  )}
                   style={{ animationDelay: `${idx * 0.1}s` }}
                 >
                   <div className="flex items-start gap-4">
                     <div
-                      className={`flex-shrink-0 w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center shadow-md`}
+                      className={cn(
+                        "flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center shadow-md",
+                        styles.iconBackground
+                      )}
                     >
                       <span className="text-white font-bold text-lg">{idx + 1}</span>
                     </div>
@@ -54,17 +77,13 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-semibold text-purple-950">문제 {idx + 1}</span>
-                        <div
-                          className={`flex items-center gap-1 px-3 py-1 rounded-full ${
-                            isCorrect ? "bg-emerald-100 text-emerald-700" : "bg-rose-100 text-rose-700"
-                          }`}
-                        >
-                          <span className="text-lg">{isCorrect ? "✓" : "✗"}</span>
-                          <span className="text-sm font-semibold">{isCorrect ? "정답" : "오답"}</span>
+                        <div className={cn("flex items-center gap-1 px-3 py-1 rounded-full", styles.badge)}>
+                          <span className="text-lg">{styles.mark}</span>
+                          <span className="text-sm font-semibold">{styles.label}</span>
                         </div>
                       </div>
 
-                      {!isCorrect && item.correctAnswer && (
+                      {!item.isCorrect && item.correctAnswer && (
                         <div className="mb-2 p-3 bg-white/50 rounded-xl">
                           <span className="text-sm font-semibold text-purple-900">정답: </span>
                           <span className="text-sm text-purple-800">{item.correctAnswer}</span>
@@ -80,23 +99,7 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes expand {
-          from {
-            opacity: 0;
-            max-height: 0;
-          }
-          to {
-            opacity: 1;
-            max-height: 2000px;
-          }
-        }
-
-        .animate-expand {
-          animation: expand 0.5s ease-out forwards;
-        }
-      `}</style>
     </div>
   );
 }
+
