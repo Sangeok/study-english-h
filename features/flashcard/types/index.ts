@@ -1,8 +1,22 @@
 /**
  * Flashcard Feature Types
  *
- * TypeScript type definitions for flashcard functionality
+ * TypeScript type definitions for flashcard functionality.
  */
+
+export type SessionMode = "review" | "new";
+
+export type MasteryLevel = "new" | "learning" | "reviewing" | "mastered";
+
+export type ReviewQuality = "forgot" | "hard" | "normal" | "easy";
+
+export type StudyMode =
+  | SessionMode
+  | "flashcard"
+  | "matching"
+  | "choice"
+  | "typing"
+  | "listening";
 
 // Vocabulary card with user progress
 export interface VocabularyCard {
@@ -12,19 +26,16 @@ export interface VocabularyCard {
   pronunciation?: string;
   exampleSentence?: string;
   audioUrl?: string;
-  masteryLevel: "new" | "learning" | "reviewing" | "mastered";
+  masteryLevel: MasteryLevel;
   nextReviewDate: string;
 }
 
 // Session response from API
 export interface SessionResponse {
   vocabularies: VocabularyCard[];
-  mode: "review" | "new";
+  mode: SessionMode;
   count: number;
 }
-
-// Review quality ratings
-export type ReviewQuality = "forgot" | "hard" | "normal" | "easy";
 
 // Single review entry
 export interface ReviewEntry {
@@ -37,14 +48,14 @@ export interface ReviewEntry {
 // Review submission request
 export interface ReviewRequest {
   reviews: ReviewEntry[];
-  mode: string;
+  mode: StudyMode;
   duration: number; // total session duration in seconds
 }
 
 // Review result for a single vocabulary
 export interface ReviewResult {
   vocabularyId: string;
-  masteryLevel: string;
+  masteryLevel: MasteryLevel;
   nextReviewDate: string;
 }
 
@@ -59,9 +70,6 @@ export interface SubmitResponse {
   };
   results: ReviewResult[];
 }
-
-// Study mode types
-export type StudyMode = "flashcard" | "matching" | "choice" | "typing" | "listening";
 
 // Session result (from review submission, stored in sessionStorage)
 export interface SessionResult {

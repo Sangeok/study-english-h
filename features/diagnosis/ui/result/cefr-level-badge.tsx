@@ -1,5 +1,5 @@
 import { CircularProgress } from "../shared/circular-progress";
-import { CEFR_INFO } from "../../constants";
+import { CEFR_INFO } from "../../config";
 
 interface CEFRLevelBadgeProps {
   cefrLevel: string;

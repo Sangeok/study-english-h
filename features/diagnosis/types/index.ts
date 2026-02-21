@@ -1,11 +1,18 @@
-export type { DiagnosisAnswer, DiagnosisQuestion } from "@/entities/question";
+export interface WeaknessArea {
+  category: string;
+  accuracy: number;
+}
 
 export interface DiagnosisResult {
   totalScore: number;
   cefrLevel: string;
-  weaknessAreas: {
-    category: string;
-    accuracy: number;
-  }[];
+  weaknessAreas: WeaknessArea[];
   recommendedStartPoint: string;
+}
+
+export interface DiagnosisResultDetail {
+  totalScore: number;
+  cefrLevel: string;
+  weaknessAreas: WeaknessArea[];
+  completedAt: string;
 }

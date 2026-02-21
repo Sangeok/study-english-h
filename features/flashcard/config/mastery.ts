@@ -1,6 +1,13 @@
-import type { VocabularyCard } from "../types";
+import type { MasteryLevel } from "../types";
 
-type MasteryLevel = VocabularyCard["masteryLevel"];
+export interface MasteryResultCardStyle {
+  emoji: string;
+  label: string;
+  bgColor: string;
+  borderColor: string;
+  textColor: string;
+  sublabelColor: string;
+}
 
 export const MASTERY_STYLES: Record<MasteryLevel, string> = {
   new: "bg-gray-200 text-gray-700",
@@ -10,48 +17,43 @@ export const MASTERY_STYLES: Record<MasteryLevel, string> = {
 };
 
 export const MASTERY_LABELS: Record<MasteryLevel, string> = {
-  new: "🆕 새로운 단어",
-  learning: "📖 학습 중",
-  reviewing: "🔄 복습 중",
-  mastered: "✨ 숙달",
+  new: "New",
+  learning: "Learning",
+  reviewing: "Reviewing",
+  mastered: "Mastered",
 };
 
-export const MASTERY_RESULT_CARDS: Record<
-  MasteryLevel,
-  {
-    emoji: string;
-    label: string;
-    bgColor: string;
-    borderColor: string;
-    textColor: string;
-  }
-> = {
+export const MASTERY_RESULT_CARDS: Record<MasteryLevel, MasteryResultCardStyle> = {
   new: {
-    emoji: "🆕",
-    label: "새로운 단어",
+    emoji: "N",
+    label: "New",
     bgColor: "bg-gray-50",
     borderColor: "border-gray-200",
     textColor: "text-gray-800",
+    sublabelColor: "text-gray-600",
   },
   learning: {
-    emoji: "📖",
-    label: "학습 중",
+    emoji: "L",
+    label: "Learning",
     bgColor: "bg-yellow-50",
     borderColor: "border-yellow-200",
     textColor: "text-yellow-800",
+    sublabelColor: "text-yellow-600",
   },
   reviewing: {
-    emoji: "🔄",
-    label: "복습 중",
+    emoji: "R",
+    label: "Reviewing",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200",
     textColor: "text-blue-800",
+    sublabelColor: "text-blue-600",
   },
   mastered: {
-    emoji: "✨",
-    label: "숙달",
+    emoji: "M",
+    label: "Mastered",
     bgColor: "bg-green-50",
     borderColor: "border-green-200",
     textColor: "text-green-800",
+    sublabelColor: "text-green-600",
   },
 };

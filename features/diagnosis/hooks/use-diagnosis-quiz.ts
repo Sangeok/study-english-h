@@ -8,10 +8,10 @@ import { DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/constants";
 import {
   fetchDiagnosisQuestions,
   submitDiagnosis,
-} from "../lib/diagnosis-api";
+} from "../api/diagnosis-api";
 
 export function useDiagnosisQuiz() {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: queryKeys.diagnosis.start(),
     queryFn: fetchDiagnosisQuestions,
     staleTime: Infinity,
@@ -52,5 +52,6 @@ export function useDiagnosisQuiz() {
     submitResult: submitMutation.data,
     submitError: submitMutation.error,
     isSubmitSuccess: submitMutation.isSuccess,
+    refetchQuestions: refetch,
   };
 }

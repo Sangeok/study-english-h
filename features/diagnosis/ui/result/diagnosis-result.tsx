@@ -2,35 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/shared/lib";
 import { Confetti } from "@/shared/ui";
-import { apiClient, queryKeys } from "@/shared/lib";
-import { DiagnosisLoading } from "../status/diagnosis-loading";
+import { fetchDiagnosisResult } from "../../api/diagnosis-api";
 import { DiagnosisError } from "../status/diagnosis-error";
+import { DiagnosisLoading } from "../status/diagnosis-loading";
 import { CEFRLevelBadge } from "./cefr-level-badge";
-import { WeaknessAreasList } from "./weakness-areas-list";
 import { ResultActions } from "./result-actions";
-
-interface DiagnosisResultData {
-  totalScore: number;
-  cefrLevel: string;
-  weaknessAreas: { category: string; accuracy: number }[];
-  completedAt: string;
-}
+import { WeaknessAreasList } from "./weakness-areas-list";
 
 interface DiagnosisResultProps {
   diagnosisId: string;
 }
 
-async function fetchDiagnosisResult(
-  diagnosisId: string
-): Promise<DiagnosisResultData> {
-  return apiClient.get<DiagnosisResultData>(`/api/diagnosis/${diagnosisId}`);
-}
-
 export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
   const router = useRouter();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: queryKeys.diagnosis.detail(diagnosisId),
     queryFn: () => fetchDiagnosisResult(diagnosisId),
     enabled: Boolean(diagnosisId),
@@ -39,8 +27,8 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
   if (isLoading) {
     return (
       <DiagnosisLoading
-        title="결과 분석 중..."
-        description="진단 결과를 분석하고 있어요"
+        title="진단 결과를 분석 중입니다..."
+        description="상세 결과를 준비하고 있어요."
       />
     );
   }
@@ -48,8 +36,8 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
   if (isError || !data) {
     return (
       <DiagnosisError
-        title="결과를 불러올 수 없어요"
-        onRetry={() => window.location.reload()}
+        title="진단 결과를 불러오지 못했습니다."
+        onRetry={() => void refetch()}
       />
     );
   }
@@ -64,10 +52,7 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
 
       <div className="max-w-2xl mx-auto">
         <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-purple-100">
-          <CEFRLevelBadge
-            cefrLevel={data.cefrLevel}
-            totalScore={data.totalScore}
-          />
+          <CEFRLevelBadge cefrLevel={data.cefrLevel} totalScore={data.totalScore} />
 
           <WeaknessAreasList weaknessAreas={data.weaknessAreas} />
 

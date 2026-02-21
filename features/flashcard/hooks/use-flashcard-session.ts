@@ -8,9 +8,10 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/shared/lib";
-import { fetchFlashcardSession } from "../lib/flashcard-api";
+import { fetchFlashcardSession } from "../api/flashcard-api";
+import type { SessionMode } from "../types";
 
-export function useFlashcardSession(mode: "review" | "new", limit: number = 20) {
+export function useFlashcardSession(mode: SessionMode, limit: number = 20) {
   return useQuery({
     queryKey: queryKeys.flashcard.session(mode),
     queryFn: () => fetchFlashcardSession(mode, limit),

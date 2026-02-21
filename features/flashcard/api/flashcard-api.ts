@@ -5,7 +5,12 @@
  */
 
 import { apiClient } from "@/shared/lib";
-import type { SessionResponse, ReviewRequest, SubmitResponse } from "../types";
+import type {
+  SessionMode,
+  SessionResponse,
+  ReviewRequest,
+  SubmitResponse,
+} from "../types";
 
 /**
  * Fetch flashcard session data
@@ -15,7 +20,7 @@ import type { SessionResponse, ReviewRequest, SubmitResponse } from "../types";
  * @returns Session data with vocabulary cards
  */
 export async function fetchFlashcardSession(
-  mode: "review" | "new",
+  mode: SessionMode,
   limit: number = 20
 ): Promise<SessionResponse> {
   return apiClient.get<SessionResponse>(

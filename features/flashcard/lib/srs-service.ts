@@ -7,7 +7,8 @@
 
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
-import { calculateNextReview, type ReviewQuality, type MasteryLevel } from "./srs-algorithm";
+import type { MasteryLevel, ReviewQuality } from "../types";
+import { calculateNextReview } from "./srs-algorithm";
 
 // Extended vocabulary with user progress
 export interface VocabularyWithProgress extends Vocabulary {

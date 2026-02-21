@@ -1,2 +1,2 @@
-export { generateDiagnosisQuestions } from "./question-generator";
 export { calculateDiagnosisScore } from "./scoring";
+export { getAccuracyStyle } from "./accuracy-style";

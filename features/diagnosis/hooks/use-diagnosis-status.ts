@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ApiError, queryKeys } from "@/shared/lib";
-import { fetchDiagnosisStatus } from "../lib/diagnosis-api";
+import { fetchDiagnosisStatus } from "../api/diagnosis-api";
 
 export function useDiagnosisStatus(enabled: boolean = true) {
   return useQuery({
