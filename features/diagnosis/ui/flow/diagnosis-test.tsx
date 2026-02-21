@@ -2,14 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { TRANSITION_DURATION_MS } from "../../config";
 import { useDiagnosisQuiz } from "../../hooks/use-diagnosis-quiz";
 import { useDiagnosisTimer } from "../../hooks/use-diagnosis-timer";
-import { TRANSITION_DURATION_MS } from "../../constants";
-import { DiagnosisLoading } from "../status/diagnosis-loading";
-import { DiagnosisError } from "../status/diagnosis-error";
-import { DiagnosisProgressBar } from "../shared/diagnosis-progress-bar";
-import { DiagnosisQuestionCard } from "./diagnosis-question-card";
 import { DiagnosisNavigation } from "./diagnosis-navigation";
+import { DiagnosisQuestionCard } from "./diagnosis-question-card";
+import { DiagnosisError } from "../status/diagnosis-error";
+import { DiagnosisLoading } from "../status/diagnosis-loading";
+import { DiagnosisProgressBar } from "../shared/diagnosis-progress-bar";
 
 export function DiagnosisTest() {
   const router = useRouter();
@@ -22,6 +22,7 @@ export function DiagnosisTest() {
     isSubmitting,
     submitResult,
     isSubmitSuccess,
+    refetchQuestions,
   } = useDiagnosisQuiz();
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,8 +47,9 @@ export function DiagnosisTest() {
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentIndex((prev) => {
-          if (direction === "next")
+          if (direction === "next") {
             return Math.min(questions.length - 1, prev + 1);
+          }
           return Math.max(0, prev - 1);
         });
         setIsTransitioning(false);
@@ -67,9 +69,9 @@ export function DiagnosisTest() {
   if (isError || questions.length === 0) {
     return (
       <DiagnosisError
-        title="문제를 불러올 수 없어요"
-        description="네트워크 연결을 확인하고 다시 시도해주세요."
-        onRetry={() => window.location.reload()}
+        title="진단 문제를 불러오지 못했습니다."
+        description="네트워크 상태를 확인한 뒤 다시 시도해 주세요."
+        onRetry={() => void refetchQuestions()}
       />
     );
   }

@@ -1,4 +1,8 @@
+import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
+
 interface StatItem {
+  id: string;
   label: string;
   value: string;
   subtext: string;
@@ -6,7 +10,7 @@ interface StatItem {
   labelColor: string;
   valueColor: string;
   subtextColor: string;
-  extra?: React.ReactNode;
+  extra?: ReactNode;
 }
 
 interface StatsGridProps {
@@ -19,7 +23,8 @@ interface StatsGridProps {
 export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
   const stats: StatItem[] = [
     {
-      label: "정확도",
+      id: "accuracy",
+      label: "Accuracy",
       value: `${accuracy.toFixed(1)}%`,
       subtext: "",
       borderColor: "border-blue-200",
@@ -36,27 +41,30 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       ),
     },
     {
-      label: "획득 XP",
+      id: "xp",
+      label: "XP",
       value: `+${xp}`,
-      subtext: "단어당 5 XP",
+      subtext: "5 XP per correct answer",
       borderColor: "border-purple-200",
       labelColor: "text-purple-700",
       valueColor: "text-purple-900",
       subtextColor: "text-purple-600",
     },
     {
-      label: "정답",
+      id: "correct",
+      label: "Correct",
       value: String(correct),
-      subtext: `${total}문제 중`,
+      subtext: `${total} questions`,
       borderColor: "border-green-200",
       labelColor: "text-green-700",
       valueColor: "text-green-900",
       subtextColor: "text-green-600",
     },
     {
-      label: "전체",
+      id: "total",
+      label: "Total",
       value: String(total),
-      subtext: "학습 완료",
+      subtext: "Session complete",
       borderColor: "border-orange-200",
       labelColor: "text-orange-700",
       valueColor: "text-orange-900",
@@ -68,15 +76,18 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {stats.map((stat) => (
         <div
-          key={stat.label}
-          className={`bg-white rounded-2xl p-6 shadow-md border-2 ${stat.borderColor}`}
+          key={stat.id}
+          className={cn(
+            "bg-white rounded-2xl p-6 shadow-md border-2",
+            stat.borderColor
+          )}
         >
           <div className="text-center space-y-2">
-            <p className={`text-sm font-medium ${stat.labelColor}`}>{stat.label}</p>
-            <p className={`text-4xl font-bold ${stat.valueColor}`}>{stat.value}</p>
+            <p className={cn("text-sm font-medium", stat.labelColor)}>{stat.label}</p>
+            <p className={cn("text-4xl font-bold", stat.valueColor)}>{stat.value}</p>
             {stat.extra}
             {stat.subtext && (
-              <p className={`text-xs ${stat.subtextColor}`}>{stat.subtext}</p>
+              <p className={cn("text-xs", stat.subtextColor)}>{stat.subtext}</p>
             )}
           </div>
         </div>

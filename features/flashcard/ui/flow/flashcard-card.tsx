@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import type { KeyboardEvent } from "react";
 import type { VocabularyCard } from "../../types";
 
 interface FlashcardCardProps {
@@ -9,6 +10,15 @@ interface FlashcardCardProps {
 }
 
 export function FlashcardCard({ card, isFlipped, onFlip, onPlayAudio }: FlashcardCardProps) {
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    onFlip();
+  };
+
   return (
     <div className="max-w-2xl mx-auto perspective-1000">
       <div
@@ -16,7 +26,12 @@ export function FlashcardCard({ card, isFlipped, onFlip, onPlayAudio }: Flashcar
           "relative w-full h-[400px] transition-transform duration-600 transform-style-3d cursor-pointer",
           isFlipped && "rotate-y-180"
         )}
+        role="button"
+        tabIndex={0}
+        aria-label="Flip flashcard"
+        aria-pressed={isFlipped}
         onClick={onFlip}
+        onKeyDown={handleKeyDown}
       >
         {/* Front Side - English Word */}
         <div className="absolute w-full h-full backface-hidden">

@@ -2,9 +2,11 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { FLASHCARD_ROUTES } from "../config";
 import { useFlashcardSession } from "../hooks/use-flashcard-session";
 import { useFlashcardReview } from "../hooks/use-flashcard-review";
 import { useFlashcardTimer } from "../hooks/use-flashcard-timer";
+import type { SessionMode } from "../types";
 import { FlashcardLoading } from "./status/flashcard-loading";
 import { FlashcardError } from "./status/flashcard-error";
 import { FlashcardEmpty } from "./status/flashcard-empty";
@@ -13,7 +15,8 @@ import { FlashcardGame } from "./flow/flashcard-game";
 export function FlashcardContainer() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const mode = (searchParams.get("mode") || "review") as "review" | "new";
+  const rawMode = searchParams.get("mode");
+  const mode: SessionMode = rawMode === "new" ? "new" : "review";
 
   const { data, isLoading, error, refetch } = useFlashcardSession(mode);
   const reviewMutation = useFlashcardReview();
@@ -37,7 +40,7 @@ export function FlashcardContainer() {
     return (
       <FlashcardEmpty
         mode={mode}
-        onSwitchMode={(m) => router.push(`/flashcard?mode=${m}`)}
+        onSwitchMode={(m) => router.push(`${FLASHCARD_ROUTES.session}?mode=${m}`)}
       />
     );
   }

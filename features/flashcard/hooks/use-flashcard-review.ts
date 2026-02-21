@@ -9,7 +9,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { queryKeys } from "@/shared/lib";
-import { submitReviews } from "../lib/flashcard-api";
+import { submitReviews } from "../api/flashcard-api";
+import { FLASHCARD_ROUTES, FLASHCARD_STORAGE_KEYS } from "../config";
 import type { ReviewRequest } from "../types";
 
 export function useFlashcardReview() {
@@ -34,7 +35,10 @@ export function useFlashcardReview() {
       };
 
       try {
-        sessionStorage.setItem("flashcard-result", JSON.stringify(resultData));
+        sessionStorage.setItem(
+          FLASHCARD_STORAGE_KEYS.result,
+          JSON.stringify(resultData)
+        );
       } catch (e) {
         console.error("Failed to store flashcard result:", e);
       }
@@ -47,7 +51,7 @@ export function useFlashcardReview() {
         correct: String(response.summary.correct),
       });
 
-      router.push(`/flashcard/result?${params.toString()}`);
+      router.push(`${FLASHCARD_ROUTES.result}?${params.toString()}`);
     },
   });
 }

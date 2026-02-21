@@ -1,17 +1,15 @@
 import { cn } from "@/lib/utils";
-import { MASTERY_RESULT_CARDS } from "../../constants/mastery";
-import type { VocabularyCard } from "../../types";
-
-type MasteryLevel = VocabularyCard["masteryLevel"];
+import { MASTERY_RESULT_CARDS } from "../../config/mastery";
+import type { MasteryLevel } from "../../types";
 
 const MASTERY_ORDER: MasteryLevel[] = ["new", "learning", "reviewing", "mastered"];
 
 interface MasteryBreakdownProps {
-  breakdown: Record<string, number>;
+  breakdown: Partial<Record<MasteryLevel, number>>;
 }
 
 export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
-  const hasData = MASTERY_ORDER.some((level) => breakdown[level]);
+  const hasData = MASTERY_ORDER.some((level) => Boolean(breakdown[level]));
 
   if (!hasData) {
     return null;
@@ -19,11 +17,13 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">숙달도 분석</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Mastery Breakdown</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {MASTERY_ORDER.map((level) => {
           const count = breakdown[level];
-          if (!count) return null;
+          if (!count) {
+            return null;
+          }
 
           const card = MASTERY_RESULT_CARDS[level];
 
@@ -34,10 +34,8 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
             >
               <div className="text-center">
                 <p className="text-2xl mb-1">{card.emoji}</p>
-                <p className={`text-sm mb-1 ${card.textColor.replace("800", "600").replace("700", "600")}`}>
-                  {card.label}
-                </p>
-                <p className={`text-2xl font-bold ${card.textColor}`}>{count}</p>
+                <p className={cn("text-sm mb-1", card.sublabelColor)}>{card.label}</p>
+                <p className={cn("text-2xl font-bold", card.textColor)}>{count}</p>
               </div>
             </div>
           );

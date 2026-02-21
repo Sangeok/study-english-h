@@ -29,4 +29,4 @@ export const SVG_CIRCLE = {
 } as const;
 
 export { CEFR_INFO, type CEFRInfo } from "./cefr-info";
-export { ACCURACY_THRESHOLDS, getAccuracyStyle } from "./accuracy-thresholds";
+export { ACCURACY_THRESHOLDS, type AccuracyStyle } from "./accuracy-thresholds";

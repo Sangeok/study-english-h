@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateDiagnosisQuestions } from "@/features/diagnosis/lib";
+import { generateDiagnosisQuestions } from "@/features/diagnosis/lib/question-generator";
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { calculateDiagnosisScore } from "@/features/diagnosis";
+import { calculateDiagnosisScore } from "@/features/diagnosis/lib/scoring";
 import type { DiagnosisAnswer } from "@/entities/question";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { getStreakUpdateData } from "@/shared/lib/update-streak";

@@ -1,5 +1,6 @@
+import type { DiagnosisAnswer, DiagnosisQuestion } from "@/entities/question";
 import { apiClient } from "@/shared/lib";
-import type { DiagnosisQuestion, DiagnosisAnswer } from "@/entities/question";
+import type { DiagnosisResult, DiagnosisResultDetail, WeaknessArea } from "../types";
 
 export interface DiagnosisStatusResponse {
   hasCompleted: boolean;
@@ -15,15 +16,15 @@ export interface DiagnosisStartResponse {
   timeLimit: number;
 }
 
-export interface DiagnosisSubmitResponse {
+export interface DiagnosisSubmitResponse extends DiagnosisResult {
   diagnosisId: string;
-  totalScore: number;
-  cefrLevel: string;
-  weaknessAreas: { category: string; accuracy: number }[];
-  recommendedStartPoint: string;
 }
 
-export async function fetchDiagnosisStatus() {
+export interface DiagnosisResultResponse extends DiagnosisResultDetail {
+  weaknessAreas: WeaknessArea[];
+}
+
+export async function fetchDiagnosisStatus(): Promise<DiagnosisStatusResponse> {
   return apiClient.get<DiagnosisStatusResponse>("/api/diagnosis/status");
 }
 
@@ -37,4 +38,10 @@ export async function submitDiagnosis(
   return apiClient.post<DiagnosisSubmitResponse>("/api/diagnosis/submit", {
     answers,
   });
+}
+
+export async function fetchDiagnosisResult(
+  diagnosisId: string
+): Promise<DiagnosisResultResponse> {
+  return apiClient.get<DiagnosisResultResponse>(`/api/diagnosis/${diagnosisId}`);
 }

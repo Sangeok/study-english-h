@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
-import { MASTERY_STYLES, MASTERY_LABELS } from "../../constants/mastery";
-import type { VocabularyCard } from "../../types";
+import { MASTERY_STYLES, MASTERY_LABELS } from "../../config/mastery";
+import type { MasteryLevel } from "../../types";
 
 interface MasteryBadgeProps {
-  masteryLevel: VocabularyCard["masteryLevel"];
+  masteryLevel: MasteryLevel;
 }
 
 export function MasteryBadge({ masteryLevel }: MasteryBadgeProps) {

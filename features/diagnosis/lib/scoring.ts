@@ -1,6 +1,6 @@
-import { CEFR_LEVELS, DIFFICULTY_WEIGHTS } from "../constants";
+import { CEFR_LEVELS, DIFFICULTY_WEIGHTS } from "../config";
 import type { DiagnosisAnswer } from "@/entities/question";
-import type { DiagnosisResult } from "../types";
+import type { DiagnosisResult, WeaknessArea } from "../types";
 
 export function calculateDiagnosisScore(answers: DiagnosisAnswer[]): DiagnosisResult {
   // 1. 난이도별 가중치 점수 계산
@@ -41,7 +41,7 @@ function mapScoreToCEFR(score: number): string {
 /**
  * 약점 영역 분석 (정확도 < 60%)
  */
-function analyzeWeaknesses(answers: DiagnosisAnswer[]): { category: string; accuracy: number }[] {
+function analyzeWeaknesses(answers: DiagnosisAnswer[]): WeaknessArea[] {
   const stats: Record<string, { correct: number; total: number }> = {};
 
   for (const answer of answers) {
@@ -63,7 +63,7 @@ function analyzeWeaknesses(answers: DiagnosisAnswer[]): { category: string; accu
     .sort((a, b) => a.accuracy - b.accuracy);
 }
 
-function getRecommendedLevel(cefrLevel: string, weaknessAreas: { category: string; accuracy: number }[]): string {
+function getRecommendedLevel(cefrLevel: string, weaknessAreas: WeaknessArea[]): string {
   if (weaknessAreas.length >= 3) {
     const currentIndex = CEFR_LEVELS.indexOf(cefrLevel);
     return currentIndex > 0 ? CEFR_LEVELS[currentIndex - 1] : cefrLevel;

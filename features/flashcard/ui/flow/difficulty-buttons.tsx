@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { DIFFICULTY_OPTIONS } from "../../constants/difficulty";
+import { DIFFICULTY_OPTIONS } from "../../config/difficulty";
 import type { ReviewQuality } from "../../types";
 
 interface DifficultyButtonsProps {

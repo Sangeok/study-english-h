@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { SVG_CIRCLE } from "../../constants";
+import { SVG_CIRCLE } from "../../config";
 
 interface CircularProgressProps {
   percentage: number;

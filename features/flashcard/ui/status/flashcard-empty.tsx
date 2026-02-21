@@ -1,11 +1,13 @@
+import type { SessionMode } from "../../types";
+
 interface EmptyStateContent {
   title: string;
   description: string;
   buttonText: string;
-  alternateMode: "review" | "new";
+  alternateMode: SessionMode;
 }
 
-function getEmptyStateContent(mode: "review" | "new"): EmptyStateContent {
+function getEmptyStateContent(mode: SessionMode): EmptyStateContent {
   if (mode === "review") {
     return {
       title: "복습할 단어가 없습니다",
@@ -24,8 +26,8 @@ function getEmptyStateContent(mode: "review" | "new"): EmptyStateContent {
 }
 
 interface FlashcardEmptyProps {
-  mode: "review" | "new";
-  onSwitchMode: (mode: "review" | "new") => void;
+  mode: SessionMode;
+  onSwitchMode: (mode: SessionMode) => void;
 }
 
 export function FlashcardEmpty({ mode, onSwitchMode }: FlashcardEmptyProps) {

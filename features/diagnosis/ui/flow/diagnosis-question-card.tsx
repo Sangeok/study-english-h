@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { DiagnosisQuestion } from "@/entities/question";
 import { getDifficultyStyle } from "@/shared/constants";
 import { cn } from "@/lib/utils";
-import { TRANSITION_DURATION_MS } from "../../constants";
+import { TRANSITION_DURATION_MS } from "../../config";
 
 interface DiagnosisQuestionCardProps {
   question: DiagnosisQuestion;

@@ -6,6 +6,8 @@
 
 // Types
 export type {
+  SessionMode,
+  MasteryLevel,
   VocabularyCard,
   SessionResponse,
   ReviewQuality,
@@ -18,7 +20,7 @@ export type {
 } from "./types";
 
 // API Client
-export { fetchFlashcardSession, submitReviews } from "./lib/flashcard-api";
+export { fetchFlashcardSession, submitReviews } from "./api/flashcard-api";
 
 // Hooks
 export { useFlashcardSession } from "./hooks/use-flashcard-session";
