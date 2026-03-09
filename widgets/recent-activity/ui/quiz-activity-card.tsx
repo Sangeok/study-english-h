@@ -8,13 +8,17 @@ import {
   getAverageSeconds,
   getQuizAccuracy,
 } from "../lib/accuracy-utils";
-import { formatDate } from "../lib/format-date";
+import {
+  formatRelativeDate,
+  type RelativeDateReference,
+} from "../lib/format-relative-date";
 
 interface QuizActivityCardProps {
   activity: QuizActivity;
+  dateReference: RelativeDateReference;
 }
 
-export function QuizActivityCard({ activity }: QuizActivityCardProps) {
+export function QuizActivityCard({ activity, dateReference }: QuizActivityCardProps) {
   const accuracy = getQuizAccuracy(activity.correctAnswers, activity.totalQuestions);
   const averageSeconds = getAverageSeconds(activity.totalTime, activity.totalQuestions);
   const accuracyLevel = getAccuracyLevel(accuracy);
@@ -31,7 +35,9 @@ export function QuizActivityCard({ activity }: QuizActivityCardProps) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
             <h4 className="font-semibold text-purple-950">일일 퀴즈</h4>
-            <span className="text-xs text-purple-600">{formatDate(activity.date)}</span>
+            <span className="text-xs text-purple-600">
+              {formatRelativeDate(activity.date, dateReference)}
+            </span>
           </div>
           <div className="flex items-center gap-3 text-sm text-purple-700">
             <span>

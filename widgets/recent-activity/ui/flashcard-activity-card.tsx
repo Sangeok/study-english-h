@@ -1,17 +1,24 @@
 "use client";
 
 import type { FlashcardActivity } from "@/shared/lib";
-import { formatDate } from "../lib/format-date";
+import { hasFlashcardQualityCounts } from "../lib/flashcard-utils";
+import {
+  formatRelativeDate,
+  type RelativeDateReference,
+} from "../lib/format-relative-date";
 
 interface FlashcardActivityCardProps {
   activity: FlashcardActivity;
+  dateReference: RelativeDateReference;
 }
 
-export function FlashcardActivityCard({ activity }: FlashcardActivityCardProps) {
+export function FlashcardActivityCard({
+  activity,
+  dateReference,
+}: FlashcardActivityCardProps) {
   const minutes = Math.max(0, Math.floor(activity.duration / 60));
   const { qualityCounts } = activity;
-  const hasQualityCounts =
-    qualityCounts.easy + qualityCounts.normal + qualityCounts.hard + qualityCounts.forgot > 0;
+  const hasQualityCounts = hasFlashcardQualityCounts(qualityCounts);
 
   return (
     <article
@@ -25,7 +32,9 @@ export function FlashcardActivityCard({ activity }: FlashcardActivityCardProps) 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
             <h4 className="font-semibold text-purple-950">플래시카드</h4>
-            <span className="text-xs text-purple-600">{formatDate(activity.date)}</span>
+            <span className="text-xs text-purple-600">
+              {formatRelativeDate(activity.date, dateReference)}
+            </span>
           </div>
           <div className="flex items-center gap-3 text-sm text-purple-700">
             <span>{activity.vocabularyCount}개 단어</span>

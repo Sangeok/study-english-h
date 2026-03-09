@@ -4,6 +4,10 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useRecentActivity, type Activity } from "@/shared/lib";
 import { getActivityKey } from "../lib/activity-key";
+import {
+  createRelativeDateReference,
+  type RelativeDateReference,
+} from "../lib/format-relative-date";
 import { FlashcardActivityCard } from "./flashcard-activity-card";
 import { QuizActivityCard } from "./quiz-activity-card";
 import { RecentActivitySkeleton } from "./recent-activity-skeleton";
@@ -14,12 +18,18 @@ interface RecentActivityProps {
   viewAllHref?: string;
 }
 
-function ActivityCard({ activity }: { activity: Activity }) {
+function ActivityCard({
+  activity,
+  dateReference,
+}: {
+  activity: Activity;
+  dateReference: RelativeDateReference;
+}) {
   if (activity.type === "quiz") {
-    return <QuizActivityCard activity={activity} />;
+    return <QuizActivityCard activity={activity} dateReference={dateReference} />;
   }
 
-  return <FlashcardActivityCard activity={activity} />;
+  return <FlashcardActivityCard activity={activity} dateReference={dateReference} />;
 }
 
 export function RecentActivity({
@@ -64,6 +74,7 @@ export function RecentActivity({
   }
 
   const showViewAll = Boolean(viewAllHref) && data.totalActivities > data.activities.length;
+  const dateReference = createRelativeDateReference(new Date());
 
   return (
     <section className={cn("bg-white rounded-3xl p-8 shadow-md", className)} aria-label="최근 학습 기록">
@@ -74,7 +85,11 @@ export function RecentActivity({
 
       <div className="space-y-3">
         {data.activities.map((activity, index) => (
-          <ActivityCard key={getActivityKey(activity, index)} activity={activity} />
+          <ActivityCard
+            key={getActivityKey(activity, index)}
+            activity={activity}
+            dateReference={dateReference}
+          />
         ))}
       </div>
 
