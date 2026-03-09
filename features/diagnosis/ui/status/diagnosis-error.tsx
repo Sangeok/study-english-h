@@ -15,7 +15,7 @@ export function DiagnosisError({
         <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-4xl">⚠️</span>
         </div>
-        <h2 className="text-2xl font-bold text-purple-950 mb-3">{title}</h2>
+        <h2 className="text-2xl font-display font-bold text-purple-950 mb-3">{title}</h2>
         <p className="text-purple-700 mb-8">{description}</p>
         <button
           onClick={onRetry}

@@ -37,7 +37,7 @@ export function FlashcardEmpty({ mode, onSwitchMode }: FlashcardEmptyProps) {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="text-center space-y-6 max-w-md p-8 bg-white rounded-2xl shadow-lg">
         <p className="text-4xl">📚</p>
-        <h2 className="text-2xl font-bold text-gray-800">{content.title}</h2>
+        <h2 className="text-2xl font-sans font-bold text-gray-800">{content.title}</h2>
         <p className="text-gray-600">{content.description}</p>
         <button
           onClick={() => onSwitchMode(content.alternateMode)}

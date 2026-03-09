@@ -3,6 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
+if (process.cwd() !== rootDir) {
+  process.chdir(rootDir);
+}
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: rootDir,

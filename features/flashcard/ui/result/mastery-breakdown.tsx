@@ -17,7 +17,7 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Mastery Breakdown</h2>
+      <h2 className="text-2xl font-sans font-bold text-gray-800 mb-6">Mastery Breakdown</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {MASTERY_ORDER.map((level) => {
           const count = breakdown[level];

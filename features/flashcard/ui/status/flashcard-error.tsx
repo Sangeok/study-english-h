@@ -7,7 +7,7 @@ export function FlashcardError({ onRetry }: FlashcardErrorProps) {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="text-center space-y-4 max-w-md p-8 bg-white rounded-2xl shadow-lg">
         <p className="text-2xl">❌</p>
-        <h2 className="text-xl font-bold text-gray-800">오류 발생</h2>
+        <h2 className="text-xl font-sans font-bold text-gray-800">오류 발생</h2>
         <p className="text-gray-600">플래시카드를 불러올 수 없습니다.</p>
         <button
           onClick={onRetry}
