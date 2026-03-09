@@ -49,6 +49,14 @@ Use small, scoped commits by feature/slice. PRs should include:
 - screenshots or short recordings for UI changes
 - linked issue/task and verification steps performed
 
+## Documentation Workflow
+- Before editing any file under `docs/`, first review `docs/README.md` and the relevant subdirectory `README.md` if present.
+- Treat document location as part of the change, not just document content.
+- Legacy documents left in `docs/proposals/` must be relocated when edited according to the docs rules.
+- If a proposal has been accepted, completed, or is being used as the implemented reference, move it to `docs/specs/` and update its frontmatter/status.
+- If a document is deprecated or superseded, move it to `docs/archive/`.
+- Do not leave a completed or implemented document in `docs/proposals/` after editing.
+
 ## Security & Configuration Tips
 - Keep secrets in `.env`; do not commit credentials.
 - Required environment variables include at least `DATABASE_URL`, `NEXT_PUBLIC_KAKAO_CLIENT_ID`, and `NEXT_PUBLIC_KAKAO_SECRET_KEY`.
