@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "@/lib/db";
+import { getUserProfile } from "@/entities/user";
 import { getSession } from "@/shared/lib/get-session";
 import { calculateEffectiveCurrentStreak } from "@/shared/lib/update-streak";
 
@@ -28,14 +28,7 @@ export async function getAppHeaderData(): Promise<AppHeaderData> {
   }
 
   try {
-    const profile = await prisma.userProfile.findUnique({
-      where: { userId },
-      select: {
-        level: true,
-        lastStudyDate: true,
-        currentStreak: true,
-      },
-    });
+    const profile = await getUserProfile(userId);
 
     const effectiveStreak = calculateEffectiveCurrentStreak(
       profile?.lastStudyDate ?? null,
@@ -58,4 +51,3 @@ export async function getAppHeaderData(): Promise<AppHeaderData> {
     };
   }
 }
-

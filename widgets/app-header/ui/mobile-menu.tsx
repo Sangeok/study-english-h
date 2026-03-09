@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { HEADER_NAV_ITEMS } from "../config/navigation-items";
 import { MobileAuthButtons } from "./auth-buttons";
@@ -45,23 +45,23 @@ export function MobileMenu({
 }: MobileMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const closeMenu = useCallback(() => {
+  const closeMenu = () => {
     setIsMenuOpen(false);
-  }, []);
+  };
 
-  const toggleMenu = useCallback(() => {
+  const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-  }, []);
+  };
 
-  const handleLoginClick = useCallback(() => {
+  const handleLoginClick = () => {
     closeMenu();
     onLogin();
-  }, [closeMenu, onLogin]);
+  };
 
-  const handleSignOutClick = useCallback(async () => {
+  const handleSignOutClick = async () => {
     closeMenu();
     await onSignOut();
-  }, [closeMenu, onSignOut]);
+  };
 
   const menuButtonLabel = getMenuButtonLabel(isMenuOpen);
   const signOutLabel = getSignOutLabel(isSigningOut);

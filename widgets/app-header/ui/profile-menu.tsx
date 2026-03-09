@@ -39,14 +39,14 @@ export function ProfileMenu({
     triggerButtonRef.current?.focus();
   }, []);
 
-  const toggleMenu = useCallback(() => {
+  const toggleMenu = () => {
     setIsOpen((prev) => !prev);
-  }, []);
+  };
 
-  const handleSignOutClick = useCallback(async () => {
+  const handleSignOutClick = async () => {
     closeMenu();
     await onSignOut();
-  }, [closeMenu, onSignOut]);
+  };
 
   useClickOutside(menuRef, isOpen, closeMenu);
 
