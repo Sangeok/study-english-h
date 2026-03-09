@@ -50,12 +50,9 @@ export function calculateStreakUpdate(
     };
   }
 
-  // 어제인지 확인: KST 기준 오늘에서 하루 빼기
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const todayKSTDate = new Date(now.getTime() + kstOffset);
-  todayKSTDate.setUTCHours(0, 0, 0, 0);
-  const yesterdayKSTDate = new Date(todayKSTDate.getTime() - 24 * 60 * 60 * 1000);
-  const yesterdayKST = yesterdayKSTDate.toISOString().split("T")[0];
+  // 어제인지 확인: now에서 24시간을 뺀 후 KST 문자열로 변환
+  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const yesterdayKST = toKSTDateString(yesterday);
 
   if (lastKST === yesterdayKST) {
     const newStreak = currentStreak + 1;
@@ -95,11 +92,8 @@ export function calculateEffectiveCurrentStreak(
     return currentStreak;
   }
 
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const todayKSTDate = new Date(now.getTime() + kstOffset);
-  todayKSTDate.setUTCHours(0, 0, 0, 0);
-  const yesterdayKSTDate = new Date(todayKSTDate.getTime() - 24 * 60 * 60 * 1000);
-  const yesterdayKST = yesterdayKSTDate.toISOString().split("T")[0];
+  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const yesterdayKST = toKSTDateString(yesterday);
 
   if (lastKST === yesterdayKST) {
     return currentStreak;

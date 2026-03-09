@@ -82,7 +82,7 @@ export default function ModesPage() {
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-gray-800">학습 모드 선택</h1>
+          <h1 className="text-4xl font-sans font-bold text-gray-800">학습 모드 선택</h1>
           <p className="text-gray-600">다양한 방식으로 단어를 학습하세요!</p>
         </div>
 
@@ -107,7 +107,7 @@ export default function ModesPage() {
 
               <div className="text-center space-y-4">
                 <p className="text-6xl">{mode.emoji}</p>
-                <h3 className="text-xl font-bold text-gray-800">{mode.title}</h3>
+                <h3 className="text-xl font-sans font-bold text-gray-800">{mode.title}</h3>
                 <p className="text-sm text-gray-600">{mode.description}</p>
               </div>
             </button>
@@ -126,7 +126,7 @@ export default function ModesPage() {
 
         {/* Info Section */}
         <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">💡 학습 팁</h3>
+          <h3 className="text-lg font-sans font-semibold text-gray-800 mb-3">💡 학습 팁</h3>
           <ul className="space-y-2 text-sm text-gray-600">
             <li className="flex items-start">
               <span className="mr-2">•</span>

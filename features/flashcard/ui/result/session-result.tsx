@@ -58,7 +58,7 @@ export function SessionResultContent() {
         <div className="bg-white rounded-3xl shadow-2xl p-8">
           <div className="text-center space-y-4">
             <p className="text-7xl">{resultHeader.emoji}</p>
-            <h1 className="text-3xl font-bold text-gray-800">{resultHeader.title}</h1>
+            <h1 className="text-3xl font-sans font-bold text-gray-800">{resultHeader.title}</h1>
             <p className="text-gray-600">{resultHeader.motivation}</p>
           </div>
         </div>
@@ -76,7 +76,7 @@ export function SessionResultContent() {
                 <span className="text-3xl">SRS</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold mb-2">Next Review Time</h3>
+                <h3 className="text-xl font-sans font-bold mb-2">Next Review Time</h3>
                 <p className="text-lg opacity-90">
                   {nextReviewDate.toLocaleDateString("ko-KR", {
                     month: "long",
@@ -94,7 +94,7 @@ export function SessionResultContent() {
         )}
 
         <div className="bg-white rounded-3xl p-8 shadow-md space-y-3">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Next Actions</h2>
+          <h2 className="text-xl font-sans font-bold text-gray-800 mb-4">Next Actions</h2>
           <button
             onClick={() => router.push(`${FLASHCARD_ROUTES.session}?mode=review`)}
             className="w-full px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:from-blue-600 hover:to-purple-600 font-semibold shadow-lg transition-all hover:scale-105"
@@ -123,7 +123,7 @@ export function SessionResultContent() {
 
         <div className="bg-white rounded-3xl p-8 shadow-md">
           <div className="space-y-3 text-sm text-gray-600">
-            <h3 className="text-lg font-bold text-gray-800">Tips</h3>
+            <h3 className="text-lg font-sans font-bold text-gray-800">Tips</h3>
             <p>Keep sessions short and frequent to strengthen long-term recall.</p>
             <p>Prioritize cards marked as hard or forgot in your next cycle.</p>
             <p>Follow the SRS schedule for consistent improvement.</p>
