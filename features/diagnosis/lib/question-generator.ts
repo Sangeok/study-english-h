@@ -28,8 +28,8 @@ export async function generateDiagnosisQuestions(): Promise<DiagnosisQuestion[]>
           koreanHint: q.koreanHint,
           englishWord: q.englishWord,
           sentence: q.sentence,
-          difficulty: q.difficulty as QuestionDifficulty,
-          category: q.category as QuestionCategory,
+          difficulty: q.difficulty,
+          category: q.category,
           options: q.options.map((opt) => ({
             text: opt.text,
             isCorrect: opt.isCorrect,
