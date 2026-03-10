@@ -6,8 +6,8 @@
  *
  * @example
  * // app/api/diagnosis/submit/route.ts
- * import { diagnosisAnswerSchema } from "@/entities/question/lib/schemas";
- * const validation = z.array(diagnosisAnswerSchema).safeParse(body.answers);
+ * import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
+ * const validation = diagnosisSubmitRequestSchema.safeParse(body);
  */
 import { z } from "zod";
 
@@ -19,4 +19,8 @@ export const diagnosisAnswerSchema = z.object({
   difficulty: questionDifficultySchema,
   isCorrect: z.boolean(),
   category: questionCategorySchema,
+});
+
+export const diagnosisSubmitRequestSchema = z.object({
+  answers: z.array(diagnosisAnswerSchema).min(1, "At least one answer is required"),
 });
