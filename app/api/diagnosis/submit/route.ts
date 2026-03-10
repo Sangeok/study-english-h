@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { calculateDiagnosisScore } from "@/features/diagnosis/lib/scoring";
-import type { DiagnosisAnswer } from "@/entities/question";
-import { getStreakUpdateData } from "@/entities/user/api/get-streak-update-data";
+import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
+import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 
 export async function POST(req: Request) {
@@ -13,7 +13,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 });
     }
 
-    const { answers } = (await req.json()) as { answers: DiagnosisAnswer[] };
+    const body = await req.json();
+    const validation = diagnosisSubmitRequestSchema.safeParse(body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: "잘못된 진단 제출 요청입니다", details: validation.error.issues },
+        { status: 400 }
+      );
+    }
+
+    const { answers } = validation.data;
     const userId = session.user.id;
 
     // 점수 계산

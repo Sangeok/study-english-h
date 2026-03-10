@@ -9,7 +9,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getStreakUpdateData } from "@/entities/user/api/get-streak-update-data";
+import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { recordReview } from "@/features/flashcard/lib/srs-service";
 import { reviewRequestSchema } from "@/features/flashcard/lib/srs-validation";
@@ -100,9 +100,16 @@ export async function POST(req: NextRequest) {
     // 7. Update user profile (XP + streak)
     const streakData = await getStreakUpdateData(userId);
 
-    await prisma.userProfile.update({
+    await prisma.userProfile.upsert({
       where: { userId },
-      data: {
+      create: {
+        userId,
+        totalXP: xpEarned,
+        lastStudyDate: streakData.lastStudyDate,
+        currentStreak: streakData.currentStreak,
+        longestStreak: streakData.longestStreak,
+      },
+      update: {
         totalXP: { increment: xpEarned },
         lastStudyDate: streakData.lastStudyDate,
         currentStreak: streakData.currentStreak,

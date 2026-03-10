@@ -1,11 +1,9 @@
 /**
- * UTC Date를 KST(UTC+9) 기준 YYYY-MM-DD 문자열로 변환
- * 한국은 DST가 없으므로 고정 +9시간
+ * UTC Date를 KST(Asia/Seoul) 기준 YYYY-MM-DD 문자열로 변환
+ * en-CA 로케일은 ISO 8601 형식(YYYY-MM-DD)을 네이티브 출력하므로 파싱 불필요
  */
 export function toKSTDateString(date: Date): string {
-  const kstOffset = 9 * 60 * 60 * 1000;
-  const kstDate = new Date(date.getTime() + kstOffset);
-  return kstDate.toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(date);
 }
 
 export interface StreakUpdateResult {

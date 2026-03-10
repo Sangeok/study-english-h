@@ -4,6 +4,7 @@ import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
 import { shuffleArray } from "@/shared/lib";
+import type { QuizQuestion } from "@/entities/question";
 
 export async function GET(req: Request) {
   try {
