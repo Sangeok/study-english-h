@@ -1,13 +1,7 @@
-/**
- * use-profile-stats.ts
- * 사용자 프로필 통계 조회 Hook
- */
-
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { ApiError, apiClient } from "./api-client";
-import { queryKeys } from "./query-keys";
+import { ApiError, apiClient, queryKeys } from "@/shared/lib";
 
 export interface ProfileStats {
   level: string;

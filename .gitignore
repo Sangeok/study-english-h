@@ -45,6 +45,15 @@ yarn-error.log*
 .opencode
 
 /docs
+!/docs/
+/docs/*
+!/docs/conventions/
+!/docs/conventions/**
+!/docs/proposals/
+/docs/proposals/*
+!/docs/specs/
+/docs/specs/*
+!/docs/specs/spec-shared-directory-refactoring.md
 /prisma/seed-quiz.ts
 
 # typescript

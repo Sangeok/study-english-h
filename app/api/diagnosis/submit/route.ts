@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { calculateDiagnosisScore } from "@/features/diagnosis/lib/scoring";
 import type { DiagnosisAnswer } from "@/entities/question";
+import { getStreakUpdateData } from "@/entities/user/api/get-streak-update-data";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { getStreakUpdateData } from "@/shared/lib/update-streak";
 
 export async function POST(req: Request) {
   try {

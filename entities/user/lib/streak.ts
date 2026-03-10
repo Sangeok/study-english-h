@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-
 /**
  * UTC Date를 KST(UTC+9) 기준 YYYY-MM-DD 문자열로 변환
  * 한국은 DST가 없으므로 고정 +9시간
@@ -10,7 +8,7 @@ export function toKSTDateString(date: Date): string {
   return kstDate.toISOString().split("T")[0];
 }
 
-interface StreakUpdateResult {
+export interface StreakUpdateResult {
   lastStudyDate: Date;
   currentStreak: number;
   longestStreak: number;
@@ -41,7 +39,6 @@ export function calculateStreakUpdate(
 
   const lastKST = toKSTDateString(lastStudyDate);
 
-  // 같은 날 → 변경 없음
   if (lastKST === todayKST) {
     return {
       lastStudyDate: now,
@@ -50,7 +47,6 @@ export function calculateStreakUpdate(
     };
   }
 
-  // 어제인지 확인: now에서 24시간을 뺀 후 KST 문자열로 변환
   const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
   const yesterdayKST = toKSTDateString(yesterday);
 
@@ -63,7 +59,6 @@ export function calculateStreakUpdate(
     };
   }
 
-  // 2일 이상 전 → 리셋
   return {
     lastStudyDate: now,
     currentStreak: 1,
@@ -100,24 +95,4 @@ export function calculateEffectiveCurrentStreak(
   }
 
   return 0;
-}
-
-/**
- * DB에서 현재 프로필을 읽고 streak 업데이트 데이터를 반환
- */
-export async function getStreakUpdateData(
-  userId: string,
-  now: Date = new Date()
-): Promise<StreakUpdateResult> {
-  const profile = await prisma.userProfile.findUnique({
-    where: { userId },
-    select: { lastStudyDate: true, currentStreak: true, longestStreak: true },
-  });
-
-  return calculateStreakUpdate(
-    profile?.lastStudyDate ?? null,
-    profile?.currentStreak ?? 0,
-    profile?.longestStreak ?? 0,
-    now
-  );
 }

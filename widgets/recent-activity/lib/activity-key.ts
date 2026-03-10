@@ -1,4 +1,4 @@
-import type { Activity } from "@/shared/lib";
+import type { Activity } from "../model";
 
 export function getActivityKey(activity: Activity, index: number): string {
   if (activity.type === "quiz") {

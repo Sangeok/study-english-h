@@ -9,8 +9,8 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { getStreakUpdateData } from "@/entities/user/api/get-streak-update-data";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { getStreakUpdateData } from "@/shared/lib/update-streak";
 import { recordReview } from "@/features/flashcard/lib/srs-service";
 import { reviewRequestSchema } from "@/features/flashcard/lib/srs-validation";
 import prisma from "@/lib/db";

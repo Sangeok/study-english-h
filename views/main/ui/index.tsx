@@ -1,7 +1,8 @@
 "use client";
 
 import { useDiagnosisStatus } from "@/features/diagnosis";
-import { ApiError, useProfileStats } from "@/shared/lib";
+import { ApiError } from "@/shared/lib";
+import { useProfileStats } from "../hooks/use-profile-stats";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
 import { useDiagnosisToast } from "../hooks/use-diagnosis-toast";
 import { HeroSection } from "./hero-section";
@@ -47,7 +48,8 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
   const statsHasNonAuthError = statsFailed && !isAuthError(statsError);
   const hasError = diagnosisHasNonAuthError || statsHasNonAuthError;
   const isLoading = isAuthenticated && (diagnosisLoading || statsLoading);
-  const diagnosisCompleted = isAuthenticated && !diagnosisLoading ? (diagnosisStatus?.hasCompleted ?? false) : false;
+  const diagnosisCompleted =
+    isAuthenticated && !diagnosisLoading ? (diagnosisStatus?.hasCompleted ?? false) : false;
 
   const stats = profileStats || DEFAULT_STATS;
 

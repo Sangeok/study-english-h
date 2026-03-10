@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { BASE_XP_PER_QUESTION, calculateQuestionXP, type QuizResult } from "@/features/quiz/lib";
+import { getStreakUpdateData } from "@/entities/user/api/get-streak-update-data";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { getStreakUpdateData } from "@/shared/lib/update-streak";
 
 interface QuizSubmission {
   questionId: string;
