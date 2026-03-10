@@ -19,7 +19,9 @@
       "Bash(npm run lint:*)",
       "Bash(node -e:*)",
       "Bash(npx prisma db execute:*)",
-      "Bash(npx dotenv:*)"
+      "Bash(npx dotenv:*)",
+      "Bash(cd \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h\" && npx prisma migrate reset --force 2>&1)",
+      "Bash(cd \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h\" && PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"네, 진행해주세요\" npx prisma migrate reset --force 2>&1)"
     ]
   }
 }

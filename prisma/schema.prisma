@@ -101,14 +101,31 @@ model UserProfile {
   @@index([userId])
 }
 
+enum QuestionDifficulty {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+enum QuestionCategory {
+  daily
+  business
+  toeic
+  travel
+  idioms
+}
+
 model QuizQuestion { // 퀴즈 질문
   id              String   @id @default(cuid())
   koreanHint      String   // 한글 힌트
   contextHintKo   String?  // 상황 설명 힌트 (한국어)
   englishWord     String   // 정답 영어 단어
   sentence        String   // 문맥 문장 (빈칸 포함)
-  difficulty      String   // A1, A2, B1, B2, C1, C2
-  category        String   // daily, business, toeic, travel, idioms
+  difficulty      QuestionDifficulty
+  category        QuestionCategory
 
   options         QuizOption[]
   attempts        UserQuizAttempt[]
