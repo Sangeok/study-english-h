@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useRecentActivity, type Activity } from "@/shared/lib";
 import { getActivityKey } from "../lib/activity-key";
+import { useRecentActivity, type Activity } from "../model";
 import {
   createRelativeDateReference,
   type RelativeDateReference,

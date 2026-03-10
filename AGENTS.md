@@ -28,6 +28,14 @@ Prefer imports through each slice's `index.ts` public API when available.
 - Keep Next.js reserved filenames unchanged (`page.tsx`, `layout.tsx`, `route.ts`).
 - Use alias imports via `@/*` from `tsconfig.json`.
 
+## Mandatory Conventions Review For Code Work
+- Before any code change, refactor, code generation, or code review, first read `docs/conventions/README.md`.
+- After reading `docs/conventions/README.md`, review every Markdown file under `docs/conventions/` before proceeding.
+- Treat `docs/conventions/` as the top-level source of truth for code style, naming, readability, predictability, cohesion, and coupling rules.
+- Read every conventions document on every code task, then apply each rule according to the scope stated in that document.
+- If a requested change conflicts with a convention or the applicable scope is unclear, surface the conflict before proceeding instead of silently choosing an interpretation.
+- Any new Markdown file added under `docs/conventions/` is mandatory by default and must be reviewed for future code tasks.
+
 ## Testing Guidelines
 No dedicated automated test runner is currently configured in `package.json`.
 

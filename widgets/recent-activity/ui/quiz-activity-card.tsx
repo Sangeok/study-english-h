@@ -1,13 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import type { QuizActivity } from "@/shared/lib";
 import { ACCURACY_LABELS, ACCURACY_STYLES } from "../config/accuracy-config";
 import {
   getAccuracyLevel,
   getAverageSeconds,
   getQuizAccuracy,
 } from "../lib/accuracy-utils";
+import type { QuizActivity } from "../model";
 import {
   formatRelativeDate,
   type RelativeDateReference,

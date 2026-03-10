@@ -1,7 +1,7 @@
 "use client";
 
-import type { FlashcardActivity } from "@/shared/lib";
 import { hasFlashcardQualityCounts } from "../lib/flashcard-utils";
+import type { FlashcardActivity } from "../model";
 import {
   formatRelativeDate,
   type RelativeDateReference,

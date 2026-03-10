@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import { calculateEffectiveCurrentStreak } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { calculateEffectiveCurrentStreak } from "@/shared/lib/update-streak";
 
 /**
  * GET /api/profile/stats

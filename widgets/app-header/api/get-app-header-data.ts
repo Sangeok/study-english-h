@@ -1,8 +1,7 @@
 "use server";
 
-import { getUserProfile } from "@/entities/user";
+import { calculateEffectiveCurrentStreak, getUserProfile } from "@/entities/user";
 import { getSession } from "@/shared/lib/get-session";
-import { calculateEffectiveCurrentStreak } from "@/shared/lib/update-streak";
 
 export interface AppHeaderData {
   isAuthenticated: boolean;
