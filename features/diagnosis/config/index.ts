@@ -1,4 +1,6 @@
-export const DIFFICULTY_WEIGHTS: Record<string, number> = {
+import type { QuestionDifficulty } from "@/entities/question";
+
+export const DIFFICULTY_WEIGHTS: Record<QuestionDifficulty, number> = {
   A1: 1,
   A2: 2,
   B1: 3,

@@ -4,6 +4,7 @@ import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
 import { shuffleArray } from "@/shared/lib";
+import type { QuestionDifficulty, QuestionCategory } from "@/entities/question";
 
 export async function GET(req: Request) {
   try {
@@ -86,8 +87,8 @@ export async function GET(req: Request) {
         koreanHint: q.koreanHint,
         contextHint: q.contextHintKo ?? null,
         sentence: q.sentence,
-        difficulty: q.difficulty,
-        category: q.category,
+        difficulty: q.difficulty as QuestionDifficulty,
+        category: q.category as QuestionCategory,
         options: q.options.map((opt) => ({
           text: opt.text,
           isCorrect: opt.isCorrect,

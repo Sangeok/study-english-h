@@ -1,1 +1,1 @@
-export type { QuestionOption, DiagnosisAnswer, DiagnosisQuestion, QuizQuestion } from "./types";
+export type { QuestionOption, DiagnosisAnswer, DiagnosisQuestion, QuizQuestion, QuestionDifficulty, QuestionCategory } from "./types";

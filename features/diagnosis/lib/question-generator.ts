@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import type { DiagnosisQuestion } from "@/entities/question";
+import type { DiagnosisQuestion, QuestionDifficulty, QuestionCategory } from "@/entities/question";
 import { shuffleArray } from "@/shared/lib";
 import { QUESTION_DISTRIBUTION, QUESTION_POOL_MULTIPLIER } from "../config";
 
@@ -28,8 +28,8 @@ export async function generateDiagnosisQuestions(): Promise<DiagnosisQuestion[]>
           koreanHint: q.koreanHint,
           englishWord: q.englishWord,
           sentence: q.sentence,
-          difficulty: q.difficulty,
-          category: q.category,
+          difficulty: q.difficulty as QuestionDifficulty,
+          category: q.category as QuestionCategory,
           options: q.options.map((opt) => ({
             text: opt.text,
             isCorrect: opt.isCorrect,
