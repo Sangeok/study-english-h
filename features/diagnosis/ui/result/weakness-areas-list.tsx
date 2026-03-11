@@ -8,25 +8,8 @@ interface WeaknessAreasListProps {
 }
 
 interface WeaknessAreasProps {
-  weaknessAreas: WeaknessArea[] | Record<string, number> | null;
+  weaknessAreas: WeaknessArea[];
   className?: string;
-}
-
-function normalizeWeaknessAreas(
-  weaknessAreas: WeaknessArea[] | Record<string, number> | null
-): WeaknessArea[] {
-  if (!weaknessAreas) {
-    return [];
-  }
-
-  if (Array.isArray(weaknessAreas)) {
-    return weaknessAreas;
-  }
-
-  return Object.entries(weaknessAreas).map(([category, accuracy]) => ({
-    category,
-    accuracy,
-  }));
 }
 
 function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
@@ -93,11 +76,9 @@ export function WeaknessAreasList({ weaknessAreas }: WeaknessAreasListProps) {
 }
 
 export function WeaknessAreas({ weaknessAreas, className }: WeaknessAreasProps) {
-  const normalizedWeaknessAreas = normalizeWeaknessAreas(weaknessAreas);
-
   return (
     <div className={cn("bg-white rounded-3xl p-8 shadow-md", className)}>
-      <WeaknessAreaContent weaknessAreas={normalizedWeaknessAreas} />
+      <WeaknessAreaContent weaknessAreas={weaknessAreas} />
     </div>
   );
 }

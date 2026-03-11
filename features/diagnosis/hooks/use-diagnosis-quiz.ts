@@ -2,13 +2,13 @@
 
 import { useCallback, useMemo } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import type { DiagnosisAnswer } from "@/entities/question";
 import { queryKeys } from "@/shared/lib";
 import { DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/constants";
 import {
   fetchDiagnosisQuestions,
   submitDiagnosis,
 } from "../api/diagnosis-api";
+import { formatDiagnosisAnswers } from "../lib/format-answers";
 
 export function useDiagnosisQuiz() {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -27,17 +27,7 @@ export function useDiagnosisQuiz() {
   const submit = useCallback(
     (answersById: Record<string, string>) => {
       if (questions.length === 0) return;
-
-      const formattedAnswers: DiagnosisAnswer[] = questions.map((question) => ({
-        questionId: question.id,
-        difficulty: question.difficulty,
-        isCorrect:
-          question.options.find((option) => option.isCorrect)?.text ===
-          answersById[question.id],
-        category: question.category,
-      }));
-
-      submitMutation.mutate(formattedAnswers);
+      submitMutation.mutate(formatDiagnosisAnswers(questions, answersById));
     },
     [questions, submitMutation]
   );
