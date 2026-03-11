@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import { useToast } from "@/shared/ui";
+import { useFlashcardGameFlow } from "../../hooks/use-flashcard-game-flow";
 import { FlashcardCard } from "./flashcard-card";
+import { FlashcardProgressBar } from "./flashcard-progress-bar";
 import { DifficultyButtons } from "./difficulty-buttons";
 import { MasteryBadge } from "./mastery-badge";
-import type { VocabularyCard, ReviewEntry, ReviewQuality } from "../../types";
+import type { VocabularyCard, ReviewEntry } from "../../types";
 
 interface FlashcardGameProps {
   cards: VocabularyCard[];
@@ -25,51 +27,8 @@ export function FlashcardGame({
   getSessionDuration,
 }: FlashcardGameProps) {
   const { toast } = useToast();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [reviews, setReviews] = useState<ReviewEntry[]>([]);
-
-  // Start card timer on mount
-  useEffect(() => {
-    startCardTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Reset card state when index changes
-  useEffect(() => {
-    setIsFlipped(false);
-    startCardTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex]);
-
-  const currentCard = cards[currentIndex];
-  const progress = ((currentIndex + 1) / cards.length) * 100;
-
-  const handleFlip = useCallback(() => {
-    setIsFlipped((prev) => !prev);
-  }, []);
-
-  const handleReview = useCallback(
-    (quality: ReviewQuality) => {
-      const timeSpent = getCardTime();
-      const review: ReviewEntry = {
-        vocabularyId: currentCard.id,
-        quality,
-        isCorrect: quality !== "forgot",
-        timeSpent,
-      };
-
-      const updatedReviews = [...reviews, review];
-
-      if (currentIndex < cards.length - 1) {
-        setReviews(updatedReviews);
-        setCurrentIndex((i) => i + 1);
-      } else {
-        onSubmitReviews(updatedReviews, getSessionDuration());
-      }
-    },
-    [currentCard.id, currentIndex, cards.length, reviews, getCardTime, getSessionDuration, onSubmitReviews]
-  );
+  const { currentIndex, isFlipped, currentCard, progress, handleFlip, handleReview } =
+    useFlashcardGameFlow({ cards, onSubmitReviews, startCardTimer, getCardTime, getSessionDuration });
 
   const handlePlayAudio = useCallback(() => {
     if (currentCard.audioUrl) {
@@ -80,28 +39,11 @@ export function FlashcardGame({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-8 px-4">
-      {/* Progress Bar */}
-      <div className="max-w-2xl mx-auto mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">
-            {currentIndex + 1} / {cards.length}
-          </span>
-          <span className="text-sm font-medium text-gray-700">{Math.round(progress)}%</span>
-        </div>
-        <div
-          className="w-full h-2 bg-gray-200 rounded-full overflow-hidden"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={Math.round(progress)}
-          aria-label="Flashcard session progress"
-        >
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
+      <FlashcardProgressBar
+        current={currentIndex + 1}
+        total={cards.length}
+        progress={progress}
+      />
 
       <FlashcardCard
         card={currentCard}
