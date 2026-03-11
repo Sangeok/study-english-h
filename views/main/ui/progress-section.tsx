@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { StatCard } from "@/shared/ui";
-import { WeaknessAreas } from "@/features/diagnosis";
+import { WeaknessAreas, normalizeWeaknessAreas } from "@/features/diagnosis";
 import { SectionWrapper } from "./section-wrapper";
 
 interface ProgressSectionProps {
@@ -92,7 +92,7 @@ export function ProgressSection({
       {/* Weakness Areas Section */}
       {diagnosisCompleted && !isLoading && (
         <div className="mt-8">
-          <WeaknessAreas weaknessAreas={weaknessAreas || null} />
+          <WeaknessAreas weaknessAreas={normalizeWeaknessAreas(weaknessAreas)} />
         </div>
       )}
     </SectionWrapper>

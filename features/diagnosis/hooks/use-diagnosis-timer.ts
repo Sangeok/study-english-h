@@ -20,20 +20,21 @@ export function useDiagnosisTimer(initialSeconds: number, onExpire: () => void) 
       return;
     }
 
+    const startTime = Date.now();
     let hasExpired = false;
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          if (!hasExpired) {
-            hasExpired = true;
-            onExpireRef.current();
-          }
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      const remaining = Math.max(0, initialSeconds - elapsed);
+
+      setTimeLeft(remaining);
+
+      if (remaining === 0 && !hasExpired) {
+        hasExpired = true;
+        clearInterval(timer);
+        onExpireRef.current();
+      }
+    }, 500);
 
     return () => clearInterval(timer);
   }, [initialSeconds]);

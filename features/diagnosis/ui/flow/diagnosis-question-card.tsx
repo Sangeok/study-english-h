@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { DiagnosisQuestion } from "@/entities/question";
 import { getDifficultyStyle } from "@/shared/constants";
 import { cn } from "@/lib/utils";
@@ -33,7 +33,7 @@ function getLabelClassName(isSelected: boolean): string {
   return "border-purple-300 bg-white group-hover:border-purple-400";
 }
 
-export function DiagnosisQuestionCard({
+export const DiagnosisQuestionCard = memo(function DiagnosisQuestionCard({
   question,
   selectedAnswer,
   onAnswer,
@@ -178,4 +178,4 @@ export function DiagnosisQuestionCard({
       </div>
     </div>
   );
-}
+});

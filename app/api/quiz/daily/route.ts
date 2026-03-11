@@ -1,104 +1,218 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import type { Prisma } from "@/lib/generated/prisma/client";
+import type { QuestionCategory, QuestionDifficulty } from "@/entities/question";
+import { questionCategorySchema, questionDifficultySchema } from "@/entities/question/lib/schemas";
+import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
 import { shuffleArray } from "@/shared/lib";
-import type { QuizQuestion } from "@/entities/question";
+
+const QUESTION_INCLUDE = {
+  options: {
+    orderBy: {
+      order: "asc",
+    },
+  },
+} satisfies Prisma.QuizQuestionInclude;
+
+type QuizQuestionWithOptions = Prisma.QuizQuestionGetPayload<{
+  include: typeof QUESTION_INCLUDE;
+}>;
+
+type QuestionQueryOptions = {
+  difficulty: QuestionDifficulty;
+  take: number;
+  includeCategories?: readonly QuestionCategory[];
+  excludeCategories?: readonly QuestionCategory[];
+  excludeQuestionIds?: readonly string[];
+};
+
+function getQuizCount(searchParams: URLSearchParams): number {
+  const rawCount = searchParams.get("count");
+
+  if (!rawCount) {
+    return DEFAULT_QUIZ_COUNT;
+  }
+
+  const parsedCount = Number(rawCount);
+
+  if (!Number.isInteger(parsedCount) || parsedCount <= 0) {
+    return DEFAULT_QUIZ_COUNT;
+  }
+
+  return parsedCount;
+}
+
+function getUserLevel(level: string | null | undefined): QuestionDifficulty {
+  const result = questionDifficultySchema.safeParse(level);
+
+  if (!result.success) {
+    return "A1";
+  }
+
+  return result.data;
+}
+
+function getWeaknessCategories(weaknessAreas: unknown): QuestionCategory[] {
+  if (!isPlainObject(weaknessAreas)) {
+    return [];
+  }
+
+  return Object.keys(weaknessAreas).flatMap((category) => {
+    const result = questionCategorySchema.safeParse(category);
+
+    if (!result.success) {
+      return [];
+    }
+
+    return [result.data];
+  });
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+async function getRandomQuestions({
+  difficulty,
+  take,
+  includeCategories,
+  excludeCategories,
+  excludeQuestionIds,
+}: QuestionQueryOptions): Promise<QuizQuestionWithOptions[]> {
+  if (take <= 0) {
+    return [];
+  }
+
+  const questions = await prisma.quizQuestion.findMany({
+    where: {
+      difficulty,
+      ...(includeCategories && includeCategories.length > 0
+        ? {
+            category: {
+              in: [...includeCategories],
+            },
+          }
+        : {}),
+      ...(excludeCategories && excludeCategories.length > 0
+        ? {
+            category: {
+              notIn: [...excludeCategories],
+            },
+          }
+        : {}),
+      ...(excludeQuestionIds && excludeQuestionIds.length > 0
+        ? {
+            id: {
+              notIn: [...excludeQuestionIds],
+            },
+          }
+        : {}),
+    },
+    include: QUESTION_INCLUDE,
+    take: take * 2,
+  });
+
+  return shuffleArray(questions).slice(0, take);
+}
+
+function createQuizQuestionResponse(question: QuizQuestionWithOptions) {
+  return {
+    id: question.id,
+    koreanHint: question.koreanHint,
+    contextHint: question.contextHintKo ?? null,
+    sentence: question.sentence,
+    difficulty: question.difficulty,
+    category: question.category,
+    options: question.options.map((option) => ({
+      text: option.text,
+      isCorrect: option.isCorrect,
+    })),
+  };
+}
 
 export async function GET(req: Request) {
   try {
     const session = await getSessionFromRequest(req);
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 });
+      return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
     const { searchParams } = new URL(req.url);
-    const count = parseInt(searchParams.get("count") || DEFAULT_QUIZ_COUNT.toString());
+    const count = getQuizCount(searchParams);
 
-    // 진단 완료 여부 확인 + 사용자 프로필 병렬 조회
     const [{ hasCompleted }, profile] = await Promise.all([
       checkDiagnosisStatus(session.user.id),
       prisma.userProfile.findUnique({
-        where: { userId: session.user.id },
+        where: {
+          userId: session.user.id,
+        },
       }),
     ]);
 
     if (!hasCompleted) {
       return NextResponse.json(
         {
-          error: "진단이 필요합니다",
+          error: "Diagnosis required",
           requiresDiagnosis: true,
-          message: "퀴즈를 이용하려면 먼저 레벨 진단을 완료해주세요",
+          message: "Complete the diagnosis before starting the quiz.",
         },
         { status: 403 }
       );
     }
 
-    // 프로필이 없으면 기본 A1 레벨로 문제 생성
-    const userLevel = profile?.level ?? "A1";
+    const userLevel = getUserLevel(profile?.level);
+    const weaknessCategories = getWeaknessCategories(profile?.weaknessAreas);
 
-    // 약점 영역 기반 문제 선택 (50% 약점, 50% 일반)
-    const weaknessCategories = profile?.weaknessAreas
-      ? Object.keys(profile.weaknessAreas as Record<string, number>)
-      : [];
+    const weaknessCount =
+      weaknessCategories.length > 0
+        ? Math.floor(count * WEAKNESS_QUESTION_RATIO)
+        : 0;
 
-    const weaknessCount = weaknessCategories.length > 0 ? Math.floor(count * WEAKNESS_QUESTION_RATIO) : 0;
-    const normalCount = count - weaknessCount;
-
-    let questions = [];
-
-    // 약점 영역 문제
-    if (weaknessCount > 0) {
-      const weaknessQuestions = await prisma.quizQuestion.findMany({
-        where: {
-          difficulty: userLevel,
-          category: { in: weaknessCategories },
-        },
-        include: {
-          options: { orderBy: { order: "asc" } },
-        },
-        take: weaknessCount * 2,
-      });
-      questions.push(...shuffleArray(weaknessQuestions).slice(0, weaknessCount));
-    }
-
-    // 일반 문제
-    const normalQuestions = await prisma.quizQuestion.findMany({
-      where: {
-        difficulty: userLevel,
-        ...(weaknessCategories.length > 0 && {
-          category: { notIn: weaknessCategories },
-        }),
-      },
-      include: {
-        options: { orderBy: { order: "asc" } },
-      },
-      take: normalCount * 2,
+    const selectedWeaknessQuestions = await getRandomQuestions({
+      difficulty: userLevel,
+      includeCategories: weaknessCategories,
+      take: weaknessCount,
     });
-    questions.push(...shuffleArray(normalQuestions).slice(0, normalCount));
 
-    questions = shuffleArray(questions);
+    const remainingCount = Math.max(count - selectedWeaknessQuestions.length, 0);
+    const selectedNormalQuestions = await getRandomQuestions({
+      difficulty: userLevel,
+      excludeCategories: weaknessCategories,
+      excludeQuestionIds: selectedWeaknessQuestions.map((question) => question.id),
+      take: remainingCount,
+    });
+
+    const selectedQuestionIds = [
+      ...selectedWeaknessQuestions,
+      ...selectedNormalQuestions,
+    ].map((question) => question.id);
+
+    const fallbackCount = Math.max(count - selectedQuestionIds.length, 0);
+    const fallbackQuestions = await getRandomQuestions({
+      difficulty: userLevel,
+      excludeQuestionIds: selectedQuestionIds,
+      take: fallbackCount,
+    });
+
+    const questions = shuffleArray([
+      ...selectedWeaknessQuestions,
+      ...selectedNormalQuestions,
+      ...fallbackQuestions,
+    ]).slice(0, count);
 
     return NextResponse.json({
-      questions: questions.map((q) => ({
-        id: q.id,
-        koreanHint: q.koreanHint,
-        contextHint: q.contextHintKo ?? null,
-        sentence: q.sentence,
-        difficulty: q.difficulty,
-        category: q.category,
-        options: q.options.map((opt) => ({
-          text: opt.text,
-          isCorrect: opt.isCorrect,
-        })),
-      })),
+      questions: questions.map(createQuizQuestionResponse),
       userLevel,
       totalQuestions: questions.length,
     });
   } catch (error) {
     console.error("Quiz generation error:", error);
-    return NextResponse.json({ error: "퀴즈 생성 중 오류가 발생했습니다" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to generate quiz" },
+      { status: 500 }
+    );
   }
 }
