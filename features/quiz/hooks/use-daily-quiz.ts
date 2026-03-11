@@ -1,45 +1,23 @@
 "use client";
 
-import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/shared/lib";
+import { fetchDailyQuiz } from "../api/quiz-api";
 import type { QuizQuestion } from "@/entities/question";
-import { apiClient, ApiError, queryKeys } from "@/shared/lib";
 
-interface DailyQuizResponse {
+interface DailyQuizReturn {
   questions: QuizQuestion[];
   userLevel: string;
-  totalQuestions: number;
 }
 
-export function useDailyQuiz() {
-  const router = useRouter();
-
-  const query = useQuery({
+export function useDailyQuiz(): DailyQuizReturn {
+  const { data } = useSuspenseQuery({
     queryKey: queryKeys.quiz.daily(),
-    queryFn: () => apiClient.get<DailyQuizResponse>("/api/quiz/daily"),
-    retry: (failureCount, error) => {
-      if (error instanceof ApiError && error.status === 403) {
-        return false;
-      }
-
-      return failureCount < 3;
-    },
+    queryFn: () => fetchDailyQuiz(),
   });
 
-  const isDiagnosisRequired =
-    query.error instanceof ApiError && query.error.status === 403;
-
-  useEffect(() => {
-    if (isDiagnosisRequired) {
-      router.replace("/diagnosis?required=true");
-    }
-  }, [isDiagnosisRequired, router]);
-
   return {
-    ...query,
-    isDiagnosisRequired,
-    questions: query.data?.questions ?? [],
-    userLevel: query.data?.userLevel ?? "A1",
+    questions: data.questions,
+    userLevel: data.userLevel,
   };
 }

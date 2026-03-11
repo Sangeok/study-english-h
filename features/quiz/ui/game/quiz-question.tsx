@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Check, Lightbulb, Search } from "lucide-react";
 import type { QuizQuestion } from "@/entities/question";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,36 @@ interface QuizQuestionProps {
   hintLevel: 0 | 1 | 2;
   onHintRequest: () => void;
 }
+
+interface Sparkle {
+  id: number;
+  x: number;
+  y: number;
+}
+
+interface SparkleLayerProps {
+  sparkles: Sparkle[];
+}
+
+const SparkleLayer = memo(function SparkleLayer({ sparkles }: SparkleLayerProps) {
+  return (
+    <>
+      {sparkles.map((sparkle) => (
+        <div
+          key={sparkle.id}
+          className="absolute pointer-events-none z-50"
+          style={{
+            left: `${sparkle.x}%`,
+            top: `${sparkle.y}%`,
+            animation: "sparkle 0.6s ease-out forwards",
+          }}
+        >
+          <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
+        </div>
+      ))}
+    </>
+  );
+});
 
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
 
@@ -68,19 +99,7 @@ export function QuizQuestion({
     <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-5 shadow-2xl border border-white/20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
 
-      {sparkles.map((sparkle) => (
-        <div
-          key={sparkle.id}
-          className="absolute pointer-events-none z-50"
-          style={{
-            left: `${sparkle.x}%`,
-            top: `${sparkle.y}%`,
-            animation: "sparkle 0.6s ease-out forwards",
-          }}
-        >
-          <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
-        </div>
-      ))}
+      <SparkleLayer sparkles={sparkles} />
 
       <div className="relative z-10">
         <div className="mb-4">
