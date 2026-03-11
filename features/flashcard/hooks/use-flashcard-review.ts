@@ -9,6 +9,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { queryKeys } from "@/shared/lib";
+import { useToast } from "@/shared/ui";
 import { submitReviews } from "../api/flashcard-api";
 import { FLASHCARD_ROUTES, FLASHCARD_STORAGE_KEYS } from "../config";
 import type { ReviewRequest } from "../types";
@@ -16,6 +17,7 @@ import type { ReviewRequest } from "../types";
 export function useFlashcardReview() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   return useMutation({
     mutationFn: (data: ReviewRequest) => submitReviews(data),
@@ -52,6 +54,11 @@ export function useFlashcardReview() {
       });
 
       router.push(`${FLASHCARD_ROUTES.result}?${params.toString()}`);
+    },
+    onError: () => {
+      toast("결과 저장에 실패했습니다. 네트워크 상태를 확인하고 다시 시도해 주세요.", {
+        variant: "error",
+      });
     },
   });
 }

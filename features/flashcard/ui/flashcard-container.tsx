@@ -22,11 +22,9 @@ export function FlashcardContainer() {
   const reviewMutation = useFlashcardReview();
   const { startCardTimer, getCardTime, getSessionDuration, resetSessionTimer } = useFlashcardTimer();
 
-  // Initialize session timer on mount
   useEffect(() => {
     resetSessionTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [resetSessionTimer]);
 
   if (isLoading) {
     return <FlashcardLoading message="플래시카드를 준비하는 중..." />;
