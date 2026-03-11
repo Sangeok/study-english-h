@@ -10,23 +10,15 @@ import { QuizQuestion } from "./game/quiz-question";
 import { QuizFeedback } from "./result/quiz-feedback";
 import { QuizHeader } from "./game/quiz-header";
 import { QuizNavigation } from "./game/quiz-navigation";
-import { QuizLoading } from "./status/quiz-loading";
-import { QuizError } from "./status/quiz-error";
 import { QuizEmpty } from "./status/quiz-empty";
 import { useDailyQuiz } from "../hooks/use-daily-quiz";
 import { useQuizAnswers } from "../hooks/use-quiz-answers";
 import { useQuizNavigation } from "../hooks/use-quiz-navigation";
+import { useQuizState } from "../hooks/use-quiz-state";
 
 export function QuizContainer() {
   const router = useRouter();
-  const {
-    questions,
-    userLevel,
-    isLoading,
-    isError,
-    refetch,
-    isDiagnosisRequired,
-  } = useDailyQuiz();
+  const { questions, userLevel } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
 
   const submitMutation = useMutation({
@@ -41,43 +33,29 @@ export function QuizContainer() {
     submitMutation.mutate(answerList);
   }, [submitMutation]);
 
-  const { currentIndex, isTransitioning, goNext, goPrevious } = useQuizNavigation(questions.length, handleSubmit);
+  const { currentIndex, isTransitioning, goNext, goPrevious } = useQuizNavigation(
+    questions.length,
+    handleSubmit
+  );
   const { answers, hintLevels, handleAnswer, handleHintRequest } = useQuizAnswers(
     questions,
     currentIndex,
     submitMutation.isSuccess
   );
+  const { currentQuestion, currentHintLevel, answeredCount, isLastQuestion, isAnswered, canSubmit } =
+    useQuizState(questions, currentIndex, answers, hintLevels);
 
   useEffect(() => {
     answersRef.current = answers;
   }, [answers]);
 
-  if (isLoading) {
-    return <QuizLoading />;
-  }
-
-  if (isDiagnosisRequired) {
-    return <QuizLoading />;
-  }
-
-  if (isError) {
-    return <QuizError onRetry={refetch} />;
-  }
-
-  if (questions.length === 0) {
+  if (!currentQuestion) {
     return <QuizEmpty onGoMain={() => router.push("/main")} />;
   }
 
   if (submitMutation.isSuccess && submitMutation.data) {
     return <QuizFeedback result={submitMutation.data} />;
   }
-
-  const currentQuestion = questions[currentIndex];
-  const currentHintLevel = hintLevels[currentQuestion.id] ?? 0;
-  const answeredCount = Object.keys(answers).length;
-  const isLastQuestion = currentIndex === questions.length - 1;
-  const isAnswered = !!answers[currentQuestion.id];
-  const canSubmit = answeredCount === questions.length;
 
   return (
     <div className="h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-violet-900 overflow-hidden flex flex-col">
@@ -115,8 +93,14 @@ export function QuizContainer() {
       {submitMutation.isError && (
         <div className="relative z-10 px-4 py-2">
           <div className="max-w-5xl mx-auto">
-            <div className="text-red-400 text-sm text-center py-2 bg-red-500/10 rounded-lg border border-red-500/20">
-              퀴즈 제출 중 오류가 발생했습니다. 다시 시도해주세요.
+            <div className="flex items-center justify-between text-sm py-2 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
+              <span className="text-red-400">퀴즈 제출 중 오류가 발생했습니다.</span>
+              <button
+                onClick={handleSubmit}
+                className="text-red-300 hover:text-red-100 font-semibold underline transition-colors"
+              >
+                다시 시도
+              </button>
             </div>
           </div>
         </div>
