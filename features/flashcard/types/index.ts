@@ -59,6 +59,8 @@ export interface ReviewResult {
   nextReviewDate: string;
 }
 
+import type { GamificationResult } from "@/features/gamification/types";
+
 // Review submission response
 export interface SubmitResponse {
   success: boolean;
@@ -69,6 +71,7 @@ export interface SubmitResponse {
     xpEarned: number;
   };
   results: ReviewResult[];
+  gamification?: GamificationResult;
 }
 
 // Session result (from review submission, stored in sessionStorage)

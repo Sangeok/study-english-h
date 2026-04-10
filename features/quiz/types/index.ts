@@ -25,8 +25,11 @@ export interface QuizSummary {
   };
 }
 
+import type { GamificationResult } from "@/features/gamification/types";
+
 export interface QuizSubmitResponse {
   results: QuizResult[];
   summary: QuizSummary;
+  gamification?: GamificationResult;
 }
 

@@ -4,6 +4,7 @@ import { calculateDiagnosisScore } from "@/features/diagnosis/lib/scoring";
 import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 
 export async function POST(req: Request) {
   try {
@@ -64,6 +65,7 @@ export async function POST(req: Request) {
           lastStudyDate: streakData.lastStudyDate,
           currentStreak: streakData.currentStreak,
           longestStreak: streakData.longestStreak,
+          freezeCount: streakData.newFreezeCount,
         },
         update: {
           level: result.cefrLevel,
@@ -71,9 +73,18 @@ export async function POST(req: Request) {
           lastStudyDate: streakData.lastStudyDate,
           currentStreak: streakData.currentStreak,
           longestStreak: streakData.longestStreak,
+          freezeCount: streakData.newFreezeCount,
         },
       }),
     ]);
+
+    const gamificationResult = await processGamificationRewards(userId, {
+      type: "diagnosis",
+      correctCount: result.weaknessAreas.filter((a) => a.accuracy >= 60).length,
+      totalCount: answers.length,
+      accuracy: result.totalScore,
+      currentStreak: streakData.currentStreak,
+    });
 
     return NextResponse.json({
       diagnosisId: diagnosis.id,
@@ -81,6 +92,7 @@ export async function POST(req: Request) {
       cefrLevel: result.cefrLevel,
       weaknessAreas: result.weaknessAreas,
       recommendedStartPoint: result.recommendedStartPoint,
+      gamification: gamificationResult,
     });
   } catch (error) {
     console.error("Diagnosis submit error:", error);

@@ -18,4 +18,18 @@ export const queryKeys = {
     stats: () => [...queryKeys.profile.all, "stats"] as const,
     recentActivity: (limit: number) => [...queryKeys.profile.all, "recent-activity", limit] as const,
   },
+  gamification: {
+    all: ["gamification"] as const,
+    streak: () => [...queryKeys.gamification.all, "streak"] as const,
+    league: () => [...queryKeys.gamification.all, "league"] as const,
+    leagueRanking: (tier: number) =>
+      [...queryKeys.gamification.all, "league", "ranking", tier] as const,
+    achievements: () => [...queryKeys.gamification.all, "achievements"] as const,
+    myLeague: () => [...queryKeys.gamification.all, "league", "me"] as const,
+  },
+  dashboard: {
+    all: ["dashboard"] as const,
+    periodStats: (period: string) =>
+      [...queryKeys.dashboard.all, "period-stats", period] as const,
+  },
 } as const;
