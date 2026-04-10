@@ -8,12 +8,16 @@
 - **의존성**: Phase 1-2 (퀴즈 시스템), UserProfile 모델 사전 구현 필요
 - **목표**: 플래시카드 기반 어휘 학습 및 Spaced Repetition System 구현
 - **인증**: Better-Auth (Kakao OAuth) - 서버 사이드 세션 검증
-- **현재 상태**: 🚧 진행 중 (2026-02-06 기준)
+- **현재 상태**: ✅ 핵심 구현 완료 (2026-03-18 기준)
   - ✅ 데이터베이스 스키마 추가 완료
   - ✅ SRS 알고리즘 구현 완료
   - ✅ Flashcard API 구현 완료
-  - ✅ 초기 어휘 데이터 100개 추가
-  - 🚧 Flashcard UI 구현 진행 중
+  - ✅ 어휘 데이터 1340+ 개 추가 (목표 1000개 초과 달성)
+  - ✅ Flashcard UI 구현 완료 (FSD 구조)
+  - ✅ 학습 결과 페이지, 모드 선택 페이지 완료
+  - ✅ XP/스트릭 시스템 연동 완료
+  - ⏸️ 추가 학습 모드 4종 (매칭/선택/타이핑/듣기) → 별도 Phase로 이연
+  - 📋 SRS 알고리즘 유닛 테스트 작성 권장
 
 ---
 
@@ -21,11 +25,11 @@
 
 ### 핵심 목표
 
-- [ ] 플래시카드 학습 시스템
-- [ ] Spaced Repetition 알고리즘 (SM-2 기반)
-- [ ] 5가지 학습 모드 구현
-- [ ] 마스터 레벨 시스템 (New → Learning → Reviewing → Mastered)
-- [ ] 복습 스케줄링 자동화
+- [x] 플래시카드 학습 시스템
+- [x] Spaced Repetition 알고리즘 (SM-2 기반)
+- [ ] ~~5가지 학습 모드 구현~~ → 플래시카드 모드 완료, 나머지 4종은 별도 Phase로 이연
+- [x] 마스터 레벨 시스템 (New → Learning → Reviewing → Mastered)
+- [x] 복습 스케줄링 자동화
 
 ### 사전 요구사항
 
@@ -679,15 +683,21 @@ export async function POST(req: Request) {
 
 ---
 
-### Step 4: 플래시카드 UI 구현 (5-10일차) - 🚧 진행 중
+### Step 4: 플래시카드 UI 구현 (5-10일차) - ✅ 완료
 
 > **실제 구현 위치**: `features/flashcard/` (FSD 구조)
-> - `features/flashcard/ui/` - UI 컴포넌트
-> - `features/flashcard/hooks/` - React 훅
-> - `features/flashcard/api/` - API 클라이언트
+> - `features/flashcard/ui/` - UI 컴포넌트 (flow/, result/, status/ 하위 구조)
+> - `features/flashcard/hooks/` - React 훅 (use-flashcard-session, use-flashcard-review 등)
+> - `features/flashcard/api/` - API 클라이언트 (flashcard-api.ts)
+> - `features/flashcard/config/` - 설정 상수 (difficulty, mastery, routes 등)
 > - `features/flashcard/types/` - TypeScript 타입 정의
+>
+> **라우트 구조**:
+> - `app/(immersive)/flashcard/page.tsx` - 플래시카드 메인 (몰입형 레이아웃)
+> - `app/(shell)/flashcard/result/page.tsx` - 학습 결과
+> - `app/(shell)/flashcard/modes/page.tsx` - 학습 모드 선택
 
-#### 4.1 플래시카드 메인 페이지 - 🚧 진행 중
+#### 4.1 플래시카드 메인 페이지 - ✅ 완료
 
 **설계 문서 참고**: 아래 코드는 참고용이며, 실제 구현은 FSD 구조를 따릅니다.
 
@@ -1152,9 +1162,18 @@ export default function StudyModesPage() {
 }
 ```
 
-> **참고**: 매칭, 선택, 타이핑, 듣기 모드의 세부 UI 구현은 플래시카드 모드 완성 후 별도로 진행합니다.
-> 각 모드는 동일한 SRS API(`/api/flashcard/review`)를 공유하며,
-> 학습 인터랙션 방식만 다르게 구현됩니다.
+> **이연 결정 (2026-03-18)**: 매칭, 선택, 타이핑, 듣기 모드는 별도 Phase로 이연합니다.
+>
+> **이연 사유**:
+> - 플래시카드 모드의 실사용 검증이 선행되어야 함 (SRS 알고리즘 동작, UI 흐름 피드백)
+> - 4개 모드 모두 동일한 SRS API(`/api/flashcard/review`)를 공유하므로 백엔드 추가 작업 없음
+> - UI 껍데기만 다른 구조여서 나중에 추가해도 기술 부채 없음
+> - Phase 1-4(발음 진단) 등 후속 핵심 기능의 진행이 우선
+>
+> **우선순위 참고**: 선택 모드(4지선다)는 능동적 회상 테스트로서 SRS 학습 효과를 높이므로,
+> 추가 모드 중 가장 먼저 구현하는 것을 권장합니다.
+>
+> 모드 선택 페이지(`app/(shell)/flashcard/modes/page.tsx`)에서 미구현 모드는 "준비 중"으로 표시됩니다.
 
 ---
 
@@ -1162,46 +1181,53 @@ export default function StudyModesPage() {
 
 ### 데이터베이스
 
-- [x] Schema 확장 완료 (VocabularySRS, Vocabulary, FlashcardSession)
+- [x] Schema 확장 완료 (UserVocabulary, Vocabulary, FlashcardSession)
 - [x] 마이그레이션 성공 (20260205184109_add_vocabulary_srs)
 - [x] 초기 어휘 데이터 입력 (100개 - A1/A2 레벨 daily 카테고리)
-- [ ] 전체 어휘 데이터 확장 (목표: 1000개)
+- [x] 전체 어휘 데이터 확장 (1340+ 개, 목표 1000개 초과 달성)
 
 ### SRS 시스템
 
-- [x] SM-2 알고리즘 구현 (`lib/srs/algorithm.ts`)
+- [x] SM-2 알고리즘 구현 (`features/flashcard/lib/srs-algorithm.ts`)
 - [x] 복습 스케줄링 로직 (`calculateNextReview`, `isReviewDue`)
 - [x] 마스터 레벨 시스템 (new → learning → reviewing → mastered)
-- [x] SRS 서비스 구현 (`lib/srs/service.ts`)
+- [x] SRS 서비스 구현 (`features/flashcard/lib/srs-service.ts`)
   - [x] getDueVocabularies
   - [x] getNewVocabularies
   - [x] recordReview
   - [x] updateProfileStats
+  - [x] getVocabularyStats
 
 ### API
 
-- [x] 요청 검증 스키마 (Zod - `lib/srs/validation.ts`)
-- [x] 서버 세션 헬퍼 (Better-Auth - `lib/auth-session.ts`)
+- [x] 요청 검증 스키마 (Zod - `features/flashcard/lib/srs-validation.ts`)
+- [x] 서버 세션 헬퍼 (Better-Auth - `shared/lib/get-session.ts`)
 - [x] 세션 시작 API (`app/api/flashcard/session/route.ts`)
 - [x] 복습 제출 API (`app/api/flashcard/review/route.ts`)
 - [x] 통계 업데이트 로직 (UserProfile 자동 업데이트)
+- [x] XP 시스템 연동 (정답당 5XP)
+- [x] 스트릭 시스템 연동 (`entities/user` getStreakUpdateData)
 
 ### UI (FSD 구조: `features/flashcard/`)
 
-- [ ] 플래시카드 UI (플립 애니메이션 포함)
+- [x] 플래시카드 UI (플립 애니메이션 포함)
   - [x] 기본 구조 설계 (`features/flashcard/ui/`)
-  - [ ] 컴포넌트 구현
-  - [ ] 애니메이션 추가
-- [ ] 학습 모드 선택
-- [ ] 학습 결과 페이지
-- [ ] 에러 및 로딩 상태 처리
-- [ ] 나머지 4가지 학습 모드 (매칭, 선택, 타이핑, 듣기)
+  - [x] 컴포넌트 구현 (flow/, result/, status/ 하위 구조)
+  - [x] 플립 애니메이션 추가
+- [x] 학습 모드 선택 (`app/(shell)/flashcard/modes/page.tsx`)
+- [x] 학습 결과 페이지 (`app/(shell)/flashcard/result/page.tsx`)
+- [x] 에러 및 로딩 상태 처리 (flashcard-loading, flashcard-error, flashcard-empty)
+- [ ] ~~나머지 4가지 학습 모드 (매칭, 선택, 타이핑, 듣기)~~ → 별도 Phase로 이연
 
 ---
 
 ## 테스트 시나리오
 
-### SRS 알고리즘 (✅ 구현 완료, 테스트 대기)
+### SRS 알고리즘 (✅ 구현 완료, 유닛 테스트 작성 권장)
+
+> **테스트 권장 사유**: SRS 알고리즘은 순수 함수이므로 테스트 비용이 낮고,
+> 버그 발생 시 사용자 학습 데이터가 잘못 축적되어 복구가 어렵습니다.
+> easeFactor 경계값, interval 계산 오류 등은 눈에 잘 보이지 않아 발견이 늦습니다.
 
 1. [x] 정답 시 interval 증가 (repetitions 1→1일, 2→3일, 3→7일, 4+→easeFactor 적용)
 2. [x] 오답 시 repetitions 리셋, interval 1일로 초기화
@@ -1209,37 +1235,41 @@ export default function StudyModesPage() {
 4. [x] easeFactor 조정: easy +0.15, hard -0.15, forgot -0.2 (최소 1.3)
 5. [x] easeFactor 상한 제한 없이 easy 반복 시 점진적 증가 확인
 
-### 학습 플로우 (✅ API 구현 완료, 통합 테스트 대기)
+### 학습 플로우 (✅ API 구현 완료)
 
 1. [x] 복습 필요 단어 조회 (nextReviewDate <= now)
 2. [x] 새로운 단어 추가 (학습 이력 없는 단어만)
 3. [x] 복습 결과 저장 및 SRS 데이터 업데이트
 4. [x] UserProfile 통계 업데이트
 
-### API 검증 (✅ 구현 완료, E2E 테스트 필요)
+### API 검증 (✅ 구현 완료)
+
+> API E2E 테스트는 인증/DB 연결 등 셋업 비용이 높고, API 로직 자체가 단순 CRUD에 가까워 보류합니다.
 
 1. [x] 미인증 사용자 401 응답
 2. [x] 잘못된 요청 파라미터 400 응답 (Zod 검증)
 3. [x] 정상 세션 생성 및 카드 반환
 4. [x] 복습 결과 제출 및 XP 계산
 
-### UI (🚧 구현 진행 중)
+### UI (✅ 구현 완료)
 
-1. [ ] 카드 플립 애니메이션 동작
-2. [ ] 카드별 소요 시간 정확히 측정
-3. [ ] 로딩/에러/빈 상태 UI 표시
-4. [ ] 세션 완료 후 결과 페이지 이동
+> UI 통합 테스트는 사용자 피드백에 따라 UI 변경 가능성이 높아 보류합니다.
+
+1. [x] 카드 플립 애니메이션 동작
+2. [x] 카드별 소요 시간 정확히 측정
+3. [x] 로딩/에러/빈 상태 UI 표시
+4. [x] 세션 완료 후 결과 페이지 이동
 
 ---
 
-## 초기 데이터 준비 - ✅ 부분 완료 (100개/1000개)
+## 초기 데이터 준비 - ✅ 완료 (1340+개, 목표 초과 달성)
 
-### 현재 상태 (2026-02-06)
+### 현재 상태 (2026-03-18)
 
-- ✅ **데이터 파일**: `prisma/data/vocabularies.json` (100개 단어)
-- ✅ **Seed 스크립트**: `prisma/seed-vocabulary.ts` 구현 완료
-- ✅ **데이터 구성**: A1(50개), A2(50개) - daily 카테고리
-- 🚧 **확장 필요**: B1, B2, C1, C2 레벨 및 다른 카테고리 추가
+- ✅ **데이터 파일**: `prisma/data/vocabularies.json` (기본 데이터) + 4개 추가 파일
+- ✅ **Seed 스크립트**: `prisma/seed-vocabulary.ts` 구현 완료 (배치 insert, skipDuplicates)
+- ✅ **데이터 구성**: A1~C2 전 레벨, daily/business/toeic/travel 전 카테고리
+- ✅ **목표 달성**: 1340+ 어휘 (원래 목표 1000개 초과)
 
 ### Seed 스크립트
 
@@ -1326,70 +1356,71 @@ main()
 
 ---
 
-## 현재 진행 상황 (2026-02-06)
+## 진행 상황
 
-### ✅ 완료된 작업
+### ✅ 핵심 구현 완료 (2026-03-18)
 
 1. **데이터베이스 스키마** (Migration: 20260205184109_add_vocabulary_srs)
-   - VocabularySRS 모델 (SRS 진행도 추적)
+   - UserVocabulary 모델 (SRS 진행도 추적)
    - Vocabulary 모델 (어휘 콘텐츠)
-   - FlashcardSession 모델 (학습 세션 기록)
+   - FlashcardSession 모델 (학습 세션 기록, quality 카운트 포함)
 
-2. **SRS 알고리즘** (`lib/srs/`)
-   - SM-2 기반 복습 간격 계산
-   - 마스터 레벨 시스템 (4단계)
+2. **SRS 알고리즘** (`features/flashcard/lib/`)
+   - SM-2 기반 복습 간격 계산 (`srs-algorithm.ts`)
+   - 마스터 레벨 시스템 4단계 (`srs-service.ts`)
    - easeFactor 조정 로직
+   - Zod 검증 스키마 (`srs-validation.ts`)
 
 3. **API 엔드포인트** (`app/api/flashcard/`)
    - GET `/api/flashcard/session` - 복습 세션 시작
    - POST `/api/flashcard/review` - 복습 결과 제출
-   - Zod 스키마 검증
-   - Better-Auth 세션 인증
+   - Better-Auth 세션 인증 (`shared/lib/get-session.ts`)
+   - XP 시스템 연동 (정답당 5XP)
+   - 스트릭 시스템 연동
 
-4. **초기 데이터**
-   - 100개 어휘 시드 데이터 (A1: 50개, A2: 50개)
-   - JSON 파일 기반 관리 (`prisma/data/vocabularies.json`)
+4. **어휘 데이터** (1340+ 개)
+   - 기본: `prisma/data/vocabularies.json`
+   - 추가: extra-a1-a2, extra-b1-b2, extra-c1-c2, extra-supplement JSON 파일
+   - A1~C2 전 레벨, daily/business/toeic/travel 전 카테고리
 
-### 🚧 진행 중
+5. **Flashcard UI** (`features/flashcard/`)
+   - FSD 구조: ui/ (flow, result, status), hooks/, api/, config/, types/
+   - 플래시카드 메인 페이지 (플립 애니메이션)
+   - 학습 결과 페이지, 학습 모드 선택 페이지
+   - 로딩/에러/빈 상태 처리
 
-1. **Flashcard UI** (`features/flashcard/`)
-   - 기본 구조 설계 완료
-   - 컴포넌트 구현 진행 중
-   - 플립 애니메이션 추가 예정
+### ⏸️ 이연 항목 (별도 Phase)
 
-### 📋 남은 작업
+> **이연 결정 사유**: 플래시카드 핵심 모드의 실사용 검증이 우선이며,
+> 추가 모드는 동일 SRS API를 공유하므로 나중에 추가해도 기술 부채가 없음.
+> Phase 1-4(발음 진단) 등 후속 핵심 기능 진행이 우선.
 
-1. **UI 완성**
-   - [ ] 플래시카드 메인 페이지 (플립 애니메이션)
-   - [ ] 학습 결과 페이지
-   - [ ] 학습 모드 선택 페이지
-   - [ ] 로딩/에러 상태 처리
-
-2. **데이터 확장**
-   - [ ] B1, B2, C1, C2 레벨 어휘 추가
-   - [ ] business, toeic, travel 카테고리 추가
-   - [ ] 목표: 1000개 어휘
-
-3. **추가 학습 모드**
+1. **추가 학습 모드**
+   - [ ] 선택 모드 (4지선다) — 능동적 회상 테스트로 학습 효과 높음, **차순위 1순위**
    - [ ] 매칭 모드 (한-영 짝맞추기)
-   - [ ] 선택 모드 (4지선다)
    - [ ] 타이핑 모드 (직접 입력)
-   - [ ] 듣기 모드 (발음 듣고 선택)
+   - [ ] 듣기 모드 (발음 듣고 선택) — audioUrl 데이터 확보 필요
 
-4. **테스트**
-   - [ ] SRS 알고리즘 유닛 테스트
-   - [ ] API E2E 테스트
-   - [ ] UI 통합 테스트
+### 📋 권장 후속 작업
+
+1. **SRS 알고리즘 유닛 테스트** (권장)
+   - 순수 함수이므로 테스트 비용 낮음
+   - 버그 시 사용자 학습 데이터 오염, 발견 어려움
+   - easeFactor 경계값, interval 계산, 마스터 레벨 승급 조건 검증
+
+2. ~~API E2E 테스트~~ (보류) — 테스트 인프라 셋업 비용 대비 효과 낮음
+3. ~~UI 통합 테스트~~ (보류) — UI 변경 가능성 높아 유지보수 부담
 
 ## 다음 단계
 
-### Phase 1-3 완료 후
+### Phase 1-3 완료 → Phase 1-4 진행
 
 - **Phase 1-4: 발음 진단 시스템**
   - Web Speech API 통합
   - 음소별 분석 구현
   - 발음 평가 알고리즘
 
-- **추가 학습 모드 구현**
-  - 매칭, 선택, 타이핑, 듣기 모드 세부 구현
+- **추가 학습 모드 (별도 Phase)**
+  - 선택 모드(4지선다) 우선 구현 권장
+  - 이후 매칭, 타이핑, 듣기 모드 순차 추가
   - 각 모드별 UI/UX 최적화

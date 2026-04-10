@@ -2,7 +2,7 @@
 
 import { useDiagnosisStatus } from "@/features/diagnosis";
 import { ApiError } from "@/shared/lib";
-import { useProfileStats } from "../hooks/use-profile-stats";
+import { useProfileStats } from "@/entities/user/model/use-profile-stats";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
 import { useDiagnosisToast } from "../hooks/use-diagnosis-toast";
 import { HeroSection } from "./hero-section";

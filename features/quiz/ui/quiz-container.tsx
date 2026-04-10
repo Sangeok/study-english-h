@@ -11,6 +11,7 @@ import { QuizFeedback } from "./result/quiz-feedback";
 import { QuizHeader } from "./game/quiz-header";
 import { QuizNavigation } from "./game/quiz-navigation";
 import { QuizEmpty } from "./status/quiz-empty";
+import { useRewardToast } from "@/features/gamification";
 import { useDailyQuiz } from "../hooks/use-daily-quiz";
 import { useQuizAnswers } from "../hooks/use-quiz-answers";
 import { useQuizNavigation } from "../hooks/use-quiz-navigation";
@@ -20,9 +21,15 @@ export function QuizContainer() {
   const router = useRouter();
   const { questions, userLevel } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
+  const { showRewards } = useRewardToast();
 
   const submitMutation = useMutation({
     mutationFn: submitQuiz,
+    onSuccess: (data) => {
+      if (data.gamification) {
+        showRewards(data.gamification);
+      }
+    },
     onError: (error) => {
       console.error("Quiz submit error:", error);
     },

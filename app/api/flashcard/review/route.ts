@@ -13,6 +13,7 @@ import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { recordReview } from "@/features/flashcard/lib/srs-service";
 import { reviewRequestSchema } from "@/features/flashcard/lib/srs-validation";
+import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 import prisma from "@/lib/db";
 
 export async function POST(req: NextRequest) {
@@ -108,13 +109,23 @@ export async function POST(req: NextRequest) {
         lastStudyDate: streakData.lastStudyDate,
         currentStreak: streakData.currentStreak,
         longestStreak: streakData.longestStreak,
+        freezeCount: streakData.newFreezeCount,
       },
       update: {
         totalXP: { increment: xpEarned },
         lastStudyDate: streakData.lastStudyDate,
         currentStreak: streakData.currentStreak,
         longestStreak: streakData.longestStreak,
+        freezeCount: streakData.newFreezeCount,
       },
+    });
+
+    const gamificationResult = await processGamificationRewards(userId, {
+      type: "flashcard",
+      correctCount,
+      totalCount: totalReviews,
+      accuracy,
+      currentStreak: streakData.currentStreak,
     });
 
     // 8. Return success response with summary
@@ -123,10 +134,11 @@ export async function POST(req: NextRequest) {
       summary: {
         total: totalReviews,
         correct: correctCount,
-        accuracy: Math.round(accuracy * 10) / 10, // Round to 1 decimal place
+        accuracy: Math.round(accuracy * 10) / 10,
         xpEarned,
       },
       results,
+      gamification: gamificationResult,
     });
   } catch (error) {
     console.error("Flashcard review API error:", error);

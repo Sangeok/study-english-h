@@ -10,13 +10,19 @@ export async function getStreakUpdateData(
 ): Promise<StreakUpdateResult> {
   const profile = await prisma.userProfile.findUnique({
     where: { userId },
-    select: { lastStudyDate: true, currentStreak: true, longestStreak: true },
+    select: {
+      lastStudyDate: true,
+      currentStreak: true,
+      longestStreak: true,
+      freezeCount: true,
+    },
   });
 
   return calculateStreakUpdate(
     profile?.lastStudyDate ?? null,
     profile?.currentStreak ?? 0,
     profile?.longestStreak ?? 0,
-    now
+    now,
+    profile?.freezeCount ?? 0
   );
 }

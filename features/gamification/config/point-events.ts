@@ -1,0 +1,10 @@
+export const POINT_EVENTS = {
+  QUIZ_CORRECT: 10,
+  QUIZ_PERFECT: 50,
+  FLASHCARD_REVIEW: 5,
+  DIAGNOSIS_COMPLETE: 30,
+  DAILY_STREAK: 20,
+  DAILY_GOAL_COMPLETE: 100,
+} as const;
+
+export type PointEventType = keyof typeof POINT_EVENTS;

@@ -3,6 +3,7 @@ import prisma from "@/lib/db";
 import { BASE_XP_PER_QUESTION, calculateQuestionXP, type QuizResult } from "@/features/quiz/lib";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 
 interface QuizSubmission {
   questionId: string;
@@ -102,13 +103,23 @@ export async function POST(req: Request) {
         lastStudyDate: streakData.lastStudyDate,
         currentStreak: streakData.currentStreak,
         longestStreak: streakData.longestStreak,
+        freezeCount: streakData.newFreezeCount,
       },
       update: {
         totalXP: { increment: totalXP },
         lastStudyDate: streakData.lastStudyDate,
         currentStreak: streakData.currentStreak,
         longestStreak: streakData.longestStreak,
+        freezeCount: streakData.newFreezeCount,
       },
+    });
+
+    const gamificationResult = await processGamificationRewards(userId, {
+      type: "quiz",
+      correctCount,
+      totalCount: results.length,
+      accuracy,
+      currentStreak: streakData.currentStreak,
     });
 
     return NextResponse.json({
@@ -121,6 +132,7 @@ export async function POST(req: Request) {
         correctBaseXP,
         hintStats,
       },
+      gamification: gamificationResult,
     });
   } catch (error) {
     console.error("Quiz submit error:", error);

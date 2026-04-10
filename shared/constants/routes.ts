@@ -4,6 +4,9 @@ export const ROUTES = {
   QUIZ: "/quiz",
   DIAGNOSIS: "/diagnosis",
   FLASHCARD_MODES: "/flashcard/modes",
+  DASHBOARD: "/dashboard",
+  ACHIEVEMENTS: "/achievements",
+  LEAGUE: "/league",
 } as const;
 
 export const QUERY_PARAMS = {
