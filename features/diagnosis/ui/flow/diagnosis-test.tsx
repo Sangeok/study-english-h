@@ -1,13 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { MIN_DIAGNOSIS_ANSWERS } from "@/shared/constants";
 import { TRANSITION_DURATION_MS } from "../../config";
 import { useDiagnosisQuiz } from "../../hooks/use-diagnosis-quiz";
 import { useDiagnosisTimer } from "../../hooks/use-diagnosis-timer";
+import { useUnsavedDiagnosisWarning } from "../../hooks/use-unsaved-diagnosis-warning";
 import { DiagnosisNavigation } from "./diagnosis-navigation";
 import { DiagnosisQuestionCard } from "./diagnosis-question-card";
 import { DiagnosisError } from "../status/diagnosis-error";
+import { DiagnosisExpired } from "../status/diagnosis-expired";
 import { DiagnosisLoading } from "../status/diagnosis-loading";
 import { DiagnosisProgressBar } from "../shared/diagnosis-progress-bar";
 
@@ -28,13 +31,27 @@ export function DiagnosisTest() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [timerExpiredInsufficient, setTimerExpiredInsufficient] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   const handleSubmit = useCallback(() => {
     submit(answers);
   }, [submit, answers]);
 
+  const handleTimerExpire = useCallback(() => {
+    const answeredCount = Object.keys(answers).length;
+    if (answeredCount >= MIN_DIAGNOSIS_ANSWERS) {
+      submit(answers);
+      return;
+    }
+    setTimerExpiredInsufficient(true);
+  }, [submit, answers]);
+
   const { minutes, seconds, timePercentage, isTimeWarning } =
-    useDiagnosisTimer(timeLimit, handleSubmit);
+    useDiagnosisTimer(timeLimit, handleTimerExpire, retryCount);
+
+  const hasAnswers = Object.keys(answers).length > 0;
+  useUnsavedDiagnosisWarning(hasAnswers && !isSubmitSuccess);
 
   useEffect(() => {
     if (isSubmitSuccess && submitResult) {
@@ -62,6 +79,14 @@ export function DiagnosisTest() {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }));
   }, []);
 
+  const handleRetry = useCallback(() => {
+    setTimerExpiredInsufficient(false);
+    setAnswers({});
+    setCurrentIndex(0);
+    setRetryCount((c) => c + 1);
+    refetchQuestions();
+  }, [refetchQuestions]);
+
   if (isLoading) {
     return <DiagnosisLoading />;
   }
@@ -72,6 +97,17 @@ export function DiagnosisTest() {
         title="진단 문제를 불러오지 못했습니다."
         description="네트워크 상태를 확인한 뒤 다시 시도해 주세요."
         onRetry={() => void refetchQuestions()}
+      />
+    );
+  }
+
+  if (timerExpiredInsufficient) {
+    return (
+      <DiagnosisExpired
+        answeredCount={Object.keys(answers).length}
+        requiredCount={MIN_DIAGNOSIS_ANSWERS}
+        onGoHome={() => router.push("/")}
+        onRetry={handleRetry}
       />
     );
   }
