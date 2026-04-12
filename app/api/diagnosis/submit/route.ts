@@ -6,6 +6,7 @@ import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
+import { MIN_DIAGNOSIS_ANSWERS } from "@/shared/constants";
 
 export async function POST(req: Request) {
   try {
@@ -27,6 +28,22 @@ export async function POST(req: Request) {
 
     const { answers } = validation.data;
     const userId = session.user.id;
+
+    const answeredCount = answers.filter(
+      (a) => a.selectedText.trim() !== ""
+    ).length;
+
+    if (answeredCount < MIN_DIAGNOSIS_ANSWERS) {
+      return NextResponse.json(
+        {
+          error: "INSUFFICIENT_ANSWERS",
+          message: `최소 ${MIN_DIAGNOSIS_ANSWERS}개 문항에 답해야 진단이 완료됩니다`,
+          answeredCount,
+          requiredCount: MIN_DIAGNOSIS_ANSWERS,
+        },
+        { status: 400 }
+      );
+    }
 
     // DB 재조회로 서버 측 채점 수행 (client-trust exploit 차단)
     const questionIds = answers.map((a) => a.questionId);

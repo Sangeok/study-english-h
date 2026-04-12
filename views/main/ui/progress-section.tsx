@@ -22,6 +22,11 @@ export function ProgressSection({
   diagnosisCompleted,
   onViewAllStats
 }: ProgressSectionProps) {
+  const levelDisplay = diagnosisCompleted ? level : "미진단";
+  const levelFooter = diagnosisCompleted
+    ? "진단 기반 맞춤 학습"
+    : "레벨 진단을 완료해주세요";
+
   return (
     <SectionWrapper className="bg-white/40 backdrop-blur-sm" aria-label="학습 진행률">
       <div className="flex items-end justify-between mb-8">
@@ -78,12 +83,12 @@ export function ProgressSection({
         <StatCard
           icon="🏆"
           label="현재 레벨"
-          value={level}
+          value={levelDisplay}
           gradient="indigo"
           isLoading={isLoading}
           footer={
             <div className="flex items-center gap-2 text-sm text-purple-600">
-              <span className="font-semibold">진단 기반 맞춤 학습</span>
+              <span className="font-semibold">{levelFooter}</span>
             </div>
           }
         />

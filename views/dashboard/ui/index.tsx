@@ -50,6 +50,7 @@ export default function DashboardPage() {
           totalWordLearned={profile?.totalWordLearned ?? 0}
           masteredWords={profile?.masteredWords ?? 0}
           longestStreak={profile?.longestStreak ?? 0}
+          hasCompletedDiagnosis={profile?.hasCompletedDiagnosis ?? false}
           isLoading={isProfileLoading}
         />
 
