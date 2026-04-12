@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import type { DiagnosisQuestion, QuestionDifficulty, QuestionCategory } from "@/entities/question";
+import type { DiagnosisQuestion } from "@/entities/question";
 import { shuffleArray } from "@/shared/lib";
 import { QUESTION_DISTRIBUTION, QUESTION_POOL_MULTIPLIER } from "../config";
 
@@ -30,9 +30,10 @@ export async function generateDiagnosisQuestions(): Promise<DiagnosisQuestion[]>
           sentence: q.sentence,
           difficulty: q.difficulty,
           category: q.category,
-          options: q.options.map((opt) => ({
+          // Phase 0-A: isCorrect 제거 — 클라이언트에 정답 노출 차단
+          // Phase 0-B: shuffleArray 로 응답 시점 셔플 — position 암기 exploit 차단
+          options: shuffleArray(q.options).map((opt) => ({
             text: opt.text,
-            isCorrect: opt.isCorrect,
           })),
         }))
   );

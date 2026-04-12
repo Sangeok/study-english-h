@@ -125,9 +125,10 @@ function createQuizQuestionResponse(question: QuizQuestionWithOptions) {
     sentence: question.sentence,
     difficulty: question.difficulty,
     category: question.category,
-    options: question.options.map((option) => ({
+    // Phase 0-A: isCorrect 제거 — 클라이언트에 정답 노출 차단
+    // Phase 0-B: shuffleArray 로 응답 시점 셔플 — position 암기 exploit 차단
+    options: shuffleArray(question.options).map((option) => ({
       text: option.text,
-      isCorrect: option.isCorrect,
     })),
   };
 }
