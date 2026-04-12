@@ -1,4 +1,5 @@
 import type { QuestionDifficulty } from "@/entities/question";
+import { TOTAL_DIAGNOSIS_QUESTION_COUNT } from "@/shared/constants";
 
 export const DIFFICULTY_WEIGHTS: Record<QuestionDifficulty, number> = {
   A1: 1,
@@ -22,6 +23,12 @@ export const QUESTION_DISTRIBUTION = [
 ] as const;
 
 export const QUESTION_POOL_MULTIPLIER = 2;
+
+if (QUESTION_DISTRIBUTION.reduce((sum, d) => sum + d.count, 0) !== TOTAL_DIAGNOSIS_QUESTION_COUNT) {
+  throw new Error(
+    `TOTAL_DIAGNOSIS_QUESTION_COUNT drift: QUESTION_DISTRIBUTION 합계 ${QUESTION_DISTRIBUTION.reduce((sum, d) => sum + d.count, 0)}, 상수 ${TOTAL_DIAGNOSIS_QUESTION_COUNT}`
+  );
+}
 
 export const SVG_CIRCLE = {
   RADIUS: 42,

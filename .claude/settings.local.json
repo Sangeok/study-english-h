@@ -29,7 +29,13 @@
       "mcp__plugin_context7_context7__query-docs",
       "Bash(ls -la \"/c/Users/hamso/OneDrive/Desktop/git/study-eng-h/app/\\(shell\\)/\")",
       "Bash(find C:/Users/hamso/OneDrive/Desktop/git/study-eng-h -type f -name *toast*)",
-      "Bash(find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/src\" -o -find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/app\" -o -find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/features\" -type f \\\\\\( -name \"*.ts\" -o -name \"*.tsx\" \\\\\\) -exec grep -l \"z\\\\\\\\.enum\\\\\\\\|z\\\\\\\\.object\\\\\\\\|safeParse\\\\\\\\|z\\\\\\\\.interface\" {} \\\\;)"
+      "Bash(find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/src\" -o -find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/app\" -o -find \"C:/Users/hamso/OneDrive/Desktop/git/study-eng-h/features\" -type f \\\\\\( -name \"*.ts\" -o -name \"*.tsx\" \\\\\\) -exec grep -l \"z\\\\\\\\.enum\\\\\\\\|z\\\\\\\\.object\\\\\\\\|safeParse\\\\\\\\|z\\\\\\\\.interface\" {} \\\\;)",
+      "Skill(dev-doc-review)",
+      "Bash(find .:*)",
+      "Bash(find C:\\\\Users\\\\hamso\\\\OneDrive\\\\Desktop\\\\git\\\\study-eng-h\\\\prisma\\\\migrations:*)",
+      "Bash(npx:*)",
+      "Bash(cmd:*)",
+      "Bash(echo \"EXIT:$?\")"
     ]
   }
 }

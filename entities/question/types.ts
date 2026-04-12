@@ -7,12 +7,22 @@ export type QuestionCategory = "daily" | "business" | "toeic" | "travel" | "idio
 /**
  * 問題選択肢
  *
- * 참고: DB의 `order` 필드는 API 경계에서 제거되며 entity 타입에 노출되지 않음.
- * 정렬은 DB 쿼리(orderBy: { order: "asc" })에서 처리된다.
+ * 참고: DB의 `order` 및 `isCorrect` 필드는 API 경계에서 제거되며 entity 타입에 노출되지 않음.
+ * 정렬은 응답 시점 셔플로 처리되며, 정답 판정은 서버에서 DB 재조회로 수행한다.
  */
 export interface QuestionOption {
   readonly text: string;
-  readonly isCorrect: boolean;
+}
+
+/**
+ * 클라이언트 → 서버 와이어 타입 (진단 제출 payload 의 단일 답변)
+ *
+ * difficulty · category · isCorrect 를 의도적으로 담지 않는다.
+ * 클라이언트가 주장할 수 있는 면적을 최소화해 가중치 조작 우회 경로를 원천 차단한다.
+ */
+export interface DiagnosisSubmitAnswer {
+  readonly questionId: string;
+  readonly selectedText: string;
 }
 
 interface BaseQuestion {

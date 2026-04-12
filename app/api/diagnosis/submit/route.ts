@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { calculateDiagnosisScore } from "@/features/diagnosis/lib/scoring";
+import { formatDiagnosisAnswers } from "@/features/diagnosis/lib/format-answers";
 import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
@@ -27,8 +28,25 @@ export async function POST(req: Request) {
     const { answers } = validation.data;
     const userId = session.user.id;
 
+    // DB 재조회로 서버 측 채점 수행 (client-trust exploit 차단)
+    const questionIds = answers.map((a) => a.questionId);
+    const dbQuestions = await prisma.quizQuestion.findMany({
+      where: { id: { in: questionIds } },
+      include: { options: true },
+    });
+
+    // 존재하지 않는 questionId 차단 (zod 가 중복·총합을 막지만 미존재는 여기서만 잡힘)
+    if (dbQuestions.length !== answers.length) {
+      return NextResponse.json(
+        { error: "존재하지 않는 questionId 가 포함되어 있습니다" },
+        { status: 400 }
+      );
+    }
+
+    const scoredAnswers = formatDiagnosisAnswers(dbQuestions, answers);
+
     // 점수 계산
-    const result = calculateDiagnosisScore(answers);
+    const result = calculateDiagnosisScore(scoredAnswers);
 
     const weaknessAreaMap = result.weaknessAreas.reduce((acc, area) => {
       acc[area.category] = area.accuracy;

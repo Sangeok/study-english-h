@@ -1,4 +1,4 @@
-import type { DiagnosisAnswer, DiagnosisQuestion } from "@/entities/question";
+import type { DiagnosisQuestion, DiagnosisSubmitAnswer } from "@/entities/question";
 import { apiClient } from "@/shared/lib";
 import type { DiagnosisResult, DiagnosisResultDetail, WeaknessArea } from "../types";
 
@@ -32,12 +32,10 @@ export async function fetchDiagnosisQuestions(): Promise<DiagnosisStartResponse>
   return apiClient.get<DiagnosisStartResponse>("/api/diagnosis/start");
 }
 
-export async function submitDiagnosis(
-  answers: DiagnosisAnswer[]
-): Promise<DiagnosisSubmitResponse> {
-  return apiClient.post<DiagnosisSubmitResponse>("/api/diagnosis/submit", {
-    answers,
-  });
+export async function submitDiagnosis(body: {
+  answers: DiagnosisSubmitAnswer[];
+}): Promise<DiagnosisSubmitResponse> {
+  return apiClient.post<DiagnosisSubmitResponse>("/api/diagnosis/submit", body);
 }
 
 export async function fetchDiagnosisResult(
