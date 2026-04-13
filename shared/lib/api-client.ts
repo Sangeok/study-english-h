@@ -25,7 +25,7 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 export const apiClient = {
-  get: <T>(url: string) => request<T>(url),
+  get: <T>(url: string) => request<T>(url, { cache: "no-store" }),
   post: <T>(url: string, data: unknown) =>
     request<T>(url, { method: "POST", body: JSON.stringify(data) }),
 };

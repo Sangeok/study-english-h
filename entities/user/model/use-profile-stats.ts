@@ -15,6 +15,7 @@ export interface ProfileStats {
   weaknessAreas: Record<string, number> | null;
   vocabularyProgress: number;
   lastStudyDate: string | null;
+  hasCompletedTodayQuiz: boolean;
 }
 
 async function fetchProfileStats(): Promise<ProfileStats> {

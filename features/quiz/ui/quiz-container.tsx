@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { submitQuiz } from "../api/quiz-api";
@@ -19,14 +20,17 @@ import { useQuizState } from "../hooks/use-quiz-state";
 
 export function QuizContainer() {
   const router = useRouter();
-  const { questions, userLevel } = useDailyQuiz();
+  const { questions, userLevel, hasCompletedToday } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
+  const queryClient = useQueryClient();
   const { showRewards } = useRewardToast();
 
   const submitMutation = useMutation({
     mutationFn: submitQuiz,
     onSuccess: (data) => {
-      if (data.gamification) {
+      queryClient.removeQueries({ queryKey: queryKeys.quiz.daily() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.profile.stats() });
+      if (data.gamification && !data.isExtraPractice) {
         showRewards(data.gamification);
       }
     },
@@ -69,6 +73,16 @@ export function QuizContainer() {
       <div className="fixed inset-0 opacity-20 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
       </div>
+
+      {hasCompletedToday && (
+        <div className="relative z-10 px-4 pt-2">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center gap-2 text-sm py-2 px-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+              <span className="text-blue-300">ℹ️ 추가 연습 모드 — 오늘 퀴즈는 이미 완료했습니다. XP는 적립되지 않습니다.</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <QuizHeader
         currentIndex={currentIndex}

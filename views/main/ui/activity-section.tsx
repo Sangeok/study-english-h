@@ -3,17 +3,26 @@ import { SectionWrapper } from "./section-wrapper";
 
 interface ActivitySectionProps {
   diagnosisCompleted: boolean;
+  hasCompletedTodayQuiz: boolean;
   isLoading: boolean;
   onQuizClick: () => void;
   onChallengeClick: () => void;
 }
 
+function getQuizButtonLabel(diagnosisCompleted: boolean, hasCompletedTodayQuiz: boolean): string {
+  if (!diagnosisCompleted) return "진단 먼저 완료하기";
+  if (hasCompletedTodayQuiz) return "추가 연습하기";
+  return "퀴즈 시작하기";
+}
+
 export function ActivitySection({
   diagnosisCompleted,
+  hasCompletedTodayQuiz,
   isLoading,
   onQuizClick,
   onChallengeClick
 }: ActivitySectionProps) {
+  const quizButtonLabel = getQuizButtonLabel(diagnosisCompleted, hasCompletedTodayQuiz);
   return (
     <SectionWrapper aria-label="학습 활동">
       <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-8">
@@ -29,7 +38,14 @@ export function ActivitySection({
               </div>
               <div className="flex-1">
                 <p className="text-sm text-purple-700 mb-1">일일 학습</p>
-                <h4 className="font-display font-bold text-xl text-purple-950">오늘의 퀴즈</h4>
+                <h4 className="font-display font-bold text-xl text-purple-950 flex items-center">
+                  오늘의 퀴즈
+                  {hasCompletedTodayQuiz && (
+                    <span className="ml-2 text-sm font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full border border-green-200">
+                      ✅ 완료
+                    </span>
+                  )}
+                </h4>
                 <p className="text-sm text-purple-600 mt-1">레벨에 맞는 문제로 실력 향상</p>
               </div>
             </div>
@@ -38,8 +54,7 @@ export function ActivitySection({
               disabled={!diagnosisCompleted}
               className="w-full py-4 bg-gradient-to-br from-purple-600 to-violet-600 text-white font-semibold rounded-2xl hover:shadow-lg transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {diagnosisCompleted && "퀴즈 시작하기"}
-              {!diagnosisCompleted && "진단 먼저 완료하기"}
+              {quizButtonLabel}
             </button>
           </div>
 

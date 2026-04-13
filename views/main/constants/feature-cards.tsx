@@ -15,6 +15,7 @@ type DiagnosisStatus = DiagnosisStatusResponse | undefined;
 interface FeatureCardContext {
   diagnosisStatus: DiagnosisStatus;
   diagnosisCompleted: boolean;
+  hasCompletedTodayQuiz: boolean;
 }
 
 interface BaseFeatureCardConfig {
@@ -82,17 +83,20 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
     title: "일일 퀴즈",
     handlerKey: "handleQuizClick",
 
-    getDescription: ({ diagnosisCompleted }) => {
-      if (diagnosisCompleted) return "맞춤형 퀴즈를 풀어보세요";
-      return "진단 완료 후 이용 가능합니다";
+    getDescription: ({ diagnosisCompleted, hasCompletedTodayQuiz }) => {
+      if (!diagnosisCompleted) return "진단 완료 후 이용 가능합니다";
+      if (hasCompletedTodayQuiz) return "오늘 퀴즈를 완료했습니다! 추가 연습도 가능합니다";
+      return "맞춤형 퀴즈를 풀어보세요";
     },
 
-    getActionLabel: ({ diagnosisCompleted }) => {
-      if (diagnosisCompleted) return "지금 플레이";
-      return "잠김";
+    getActionLabel: ({ diagnosisCompleted, hasCompletedTodayQuiz }) => {
+      if (!diagnosisCompleted) return "잠김";
+      if (hasCompletedTodayQuiz) return "추가 연습하기";
+      return "지금 플레이";
     },
 
-    getStatus: ({ diagnosisCompleted }) => getQuizCardStatus(diagnosisCompleted),
+    getStatus: ({ diagnosisCompleted, hasCompletedTodayQuiz }) =>
+      getQuizCardStatus(diagnosisCompleted, hasCompletedTodayQuiz),
 
     getStatusIcon: ({ diagnosisCompleted }) => {
       if (!diagnosisCompleted) {
