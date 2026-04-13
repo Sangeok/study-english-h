@@ -14,6 +14,7 @@ export function useDailyQuiz(): DailyQuizReturn {
   const { data } = useSuspenseQuery({
     queryKey: queryKeys.quiz.daily(),
     queryFn: () => fetchDailyQuiz(),
+    gcTime: 0, // 언마운트 시 즉시 캐시 제거 → 재방문 시 항상 fresh fetch
   });
 
   return {

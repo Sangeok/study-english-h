@@ -35,7 +35,8 @@
       "Bash(find C:\\\\Users\\\\hamso\\\\OneDrive\\\\Desktop\\\\git\\\\study-eng-h\\\\prisma\\\\migrations:*)",
       "Bash(npx:*)",
       "Bash(cmd:*)",
-      "Bash(echo \"EXIT:$?\")"
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(python3:*)"
     ]
   }
 }

@@ -1,5 +1,7 @@
 export const DEFAULT_QUIZ_COUNT = 10;
 export const WEAKNESS_QUESTION_RATIO = 0.5; // 50%
+export const RECENT_EXCLUSION_RATIO = 0.6;  // 최근 풀이 제외 비율 (풀 크기의 60%)
+export const RECENT_EXCLUSION_MAX = 30;     // 최근 풀이 제외 최대 문제 수
 
 export const QUIZ_ANIMATION = {
   OPTION_SELECT_DELAY_MS: 250,

@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "@/shared/lib";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { submitQuiz } from "../api/quiz-api";
@@ -21,11 +22,13 @@ export function QuizContainer() {
   const router = useRouter();
   const { questions, userLevel } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
+  const queryClient = useQueryClient();
   const { showRewards } = useRewardToast();
 
   const submitMutation = useMutation({
     mutationFn: submitQuiz,
     onSuccess: (data) => {
+      queryClient.removeQueries({ queryKey: queryKeys.quiz.daily() });
       if (data.gamification) {
         showRewards(data.gamification);
       }

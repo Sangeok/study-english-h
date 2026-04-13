@@ -1,0 +1,4020 @@
+[
+  {
+    "koreanHint": "사과",
+    "contextHintKo": "아침에 과일을 먹는 상황입니다.",
+    "englishWord": "apple",
+    "sentence": "I ate an _____ for breakfast.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "apple", "isCorrect": true, "order": 1 },
+      { "text": "chair", "isCorrect": false, "order": 2 },
+      { "text": "pencil", "isCorrect": false, "order": 3 },
+      { "text": "window", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "물",
+    "contextHintKo": "목이 말라서 마실 것을 요청하는 상황입니다.",
+    "englishWord": "water",
+    "sentence": "I'm thirsty. Can I have a glass of _____?",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "water", "isCorrect": true, "order": 1 },
+      { "text": "bread", "isCorrect": false, "order": 2 },
+      { "text": "paper", "isCorrect": false, "order": 3 },
+      { "text": "stone", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "집",
+    "contextHintKo": "자기가 사는 곳을 설명하는 상황입니다.",
+    "englishWord": "house",
+    "sentence": "I live in a small _____ near the park.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "house", "isCorrect": true, "order": 1 },
+      { "text": "river", "isCorrect": false, "order": 2 },
+      { "text": "cloud", "isCorrect": false, "order": 3 },
+      { "text": "spoon", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "고양이",
+    "contextHintKo": "반려동물이 그르릉거리며 무릎 위에 있는 상황입니다.",
+    "englishWord": "cat",
+    "sentence": "The _____ purred softly on my lap.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "cat", "isCorrect": true, "order": 1 },
+      { "text": "desk", "isCorrect": false, "order": 2 },
+      { "text": "lamp", "isCorrect": false, "order": 3 },
+      { "text": "shoe", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "학교",
+    "contextHintKo": "매일 공부하러 가는 장소를 말하는 상황입니다.",
+    "englishWord": "school",
+    "sentence": "I study at _____ every weekday.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "school", "isCorrect": true, "order": 1 },
+      { "text": "pillow", "isCorrect": false, "order": 2 },
+      { "text": "garden", "isCorrect": false, "order": 3 },
+      { "text": "mirror", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "책",
+    "contextHintKo": "도서관에서 읽을 것을 찾는 상황입니다.",
+    "englishWord": "book",
+    "sentence": "I borrowed a _____ from the library.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "book", "isCorrect": true, "order": 1 },
+      { "text": "towel", "isCorrect": false, "order": 2 },
+      { "text": "plate", "isCorrect": false, "order": 3 },
+      { "text": "clock", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "선생님",
+    "contextHintKo": "교실에서 수업을 가르치는 사람을 말하는 상황입니다.",
+    "englishWord": "teacher",
+    "sentence": "Our _____ explains the lesson on the board.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "teacher", "isCorrect": true, "order": 1 },
+      { "text": "bicycle", "isCorrect": false, "order": 2 },
+      { "text": "blanket", "isCorrect": false, "order": 3 },
+      { "text": "hammer", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "친구",
+    "contextHintKo": "함께 노는 사이인 사람을 설명하는 상황입니다.",
+    "englishWord": "friend",
+    "sentence": "My best _____ and I play together every day.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "friend", "isCorrect": true, "order": 1 },
+      { "text": "bottle", "isCorrect": false, "order": 2 },
+      { "text": "camera", "isCorrect": false, "order": 3 },
+      { "text": "forest", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "가족",
+    "contextHintKo": "함께 사는 부모와 형제를 총칭하는 상황입니다.",
+    "englishWord": "family",
+    "sentence": "My _____ has four members: Mom, Dad, my sister, and me.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "family", "isCorrect": true, "order": 1 },
+      { "text": "basket", "isCorrect": false, "order": 2 },
+      { "text": "rocket", "isCorrect": false, "order": 3 },
+      { "text": "candle", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "음식",
+    "contextHintKo": "배가 고파서 먹을 것이 필요한 상황입니다.",
+    "englishWord": "food",
+    "sentence": "I'm hungry. I need some _____.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "food", "isCorrect": true, "order": 1 },
+      { "text": "paint", "isCorrect": false, "order": 2 },
+      { "text": "string", "isCorrect": false, "order": 3 },
+      { "text": "wheel", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "날씨",
+    "contextHintKo": "밖에 비가 오는지 확인하는 상황입니다.",
+    "englishWord": "weather",
+    "sentence": "Check the _____ forecast before going out.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "weather", "isCorrect": true, "order": 1 },
+      { "text": "butter", "isCorrect": false, "order": 2 },
+      { "text": "finger", "isCorrect": false, "order": 3 },
+      { "text": "ladder", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "아침",
+    "contextHintKo": "해가 뜨고 하루가 시작되는 시간입니다.",
+    "englishWord": "morning",
+    "sentence": "I wake up early every _____.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "morning", "isCorrect": true, "order": 1 },
+      { "text": "cabinet", "isCorrect": false, "order": 2 },
+      { "text": "costume", "isCorrect": false, "order": 3 },
+      { "text": "battery", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "전화",
+    "contextHintKo": "누군가에게 연락하려고 기기를 사용하는 상황입니다.",
+    "englishWord": "phone",
+    "sentence": "I called my mom on the _____.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "phone", "isCorrect": true, "order": 1 },
+      { "text": "fence", "isCorrect": false, "order": 2 },
+      { "text": "plant", "isCorrect": false, "order": 3 },
+      { "text": "bench", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "시간",
+    "contextHintKo": "지금 몇 시인지 묻는 상황입니다.",
+    "englishWord": "time",
+    "sentence": "What _____ is it now?",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "time", "isCorrect": true, "order": 1 },
+      { "text": "soap", "isCorrect": false, "order": 2 },
+      { "text": "rope", "isCorrect": false, "order": 3 },
+      { "text": "coin", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "색깔",
+    "contextHintKo": "좋아하는 색을 묻는 상황입니다.",
+    "englishWord": "color",
+    "sentence": "What _____ do you like? I like blue.",
+    "difficulty": "A1",
+    "category": "daily",
+    "options": [
+      { "text": "color", "isCorrect": true, "order": 1 },
+      { "text": "sugar", "isCorrect": false, "order": 2 },
+      { "text": "arrow", "isCorrect": false, "order": 3 },
+      { "text": "trunk", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "회사",
+    "contextHintKo": "직장에 출근하는 상황입니다.",
+    "englishWord": "company",
+    "sentence": "I work at a large _____.",
+    "difficulty": "A1",
+    "category": "business",
+    "options": [
+      { "text": "company", "isCorrect": true, "order": 1 },
+      { "text": "rainbow", "isCorrect": false, "order": 2 },
+      { "text": "blanket", "isCorrect": false, "order": 3 },
+      { "text": "sandbox", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "일",
+    "contextHintKo": "매일 하는 직업 활동을 말하는 상황입니다.",
+    "englishWord": "work",
+    "sentence": "I go to _____ at nine o'clock.",
+    "difficulty": "A1",
+    "category": "business",
+    "options": [
+      { "text": "work", "isCorrect": true, "order": 1 },
+      { "text": "nest", "isCorrect": false, "order": 2 },
+      { "text": "cave", "isCorrect": false, "order": 3 },
+      { "text": "hill", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "사무실",
+    "contextHintKo": "책상과 컴퓨터가 있는 근무 공간입니다.",
+    "englishWord": "office",
+    "sentence": "My desk is in the _____ on the second floor.",
+    "difficulty": "A1",
+    "category": "business",
+    "options": [
+      { "text": "office", "isCorrect": true, "order": 1 },
+      { "text": "planet", "isCorrect": false, "order": 2 },
+      { "text": "tunnel", "isCorrect": false, "order": 3 },
+      { "text": "island", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "상사",
+    "contextHintKo": "직장에서 지시를 내리는 윗사람을 말하는 상황입니다.",
+    "englishWord": "boss",
+    "sentence": "My _____ asked me to finish the report.",
+    "difficulty": "A1",
+    "category": "business",
+    "options": [
+      { "text": "boss", "isCorrect": true, "order": 1 },
+      { "text": "drum", "isCorrect": false, "order": 2 },
+      { "text": "flag", "isCorrect": false, "order": 3 },
+      { "text": "leaf", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "돈",
+    "contextHintKo": "물건을 사려면 지불해야 하는 것을 말하는 상황입니다.",
+    "englishWord": "money",
+    "sentence": "I need _____ to buy this shirt.",
+    "difficulty": "A1",
+    "category": "business",
+    "options": [
+      { "text": "money", "isCorrect": true, "order": 1 },
+      { "text": "grass", "isCorrect": false, "order": 2 },
+      { "text": "steam", "isCorrect": false, "order": 3 },
+      { "text": "brick", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "단어",
+    "contextHintKo": "시험을 위해 영어 단어를 외우는 상황입니다.",
+    "englishWord": "word",
+    "sentence": "I memorized ten new English _____ today.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "words", "isCorrect": true, "order": 1 },
+      { "text": "rocks", "isCorrect": false, "order": 2 },
+      { "text": "bells", "isCorrect": false, "order": 3 },
+      { "text": "waves", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "질문",
+    "contextHintKo": "시험에서 문제에 답해야 하는 상황입니다.",
+    "englishWord": "question",
+    "sentence": "Please answer the _____ on the test.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "question", "isCorrect": true, "order": 1 },
+      { "text": "mushroom", "isCorrect": false, "order": 2 },
+      { "text": "sandwich", "isCorrect": false, "order": 3 },
+      { "text": "dinosaur", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "시험",
+    "contextHintKo": "학교에서 실력을 평가받는 상황입니다.",
+    "englishWord": "test",
+    "sentence": "We have a math _____ tomorrow.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "test", "isCorrect": true, "order": 1 },
+      { "text": "gift", "isCorrect": false, "order": 2 },
+      { "text": "trap", "isCorrect": false, "order": 3 },
+      { "text": "mask", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "읽다",
+    "contextHintKo": "책의 내용을 눈으로 보며 이해하는 행위입니다.",
+    "englishWord": "read",
+    "sentence": "I _____ a newspaper every morning.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "read", "isCorrect": true, "order": 1 },
+      { "text": "fold", "isCorrect": false, "order": 2 },
+      { "text": "melt", "isCorrect": false, "order": 3 },
+      { "text": "jump", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "쓰다",
+    "contextHintKo": "펜으로 종이에 글자를 적는 행위입니다.",
+    "englishWord": "write",
+    "sentence": "Please _____ your name on the paper.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "write", "isCorrect": true, "order": 1 },
+      { "text": "smell", "isCorrect": false, "order": 2 },
+      { "text": "float", "isCorrect": false, "order": 3 },
+      { "text": "shine", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "듣다",
+    "contextHintKo": "음악을 귀로 감상하는 상황입니다.",
+    "englishWord": "listen",
+    "sentence": "I _____ to music on the bus.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "listen", "isCorrect": true, "order": 1 },
+      { "text": "gather", "isCorrect": false, "order": 2 },
+      { "text": "polish", "isCorrect": false, "order": 3 },
+      { "text": "wobble", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "말하다",
+    "contextHintKo": "영어를 입으로 표현하는 능력을 말하는 상황입니다.",
+    "englishWord": "speak",
+    "sentence": "Can you _____ English?",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "speak", "isCorrect": true, "order": 1 },
+      { "text": "climb", "isCorrect": false, "order": 2 },
+      { "text": "knock", "isCorrect": false, "order": 3 },
+      { "text": "plant", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "연습",
+    "contextHintKo": "피아노 실력을 높이기 위해 반복하는 상황입니다.",
+    "englishWord": "practice",
+    "sentence": "I _____ the piano every evening.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "practice", "isCorrect": true, "order": 1 },
+      { "text": "whisper", "isCorrect": false, "order": 2 },
+      { "text": "tremble", "isCorrect": false, "order": 3 },
+      { "text": "harvest", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "공부",
+    "contextHintKo": "시험을 대비해 열심히 배우는 상황입니다.",
+    "englishWord": "study",
+    "sentence": "I _____ hard for the exam.",
+    "difficulty": "A1",
+    "category": "toeic",
+    "options": [
+      { "text": "study", "isCorrect": true, "order": 1 },
+      { "text": "punch", "isCorrect": false, "order": 2 },
+      { "text": "crawl", "isCorrect": false, "order": 3 },
+      { "text": "spray", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "비행기",
+    "contextHintKo": "하늘을 날아서 다른 나라로 가는 탈것입니다.",
+    "englishWord": "airplane",
+    "sentence": "We flew to Japan by _____.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "airplane", "isCorrect": true, "order": 1 },
+      { "text": "umbrella", "isCorrect": false, "order": 2 },
+      { "text": "backpack", "isCorrect": false, "order": 3 },
+      { "text": "calendar", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "호텔",
+    "contextHintKo": "여행 중 잠을 자기 위해 방을 예약하는 곳입니다.",
+    "englishWord": "hotel",
+    "sentence": "We booked a room at the _____.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "hotel", "isCorrect": true, "order": 1 },
+      { "text": "helmet", "isCorrect": false, "order": 2 },
+      { "text": "tablet", "isCorrect": false, "order": 3 },
+      { "text": "magnet", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "지도",
+    "contextHintKo": "길을 모를 때 방향을 확인하는 도구입니다.",
+    "englishWord": "map",
+    "sentence": "I used a _____ to find the way.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "map", "isCorrect": true, "order": 1 },
+      { "text": "jar", "isCorrect": false, "order": 2 },
+      { "text": "lid", "isCorrect": false, "order": 3 },
+      { "text": "mop", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "여행",
+    "contextHintKo": "다른 도시나 나라를 구경하러 가는 활동입니다.",
+    "englishWord": "trip",
+    "sentence": "We had a fun _____ to the beach last summer.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "trip", "isCorrect": true, "order": 1 },
+      { "text": "knot", "isCorrect": false, "order": 2 },
+      { "text": "rust", "isCorrect": false, "order": 3 },
+      { "text": "dent", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "역",
+    "contextHintKo": "기차를 타기 위해 가는 장소입니다.",
+    "englishWord": "station",
+    "sentence": "The train leaves from the _____ at noon.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "station", "isCorrect": true, "order": 1 },
+      { "text": "ceiling", "isCorrect": false, "order": 2 },
+      { "text": "chimney", "isCorrect": false, "order": 3 },
+      { "text": "curtain", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "공항",
+    "contextHintKo": "비행기를 타기 위해 가는 장소입니다.",
+    "englishWord": "airport",
+    "sentence": "We arrived at the _____ two hours before the flight.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "airport", "isCorrect": true, "order": 1 },
+      { "text": "kitchen", "isCorrect": false, "order": 2 },
+      { "text": "bedroom", "isCorrect": false, "order": 3 },
+      { "text": "mailbox", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "표",
+    "contextHintKo": "기차나 버스를 타기 위해 사는 종이입니다.",
+    "englishWord": "ticket",
+    "sentence": "I bought a bus _____ at the counter.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "ticket", "isCorrect": true, "order": 1 },
+      { "text": "trophy", "isCorrect": false, "order": 2 },
+      { "text": "puzzle", "isCorrect": false, "order": 3 },
+      { "text": "ribbon", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "가방",
+    "contextHintKo": "여행 갈 때 짐을 넣어 들고 다니는 것입니다.",
+    "englishWord": "bag",
+    "sentence": "Pack your _____ before the trip.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "bag", "isCorrect": true, "order": 1 },
+      { "text": "web", "isCorrect": false, "order": 2 },
+      { "text": "rod", "isCorrect": false, "order": 3 },
+      { "text": "fog", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "버스",
+    "contextHintKo": "많은 사람이 함께 타는 대중교통입니다.",
+    "englishWord": "bus",
+    "sentence": "I take the _____ to school every morning.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "bus", "isCorrect": true, "order": 1 },
+      { "text": "log", "isCorrect": false, "order": 2 },
+      { "text": "rug", "isCorrect": false, "order": 3 },
+      { "text": "gem", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "택시",
+    "contextHintKo": "기사가 운전하여 목적지까지 데려다주는 차입니다.",
+    "englishWord": "taxi",
+    "sentence": "Let's take a _____ to the airport.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "taxi", "isCorrect": true, "order": 1 },
+      { "text": "vine", "isCorrect": false, "order": 2 },
+      { "text": "moth", "isCorrect": false, "order": 3 },
+      { "text": "fern", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "사진",
+    "contextHintKo": "카메라로 풍경을 찍는 상황입니다.",
+    "englishWord": "photo",
+    "sentence": "I took a _____ of the beautiful sunset.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "photo", "isCorrect": true, "order": 1 },
+      { "text": "chain", "isCorrect": false, "order": 2 },
+      { "text": "paste", "isCorrect": false, "order": 3 },
+      { "text": "chalk", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "길",
+    "contextHintKo": "목적지까지 가는 경로를 묻는 상황입니다.",
+    "englishWord": "way",
+    "sentence": "Excuse me, what's the _____ to the museum?",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "way", "isCorrect": true, "order": 1 },
+      { "text": "fur", "isCorrect": false, "order": 2 },
+      { "text": "dew", "isCorrect": false, "order": 3 },
+      { "text": "ore", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "여권",
+    "contextHintKo": "외국에 입국할 때 보여줘야 하는 신분증입니다.",
+    "englishWord": "passport",
+    "sentence": "Show your _____ at the border control.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "passport", "isCorrect": true, "order": 1 },
+      { "text": "necklace", "isCorrect": false, "order": 2 },
+      { "text": "doorbell", "isCorrect": false, "order": 3 },
+      { "text": "notebook", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "해변",
+    "contextHintKo": "바다 옆 모래사장에서 노는 상황입니다.",
+    "englishWord": "beach",
+    "sentence": "We played in the sand at the _____.",
+    "difficulty": "A1",
+    "category": "travel",
+    "options": [
+      { "text": "beach", "isCorrect": true, "order": 1 },
+      { "text": "shelf", "isCorrect": false, "order": 2 },
+      { "text": "valve", "isCorrect": false, "order": 3 },
+      { "text": "patch", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "감사합니다",
+    "contextHintKo": "도움을 받았을 때 하는 인사말입니다.",
+    "englishWord": "thank you",
+    "sentence": "_____ for helping me!",
+    "difficulty": "A1",
+    "category": "idioms",
+    "options": [
+      { "text": "Thank you", "isCorrect": true, "order": 1 },
+      { "text": "Watch out", "isCorrect": false, "order": 2 },
+      { "text": "Stand up", "isCorrect": false, "order": 3 },
+      { "text": "Come back", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "천만에요",
+    "contextHintKo": "감사 인사에 대한 응답으로 쓰는 표현입니다.",
+    "englishWord": "you're welcome",
+    "sentence": "\"Thanks for the gift!\" \"_____!\"",
+    "difficulty": "A1",
+    "category": "idioms",
+    "options": [
+      { "text": "You're welcome", "isCorrect": true, "order": 1 },
+      { "text": "Hurry up", "isCorrect": false, "order": 2 },
+      { "text": "Look away", "isCorrect": false, "order": 3 },
+      { "text": "Sit down", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "실례합니다",
+    "contextHintKo": "모르는 사람에게 말을 걸 때 쓰는 표현입니다.",
+    "englishWord": "excuse me",
+    "sentence": "_____, where is the restroom?",
+    "difficulty": "A1",
+    "category": "idioms",
+    "options": [
+      { "text": "Excuse me", "isCorrect": true, "order": 1 },
+      { "text": "Hold on", "isCorrect": false, "order": 2 },
+      { "text": "Move over", "isCorrect": false, "order": 3 },
+      { "text": "Give up", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "잘 자",
+    "contextHintKo": "밤에 잠자리에 들 때 하는 인사말입니다.",
+    "englishWord": "good night",
+    "sentence": "_____, sweet dreams!",
+    "difficulty": "A1",
+    "category": "idioms",
+    "options": [
+      { "text": "Good night", "isCorrect": true, "order": 1 },
+      { "text": "Right now", "isCorrect": false, "order": 2 },
+      { "text": "Of course", "isCorrect": false, "order": 3 },
+      { "text": "No doubt", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "괜찮아",
+    "contextHintKo": "상대방이 사과했을 때 대답하는 표현입니다.",
+    "englishWord": "it's okay",
+    "sentence": "\"I'm sorry I'm late.\" \"_____. Don't worry.\"",
+    "difficulty": "A1",
+    "category": "idioms",
+    "options": [
+      { "text": "It's okay", "isCorrect": true, "order": 1 },
+      { "text": "Stand still", "isCorrect": false, "order": 2 },
+      { "text": "Turn around", "isCorrect": false, "order": 3 },
+      { "text": "Back away", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "요리하다",
+    "contextHintKo": "부엌에서 저녁 식사를 준비하는 상황입니다.",
+    "englishWord": "cook",
+    "sentence": "My mom _____ dinner in the kitchen every evening.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "cooks", "isCorrect": true, "order": 1 },
+      { "text": "parks", "isCorrect": false, "order": 2 },
+      { "text": "draws", "isCorrect": false, "order": 3 },
+      { "text": "dries", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "빌리다",
+    "contextHintKo": "도서관에서 책을 잠시 가져가는 상황입니다.",
+    "englishWord": "borrow",
+    "sentence": "Can I _____ this book from the library?",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "borrow", "isCorrect": true, "order": 1 },
+      { "text": "freeze", "isCorrect": false, "order": 2 },
+      { "text": "launch", "isCorrect": false, "order": 3 },
+      { "text": "scrub", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "약속",
+    "contextHintKo": "병원 진료 시간을 미리 잡는 상황입니다.",
+    "englishWord": "appointment",
+    "sentence": "I have a doctor's _____ at 3 PM.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "appointment", "isCorrect": true, "order": 1 },
+      { "text": "experiment", "isCorrect": false, "order": 2 },
+      { "text": "tournament", "isCorrect": false, "order": 3 },
+      { "text": "instrument", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이웃",
+    "contextHintKo": "집 바로 옆에 사는 사람을 말하는 상황입니다.",
+    "englishWord": "neighbor",
+    "sentence": "My _____ next door is very friendly.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "neighbor", "isCorrect": true, "order": 1 },
+      { "text": "platform", "isCorrect": false, "order": 2 },
+      { "text": "scissors", "isCorrect": false, "order": 3 },
+      { "text": "treasure", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "운동하다",
+    "contextHintKo": "건강을 위해 체육관에서 몸을 움직이는 상황입니다.",
+    "englishWord": "exercise",
+    "sentence": "I _____ at the gym three times a week.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "exercise", "isCorrect": true, "order": 1 },
+      { "text": "decorate", "isCorrect": false, "order": 2 },
+      { "text": "estimate", "isCorrect": false, "order": 3 },
+      { "text": "memorize", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "레시피",
+    "contextHintKo": "요리 방법이 적힌 안내서를 따라 하는 상황입니다.",
+    "englishWord": "recipe",
+    "sentence": "I followed the _____ to make chocolate cake.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "recipe", "isCorrect": true, "order": 1 },
+      { "text": "sponge", "isCorrect": false, "order": 2 },
+      { "text": "anchor", "isCorrect": false, "order": 3 },
+      { "text": "fossil", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "잊다",
+    "contextHintKo": "열쇠를 두고 온 것을 깨달은 상황입니다.",
+    "englishWord": "forget",
+    "sentence": "I _____ my keys at home this morning.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "forgot", "isCorrect": true, "order": 1 },
+      { "text": "burned", "isCorrect": false, "order": 2 },
+      { "text": "carved", "isCorrect": false, "order": 3 },
+      { "text": "linked", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "수리하다",
+    "contextHintKo": "고장 난 자전거를 고치는 상황입니다.",
+    "englishWord": "fix",
+    "sentence": "The mechanic _____ my broken bicycle.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "fixed", "isCorrect": true, "order": 1 },
+      { "text": "spilled", "isCorrect": false, "order": 2 },
+      { "text": "ironed", "isCorrect": false, "order": 3 },
+      { "text": "roasted", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "초대하다",
+    "contextHintKo": "생일 파티에 친구를 부르는 상황입니다.",
+    "englishWord": "invite",
+    "sentence": "I _____ all my friends to my birthday party.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "invited", "isCorrect": true, "order": 1 },
+      { "text": "guarded", "isCorrect": false, "order": 2 },
+      { "text": "divided", "isCorrect": false, "order": 3 },
+      { "text": "orbited", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "세탁하다",
+    "contextHintKo": "더러운 옷을 깨끗하게 빠는 상황입니다.",
+    "englishWord": "laundry",
+    "sentence": "I do the _____ every Saturday morning.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "laundry", "isCorrect": true, "order": 1 },
+      { "text": "pottery", "isCorrect": false, "order": 2 },
+      { "text": "archery", "isCorrect": false, "order": 3 },
+      { "text": "gallery", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "선물",
+    "contextHintKo": "크리스마스에 받고 싶은 것을 말하는 상황입니다.",
+    "englishWord": "gift",
+    "sentence": "I received a wonderful _____ for Christmas.",
+    "difficulty": "A2",
+    "category": "daily",
+    "options": [
+      { "text": "gift", "isCorrect": true, "order": 1 },
+      { "text": "wire", "isCorrect": false, "order": 2 },
+      { "text": "pill", "isCorrect": false, "order": 3 },
+      { "text": "arch", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "급여",
+    "contextHintKo": "매달 직장에서 받는 돈을 말하는 상황입니다.",
+    "englishWord": "salary",
+    "sentence": "My monthly _____ is deposited on the 25th.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "salary", "isCorrect": true, "order": 1 },
+      { "text": "pillar", "isCorrect": false, "order": 2 },
+      { "text": "carbon", "isCorrect": false, "order": 3 },
+      { "text": "gravel", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "회의",
+    "contextHintKo": "직장 동료들과 업무를 논의하는 자리입니다.",
+    "englishWord": "meeting",
+    "sentence": "The team _____ starts at 10 AM in the conference room.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "meeting", "isCorrect": true, "order": 1 },
+      { "text": "pudding", "isCorrect": false, "order": 2 },
+      { "text": "ceiling", "isCorrect": false, "order": 3 },
+      { "text": "parking", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "고객",
+    "contextHintKo": "가게에서 물건을 사는 사람을 말하는 상황입니다.",
+    "englishWord": "customer",
+    "sentence": "The _____ complained about the slow service.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "customer", "isCorrect": true, "order": 1 },
+      { "text": "dinosaur", "isCorrect": false, "order": 2 },
+      { "text": "parachute", "isCorrect": false, "order": 3 },
+      { "text": "telescope", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이력서",
+    "contextHintKo": "취직하려고 자기 경력을 정리한 문서입니다.",
+    "englishWord": "resume",
+    "sentence": "Please submit your _____ with the job application.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "resume", "isCorrect": true, "order": 1 },
+      { "text": "trophy", "isCorrect": false, "order": 2 },
+      { "text": "statue", "isCorrect": false, "order": 3 },
+      { "text": "wreath", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "마감",
+    "contextHintKo": "보고서를 제출해야 하는 최종 날짜입니다.",
+    "englishWord": "deadline",
+    "sentence": "The _____ for the report is next Friday.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "deadline", "isCorrect": true, "order": 1 },
+      { "text": "necklace", "isCorrect": false, "order": 2 },
+      { "text": "headline", "isCorrect": false, "order": 3 },
+      { "text": "firework", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "동료",
+    "contextHintKo": "같은 부서에서 함께 일하는 사람입니다.",
+    "englishWord": "colleague",
+    "sentence": "My _____ helped me finish the project on time.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "colleague", "isCorrect": true, "order": 1 },
+      { "text": "umbrella", "isCorrect": false, "order": 2 },
+      { "text": "bracelet", "isCorrect": false, "order": 3 },
+      { "text": "mushroom", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "승진",
+    "contextHintKo": "직장에서 더 높은 직위로 올라가는 상황입니다.",
+    "englishWord": "promotion",
+    "sentence": "She got a _____ and became the team leader.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "promotion", "isCorrect": true, "order": 1 },
+      { "text": "explosion", "isCorrect": false, "order": 2 },
+      { "text": "nutrition", "isCorrect": false, "order": 3 },
+      { "text": "pollution", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "면접",
+    "contextHintKo": "취직을 위해 질문에 답하는 자리입니다.",
+    "englishWord": "interview",
+    "sentence": "I have a job _____ tomorrow morning.",
+    "difficulty": "A2",
+    "category": "business",
+    "options": [
+      { "text": "interview", "isCorrect": true, "order": 1 },
+      { "text": "firework", "isCorrect": false, "order": 2 },
+      { "text": "midnight", "isCorrect": false, "order": 3 },
+      { "text": "platform", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "문법",
+    "contextHintKo": "영어 문장 구조를 배우는 수업 상황입니다.",
+    "englishWord": "grammar",
+    "sentence": "English _____ can be tricky for beginners.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "grammar", "isCorrect": true, "order": 1 },
+      { "text": "blanket", "isCorrect": false, "order": 2 },
+      { "text": "feather", "isCorrect": false, "order": 3 },
+      { "text": "lantern", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "어휘",
+    "contextHintKo": "시험에 나오는 단어들을 외우는 상황입니다.",
+    "englishWord": "vocabulary",
+    "sentence": "Building _____ is essential for language learning.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "vocabulary", "isCorrect": true, "order": 1 },
+      { "text": "marmalade", "isCorrect": false, "order": 2 },
+      { "text": "furniture", "isCorrect": false, "order": 3 },
+      { "text": "lemonade", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "발음",
+    "contextHintKo": "단어를 소리 내어 정확히 말하는 능력입니다.",
+    "englishWord": "pronunciation",
+    "sentence": "Her English _____ is very clear and natural.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "pronunciation", "isCorrect": true, "order": 1 },
+      { "text": "communication", "isCorrect": false, "order": 2 },
+      { "text": "transportation", "isCorrect": false, "order": 3 },
+      { "text": "demonstration", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "점수",
+    "contextHintKo": "시험 결과로 받는 숫자를 말하는 상황입니다.",
+    "englishWord": "score",
+    "sentence": "I got a high _____ on the English test.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "score", "isCorrect": true, "order": 1 },
+      { "text": "flame", "isCorrect": false, "order": 2 },
+      { "text": "crane", "isCorrect": false, "order": 3 },
+      { "text": "blade", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "정답",
+    "contextHintKo": "시험 문제의 맞는 답을 확인하는 상황입니다.",
+    "englishWord": "answer",
+    "sentence": "The correct _____ to question five is B.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "answer", "isCorrect": true, "order": 1 },
+      { "text": "pebble", "isCorrect": false, "order": 2 },
+      { "text": "marble", "isCorrect": false, "order": 3 },
+      { "text": "paddle", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "실수",
+    "contextHintKo": "시험에서 틀린 부분을 확인하는 상황입니다.",
+    "englishWord": "mistake",
+    "sentence": "I made a spelling _____ on the test.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "mistake", "isCorrect": true, "order": 1 },
+      { "text": "blanket", "isCorrect": false, "order": 2 },
+      { "text": "cabinet", "isCorrect": false, "order": 3 },
+      { "text": "glacier", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "문단",
+    "contextHintKo": "글을 읽고 특정 부분을 찾아야 하는 상황입니다.",
+    "englishWord": "paragraph",
+    "sentence": "Read the first _____ and answer the question.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "paragraph", "isCorrect": true, "order": 1 },
+      { "text": "butterfly", "isCorrect": false, "order": 2 },
+      { "text": "pineapple", "isCorrect": false, "order": 3 },
+      { "text": "snowflake", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "예문",
+    "contextHintKo": "단어 사용법을 보여주는 문장을 말하는 상황입니다.",
+    "englishWord": "example",
+    "sentence": "Can you give me an _____ of this word in a sentence?",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "example", "isCorrect": true, "order": 1 },
+      { "text": "antenna", "isCorrect": false, "order": 2 },
+      { "text": "voltage", "isCorrect": false, "order": 3 },
+      { "text": "receipt", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "복습",
+    "contextHintKo": "시험 전에 배운 내용을 다시 보는 상황입니다.",
+    "englishWord": "review",
+    "sentence": "Let's _____ the last chapter before the exam.",
+    "difficulty": "A2",
+    "category": "toeic",
+    "options": [
+      { "text": "review", "isCorrect": true, "order": 1 },
+      { "text": "refuel", "isCorrect": false, "order": 2 },
+      { "text": "retain", "isCorrect": false, "order": 3 },
+      { "text": "revive", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "환전",
+    "contextHintKo": "외국에서 돈을 바꾸는 상황입니다.",
+    "englishWord": "exchange",
+    "sentence": "Where can I _____ Korean won for dollars?",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "exchange", "isCorrect": true, "order": 1 },
+      { "text": "demolish", "isCorrect": false, "order": 2 },
+      { "text": "assemble", "isCorrect": false, "order": 3 },
+      { "text": "evacuate", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "예약",
+    "contextHintKo": "식당에 자리를 미리 잡는 상황입니다.",
+    "englishWord": "reservation",
+    "sentence": "I'd like to make a _____ for two at 7 PM.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "reservation", "isCorrect": true, "order": 1 },
+      { "text": "celebration", "isCorrect": false, "order": 2 },
+      { "text": "combination", "isCorrect": false, "order": 3 },
+      { "text": "imagination", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "관광",
+    "contextHintKo": "유명한 장소를 구경하며 다니는 활동입니다.",
+    "englishWord": "sightseeing",
+    "sentence": "We went _____ around the old city center.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "sightseeing", "isCorrect": true, "order": 1 },
+      { "text": "skydiving", "isCorrect": false, "order": 2 },
+      { "text": "babysitting", "isCorrect": false, "order": 3 },
+      { "text": "sleepwalking", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "수하물",
+    "contextHintKo": "공항에서 짐을 찾는 상황입니다.",
+    "englishWord": "luggage",
+    "sentence": "Please collect your _____ at carousel number 3.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "luggage", "isCorrect": true, "order": 1 },
+      { "text": "cottage", "isCorrect": false, "order": 2 },
+      { "text": "postage", "isCorrect": false, "order": 3 },
+      { "text": "sausage", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "출발",
+    "contextHintKo": "비행기가 곧 떠나는 시간을 확인하는 상황입니다.",
+    "englishWord": "departure",
+    "sentence": "The _____ time is 8:30 AM from Gate 12.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "departure", "isCorrect": true, "order": 1 },
+      { "text": "furniture", "isCorrect": false, "order": 2 },
+      { "text": "sculpture", "isCorrect": false, "order": 3 },
+      { "text": "adventure", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "도착",
+    "contextHintKo": "비행기가 목적지에 도착하는 시간을 확인하는 상황입니다.",
+    "englishWord": "arrival",
+    "sentence": "The estimated _____ time is 2 PM local time.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "arrival", "isCorrect": true, "order": 1 },
+      { "text": "mineral", "isCorrect": false, "order": 2 },
+      { "text": "thermal", "isCorrect": false, "order": 3 },
+      { "text": "neutral", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "안내소",
+    "contextHintKo": "관광지에서 정보를 얻으러 가는 곳입니다.",
+    "englishWord": "information",
+    "sentence": "Go to the _____ desk to get a city map.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "information", "isCorrect": true, "order": 1 },
+      { "text": "construction", "isCorrect": false, "order": 2 },
+      { "text": "competition", "isCorrect": false, "order": 3 },
+      { "text": "destruction", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기념품",
+    "contextHintKo": "여행 기념으로 선물을 사는 상황입니다.",
+    "englishWord": "souvenir",
+    "sentence": "I bought a _____ for my family at the gift shop.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "souvenir", "isCorrect": true, "order": 1 },
+      { "text": "dinosaur", "isCorrect": false, "order": 2 },
+      { "text": "barricade", "isCorrect": false, "order": 3 },
+      { "text": "chandelier", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "체크인",
+    "contextHintKo": "호텔에 도착해서 방을 받는 절차입니다.",
+    "englishWord": "check in",
+    "sentence": "We need to _____ at the hotel before 3 PM.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "check in", "isCorrect": true, "order": 1 },
+      { "text": "break down", "isCorrect": false, "order": 2 },
+      { "text": "shut off", "isCorrect": false, "order": 3 },
+      { "text": "pull over", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "탑승구",
+    "contextHintKo": "비행기를 타기 위해 가는 공항 내 장소입니다.",
+    "englishWord": "gate",
+    "sentence": "Passengers for flight 302, please proceed to _____ 15.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "gate", "isCorrect": true, "order": 1 },
+      { "text": "ramp", "isCorrect": false, "order": 2 },
+      { "text": "dock", "isCorrect": false, "order": 3 },
+      { "text": "aisle", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "세관",
+    "contextHintKo": "외국 입국 시 짐을 검사받는 곳입니다.",
+    "englishWord": "customs",
+    "sentence": "You must declare items at _____ when entering the country.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "customs", "isCorrect": true, "order": 1 },
+      { "text": "seasons", "isCorrect": false, "order": 2 },
+      { "text": "shelves", "isCorrect": false, "order": 3 },
+      { "text": "carpets", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "지연",
+    "contextHintKo": "비행기가 예정 시간보다 늦어지는 상황입니다.",
+    "englishWord": "delay",
+    "sentence": "The flight has a two-hour _____ due to bad weather.",
+    "difficulty": "A2",
+    "category": "travel",
+    "options": [
+      { "text": "delay", "isCorrect": true, "order": 1 },
+      { "text": "relay", "isCorrect": false, "order": 2 },
+      { "text": "decay", "isCorrect": false, "order": 3 },
+      { "text": "array", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "어떻게든",
+    "contextHintKo": "어려운 상황에서 결국 해내었다는 뜻입니다.",
+    "englishWord": "somehow",
+    "sentence": "I _____ managed to finish the homework on time.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "somehow", "isCorrect": true, "order": 1 },
+      { "text": "nowhere", "isCorrect": false, "order": 2 },
+      { "text": "halfway", "isCorrect": false, "order": 3 },
+      { "text": "anytime", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "결국",
+    "contextHintKo": "오랜 시간 후 마침내 결과가 나온 상황입니다.",
+    "englishWord": "eventually",
+    "sentence": "After many tries, I _____ passed the driving test.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "eventually", "isCorrect": true, "order": 1 },
+      { "text": "apparently", "isCorrect": false, "order": 2 },
+      { "text": "frequently", "isCorrect": false, "order": 3 },
+      { "text": "previously", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "반면에",
+    "contextHintKo": "두 가지를 대조하며 비교하는 표현입니다.",
+    "englishWord": "on the other hand",
+    "sentence": "Pizza is quick. _____, cooking at home is healthier.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "On the other hand", "isCorrect": true, "order": 1 },
+      { "text": "Once upon a time", "isCorrect": false, "order": 2 },
+      { "text": "As a matter of fact", "isCorrect": false, "order": 3 },
+      { "text": "In the first place", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "한번 해볼게",
+    "contextHintKo": "새로운 것을 시도해보겠다는 의지를 표현하는 상황입니다.",
+    "englishWord": "give it a try",
+    "sentence": "I've never surfed before, but I'll _____.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "give it a try", "isCorrect": true, "order": 1 },
+      { "text": "take it or leave it", "isCorrect": false, "order": 2 },
+      { "text": "call it a day", "isCorrect": false, "order": 3 },
+      { "text": "make up my mind", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "조심해",
+    "contextHintKo": "위험한 상황을 알려주며 주의를 주는 표현입니다.",
+    "englishWord": "watch out",
+    "sentence": "_____! There's a car coming!",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "Watch out", "isCorrect": true, "order": 1 },
+      { "text": "Hang on", "isCorrect": false, "order": 2 },
+      { "text": "Show off", "isCorrect": false, "order": 3 },
+      { "text": "Work out", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "계속해",
+    "contextHintKo": "하던 일을 멈추지 말라고 격려하는 표현입니다.",
+    "englishWord": "keep it up",
+    "sentence": "Great job on the test! _____!",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "Keep it up", "isCorrect": true, "order": 1 },
+      { "text": "Break it down", "isCorrect": false, "order": 2 },
+      { "text": "Look it over", "isCorrect": false, "order": 3 },
+      { "text": "Blow it off", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기분전환",
+    "contextHintKo": "잠시 쉬면서 다른 활동을 하는 상황입니다.",
+    "englishWord": "take a break",
+    "sentence": "You've been studying for hours. Let's _____.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "take a break", "isCorrect": true, "order": 1 },
+      { "text": "take a risk", "isCorrect": false, "order": 2 },
+      { "text": "take a look", "isCorrect": false, "order": 3 },
+      { "text": "take a seat", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "다루다",
+    "contextHintKo": "어려운 상황을 처리하고 관리하는 의미입니다.",
+    "englishWord": "deal with",
+    "sentence": "I need to _____ this problem before it gets worse.",
+    "difficulty": "A2",
+    "category": "idioms",
+    "options": [
+      { "text": "deal with", "isCorrect": true, "order": 1 },
+      { "text": "show off", "isCorrect": false, "order": 2 },
+      { "text": "hang out", "isCorrect": false, "order": 3 },
+      { "text": "drop off", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "추천하다",
+    "contextHintKo": "좋은 식당을 소개해달라고 요청하는 상황입니다.",
+    "englishWord": "recommend",
+    "sentence": "Can you _____ a good Italian restaurant nearby?",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "recommend", "isCorrect": true, "order": 1 },
+      { "text": "construct", "isCorrect": false, "order": 2 },
+      { "text": "volunteer", "isCorrect": false, "order": 3 },
+      { "text": "calculate", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "불평하다",
+    "contextHintKo": "이웃의 소음에 대해 항의하는 상황입니다.",
+    "englishWord": "complain",
+    "sentence": "The neighbors _____ about the loud music every weekend.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "complain", "isCorrect": true, "order": 1 },
+      { "text": "campaign", "isCorrect": false, "order": 2 },
+      { "text": "maintain", "isCorrect": false, "order": 3 },
+      { "text": "restrain", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "비교하다",
+    "contextHintKo": "두 제품의 차이점을 분석하는 상황입니다.",
+    "englishWord": "compare",
+    "sentence": "Let's _____ the prices before we decide which to buy.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "compare", "isCorrect": true, "order": 1 },
+      { "text": "compete", "isCorrect": false, "order": 2 },
+      { "text": "compose", "isCorrect": false, "order": 3 },
+      { "text": "confine", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "경험",
+    "contextHintKo": "해외에서 겪은 일을 이야기하는 상황입니다.",
+    "englishWord": "experience",
+    "sentence": "Living abroad was an unforgettable _____.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "experience", "isCorrect": true, "order": 1 },
+      { "text": "appearance", "isCorrect": false, "order": 2 },
+      { "text": "importance", "isCorrect": false, "order": 3 },
+      { "text": "difference", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "환경",
+    "contextHintKo": "자연을 보호해야 한다고 이야기하는 상황입니다.",
+    "englishWord": "environment",
+    "sentence": "We should protect the _____ by reducing plastic use.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "environment", "isCorrect": true, "order": 1 },
+      { "text": "achievement", "isCorrect": false, "order": 2 },
+      { "text": "arrangement", "isCorrect": false, "order": 3 },
+      { "text": "requirement", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "습관",
+    "contextHintKo": "매일 규칙적으로 반복하는 행동을 말하는 상황입니다.",
+    "englishWord": "habit",
+    "sentence": "Reading before bed is a good _____.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "habit", "isCorrect": true, "order": 1 },
+      { "text": "orbit", "isCorrect": false, "order": 2 },
+      { "text": "merit", "isCorrect": false, "order": 3 },
+      { "text": "audit", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "영향",
+    "contextHintKo": "소셜 미디어가 청소년에게 미치는 변화를 말하는 상황입니다.",
+    "englishWord": "influence",
+    "sentence": "Social media has a strong _____ on young people.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "influence", "isCorrect": true, "order": 1 },
+      { "text": "ambulance", "isCorrect": false, "order": 2 },
+      { "text": "insurance", "isCorrect": false, "order": 3 },
+      { "text": "fragrance", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기회",
+    "contextHintKo": "해외 인턴십이라는 좋은 기회를 얻은 상황입니다.",
+    "englishWord": "opportunity",
+    "sentence": "This internship is a great _____ to gain experience.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "opportunity", "isCorrect": true, "order": 1 },
+      { "text": "personality", "isCorrect": false, "order": 2 },
+      { "text": "possibility", "isCorrect": false, "order": 3 },
+      { "text": "electricity", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "상황",
+    "contextHintKo": "현재 처한 어려운 조건을 설명하는 상황입니다.",
+    "englishWord": "situation",
+    "sentence": "We need to stay calm in this difficult _____.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "situation", "isCorrect": true, "order": 1 },
+      { "text": "migration", "isCorrect": false, "order": 2 },
+      { "text": "radiation", "isCorrect": false, "order": 3 },
+      { "text": "vibration", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "책임",
+    "contextHintKo": "프로젝트를 맡아 관리해야 하는 상황입니다.",
+    "englishWord": "responsibility",
+    "sentence": "Managing this project is my _____.",
+    "difficulty": "B1",
+    "category": "daily",
+    "options": [
+      { "text": "responsibility", "isCorrect": true, "order": 1 },
+      { "text": "sustainability", "isCorrect": false, "order": 2 },
+      { "text": "confidentiality", "isCorrect": false, "order": 3 },
+      { "text": "profitability", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "협상하다",
+    "contextHintKo": "거래 조건을 서로 조율하는 비즈니스 상황입니다.",
+    "englishWord": "negotiate",
+    "sentence": "We need to _____ the terms of the contract.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "negotiate", "isCorrect": true, "order": 1 },
+      { "text": "evaporate", "isCorrect": false, "order": 2 },
+      { "text": "illuminate", "isCorrect": false, "order": 3 },
+      { "text": "exaggerate", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "예산",
+    "contextHintKo": "프로젝트에 쓸 수 있는 돈의 한도를 정하는 상황입니다.",
+    "englishWord": "budget",
+    "sentence": "The project _____ was approved by the board.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "budget", "isCorrect": true, "order": 1 },
+      { "text": "bucket", "isCorrect": false, "order": 2 },
+      { "text": "buffet", "isCorrect": false, "order": 3 },
+      { "text": "bonnet", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "전략",
+    "contextHintKo": "시장 점유율을 높이기 위한 계획을 세우는 상황입니다.",
+    "englishWord": "strategy",
+    "sentence": "Our marketing _____ focuses on social media advertising.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "strategy", "isCorrect": true, "order": 1 },
+      { "text": "symmetry", "isCorrect": false, "order": 2 },
+      { "text": "ancestry", "isCorrect": false, "order": 3 },
+      { "text": "artistry", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "수익",
+    "contextHintKo": "이번 분기 회사 매출을 보고하는 상황입니다.",
+    "englishWord": "revenue",
+    "sentence": "Our quarterly _____ increased by 15 percent.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "revenue", "isCorrect": true, "order": 1 },
+      { "text": "residue", "isCorrect": false, "order": 2 },
+      { "text": "refugee", "isCorrect": false, "order": 3 },
+      { "text": "fatigue", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "제안",
+    "contextHintKo": "클라이언트에게 사업 아이디어를 발표하는 상황입니다.",
+    "englishWord": "proposal",
+    "sentence": "The client accepted our business _____.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "proposal", "isCorrect": true, "order": 1 },
+      { "text": "tropical", "isCorrect": false, "order": 2 },
+      { "text": "criminal", "isCorrect": false, "order": 3 },
+      { "text": "medieval", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "투자",
+    "contextHintKo": "회사가 새로운 기술에 돈을 쓰는 상황입니다.",
+    "englishWord": "investment",
+    "sentence": "The company made a significant _____ in new technology.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "investment", "isCorrect": true, "order": 1 },
+      { "text": "assessment", "isCorrect": false, "order": 2 },
+      { "text": "excitement", "isCorrect": false, "order": 3 },
+      { "text": "punishment", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "경쟁자",
+    "contextHintKo": "같은 시장에서 겨루는 다른 회사를 말하는 상황입니다.",
+    "englishWord": "competitor",
+    "sentence": "Our main _____ launched a similar product last week.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "competitor", "isCorrect": true, "order": 1 },
+      { "text": "compositor", "isCorrect": false, "order": 2 },
+      { "text": "calculator", "isCorrect": false, "order": 3 },
+      { "text": "spectator", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "효율적인",
+    "contextHintKo": "새 시스템이 시간과 비용을 줄여준다는 의미입니다.",
+    "englishWord": "efficient",
+    "sentence": "The new system is more _____ and saves time.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "efficient", "isCorrect": true, "order": 1 },
+      { "text": "resilient", "isCorrect": false, "order": 2 },
+      { "text": "negligent", "isCorrect": false, "order": 3 },
+      { "text": "prominent", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "분석하다",
+    "contextHintKo": "판매 데이터를 자세히 살펴보는 상황입니다.",
+    "englishWord": "analyze",
+    "sentence": "We need to _____ the sales data before the meeting.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "analyze", "isCorrect": true, "order": 1 },
+      { "text": "baptize", "isCorrect": false, "order": 2 },
+      { "text": "paralyze", "isCorrect": false, "order": 3 },
+      { "text": "finalize", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이행하다",
+    "contextHintKo": "새로운 정책을 실제로 적용하는 상황입니다.",
+    "englishWord": "implement",
+    "sentence": "The company will _____ the new policy next month.",
+    "difficulty": "B1",
+    "category": "business",
+    "options": [
+      { "text": "implement", "isCorrect": true, "order": 1 },
+      { "text": "interpret", "isCorrect": false, "order": 2 },
+      { "text": "intercept", "isCorrect": false, "order": 3 },
+      { "text": "improvise", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "구별하다",
+    "contextHintKo": "토익에서 비슷한 단어의 차이를 아는 것이 중요한 상황입니다.",
+    "englishWord": "distinguish",
+    "sentence": "It's important to _____ between 'affect' and 'effect.'",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "distinguish", "isCorrect": true, "order": 1 },
+      { "text": "extinguish", "isCorrect": false, "order": 2 },
+      { "text": "relinquish", "isCorrect": false, "order": 3 },
+      { "text": "accomplish", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "동의어",
+    "contextHintKo": "같은 뜻을 가진 다른 단어를 찾는 상황입니다.",
+    "englishWord": "synonym",
+    "sentence": "'Happy' and 'glad' are _____ of each other.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "synonyms", "isCorrect": true, "order": 1 },
+      { "text": "antonyms", "isCorrect": false, "order": 2 },
+      { "text": "acronyms", "isCorrect": false, "order": 3 },
+      { "text": "symptoms", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "추론하다",
+    "contextHintKo": "지문을 읽고 숨겨진 의미를 파악하는 상황입니다.",
+    "englishWord": "infer",
+    "sentence": "From the passage, we can _____ that the author disagrees.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "infer", "isCorrect": true, "order": 1 },
+      { "text": "refer", "isCorrect": false, "order": 2 },
+      { "text": "defer", "isCorrect": false, "order": 3 },
+      { "text": "deter", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "수정하다",
+    "contextHintKo": "에세이의 오류를 고치는 상황입니다.",
+    "englishWord": "revise",
+    "sentence": "Please _____ your essay and correct the errors.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "revise", "isCorrect": true, "order": 1 },
+      { "text": "devise", "isCorrect": false, "order": 2 },
+      { "text": "advise", "isCorrect": false, "order": 3 },
+      { "text": "excise", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "요약",
+    "contextHintKo": "긴 글의 핵심을 간략히 정리하는 상황입니다.",
+    "englishWord": "summary",
+    "sentence": "Write a brief _____ of the article in your own words.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "summary", "isCorrect": true, "order": 1 },
+      { "text": "scenery", "isCorrect": false, "order": 2 },
+      { "text": "battery", "isCorrect": false, "order": 3 },
+      { "text": "lottery", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "절차",
+    "contextHintKo": "정해진 순서에 따라 일을 처리하는 상황입니다.",
+    "englishWord": "procedure",
+    "sentence": "Follow the standard _____ when filing a complaint.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "procedure", "isCorrect": true, "order": 1 },
+      { "text": "brochure", "isCorrect": false, "order": 2 },
+      { "text": "moisture", "isCorrect": false, "order": 3 },
+      { "text": "creature", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "첨부하다",
+    "contextHintKo": "이메일에 파일을 함께 보내는 상황입니다.",
+    "englishWord": "attach",
+    "sentence": "Please _____ the document to the email before sending.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "attach", "isCorrect": true, "order": 1 },
+      { "text": "detach", "isCorrect": false, "order": 2 },
+      { "text": "thatch", "isCorrect": false, "order": 3 },
+      { "text": "snatch", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "마감일",
+    "contextHintKo": "과제 제출 기한을 확인하는 상황입니다.",
+    "englishWord": "due",
+    "sentence": "The assignment is _____ by the end of this week.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "due", "isCorrect": true, "order": 1 },
+      { "text": "raw", "isCorrect": false, "order": 2 },
+      { "text": "dim", "isCorrect": false, "order": 3 },
+      { "text": "odd", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "해석하다",
+    "contextHintKo": "데이터의 의미를 설명하는 상황입니다.",
+    "englishWord": "interpret",
+    "sentence": "How do you _____ the results of this survey?",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "interpret", "isCorrect": true, "order": 1 },
+      { "text": "interrupt", "isCorrect": false, "order": 2 },
+      { "text": "intercept", "isCorrect": false, "order": 3 },
+      { "text": "intervene", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "적용하다",
+    "contextHintKo": "배운 이론을 실제 상황에 사용하는 상황입니다.",
+    "englishWord": "apply",
+    "sentence": "You should _____ what you've learned to real situations.",
+    "difficulty": "B1",
+    "category": "toeic",
+    "options": [
+      { "text": "apply", "isCorrect": true, "order": 1 },
+      { "text": "imply", "isCorrect": false, "order": 2 },
+      { "text": "reply", "isCorrect": false, "order": 3 },
+      { "text": "rally", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "환승",
+    "contextHintKo": "경유지에서 다른 비행기로 갈아타는 상황입니다.",
+    "englishWord": "transfer",
+    "sentence": "We have a two-hour _____ in Tokyo before our final flight.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "transfer", "isCorrect": true, "order": 1 },
+      { "text": "semester", "isCorrect": false, "order": 2 },
+      { "text": "register", "isCorrect": false, "order": 3 },
+      { "text": "disaster", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "숙소",
+    "contextHintKo": "여행 중 잠을 잘 곳을 찾는 상황입니다.",
+    "englishWord": "accommodation",
+    "sentence": "We booked _____ near the city center for convenience.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "accommodation", "isCorrect": true, "order": 1 },
+      { "text": "communication", "isCorrect": false, "order": 2 },
+      { "text": "determination", "isCorrect": false, "order": 3 },
+      { "text": "recommendation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "일정",
+    "contextHintKo": "여행 계획을 날짜별로 정리한 것입니다.",
+    "englishWord": "itinerary",
+    "sentence": "Our travel _____ includes visits to three museums.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "itinerary", "isCorrect": true, "order": 1 },
+      { "text": "imaginary", "isCorrect": false, "order": 2 },
+      { "text": "voluntary", "isCorrect": false, "order": 3 },
+      { "text": "temporary", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "목적지",
+    "contextHintKo": "여행에서 최종적으로 도착하려는 곳입니다.",
+    "englishWord": "destination",
+    "sentence": "Paris is a popular tourist _____.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "destination", "isCorrect": true, "order": 1 },
+      { "text": "celebration", "isCorrect": false, "order": 2 },
+      { "text": "examination", "isCorrect": false, "order": 3 },
+      { "text": "combination", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "현지인",
+    "contextHintKo": "그 지역에 사는 사람에게 맛집을 물어보는 상황입니다.",
+    "englishWord": "local",
+    "sentence": "Ask a _____ for the best street food spots.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "local", "isCorrect": true, "order": 1 },
+      { "text": "vocal", "isCorrect": false, "order": 2 },
+      { "text": "focal", "isCorrect": false, "order": 3 },
+      { "text": "modal", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "통로",
+    "contextHintKo": "비행기 좌석 중 복도 쪽 자리를 요청하는 상황입니다.",
+    "englishWord": "aisle",
+    "sentence": "Can I have an _____ seat, please?",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "aisle", "isCorrect": true, "order": 1 },
+      { "text": "attic", "isCorrect": false, "order": 2 },
+      { "text": "album", "isCorrect": false, "order": 3 },
+      { "text": "alibi", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "경유",
+    "contextHintKo": "직항이 아닌 중간에 들르는 비행 방식입니다.",
+    "englishWord": "layover",
+    "sentence": "We have a six-hour _____ in Dubai on the way to London.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "layover", "isCorrect": true, "order": 1 },
+      { "text": "leftover", "isCorrect": false, "order": 2 },
+      { "text": "takeover", "isCorrect": false, "order": 3 },
+      { "text": "makeover", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "편도",
+    "contextHintKo": "돌아오는 표 없이 가는 표만 사는 상황입니다.",
+    "englishWord": "one-way",
+    "sentence": "I'd like a _____ ticket to Seoul, please.",
+    "difficulty": "B1",
+    "category": "travel",
+    "options": [
+      { "text": "one-way", "isCorrect": true, "order": 1 },
+      { "text": "halfway", "isCorrect": false, "order": 2 },
+      { "text": "freeway", "isCorrect": false, "order": 3 },
+      { "text": "doorway", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "그건 식은 죽 먹기야",
+    "contextHintKo": "아주 쉬운 일이라는 의미의 관용 표현입니다.",
+    "englishWord": "a piece of cake",
+    "sentence": "Don't worry about the exam. It'll be _____.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "a piece of cake", "isCorrect": true, "order": 1 },
+      { "text": "a can of worms", "isCorrect": false, "order": 2 },
+      { "text": "a drop in the bucket", "isCorrect": false, "order": 3 },
+      { "text": "a shot in the dark", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "비밀을 누설하다",
+    "contextHintKo": "비밀을 실수로 말해버린 상황입니다.",
+    "englishWord": "let the cat out of the bag",
+    "sentence": "She accidentally _____ about the surprise party.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "let the cat out of the bag", "isCorrect": true, "order": 1 },
+      { "text": "hit the nail on the head", "isCorrect": false, "order": 2 },
+      { "text": "killed two birds with one stone", "isCorrect": false, "order": 3 },
+      { "text": "broke the ice at the party", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "과장하다",
+    "contextHintKo": "사실보다 크게 부풀려 말하는 행위입니다.",
+    "englishWord": "blow out of proportion",
+    "sentence": "He tends to _____ every small problem.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "blow out of proportion", "isCorrect": true, "order": 1 },
+      { "text": "beat around the bush", "isCorrect": false, "order": 2 },
+      { "text": "burn the midnight oil", "isCorrect": false, "order": 3 },
+      { "text": "bite off more than he can chew", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "핵심을 찌르다",
+    "contextHintKo": "문제의 정확한 원인을 짚어낸 상황입니다.",
+    "englishWord": "hit the nail on the head",
+    "sentence": "Your analysis _____. That's exactly the issue.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "hit the nail on the head", "isCorrect": true, "order": 1 },
+      { "text": "missed the boat entirely", "isCorrect": false, "order": 2 },
+      { "text": "opened a can of worms", "isCorrect": false, "order": 3 },
+      { "text": "crossed the line completely", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "밤새 공부하다",
+    "contextHintKo": "시험 전날 늦게까지 열심히 공부하는 상황입니다.",
+    "englishWord": "burn the midnight oil",
+    "sentence": "I had to _____ to finish the project on time.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "burn the midnight oil", "isCorrect": true, "order": 1 },
+      { "text": "break the ice first", "isCorrect": false, "order": 2 },
+      { "text": "spill the beans again", "isCorrect": false, "order": 3 },
+      { "text": "pull someone's leg", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "돌려 말하다",
+    "contextHintKo": "본론을 말하지 않고 에둘러 이야기하는 상황입니다.",
+    "englishWord": "beat around the bush",
+    "sentence": "Stop _____ and tell me what happened.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "beating around the bush", "isCorrect": true, "order": 1 },
+      { "text": "burning the midnight oil", "isCorrect": false, "order": 2 },
+      { "text": "barking up the wrong tree", "isCorrect": false, "order": 3 },
+      { "text": "biting the bullet now", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "일석이조",
+    "contextHintKo": "한 가지 행동으로 두 가지 이득을 보는 상황입니다.",
+    "englishWord": "kill two birds with one stone",
+    "sentence": "By biking to work, I exercise and save gas — I _____.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "kill two birds with one stone", "isCorrect": true, "order": 1 },
+      { "text": "let the cat out of the bag", "isCorrect": false, "order": 2 },
+      { "text": "add fuel to the fire", "isCorrect": false, "order": 3 },
+      { "text": "put all eggs in one basket", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "서먹함을 깨다",
+    "contextHintKo": "처음 만난 사람들과 어색한 분위기를 풀 때 쓰는 표현입니다.",
+    "englishWord": "break the ice",
+    "sentence": "A simple joke can help _____ at a new meeting.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "break the ice", "isCorrect": true, "order": 1 },
+      { "text": "rock the boat", "isCorrect": false, "order": 2 },
+      { "text": "jump the gun", "isCorrect": false, "order": 3 },
+      { "text": "miss the mark", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "장단점을 따지다",
+    "contextHintKo": "결정 전에 좋은 점과 나쁜 점을 비교하는 상황입니다.",
+    "englishWord": "weigh the pros and cons",
+    "sentence": "Before accepting the offer, you should _____.",
+    "difficulty": "B1",
+    "category": "idioms",
+    "options": [
+      { "text": "weigh the pros and cons", "isCorrect": true, "order": 1 },
+      { "text": "spill the beans quickly", "isCorrect": false, "order": 2 },
+      { "text": "cut corners somewhere", "isCorrect": false, "order": 3 },
+      { "text": "call it a day early", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "포괄적인",
+    "contextHintKo": "모든 측면을 다루는 보고서를 작성하는 상황입니다.",
+    "englishWord": "comprehensive",
+    "sentence": "The report provides a _____ overview of the market trends.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "comprehensive", "isCorrect": true, "order": 1 },
+      { "text": "compassionate", "isCorrect": false, "order": 2 },
+      { "text": "controversial", "isCorrect": false, "order": 3 },
+      { "text": "complementary", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "모순",
+    "contextHintKo": "두 주장이 서로 반대되는 상황입니다.",
+    "englishWord": "contradiction",
+    "sentence": "There is a clear _____ between his words and actions.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "contradiction", "isCorrect": true, "order": 1 },
+      { "text": "concentration", "isCorrect": false, "order": 2 },
+      { "text": "configuration", "isCorrect": false, "order": 3 },
+      { "text": "consideration", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "편견",
+    "contextHintKo": "공정하지 않은 선입견에 대해 이야기하는 상황입니다.",
+    "englishWord": "prejudice",
+    "sentence": "We must fight against racial _____ in society.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "prejudice", "isCorrect": true, "order": 1 },
+      { "text": "privilege", "isCorrect": false, "order": 2 },
+      { "text": "precedent", "isCorrect": false, "order": 3 },
+      { "text": "provision", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "인식",
+    "contextHintKo": "사람들이 어떤 것을 바라보는 관점을 말하는 상황입니다.",
+    "englishWord": "perception",
+    "sentence": "Public _____ of the brand improved after the campaign.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "perception", "isCorrect": true, "order": 1 },
+      { "text": "perfection", "isCorrect": false, "order": 2 },
+      { "text": "persecution", "isCorrect": false, "order": 3 },
+      { "text": "precaution", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "진퇴양난",
+    "contextHintKo": "두 가지 모두 어려운 선택을 해야 하는 상황입니다.",
+    "englishWord": "dilemma",
+    "sentence": "She faced a moral _____ about telling the truth.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "dilemma", "isCorrect": true, "order": 1 },
+      { "text": "diploma", "isCorrect": false, "order": 2 },
+      { "text": "dynasty", "isCorrect": false, "order": 3 },
+      { "text": "diagram", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "공감",
+    "contextHintKo": "다른 사람의 감정을 이해하고 느끼는 능력입니다.",
+    "englishWord": "empathy",
+    "sentence": "A good leader shows _____ toward team members' concerns.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "empathy", "isCorrect": true, "order": 1 },
+      { "text": "entropy", "isCorrect": false, "order": 2 },
+      { "text": "apathy", "isCorrect": false, "order": 3 },
+      { "text": "atrophy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "탄력성",
+    "contextHintKo": "어려움 후 다시 일어서는 힘을 말하는 상황입니다.",
+    "englishWord": "resilience",
+    "sentence": "Her _____ after the failure inspired everyone around her.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "resilience", "isCorrect": true, "order": 1 },
+      { "text": "residence", "isCorrect": false, "order": 2 },
+      { "text": "relevance", "isCorrect": false, "order": 3 },
+      { "text": "reference", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "모호한",
+    "contextHintKo": "의미가 불분명하여 여러 해석이 가능한 상황입니다.",
+    "englishWord": "ambiguous",
+    "sentence": "The contract language is _____ and needs clarification.",
+    "difficulty": "B2",
+    "category": "daily",
+    "options": [
+      { "text": "ambiguous", "isCorrect": true, "order": 1 },
+      { "text": "ambitious", "isCorrect": false, "order": 2 },
+      { "text": "anomalous", "isCorrect": false, "order": 3 },
+      { "text": "analogous", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "인수합병",
+    "contextHintKo": "다른 회사를 사들이는 비즈니스 거래입니다.",
+    "englishWord": "acquisition",
+    "sentence": "The _____ of the startup cost $2 billion.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "acquisition", "isCorrect": true, "order": 1 },
+      { "text": "prohibition", "isCorrect": false, "order": 2 },
+      { "text": "disposition", "isCorrect": false, "order": 3 },
+      { "text": "prosecution", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이해관계자",
+    "contextHintKo": "프로젝트에 영향을 받거나 주는 관련 당사자입니다.",
+    "englishWord": "stakeholder",
+    "sentence": "We must present the results to all key _____.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "stakeholders", "isCorrect": true, "order": 1 },
+      { "text": "stockholders", "isCorrect": false, "order": 2 },
+      { "text": "gatekeepers", "isCorrect": false, "order": 3 },
+      { "text": "shopkeepers", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "규정 준수",
+    "contextHintKo": "법률과 규칙을 따르는 것을 보장하는 상황입니다.",
+    "englishWord": "compliance",
+    "sentence": "All departments must ensure _____ with the new regulations.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "compliance", "isCorrect": true, "order": 1 },
+      { "text": "competence", "isCorrect": false, "order": 2 },
+      { "text": "conscience", "isCorrect": false, "order": 3 },
+      { "text": "conference", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "위임하다",
+    "contextHintKo": "업무를 팀원에게 나누어 맡기는 상황입니다.",
+    "englishWord": "delegate",
+    "sentence": "A good manager knows how to _____ tasks effectively.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "delegate", "isCorrect": true, "order": 1 },
+      { "text": "dedicate", "isCorrect": false, "order": 2 },
+      { "text": "decorate", "isCorrect": false, "order": 3 },
+      { "text": "dominate", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "벤치마크",
+    "contextHintKo": "성과를 비교할 수 있는 기준점을 설정하는 상황입니다.",
+    "englishWord": "benchmark",
+    "sentence": "We use industry standards as a _____ for our performance.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "benchmark", "isCorrect": true, "order": 1 },
+      { "text": "birthmark", "isCorrect": false, "order": 2 },
+      { "text": "bookshelf", "isCorrect": false, "order": 3 },
+      { "text": "framework", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "구조조정",
+    "contextHintKo": "회사의 조직을 효율적으로 재편하는 상황입니다.",
+    "englishWord": "restructuring",
+    "sentence": "The company announced a major _____ to cut costs.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "restructuring", "isCorrect": true, "order": 1 },
+      { "text": "redistribution", "isCorrect": false, "order": 2 },
+      { "text": "reforestation", "isCorrect": false, "order": 3 },
+      { "text": "rehabilitation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "수익성",
+    "contextHintKo": "사업이 이익을 내는 정도를 평가하는 상황입니다.",
+    "englishWord": "profitability",
+    "sentence": "The board questioned the _____ of the new venture.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "profitability", "isCorrect": true, "order": 1 },
+      { "text": "compatibility", "isCorrect": false, "order": 2 },
+      { "text": "vulnerability", "isCorrect": false, "order": 3 },
+      { "text": "accessibility", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "시너지",
+    "contextHintKo": "두 팀이 협력하여 더 큰 효과를 내는 상황입니다.",
+    "englishWord": "synergy",
+    "sentence": "The merger created _____ between the two divisions.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "synergy", "isCorrect": true, "order": 1 },
+      { "text": "surgery", "isCorrect": false, "order": 2 },
+      { "text": "allergy", "isCorrect": false, "order": 3 },
+      { "text": "liturgy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "자산",
+    "contextHintKo": "회사가 소유한 가치 있는 것들을 총칭하는 용어입니다.",
+    "englishWord": "asset",
+    "sentence": "Intellectual property is a valuable _____ for the company.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "asset", "isCorrect": true, "order": 1 },
+      { "text": "onset", "isCorrect": false, "order": 2 },
+      { "text": "inset", "isCorrect": false, "order": 3 },
+      { "text": "upset", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "다각화",
+    "contextHintKo": "사업 영역을 여러 분야로 확장하는 전략입니다.",
+    "englishWord": "diversification",
+    "sentence": "_____ of the product line reduced overall business risk.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "Diversification", "isCorrect": true, "order": 1 },
+      { "text": "Dissatisfaction", "isCorrect": false, "order": 2 },
+      { "text": "Discrimination", "isCorrect": false, "order": 3 },
+      { "text": "Documentation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "물류",
+    "contextHintKo": "상품의 운송과 배달을 관리하는 시스템입니다.",
+    "englishWord": "logistics",
+    "sentence": "The _____ team ensured all packages arrived on schedule.",
+    "difficulty": "B2",
+    "category": "business",
+    "options": [
+      { "text": "logistics", "isCorrect": true, "order": 1 },
+      { "text": "linguistics", "isCorrect": false, "order": 2 },
+      { "text": "gymnastics", "isCorrect": false, "order": 3 },
+      { "text": "statistics", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "유추",
+    "contextHintKo": "토익에서 두 상황의 유사점을 통해 이해하는 방식입니다.",
+    "englishWord": "analogy",
+    "sentence": "The teacher used an _____ to explain the complex concept.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "analogy", "isCorrect": true, "order": 1 },
+      { "text": "apology", "isCorrect": false, "order": 2 },
+      { "text": "biology", "isCorrect": false, "order": 3 },
+      { "text": "trilogy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "암시하다",
+    "contextHintKo": "직접 말하지 않고 넌지시 의미를 전달하는 상황입니다.",
+    "englishWord": "imply",
+    "sentence": "The author doesn't state it directly but _____ that change is needed.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "implies", "isCorrect": true, "order": 1 },
+      { "text": "applies", "isCorrect": false, "order": 2 },
+      { "text": "replies", "isCorrect": false, "order": 3 },
+      { "text": "denies", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "준수하다",
+    "contextHintKo": "규칙이나 지침을 따르는 것을 의미하는 상황입니다.",
+    "englishWord": "comply",
+    "sentence": "All employees must _____ with the safety regulations.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "comply", "isCorrect": true, "order": 1 },
+      { "text": "supply", "isCorrect": false, "order": 2 },
+      { "text": "occupy", "isCorrect": false, "order": 3 },
+      { "text": "modify", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "취소하다",
+    "contextHintKo": "이미 신청한 것을 무효로 만드는 상황입니다.",
+    "englishWord": "cancel",
+    "sentence": "Due to the storm, they had to _____ the outdoor event.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "cancel", "isCorrect": true, "order": 1 },
+      { "text": "funnel", "isCorrect": false, "order": 2 },
+      { "text": "tunnel", "isCorrect": false, "order": 3 },
+      { "text": "parcel", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "연기하다",
+    "contextHintKo": "예정된 일정을 나중으로 미루는 상황입니다.",
+    "englishWord": "postpone",
+    "sentence": "The conference was _____ until next month.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "postponed", "isCorrect": true, "order": 1 },
+      { "text": "processed", "isCorrect": false, "order": 2 },
+      { "text": "purchased", "isCorrect": false, "order": 3 },
+      { "text": "permitted", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "보증",
+    "contextHintKo": "제품에 문제가 생기면 무상 수리를 해주는 약속입니다.",
+    "englishWord": "warranty",
+    "sentence": "This laptop comes with a two-year _____.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "warranty", "isCorrect": true, "order": 1 },
+      { "text": "currency", "isCorrect": false, "order": 2 },
+      { "text": "pharmacy", "isCorrect": false, "order": 3 },
+      { "text": "casualty", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "충당하다",
+    "contextHintKo": "비용을 지불하기 위해 돈을 배분하는 상황입니다.",
+    "englishWord": "allocate",
+    "sentence": "The department must _____ funds for the new equipment.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "allocate", "isCorrect": true, "order": 1 },
+      { "text": "alleviate", "isCorrect": false, "order": 2 },
+      { "text": "alternate", "isCorrect": false, "order": 3 },
+      { "text": "accelerate", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "조항",
+    "contextHintKo": "계약서의 세부 규정을 확인하는 상황입니다.",
+    "englishWord": "clause",
+    "sentence": "Review every _____ in the contract before signing.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "clause", "isCorrect": true, "order": 1 },
+      { "text": "clique", "isCorrect": false, "order": 2 },
+      { "text": "clench", "isCorrect": false, "order": 3 },
+      { "text": "clutch", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "할인",
+    "contextHintKo": "가격을 낮춰서 판매하는 상황입니다.",
+    "englishWord": "discount",
+    "sentence": "Members receive a 20% _____ on all purchases.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "discount", "isCorrect": true, "order": 1 },
+      { "text": "distrust", "isCorrect": false, "order": 2 },
+      { "text": "disproof", "isCorrect": false, "order": 3 },
+      { "text": "dishonor", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "항의하다",
+    "contextHintKo": "제품 결함에 대해 공식적으로 불만을 제기하는 상황입니다.",
+    "englishWord": "file a complaint",
+    "sentence": "The customer decided to _____ about the defective product.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "file a complaint", "isCorrect": true, "order": 1 },
+      { "text": "raise a question", "isCorrect": false, "order": 2 },
+      { "text": "draw a conclusion", "isCorrect": false, "order": 3 },
+      { "text": "make an exception", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "환불",
+    "contextHintKo": "결함 상품의 구매 금액을 돌려받는 상황입니다.",
+    "englishWord": "refund",
+    "sentence": "I'd like to request a _____ for this broken item.",
+    "difficulty": "B2",
+    "category": "toeic",
+    "options": [
+      { "text": "refund", "isCorrect": true, "order": 1 },
+      { "text": "reform", "isCorrect": false, "order": 2 },
+      { "text": "refuge", "isCorrect": false, "order": 3 },
+      { "text": "reflex", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "문화 충격",
+    "contextHintKo": "다른 문화에 처음 접했을 때 느끼는 당혹감입니다.",
+    "englishWord": "culture shock",
+    "sentence": "Moving to a new country often causes _____.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "culture shock", "isCorrect": true, "order": 1 },
+      { "text": "power surge", "isCorrect": false, "order": 2 },
+      { "text": "market crash", "isCorrect": false, "order": 3 },
+      { "text": "system error", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "배낭여행",
+    "contextHintKo": "배낭을 메고 저예산으로 여행하는 방식입니다.",
+    "englishWord": "backpacking",
+    "sentence": "She went _____ through Southeast Asia for three months.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "backpacking", "isCorrect": true, "order": 1 },
+      { "text": "bookkeeping", "isCorrect": false, "order": 2 },
+      { "text": "kickboxing", "isCorrect": false, "order": 3 },
+      { "text": "shoplifting", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "면세",
+    "contextHintKo": "세금이 면제된 물건을 사는 공항 상점입니다.",
+    "englishWord": "duty-free",
+    "sentence": "I bought perfume at the _____ shop in the airport.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "duty-free", "isCorrect": true, "order": 1 },
+      { "text": "toll-free", "isCorrect": false, "order": 2 },
+      { "text": "hands-free", "isCorrect": false, "order": 3 },
+      { "text": "smoke-free", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "비자",
+    "contextHintKo": "외국에 입국하기 위해 필요한 허가 문서입니다.",
+    "englishWord": "visa",
+    "sentence": "You need a tourist _____ to enter that country.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "visa", "isCorrect": true, "order": 1 },
+      { "text": "veto", "isCorrect": false, "order": 2 },
+      { "text": "verso", "isCorrect": false, "order": 3 },
+      { "text": "vault", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "풍경",
+    "contextHintKo": "산과 바다가 어우러진 아름다운 자연을 말하는 상황입니다.",
+    "englishWord": "scenery",
+    "sentence": "The mountain _____ along the coast was breathtaking.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "scenery", "isCorrect": true, "order": 1 },
+      { "text": "slavery", "isCorrect": false, "order": 2 },
+      { "text": "archery", "isCorrect": false, "order": 3 },
+      { "text": "sorcery", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "세관 신고",
+    "contextHintKo": "외국에서 산 물건을 입국 시 알리는 절차입니다.",
+    "englishWord": "declare",
+    "sentence": "Do you have anything to _____ at customs?",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "declare", "isCorrect": true, "order": 1 },
+      { "text": "decline", "isCorrect": false, "order": 2 },
+      { "text": "deliver", "isCorrect": false, "order": 3 },
+      { "text": "discuss", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "왕복",
+    "contextHintKo": "갈 때와 올 때 모두 포함된 표를 사는 상황입니다.",
+    "englishWord": "round trip",
+    "sentence": "A _____ ticket is cheaper than buying two one-way tickets.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "round trip", "isCorrect": true, "order": 1 },
+      { "text": "field trip", "isCorrect": false, "order": 2 },
+      { "text": "guilt trip", "isCorrect": false, "order": 3 },
+      { "text": "road trip", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "입장료",
+    "contextHintKo": "관광지에 들어가기 위해 내는 비용입니다.",
+    "englishWord": "admission",
+    "sentence": "The _____ fee for the museum is ten dollars.",
+    "difficulty": "B2",
+    "category": "travel",
+    "options": [
+      { "text": "admission", "isCorrect": true, "order": 1 },
+      { "text": "ambition", "isCorrect": false, "order": 2 },
+      { "text": "audition", "isCorrect": false, "order": 3 },
+      { "text": "condition", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "뒷북치다",
+    "contextHintKo": "이미 지나간 일에 대해 뒤늦게 아는 것의 표현입니다.",
+    "englishWord": "hindsight is 20/20",
+    "sentence": "I should have studied harder. Well, _____.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "hindsight is 20/20", "isCorrect": true, "order": 1 },
+      { "text": "ignorance is bliss", "isCorrect": false, "order": 2 },
+      { "text": "practice makes perfect", "isCorrect": false, "order": 3 },
+      { "text": "silence is golden", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "탁상공론",
+    "contextHintKo": "책으로만 배우고 실전 경험이 없다는 뜻입니다.",
+    "englishWord": "armchair expert",
+    "sentence": "He criticizes every decision but never acts — a true _____.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "armchair expert", "isCorrect": true, "order": 1 },
+      { "text": "dark horse", "isCorrect": false, "order": 2 },
+      { "text": "loose cannon", "isCorrect": false, "order": 3 },
+      { "text": "early bird", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "양날의 검",
+    "contextHintKo": "좋은 면과 나쁜 면이 동시에 있는 상황입니다.",
+    "englishWord": "double-edged sword",
+    "sentence": "Social media is a _____; it connects but also distracts.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "double-edged sword", "isCorrect": true, "order": 1 },
+      { "text": "silver lining", "isCorrect": false, "order": 2 },
+      { "text": "wild goose chase", "isCorrect": false, "order": 3 },
+      { "text": "blessing in disguise", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "본론으로 들어가다",
+    "contextHintKo": "서론 없이 바로 핵심을 이야기하는 상황입니다.",
+    "englishWord": "cut to the chase",
+    "sentence": "We don't have much time, so let's _____.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "cut to the chase", "isCorrect": true, "order": 1 },
+      { "text": "pass the buck", "isCorrect": false, "order": 2 },
+      { "text": "pull some strings", "isCorrect": false, "order": 3 },
+      { "text": "raise the bar", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "견디다",
+    "contextHintKo": "어려운 상황을 참고 버티라는 격려의 표현입니다.",
+    "englishWord": "hang in there",
+    "sentence": "The project is tough, but _____. It'll get easier.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "hang in there", "isCorrect": true, "order": 1 },
+      { "text": "snap out of it", "isCorrect": false, "order": 2 },
+      { "text": "let it slide", "isCorrect": false, "order": 3 },
+      { "text": "drop the ball", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "상황을 악화시키다",
+    "contextHintKo": "이미 나쁜 상황을 더 나빠지게 만드는 행위입니다.",
+    "englishWord": "add fuel to the fire",
+    "sentence": "His rude comment only _____ during the argument.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "added fuel to the fire", "isCorrect": true, "order": 1 },
+      { "text": "turned over a new leaf", "isCorrect": false, "order": 2 },
+      { "text": "put the cart before the horse", "isCorrect": false, "order": 3 },
+      { "text": "saw the light at the end", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기회를 잡다",
+    "contextHintKo": "좋은 기회가 왔을 때 놓치지 않는 것을 의미합니다.",
+    "englishWord": "seize the opportunity",
+    "sentence": "When the position opened up, she _____ immediately.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "seized the opportunity", "isCorrect": true, "order": 1 },
+      { "text": "missed the deadline", "isCorrect": false, "order": 2 },
+      { "text": "dodged the bullet", "isCorrect": false, "order": 3 },
+      { "text": "jumped the bandwagon", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "타협하다",
+    "contextHintKo": "서로 양보하여 합의점을 찾는 상황입니다.",
+    "englishWord": "meet halfway",
+    "sentence": "Neither side got everything, but they agreed to _____.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "meet halfway", "isCorrect": true, "order": 1 },
+      { "text": "stand alone", "isCorrect": false, "order": 2 },
+      { "text": "fall behind", "isCorrect": false, "order": 3 },
+      { "text": "step aside", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "헛수고",
+    "contextHintKo": "결과가 없는 일에 시간을 낭비하는 상황입니다.",
+    "englishWord": "wild goose chase",
+    "sentence": "Searching for that old file was a complete _____.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "wild goose chase", "isCorrect": true, "order": 1 },
+      { "text": "lucky break today", "isCorrect": false, "order": 2 },
+      { "text": "close call indeed", "isCorrect": false, "order": 3 },
+      { "text": "turning point here", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "책임을 전가하다",
+    "contextHintKo": "자기 잘못을 남에게 돌리는 행위입니다.",
+    "englishWord": "pass the buck",
+    "sentence": "Stop trying to _____ — take responsibility for the error.",
+    "difficulty": "B2",
+    "category": "idioms",
+    "options": [
+      { "text": "pass the buck", "isCorrect": true, "order": 1 },
+      { "text": "rock the boat", "isCorrect": false, "order": 2 },
+      { "text": "jump the shark", "isCorrect": false, "order": 3 },
+      { "text": "break the mold", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "미묘한",
+    "contextHintKo": "아주 작은 차이지만 중요한 의미를 가지는 상황입니다.",
+    "englishWord": "nuanced",
+    "sentence": "The diplomat gave a carefully _____ response to the sensitive question.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "nuanced", "isCorrect": true, "order": 1 },
+      { "text": "numbered", "isCorrect": false, "order": 2 },
+      { "text": "nurtured", "isCorrect": false, "order": 3 },
+      { "text": "narrowed", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "패러다임",
+    "contextHintKo": "기존의 사고방식이 완전히 바뀌는 상황입니다.",
+    "englishWord": "paradigm",
+    "sentence": "The discovery caused a _____ shift in scientific thinking.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "paradigm", "isCorrect": true, "order": 1 },
+      { "text": "algorithm", "isCorrect": false, "order": 2 },
+      { "text": "mechanism", "isCorrect": false, "order": 3 },
+      { "text": "criticism", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "양극화",
+    "contextHintKo": "의견이 극단적으로 나뉘어 대립하는 현상입니다.",
+    "englishWord": "polarization",
+    "sentence": "Political _____ has made constructive debate increasingly difficult.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "polarization", "isCorrect": true, "order": 1 },
+      { "text": "privatization", "isCorrect": false, "order": 2 },
+      { "text": "prioritization", "isCorrect": false, "order": 3 },
+      { "text": "pasteurization", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "역설",
+    "contextHintKo": "앞뒤가 모순되지만 진실인 상황을 말합니다.",
+    "englishWord": "paradox",
+    "sentence": "It's a _____ that the busiest people often find the most time.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "paradox", "isCorrect": true, "order": 1 },
+      { "text": "parallel", "isCorrect": false, "order": 2 },
+      { "text": "paranoia", "isCorrect": false, "order": 3 },
+      { "text": "parasite", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "만연한",
+    "contextHintKo": "문제가 사회 전반에 널리 퍼져 있는 상황입니다.",
+    "englishWord": "pervasive",
+    "sentence": "Misinformation is _____ on social media platforms.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "pervasive", "isCorrect": true, "order": 1 },
+      { "text": "persuasive", "isCorrect": false, "order": 2 },
+      { "text": "permissive", "isCorrect": false, "order": 3 },
+      { "text": "possessive", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "전례 없는",
+    "contextHintKo": "이전에 한 번도 없었던 일이 발생한 상황입니다.",
+    "englishWord": "unprecedented",
+    "sentence": "The pandemic caused _____ disruption to global supply chains.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "unprecedented", "isCorrect": true, "order": 1 },
+      { "text": "unanticipated", "isCorrect": false, "order": 2 },
+      { "text": "unaccompanied", "isCorrect": false, "order": 3 },
+      { "text": "underestimated", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "동시에 일어나는",
+    "contextHintKo": "여러 사건이 같은 시간에 발생하는 상황입니다.",
+    "englishWord": "simultaneous",
+    "sentence": "The _____ translation allowed everyone to follow the speech.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "simultaneous", "isCorrect": true, "order": 1 },
+      { "text": "spontaneous", "isCorrect": false, "order": 2 },
+      { "text": "superfluous", "isCorrect": false, "order": 3 },
+      { "text": "synonymous", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "내재된",
+    "contextHintKo": "본질적으로 포함되어 있어 분리할 수 없는 특성입니다.",
+    "englishWord": "inherent",
+    "sentence": "There are _____ risks in any new business venture.",
+    "difficulty": "C1",
+    "category": "daily",
+    "options": [
+      { "text": "inherent", "isCorrect": true, "order": 1 },
+      { "text": "coherent", "isCorrect": false, "order": 2 },
+      { "text": "adherent", "isCorrect": false, "order": 3 },
+      { "text": "apparent", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "실사 조사",
+    "contextHintKo": "투자 전에 대상의 가치와 위험을 조사하는 절차입니다.",
+    "englishWord": "due diligence",
+    "sentence": "We conducted _____ before acquiring the company.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "due diligence", "isCorrect": true, "order": 1 },
+      { "text": "civil service", "isCorrect": false, "order": 2 },
+      { "text": "full coverage", "isCorrect": false, "order": 3 },
+      { "text": "fair practice", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "지렛대 효과",
+    "contextHintKo": "적은 자원으로 큰 결과를 얻기 위해 활용하는 전략입니다.",
+    "englishWord": "leverage",
+    "sentence": "We should _____ our existing customer base to expand sales.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "leverage", "isCorrect": true, "order": 1 },
+      { "text": "coverage", "isCorrect": false, "order": 2 },
+      { "text": "cleavage", "isCorrect": false, "order": 3 },
+      { "text": "beverage", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "발판",
+    "contextHintKo": "새로운 시장에 처음 진입하기 위한 기반을 만드는 상황입니다.",
+    "englishWord": "foothold",
+    "sentence": "The startup gained a _____ in the Asian market.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "foothold", "isCorrect": true, "order": 1 },
+      { "text": "foxglove", "isCorrect": false, "order": 2 },
+      { "text": "footprint", "isCorrect": false, "order": 3 },
+      { "text": "forecast", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "병목현상",
+    "contextHintKo": "프로세스에서 진행을 막는 좁은 구간을 말합니다.",
+    "englishWord": "bottleneck",
+    "sentence": "The approval process is the main _____ in our workflow.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "bottleneck", "isCorrect": true, "order": 1 },
+      { "text": "bottlecap", "isCorrect": false, "order": 2 },
+      { "text": "benchmark", "isCorrect": false, "order": 3 },
+      { "text": "birthmark", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "확장성",
+    "contextHintKo": "사업이 성장해도 시스템이 잘 작동하는 능력입니다.",
+    "englishWord": "scalability",
+    "sentence": "_____ is crucial when designing cloud infrastructure.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "Scalability", "isCorrect": true, "order": 1 },
+      { "text": "Reliability", "isCorrect": false, "order": 2 },
+      { "text": "Durability", "isCorrect": false, "order": 3 },
+      { "text": "Capability", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "동의어",
+    "contextHintKo": "조직 내 각 부서의 업무가 서로 잘 맞물려 작동하는 것입니다.",
+    "englishWord": "alignment",
+    "sentence": "Strategic _____ between departments improves overall efficiency.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "alignment", "isCorrect": true, "order": 1 },
+      { "text": "ailment", "isCorrect": false, "order": 2 },
+      { "text": "allotment", "isCorrect": false, "order": 3 },
+      { "text": "amazement", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "손익분기점",
+    "contextHintKo": "수입과 비용이 같아져 이익도 손해도 없는 지점입니다.",
+    "englishWord": "break-even point",
+    "sentence": "The company expects to reach the _____ within two years.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "break-even point", "isCorrect": true, "order": 1 },
+      { "text": "turning point", "isCorrect": false, "order": 2 },
+      { "text": "starting point", "isCorrect": false, "order": 3 },
+      { "text": "selling point", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "감가상각",
+    "contextHintKo": "자산의 가치가 시간이 지남에 따라 줄어드는 것입니다.",
+    "englishWord": "depreciation",
+    "sentence": "Asset _____ must be accounted for in the financial report.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "depreciation", "isCorrect": true, "order": 1 },
+      { "text": "appreciation", "isCorrect": false, "order": 2 },
+      { "text": "deforestation", "isCorrect": false, "order": 3 },
+      { "text": "desertification", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "투자수익률",
+    "contextHintKo": "투자한 돈 대비 얼마나 이익을 얻었는지의 비율입니다.",
+    "englishWord": "ROI",
+    "sentence": "The marketing campaign delivered an impressive _____.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "ROI", "isCorrect": true, "order": 1 },
+      { "text": "GDP", "isCorrect": false, "order": 2 },
+      { "text": "FAQ", "isCorrect": false, "order": 3 },
+      { "text": "ETA", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "고유명사화",
+    "contextHintKo": "일반 명사로 쓰이게 된 상표명을 말합니다.",
+    "englishWord": "genericization",
+    "sentence": "The _____ of brand names like 'Xerox' is a trademark risk.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "genericization", "isCorrect": true, "order": 1 },
+      { "text": "gentrification", "isCorrect": false, "order": 2 },
+      { "text": "globalization", "isCorrect": false, "order": 3 },
+      { "text": "generalization", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기업 지배구조",
+    "contextHintKo": "회사의 의사결정 구조와 책임 체계를 말합니다.",
+    "englishWord": "corporate governance",
+    "sentence": "Strong _____ ensures transparency and accountability.",
+    "difficulty": "C1",
+    "category": "business",
+    "options": [
+      { "text": "corporate governance", "isCorrect": true, "order": 1 },
+      { "text": "creative direction", "isCorrect": false, "order": 2 },
+      { "text": "customer retention", "isCorrect": false, "order": 3 },
+      { "text": "content management", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "함축하다",
+    "contextHintKo": "단어가 사전적 의미 외에 감정적 뉘앙스를 지니는 것입니다.",
+    "englishWord": "connote",
+    "sentence": "The word 'home' _____ warmth and belonging beyond its literal meaning.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "connotes", "isCorrect": true, "order": 1 },
+      { "text": "converts", "isCorrect": false, "order": 2 },
+      { "text": "convicts", "isCorrect": false, "order": 3 },
+      { "text": "consumes", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "일관성",
+    "contextHintKo": "글의 각 부분이 논리적으로 연결되어 있는 상태입니다.",
+    "englishWord": "coherence",
+    "sentence": "The essay lacks _____ — the arguments don't flow logically.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "coherence", "isCorrect": true, "order": 1 },
+      { "text": "tolerance", "isCorrect": false, "order": 2 },
+      { "text": "adherence", "isCorrect": false, "order": 3 },
+      { "text": "reference", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "모호성",
+    "contextHintKo": "하나의 표현이 여러 의미로 해석될 수 있는 성질입니다.",
+    "englishWord": "ambiguity",
+    "sentence": "Legal contracts must be written without any _____.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "ambiguity", "isCorrect": true, "order": 1 },
+      { "text": "antiquity", "isCorrect": false, "order": 2 },
+      { "text": "anonymity", "isCorrect": false, "order": 3 },
+      { "text": "adversity", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "관용적 표현",
+    "contextHintKo": "단어의 직역과 다른 의미를 가진 표현입니다.",
+    "englishWord": "idiomatic",
+    "sentence": "'Kick the bucket' is an _____ expression meaning to die.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "idiomatic", "isCorrect": true, "order": 1 },
+      { "text": "automatic", "isCorrect": false, "order": 2 },
+      { "text": "pragmatic", "isCorrect": false, "order": 3 },
+      { "text": "enigmatic", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "논박하다",
+    "contextHintKo": "상대방의 주장이 틀렸음을 증거로 증명하는 상황입니다.",
+    "englishWord": "refute",
+    "sentence": "The scientist _____ the claim with solid experimental data.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "refuted", "isCorrect": true, "order": 1 },
+      { "text": "refused", "isCorrect": false, "order": 2 },
+      { "text": "reduced", "isCorrect": false, "order": 3 },
+      { "text": "resumed", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "비유",
+    "contextHintKo": "다른 대상에 빗대어 개념을 설명하는 방법입니다.",
+    "englishWord": "metaphor",
+    "sentence": "'Life is a journey' is a common _____ in literature.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "metaphor", "isCorrect": true, "order": 1 },
+      { "text": "mediator", "isCorrect": false, "order": 2 },
+      { "text": "membrane", "isCorrect": false, "order": 3 },
+      { "text": "manifold", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "구문 분석",
+    "contextHintKo": "문장의 구조를 분석하여 의미를 파악하는 방법입니다.",
+    "englishWord": "syntax",
+    "sentence": "Understanding English _____ is essential for advanced reading.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "syntax", "isCorrect": true, "order": 1 },
+      { "text": "symbol", "isCorrect": false, "order": 2 },
+      { "text": "system", "isCorrect": false, "order": 3 },
+      { "text": "synapse", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "어원",
+    "contextHintKo": "단어가 어떤 언어에서 유래했는지를 추적하는 학문입니다.",
+    "englishWord": "etymology",
+    "sentence": "The _____ of 'salary' traces back to the Latin word for salt.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "etymology", "isCorrect": true, "order": 1 },
+      { "text": "entomology", "isCorrect": false, "order": 2 },
+      { "text": "ethnography", "isCorrect": false, "order": 3 },
+      { "text": "epistemology", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "언어학",
+    "contextHintKo": "언어의 구조와 사용을 과학적으로 연구하는 분야입니다.",
+    "englishWord": "linguistics",
+    "sentence": "She studied _____ to understand how languages evolve.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "linguistics", "isCorrect": true, "order": 1 },
+      { "text": "gymnastics", "isCorrect": false, "order": 2 },
+      { "text": "diagnostics", "isCorrect": false, "order": 3 },
+      { "text": "statistics", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "함축",
+    "contextHintKo": "직접 말하지 않았지만 간접적으로 나타나는 의미입니다.",
+    "englishWord": "implication",
+    "sentence": "The _____ of his statement is that the project will be canceled.",
+    "difficulty": "C1",
+    "category": "toeic",
+    "options": [
+      { "text": "implication", "isCorrect": true, "order": 1 },
+      { "text": "application", "isCorrect": false, "order": 2 },
+      { "text": "compilation", "isCorrect": false, "order": 3 },
+      { "text": "duplication", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "몰입",
+    "contextHintKo": "현지 문화 속에 깊이 빠져드는 여행 방식입니다.",
+    "englishWord": "immersion",
+    "sentence": "Cultural _____ is the best way to learn a foreign language.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "immersion", "isCorrect": true, "order": 1 },
+      { "text": "imposition", "isCorrect": false, "order": 2 },
+      { "text": "impression", "isCorrect": false, "order": 3 },
+      { "text": "innovation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기반시설",
+    "contextHintKo": "도로, 전기 등 사회의 기본 시설을 말합니다.",
+    "englishWord": "infrastructure",
+    "sentence": "Developing countries often struggle with outdated _____.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "infrastructure", "isCorrect": true, "order": 1 },
+      { "text": "architecture", "isCorrect": false, "order": 2 },
+      { "text": "nomenclature", "isCorrect": false, "order": 3 },
+      { "text": "temperature", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "향수병",
+    "contextHintKo": "오랫동안 외국에 있어서 고향이 그리운 감정입니다.",
+    "englishWord": "homesickness",
+    "sentence": "Many exchange students experience _____ during their first month.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "homesickness", "isCorrect": true, "order": 1 },
+      { "text": "helplessness", "isCorrect": false, "order": 2 },
+      { "text": "hopelessness", "isCorrect": false, "order": 3 },
+      { "text": "recklessness", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "지속가능한",
+    "contextHintKo": "환경을 해치지 않는 여행 방식을 추구하는 상황입니다.",
+    "englishWord": "sustainable",
+    "sentence": "_____ tourism aims to minimize environmental impact.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "Sustainable", "isCorrect": true, "order": 1 },
+      { "text": "Substantial", "isCorrect": false, "order": 2 },
+      { "text": "Susceptible", "isCorrect": false, "order": 3 },
+      { "text": "Submersible", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "에코투어",
+    "contextHintKo": "자연 보존을 중시하는 여행 방식입니다.",
+    "englishWord": "ecotourism",
+    "sentence": "Costa Rica is a world leader in _____ and conservation.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "ecotourism", "isCorrect": true, "order": 1 },
+      { "text": "ecoterrorism", "isCorrect": false, "order": 2 },
+      { "text": "bilingualism", "isCorrect": false, "order": 3 },
+      { "text": "materialism", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "관료주의",
+    "contextHintKo": "비자 신청 시 복잡한 절차와 서류에 시달리는 상황입니다.",
+    "englishWord": "bureaucracy",
+    "sentence": "Getting a visa involves dealing with lots of _____.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "bureaucracy", "isCorrect": true, "order": 1 },
+      { "text": "aristocracy", "isCorrect": false, "order": 2 },
+      { "text": "meritocracy", "isCorrect": false, "order": 3 },
+      { "text": "technocracy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "젠트리피케이션",
+    "contextHintKo": "관광객 유입으로 원주민이 내몰리는 도시 변화 현상입니다.",
+    "englishWord": "gentrification",
+    "sentence": "Over-tourism has accelerated _____ in historic neighborhoods.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "gentrification", "isCorrect": true, "order": 1 },
+      { "text": "gratification", "isCorrect": false, "order": 2 },
+      { "text": "justification", "isCorrect": false, "order": 3 },
+      { "text": "clarification", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "오지",
+    "contextHintKo": "사람이 거의 가지 않는 외진 여행지를 의미합니다.",
+    "englishWord": "off the beaten path",
+    "sentence": "This village is _____; very few tourists know about it.",
+    "difficulty": "C1",
+    "category": "travel",
+    "options": [
+      { "text": "off the beaten path", "isCorrect": true, "order": 1 },
+      { "text": "over the top", "isCorrect": false, "order": 2 },
+      { "text": "under the weather", "isCorrect": false, "order": 3 },
+      { "text": "behind the scenes", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "코끼리를 무시하다",
+    "contextHintKo": "모두가 알지만 아무도 언급하지 않는 문제를 말합니다.",
+    "englishWord": "elephant in the room",
+    "sentence": "The budget crisis is the _____ that nobody wants to discuss.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "elephant in the room", "isCorrect": true, "order": 1 },
+      { "text": "fish out of water", "isCorrect": false, "order": 2 },
+      { "text": "wolf in sheep's clothing", "isCorrect": false, "order": 3 },
+      { "text": "bull in a china shop", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "감언이설",
+    "contextHintKo": "상대의 비위를 맞추어 좋은 평가를 받으려는 행위입니다.",
+    "englishWord": "butter someone up",
+    "sentence": "He's just trying to _____ the boss to get a promotion.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "butter up", "isCorrect": true, "order": 1 },
+      { "text": "bring down", "isCorrect": false, "order": 2 },
+      { "text": "brush off", "isCorrect": false, "order": 3 },
+      { "text": "back away from", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "양의 탈을 쓴 늑대",
+    "contextHintKo": "겉으로는 선해 보이지만 속은 나쁜 사람을 말합니다.",
+    "englishWord": "wolf in sheep's clothing",
+    "sentence": "That friendly salesman turned out to be a _____.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "wolf in sheep's clothing", "isCorrect": true, "order": 1 },
+      { "text": "bull in a china shop", "isCorrect": false, "order": 2 },
+      { "text": "fish out of water", "isCorrect": false, "order": 3 },
+      { "text": "snake in the grass", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "터무니없는 금액",
+    "contextHintKo": "비용이 매우 비싸서 놀라는 상황의 표현입니다.",
+    "englishWord": "cost an arm and a leg",
+    "sentence": "That luxury car _____; I could never afford it.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "costs an arm and a leg", "isCorrect": true, "order": 1 },
+      { "text": "gives a run for its money", "isCorrect": false, "order": 2 },
+      { "text": "turns a blind eye to cost", "isCorrect": false, "order": 3 },
+      { "text": "puts money where mouth is", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "마지막 수단",
+    "contextHintKo": "다른 방법이 모두 실패한 후 최후로 시도하는 것입니다.",
+    "englishWord": "last resort",
+    "sentence": "Surgery should only be considered as a _____.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "last resort", "isCorrect": true, "order": 1 },
+      { "text": "first draft", "isCorrect": false, "order": 2 },
+      { "text": "close match", "isCorrect": false, "order": 3 },
+      { "text": "long shot", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "문 앞의 발",
+    "contextHintKo": "기회에 첫발을 들이밀어 시작하는 계기를 만드는 표현입니다.",
+    "englishWord": "foot in the door",
+    "sentence": "This internship is a great way to get your _____.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "foot in the door", "isCorrect": true, "order": 1 },
+      { "text": "head in the clouds", "isCorrect": false, "order": 2 },
+      { "text": "hand on the wheel", "isCorrect": false, "order": 3 },
+      { "text": "eye on the prize", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "같은 처지",
+    "contextHintKo": "서로 같은 어려운 상황에 있다는 공감의 표현입니다.",
+    "englishWord": "in the same boat",
+    "sentence": "Don't worry — we're all _____ with this deadline.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "in the same boat", "isCorrect": true, "order": 1 },
+      { "text": "on the same page", "isCorrect": false, "order": 2 },
+      { "text": "under the same roof", "isCorrect": false, "order": 3 },
+      { "text": "at the same time", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이중잣대",
+    "contextHintKo": "같은 일에 사람마다 다른 기준을 적용하는 불공정한 상황입니다.",
+    "englishWord": "double standard",
+    "sentence": "Punishing only junior staff for lateness is a clear _____.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "double standard", "isCorrect": true, "order": 1 },
+      { "text": "double trouble", "isCorrect": false, "order": 2 },
+      { "text": "double meaning", "isCorrect": false, "order": 3 },
+      { "text": "double jeopardy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "허세를 부리다",
+    "contextHintKo": "아는 것보다 더 아는 척하는 행위입니다.",
+    "englishWord": "bite off more than one can chew",
+    "sentence": "He _____ by volunteering to lead three projects simultaneously.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "bit off more than he could chew", "isCorrect": true, "order": 1 },
+      { "text": "let the cat out of the bag", "isCorrect": false, "order": 2 },
+      { "text": "put all his eggs in one basket", "isCorrect": false, "order": 3 },
+      { "text": "threw in the towel early", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "뿌린 대로 거두다",
+    "contextHintKo": "자기 행동의 결과를 스스로 받아야 한다는 의미입니다.",
+    "englishWord": "reap what you sow",
+    "sentence": "He ignored all warnings. Now he's _____ what he sowed.",
+    "difficulty": "C1",
+    "category": "idioms",
+    "options": [
+      { "text": "reaping", "isCorrect": true, "order": 1 },
+      { "text": "reaching", "isCorrect": false, "order": 2 },
+      { "text": "reading", "isCorrect": false, "order": 3 },
+      { "text": "reducing", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "피할 수 없는",
+    "contextHintKo": "반드시 일어날 수밖에 없는 결과를 말하는 상황입니다.",
+    "englishWord": "inevitable",
+    "sentence": "Technological disruption in traditional industries is _____.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "inevitable", "isCorrect": true, "order": 1 },
+      { "text": "incredible", "isCorrect": false, "order": 2 },
+      { "text": "intolerable", "isCorrect": false, "order": 3 },
+      { "text": "indivisible", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "일시적인",
+    "contextHintKo": "잠시 동안만 존재하고 금방 사라지는 것을 의미합니다.",
+    "englishWord": "ephemeral",
+    "sentence": "Social media trends are _____ — popular today, forgotten tomorrow.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "ephemeral", "isCorrect": true, "order": 1 },
+      { "text": "empirical", "isCorrect": false, "order": 2 },
+      { "text": "equivocal", "isCorrect": false, "order": 3 },
+      { "text": "emotional", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "곳곳에 있는",
+    "contextHintKo": "어디를 가든 볼 수 있을 정도로 흔한 것을 의미합니다.",
+    "englishWord": "ubiquitous",
+    "sentence": "Smartphones have become _____ in modern daily life.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "ubiquitous", "isCorrect": true, "order": 1 },
+      { "text": "ambiguous", "isCorrect": false, "order": 2 },
+      { "text": "contiguous", "isCorrect": false, "order": 3 },
+      { "text": "conspicuous", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "오만한",
+    "contextHintKo": "자기가 남들보다 우월하다고 행동하는 태도입니다.",
+    "englishWord": "hubris",
+    "sentence": "His _____ led him to ignore all expert advice, causing the project to fail.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "hubris", "isCorrect": true, "order": 1 },
+      { "text": "hazard", "isCorrect": false, "order": 2 },
+      { "text": "homage", "isCorrect": false, "order": 3 },
+      { "text": "heresy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "궤변",
+    "contextHintKo": "논리적으로 타당해 보이지만 실은 잘못된 추론입니다.",
+    "englishWord": "fallacy",
+    "sentence": "The argument contains a logical _____ that undermines its conclusion.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "fallacy", "isCorrect": true, "order": 1 },
+      { "text": "fantasy", "isCorrect": false, "order": 2 },
+      { "text": "faculty", "isCorrect": false, "order": 3 },
+      { "text": "felony", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이분법적 사고",
+    "contextHintKo": "복잡한 문제를 단 두 가지로만 나누어 보는 사고방식입니다.",
+    "englishWord": "dichotomy",
+    "sentence": "The _____ between work and life balance is a false one.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "dichotomy", "isCorrect": true, "order": 1 },
+      { "text": "diplomacy", "isCorrect": false, "order": 2 },
+      { "text": "democracy", "isCorrect": false, "order": 3 },
+      { "text": "discovery", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "시대착오적",
+    "contextHintKo": "현 시대에 맞지 않는 구식 사고방식이나 관행입니다.",
+    "englishWord": "anachronistic",
+    "sentence": "Using typewriters in 2025 would be utterly _____.",
+    "difficulty": "C2",
+    "category": "daily",
+    "options": [
+      { "text": "anachronistic", "isCorrect": true, "order": 1 },
+      { "text": "antagonistic", "isCorrect": false, "order": 2 },
+      { "text": "characteristic", "isCorrect": false, "order": 3 },
+      { "text": "deterministic", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "탈세 방지",
+    "contextHintKo": "세금을 법적으로 피하는 기업 관행에 대한 논의입니다.",
+    "englishWord": "tax avoidance",
+    "sentence": "The government introduced new legislation to combat corporate _____.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "tax avoidance", "isCorrect": true, "order": 1 },
+      { "text": "tax incentive", "isCorrect": false, "order": 2 },
+      { "text": "tax reduction", "isCorrect": false, "order": 3 },
+      { "text": "tax exemption", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "과점",
+    "contextHintKo": "소수의 대기업이 시장을 지배하는 구조입니다.",
+    "englishWord": "oligopoly",
+    "sentence": "The telecommunications industry operates as an _____.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "oligopoly", "isCorrect": true, "order": 1 },
+      { "text": "monopoly", "isCorrect": false, "order": 2 },
+      { "text": "oligarchy", "isCorrect": false, "order": 3 },
+      { "text": "orthodoxy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "적대적 인수",
+    "contextHintKo": "대상 기업의 동의 없이 강제로 인수하려는 시도입니다.",
+    "englishWord": "hostile takeover",
+    "sentence": "The board adopted a poison pill defense against the _____.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "hostile takeover", "isCorrect": true, "order": 1 },
+      { "text": "initial offering", "isCorrect": false, "order": 2 },
+      { "text": "market expansion", "isCorrect": false, "order": 3 },
+      { "text": "venture capital", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "도덕적 해이",
+    "contextHintKo": "보험이 있으니 위험한 행동을 해도 된다고 생각하는 현상입니다.",
+    "englishWord": "moral hazard",
+    "sentence": "Bank bailouts can create _____ by encouraging reckless lending.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "moral hazard", "isCorrect": true, "order": 1 },
+      { "text": "moral compass", "isCorrect": false, "order": 2 },
+      { "text": "moral victory", "isCorrect": false, "order": 3 },
+      { "text": "moral support", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "규모의 경제",
+    "contextHintKo": "생산량이 늘수록 단위당 비용이 줄어드는 현상입니다.",
+    "englishWord": "economies of scale",
+    "sentence": "Large manufacturers benefit from _____ that small firms cannot achieve.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "economies of scale", "isCorrect": true, "order": 1 },
+      { "text": "margins of error", "isCorrect": false, "order": 2 },
+      { "text": "barriers to entry", "isCorrect": false, "order": 3 },
+      { "text": "returns on equity", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "진입장벽",
+    "contextHintKo": "새로운 기업이 시장에 들어오기 어렵게 만드는 요인입니다.",
+    "englishWord": "barriers to entry",
+    "sentence": "High capital requirements create significant _____ in the industry.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "barriers to entry", "isCorrect": true, "order": 1 },
+      { "text": "windows of opportunity", "isCorrect": false, "order": 2 },
+      { "text": "economies of scope", "isCorrect": false, "order": 3 },
+      { "text": "channels of distribution", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "부채비율",
+    "contextHintKo": "기업의 자산 대비 빚의 비율을 나타내는 재무 지표입니다.",
+    "englishWord": "debt-to-equity ratio",
+    "sentence": "Investors closely monitor a company's _____ before investing.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "debt-to-equity ratio", "isCorrect": true, "order": 1 },
+      { "text": "price-to-earnings ratio", "isCorrect": false, "order": 2 },
+      { "text": "cost-to-benefit ratio", "isCorrect": false, "order": 3 },
+      { "text": "risk-to-reward ratio", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "환율 변동",
+    "contextHintKo": "국가 간 화폐 가치가 바뀌는 현상입니다.",
+    "englishWord": "currency fluctuation",
+    "sentence": "_____ can significantly affect international trade profits.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "Currency fluctuation", "isCorrect": true, "order": 1 },
+      { "text": "Market saturation", "isCorrect": false, "order": 2 },
+      { "text": "Capital allocation", "isCorrect": false, "order": 3 },
+      { "text": "Revenue generation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기업 문화",
+    "contextHintKo": "회사의 가치관과 업무 분위기를 총칭하는 개념입니다.",
+    "englishWord": "corporate culture",
+    "sentence": "A toxic _____ drives away talented employees.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "corporate culture", "isCorrect": true, "order": 1 },
+      { "text": "corporate ladder", "isCorrect": false, "order": 2 },
+      { "text": "corporate merger", "isCorrect": false, "order": 3 },
+      { "text": "corporate policy", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "시장 포화",
+    "contextHintKo": "더 이상 성장할 여지가 없을 정도로 경쟁이 치열한 시장입니다.",
+    "englishWord": "market saturation",
+    "sentence": "_____ in the smartphone industry has slowed innovation.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "Market saturation", "isCorrect": true, "order": 1 },
+      { "text": "Market penetration", "isCorrect": false, "order": 2 },
+      { "text": "Market regulation", "isCorrect": false, "order": 3 },
+      { "text": "Market speculation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "기업의 사회적 책임",
+    "contextHintKo": "기업이 이윤 외에 사회에 기여하는 활동입니다.",
+    "englishWord": "CSR",
+    "sentence": "Their _____ initiatives include funding local education programs.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "CSR", "isCorrect": true, "order": 1 },
+      { "text": "CRM", "isCorrect": false, "order": 2 },
+      { "text": "CEO", "isCorrect": false, "order": 3 },
+      { "text": "CFO", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이기적 편향",
+    "contextHintKo": "성공은 자기 덕, 실패는 남 탓으로 돌리는 심리 현상입니다.",
+    "englishWord": "self-serving bias",
+    "sentence": "Attributing success to skill but failure to luck is a _____.",
+    "difficulty": "C2",
+    "category": "business",
+    "options": [
+      { "text": "self-serving bias", "isCorrect": true, "order": 1 },
+      { "text": "confirmation bias", "isCorrect": false, "order": 2 },
+      { "text": "survivorship bias", "isCorrect": false, "order": 3 },
+      { "text": "anchoring bias", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "어감",
+    "contextHintKo": "같은 뜻이라도 긍정/부정 느낌이 다른 단어의 차이입니다.",
+    "englishWord": "connotation",
+    "sentence": "'Thrifty' has a positive _____, while 'stingy' has a negative one.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "connotation", "isCorrect": true, "order": 1 },
+      { "text": "denotation", "isCorrect": false, "order": 2 },
+      { "text": "annotation", "isCorrect": false, "order": 3 },
+      { "text": "intonation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "완곡어법",
+    "contextHintKo": "직접적 표현 대신 부드럽게 돌려 말하는 방법입니다.",
+    "englishWord": "euphemism",
+    "sentence": "'Passed away' is a _____ for 'died.'",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "euphemism", "isCorrect": true, "order": 1 },
+      { "text": "mechanism", "isCorrect": false, "order": 2 },
+      { "text": "criticism", "isCorrect": false, "order": 3 },
+      { "text": "metabolism", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "담화",
+    "contextHintKo": "학술적 글이나 발표에서 사용하는 논리적 글의 형태입니다.",
+    "englishWord": "discourse",
+    "sentence": "Academic _____ requires formal language and evidence-based reasoning.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "discourse", "isCorrect": true, "order": 1 },
+      { "text": "disgrace", "isCorrect": false, "order": 2 },
+      { "text": "dissolve", "isCorrect": false, "order": 3 },
+      { "text": "dispatch", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "화용론",
+    "contextHintKo": "문맥에 따라 언어가 어떻게 다르게 사용되는지 연구하는 분야입니다.",
+    "englishWord": "pragmatics",
+    "sentence": "_____ studies how context influences the interpretation of meaning.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "Pragmatics", "isCorrect": true, "order": 1 },
+      { "text": "Gymnastics", "isCorrect": false, "order": 2 },
+      { "text": "Diagnostics", "isCorrect": false, "order": 3 },
+      { "text": "Aesthetics", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "형태론",
+    "contextHintKo": "단어의 형태와 구조를 분석하는 언어학의 하위 분야입니다.",
+    "englishWord": "morphology",
+    "sentence": "In _____, we study how prefixes and suffixes change word meaning.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "morphology", "isCorrect": true, "order": 1 },
+      { "text": "mythology", "isCorrect": false, "order": 2 },
+      { "text": "methodology", "isCorrect": false, "order": 3 },
+      { "text": "meteorology", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "음운론",
+    "contextHintKo": "언어에서 소리의 체계와 패턴을 연구하는 분야입니다.",
+    "englishWord": "phonology",
+    "sentence": "_____ explains why 'p' in 'spin' and 'pin' sound different.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "Phonology", "isCorrect": true, "order": 1 },
+      { "text": "Philology", "isCorrect": false, "order": 2 },
+      { "text": "Phycology", "isCorrect": false, "order": 3 },
+      { "text": "Phylogeny", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "관용구의 투명성",
+    "contextHintKo": "관용구의 뜻을 구성 단어로부터 유추할 수 있는 정도입니다.",
+    "englishWord": "transparency",
+    "sentence": "Idiom _____ refers to how easily its meaning can be guessed from its parts.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "transparency", "isCorrect": true, "order": 1 },
+      { "text": "transcendence", "isCorrect": false, "order": 2 },
+      { "text": "transference", "isCorrect": false, "order": 3 },
+      { "text": "transformation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "코드 전환",
+    "contextHintKo": "상황에 따라 두 언어를 번갈아 사용하는 현상입니다.",
+    "englishWord": "code-switching",
+    "sentence": "Bilingual speakers often engage in _____ during casual conversation.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "code-switching", "isCorrect": true, "order": 1 },
+      { "text": "code-breaking", "isCorrect": false, "order": 2 },
+      { "text": "cross-referencing", "isCorrect": false, "order": 3 },
+      { "text": "crowd-sourcing", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "언어 감퇴",
+    "contextHintKo": "사용하지 않아 모국어 능력이 점차 약해지는 현상입니다.",
+    "englishWord": "language attrition",
+    "sentence": "Long-term immigrants may experience _____ in their native tongue.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "language attrition", "isCorrect": true, "order": 1 },
+      { "text": "language barrier", "isCorrect": false, "order": 2 },
+      { "text": "language exchange", "isCorrect": false, "order": 3 },
+      { "text": "language immersion", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "화석화",
+    "contextHintKo": "외국어 학습에서 실력이 더 이상 발전하지 않는 현상입니다.",
+    "englishWord": "fossilization",
+    "sentence": "_____ occurs when language errors become permanently ingrained.",
+    "difficulty": "C2",
+    "category": "toeic",
+    "options": [
+      { "text": "Fossilization", "isCorrect": true, "order": 1 },
+      { "text": "Fertilization", "isCorrect": false, "order": 2 },
+      { "text": "Familiarization", "isCorrect": false, "order": 3 },
+      { "text": "Formalization", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "식민지 흔적",
+    "contextHintKo": "과거 식민 지배의 영향이 남아있는 문화적 유산입니다.",
+    "englishWord": "colonial legacy",
+    "sentence": "The architecture reflects the _____ of British rule.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "colonial legacy", "isCorrect": true, "order": 1 },
+      { "text": "cultural paradox", "isCorrect": false, "order": 2 },
+      { "text": "economic surplus", "isCorrect": false, "order": 3 },
+      { "text": "social contract", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "문화 전유",
+    "contextHintKo": "다른 문화의 요소를 맥락 없이 가져다 쓰는 논쟁적 행위입니다.",
+    "englishWord": "cultural appropriation",
+    "sentence": "The fashion brand faced backlash for _____ of indigenous designs.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "cultural appropriation", "isCorrect": true, "order": 1 },
+      { "text": "cultural appreciation", "isCorrect": false, "order": 2 },
+      { "text": "cultural assimilation", "isCorrect": false, "order": 3 },
+      { "text": "cultural preservation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "오버투어리즘",
+    "contextHintKo": "관광객이 너무 많아 현지 환경이 파괴되는 현상입니다.",
+    "englishWord": "overtourism",
+    "sentence": "Venice is struggling with _____ that damages its fragile ecosystem.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "overtourism", "isCorrect": true, "order": 1 },
+      { "text": "overproduction", "isCorrect": false, "order": 2 },
+      { "text": "overcrowding", "isCorrect": false, "order": 3 },
+      { "text": "overpopulation", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "디아스포라",
+    "contextHintKo": "모국을 떠나 세계 각지에 흩어져 사는 민족을 의미합니다.",
+    "englishWord": "diaspora",
+    "sentence": "The Korean _____ has established vibrant communities worldwide.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "diaspora", "isCorrect": true, "order": 1 },
+      { "text": "dystopia", "isCorrect": false, "order": 2 },
+      { "text": "diploma", "isCorrect": false, "order": 3 },
+      { "text": "dilemma", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "세계시민주의",
+    "contextHintKo": "국경을 넘어 지구촌 모든 사람이 한 공동체라는 사상입니다.",
+    "englishWord": "cosmopolitanism",
+    "sentence": "_____ promotes the idea that all humans share a moral community.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "Cosmopolitanism", "isCorrect": true, "order": 1 },
+      { "text": "Conservationism", "isCorrect": false, "order": 2 },
+      { "text": "Constitutionalism", "isCorrect": false, "order": 3 },
+      { "text": "Commercialism", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "탈식민주의",
+    "contextHintKo": "식민주의 이후 발생한 문화적·정치적 영향을 분석하는 관점입니다.",
+    "englishWord": "postcolonialism",
+    "sentence": "_____ examines how colonial rule continues to shape culture and identity.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "Postcolonialism", "isCorrect": true, "order": 1 },
+      { "text": "Postmodernism", "isCorrect": false, "order": 2 },
+      { "text": "Professionalism", "isCorrect": false, "order": 3 },
+      { "text": "Protectionism", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "이동의 자유",
+    "contextHintKo": "국경 없이 자유롭게 이동할 수 있는 권리를 의미합니다.",
+    "englishWord": "freedom of movement",
+    "sentence": "The EU guarantees _____ for all its citizens across member states.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "freedom of movement", "isCorrect": true, "order": 1 },
+      { "text": "freedom of speech", "isCorrect": false, "order": 2 },
+      { "text": "freedom of assembly", "isCorrect": false, "order": 3 },
+      { "text": "freedom of religion", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "슬로우 트래블",
+    "contextHintKo": "빠르게 관광지를 돌기보다 한 곳에 오래 머무는 여행 방식입니다.",
+    "englishWord": "slow travel",
+    "sentence": "_____ encourages deeper connections with local communities.",
+    "difficulty": "C2",
+    "category": "travel",
+    "options": [
+      { "text": "Slow travel", "isCorrect": true, "order": 1 },
+      { "text": "Solo travel", "isCorrect": false, "order": 2 },
+      { "text": "Space travel", "isCorrect": false, "order": 3 },
+      { "text": "Smart travel", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "바닥을 드러내다",
+    "contextHintKo": "비밀이나 진실이 결국 밝혀지는 상황입니다.",
+    "englishWord": "the chickens come home to roost",
+    "sentence": "After years of cutting corners, _____ — the product recalls are massive.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "the chickens have come home to roost", "isCorrect": true, "order": 1 },
+      { "text": "the ship has already sailed", "isCorrect": false, "order": 2 },
+      { "text": "the tables have turned around", "isCorrect": false, "order": 3 },
+      { "text": "the cat is out of the bag", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "판도라의 상자",
+    "contextHintKo": "한번 시작하면 되돌릴 수 없는 문제를 야기하는 행위입니다.",
+    "englishWord": "open Pandora's box",
+    "sentence": "Releasing that data could _____ of privacy concerns.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "open Pandora's box", "isCorrect": true, "order": 1 },
+      { "text": "cross the Rubicon", "isCorrect": false, "order": 2 },
+      { "text": "tilt at windmills", "isCorrect": false, "order": 3 },
+      { "text": "grasp at straws", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "사면초가",
+    "contextHintKo": "사방에서 압박을 받아 빠져나갈 수 없는 상황입니다.",
+    "englishWord": "between a rock and a hard place",
+    "sentence": "The CEO is _____ — cut jobs or risk bankruptcy.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "between a rock and a hard place", "isCorrect": true, "order": 1 },
+      { "text": "behind the eight ball", "isCorrect": false, "order": 2 },
+      { "text": "barking up the wrong tree", "isCorrect": false, "order": 3 },
+      { "text": "burning bridges everywhere", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "피로스의 승리",
+    "contextHintKo": "이기긴 했지만 비용이 너무 커서 실질적으로는 진 것과 같은 승리입니다.",
+    "englishWord": "Pyrrhic victory",
+    "sentence": "Winning the lawsuit was a _____ — the legal fees bankrupted the company.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "Pyrrhic victory", "isCorrect": true, "order": 1 },
+      { "text": "hollow triumph", "isCorrect": false, "order": 2 },
+      { "text": "narrow escape", "isCorrect": false, "order": 3 },
+      { "text": "bitter defeat", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "절호의 기회",
+    "contextHintKo": "지금이 아니면 영원히 기회가 없다는 긴박한 표현입니다.",
+    "englishWord": "now or never",
+    "sentence": "The market window is closing — it's _____ for this launch.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "now or never", "isCorrect": true, "order": 1 },
+      { "text": "sooner or later", "isCorrect": false, "order": 2 },
+      { "text": "more or less", "isCorrect": false, "order": 3 },
+      { "text": "once and for all", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "루비콘 강을 건너다",
+    "contextHintKo": "돌이킬 수 없는 결정을 내린 상황을 비유합니다.",
+    "englishWord": "cross the Rubicon",
+    "sentence": "By announcing the merger publicly, the CEO has _____.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "crossed the Rubicon", "isCorrect": true, "order": 1 },
+      { "text": "burned all bridges", "isCorrect": false, "order": 2 },
+      { "text": "opened Pandora's box", "isCorrect": false, "order": 3 },
+      { "text": "turned the tables", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "허수아비 논증",
+    "contextHintKo": "상대방의 논점을 왜곡하여 공격하기 쉽게 만드는 논리적 오류입니다.",
+    "englishWord": "straw man argument",
+    "sentence": "That's a _____; I never said we should eliminate all regulations.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "straw man argument", "isCorrect": true, "order": 1 },
+      { "text": "slippery slope fallacy", "isCorrect": false, "order": 2 },
+      { "text": "red herring distraction", "isCorrect": false, "order": 3 },
+      { "text": "circular reasoning trap", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "미끄러운 비탈길",
+    "contextHintKo": "한 가지를 허용하면 끝없이 나빠질 것이라는 논리적 오류입니다.",
+    "englishWord": "slippery slope",
+    "sentence": "Arguing that remote work leads to company collapse is a _____ fallacy.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "slippery slope", "isCorrect": true, "order": 1 },
+      { "text": "stepping stone", "isCorrect": false, "order": 2 },
+      { "text": "stumbling block", "isCorrect": false, "order": 3 },
+      { "text": "sinking ship", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "눈 가리고 아웅",
+    "contextHintKo": "형식만 갖추고 실질적 해결은 하지 않는 행위입니다.",
+    "englishWord": "pay lip service",
+    "sentence": "The company _____ to diversity but made no real policy changes.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "pays lip service", "isCorrect": true, "order": 1 },
+      { "text": "turns a blind eye", "isCorrect": false, "order": 2 },
+      { "text": "pulls the wool over", "isCorrect": false, "order": 3 },
+      { "text": "bends over backward", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "독이 든 성배",
+    "contextHintKo": "겉으로는 좋아 보이지만 받으면 오히려 해가 되는 것입니다.",
+    "englishWord": "poisoned chalice",
+    "sentence": "The CEO position at the failing firm turned out to be a _____.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "poisoned chalice", "isCorrect": true, "order": 1 },
+      { "text": "golden handshake", "isCorrect": false, "order": 2 },
+      { "text": "silver bullet", "isCorrect": false, "order": 3 },
+      { "text": "brass tacks", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "침묵은 동의",
+    "contextHintKo": "반대 의견을 말하지 않으면 동의한 것으로 간주되는 상황입니다.",
+    "englishWord": "silence is consent",
+    "sentence": "In this context, _____ — if you disagree, speak up now.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "silence is consent", "isCorrect": true, "order": 1 },
+      { "text": "silence is golden", "isCorrect": false, "order": 2 },
+      { "text": "patience is a virtue", "isCorrect": false, "order": 3 },
+      { "text": "ignorance is bliss", "isCorrect": false, "order": 4 }
+    ]
+  },
+  {
+    "koreanHint": "자충수",
+    "contextHintKo": "자기 행동이 오히려 자기에게 불리하게 작용하는 상황입니다.",
+    "englishWord": "hoist with one's own petard",
+    "sentence": "The politician who leaked the scandal was _____ when his own secrets emerged.",
+    "difficulty": "C2",
+    "category": "idioms",
+    "options": [
+      { "text": "hoist with his own petard", "isCorrect": true, "order": 1 },
+      { "text": "caught red-handed by them", "isCorrect": false, "order": 2 },
+      { "text": "left holding the bag alone", "isCorrect": false, "order": 3 },
+      { "text": "thrown under the bus first", "isCorrect": false, "order": 4 }
+    ]
+  }
+]

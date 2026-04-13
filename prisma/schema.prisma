@@ -142,6 +142,7 @@ model QuizQuestion { // 퀴즈 질문
 
   createdAt       DateTime @default(now())
 
+  @@unique([difficulty, englishWord])
   @@index([difficulty, category])
 }
 

@@ -3,7 +3,12 @@ import prisma from "@/lib/db";
 import type { Prisma } from "@/lib/generated/prisma/client";
 import type { QuestionCategory, QuestionDifficulty } from "@/entities/question";
 import { questionCategorySchema, questionDifficultySchema } from "@/entities/question/lib/schemas";
-import { DEFAULT_QUIZ_COUNT, WEAKNESS_QUESTION_RATIO } from "@/shared/constants";
+import {
+  DEFAULT_QUIZ_COUNT,
+  WEAKNESS_QUESTION_RATIO,
+  RECENT_EXCLUSION_RATIO,
+  RECENT_EXCLUSION_MAX,
+} from "@/shared/constants";
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { shuffleArray } from "@/shared/lib";
@@ -74,6 +79,19 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+// Fix 1: 콘텐츠 기반 중복 제거 — DB에 동일 englishWord가 다른 ID로 중복 저장된 경우 방어
+function deduplicateByContent(
+  questions: QuizQuestionWithOptions[]
+): QuizQuestionWithOptions[] {
+  const seen = new Set<string>();
+  return questions.filter((q) => {
+    if (seen.has(q.englishWord)) return false;
+    seen.add(q.englishWord);
+    return true;
+  });
+}
+
+// Fix 3: take 제한 제거 — 전체 후보 조회 후 JS 셔플로 편향 없는 랜덤화
 async function getRandomQuestions({
   difficulty,
   take,
@@ -111,7 +129,6 @@ async function getRandomQuestions({
         : {}),
     },
     include: QUESTION_INCLUDE,
-    take: take * 2,
   });
 
   return shuffleArray(questions).slice(0, take);
@@ -167,6 +184,25 @@ export async function GET(req: Request) {
     const userLevel = getUserLevel(profile?.level);
     const weaknessCategories = getWeaknessCategories(profile?.weaknessAreas);
 
+    // Fix 4: 비율 기반 sliding window — 최근 풀이 문제 제외
+    const poolSize = await prisma.quizQuestion.count({
+      where: { difficulty: userLevel },
+    });
+
+    const windowSize = Math.min(
+      Math.floor(poolSize * RECENT_EXCLUSION_RATIO),
+      RECENT_EXCLUSION_MAX
+    );
+
+    const recentAttempts = await prisma.userQuizAttempt.findMany({
+      where: { userId: session.user.id },
+      select: { questionId: true },
+      distinct: ["questionId"],
+      orderBy: { attemptedAt: "desc" },
+      take: windowSize,
+    });
+    const recentQuestionIds = recentAttempts.map((a) => a.questionId);
+
     const weaknessCount =
       weaknessCategories.length > 0
         ? Math.floor(count * WEAKNESS_QUESTION_RATIO)
@@ -175,6 +211,7 @@ export async function GET(req: Request) {
     const selectedWeaknessQuestions = await getRandomQuestions({
       difficulty: userLevel,
       includeCategories: weaknessCategories,
+      excludeQuestionIds: recentQuestionIds,
       take: weaknessCount,
     });
 
@@ -182,7 +219,10 @@ export async function GET(req: Request) {
     const selectedNormalQuestions = await getRandomQuestions({
       difficulty: userLevel,
       excludeCategories: weaknessCategories,
-      excludeQuestionIds: selectedWeaknessQuestions.map((question) => question.id),
+      excludeQuestionIds: [
+        ...recentQuestionIds,
+        ...selectedWeaknessQuestions.map((question) => question.id),
+      ],
       take: remainingCount,
     });
 
@@ -194,15 +234,28 @@ export async function GET(req: Request) {
     const fallbackCount = Math.max(count - selectedQuestionIds.length, 0);
     const fallbackQuestions = await getRandomQuestions({
       difficulty: userLevel,
-      excludeQuestionIds: selectedQuestionIds,
+      excludeQuestionIds: [...recentQuestionIds, ...selectedQuestionIds],
       take: fallbackCount,
     });
 
-    const questions = shuffleArray([
-      ...selectedWeaknessQuestions,
-      ...selectedNormalQuestions,
-      ...fallbackQuestions,
-    ]).slice(0, count);
+    // Fix 1: 콘텐츠 중복 제거 후 slice
+    const questions = deduplicateByContent(
+      shuffleArray([
+        ...selectedWeaknessQuestions,
+        ...selectedNormalQuestions,
+        ...fallbackQuestions,
+      ])
+    ).slice(0, count);
+
+    // Fix 4: 풀 고갈 시 recentQuestionIds 제외 없이 재시도 (세션 내 ID 중복만 방지)
+    if (questions.length < count) {
+      const emergencyFallback = await getRandomQuestions({
+        difficulty: userLevel,
+        excludeQuestionIds: questions.map((q) => q.id),
+        take: count - questions.length,
+      });
+      questions.push(...emergencyFallback);
+    }
 
     return NextResponse.json({
       questions: questions.map(createQuizQuestionResponse),
