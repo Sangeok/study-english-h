@@ -76,6 +76,7 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
           <QuickAccessSection
             diagnosisStatus={diagnosisStatus}
             diagnosisCompleted={diagnosisCompleted}
+            hasCompletedTodayQuiz={profileStats?.hasCompletedTodayQuiz ?? false}
             handlers={handlers}
           />
 
@@ -91,6 +92,7 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
 
           <ActivitySection
             diagnosisCompleted={diagnosisCompleted}
+            hasCompletedTodayQuiz={profileStats?.hasCompletedTodayQuiz ?? false}
             isLoading={isLoading}
             onQuizClick={handlers.handleQuizClick}
             onChallengeClick={() => handlers.handleComingSoon("데일리 챌린지")}

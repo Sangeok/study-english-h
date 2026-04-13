@@ -1,9 +1,12 @@
 interface QuizFeedbackActionsProps {
   onGoMain: () => void;
   onRetry: () => void;
+  isExtraPractice: boolean;
 }
 
-export function QuizFeedbackActions({ onGoMain, onRetry }: QuizFeedbackActionsProps) {
+export function QuizFeedbackActions({ onGoMain, onRetry, isExtraPractice }: QuizFeedbackActionsProps) {
+  const retryLabel = isExtraPractice ? "한 번 더 연습하기" : "추가 연습하기";
+
   return (
     <div className="flex flex-col sm:flex-row gap-4 animate-slide-up" style={{ animationDelay: "0.6s" }}>
       <button
@@ -17,7 +20,7 @@ export function QuizFeedbackActions({ onGoMain, onRetry }: QuizFeedbackActionsPr
         onClick={onRetry}
         className="sm:w-48 py-5 bg-white/80 backdrop-blur-md text-purple-900 font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-purple-200 flex items-center justify-center gap-2"
       >
-        <span>다시 풀기</span>
+        <span>{retryLabel}</span>
         <span className="text-xl">🔄</span>
       </button>
     </div>

@@ -6,6 +6,17 @@ export function toKSTDateString(date: Date): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(date);
 }
 
+/**
+ * KST 기준 오늘 00:00:00 ~ 내일 00:00:00 범위를 UTC Date로 반환
+ * Prisma의 `where: { attemptedAt: getTodayKSTRange() }` 형태로 사용
+ */
+export function getTodayKSTRange(now: Date = new Date()): { gte: Date; lt: Date } {
+  const todayKST = toKSTDateString(now);
+  const gte = new Date(`${todayKST}T00:00:00+09:00`);
+  const lt = new Date(gte.getTime() + 24 * 60 * 60 * 1000);
+  return { gte, lt };
+}
+
 export interface StreakUpdateResult {
   lastStudyDate: Date;
   currentStreak: number;

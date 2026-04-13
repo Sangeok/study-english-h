@@ -1,12 +1,5 @@
-import type { QuizQuestion } from "@/entities/question";
 import { apiClient } from "@/shared/lib";
-import type { QuizSubmission, QuizSubmitResponse } from "../types";
-
-interface DailyQuizResponse {
-  questions: QuizQuestion[];
-  userLevel: string;
-  totalQuestions: number;
-}
+import type { DailyQuizResponse, QuizSubmission, QuizSubmitResponse } from "../types";
 
 export async function fetchDailyQuiz(count = 10): Promise<DailyQuizResponse> {
   return apiClient.get<DailyQuizResponse>(`/api/quiz/daily?count=${count}`);

@@ -6,5 +6,6 @@ export {
   calculateEffectiveCurrentStreak,
   calculateStreakUpdate,
   toKSTDateString,
+  getTodayKSTRange,
 } from "./lib/streak";
 export type { StreakUpdateResult } from "./lib/streak";

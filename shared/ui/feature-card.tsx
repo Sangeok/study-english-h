@@ -28,12 +28,12 @@ export function FeatureCard({
   onClick,
   className
 }: FeatureCardProps) {
-  const isInteractive = status === 'available' || status === 'coming-soon';
+  const isInteractive = status === 'available' || status === 'coming-soon' || status === 'completed';
 
   const statusStyles: Record<FeatureCardStatus, string> = {
     available: "hover:shadow-2xl border-transparent hover:border-purple-200 cursor-pointer",
     locked: "opacity-50 cursor-not-allowed border-gray-200",
-    completed: "bg-green-50 border-green-200",
+    completed: "bg-green-50 border-green-200 hover:shadow-2xl hover:border-green-300 cursor-pointer",
     'coming-soon': "bg-gradient-to-br from-purple-600 to-violet-600 text-white opacity-75 cursor-pointer"
   };
 

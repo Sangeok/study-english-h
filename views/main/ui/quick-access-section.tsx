@@ -6,15 +6,17 @@ import { SectionWrapper } from "./section-wrapper";
 interface QuickAccessSectionProps {
   diagnosisStatus: DiagnosisStatusResponse | undefined;
   diagnosisCompleted: boolean;
+  hasCompletedTodayQuiz: boolean;
   handlers: MainPageHandlers;
 }
 
 export function QuickAccessSection({
   diagnosisStatus,
   diagnosisCompleted,
+  hasCompletedTodayQuiz,
   handlers
 }: QuickAccessSectionProps) {
-  const context = { diagnosisStatus, diagnosisCompleted };
+  const context = { diagnosisStatus, diagnosisCompleted, hasCompletedTodayQuiz };
 
   return (
     <SectionWrapper aria-label="빠른 실행">

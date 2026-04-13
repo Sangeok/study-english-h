@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { calculateEffectiveCurrentStreak } from "@/entities/user";
+import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 
 /**
@@ -18,7 +19,7 @@ export async function GET(req: Request) {
     const userId = session.user.id;
 
     // 병렬로 필요한 데이터 조회
-    const [profile, diagnosisStatus] = await Promise.all([
+    const [profile, diagnosisStatus, todayQuizCount] = await Promise.all([
       // 사용자 프로필
       prisma.userProfile.findUnique({
         where: { userId },
@@ -27,6 +28,10 @@ export async function GET(req: Request) {
       prisma.levelDiagnosis.findFirst({
         where: { userId },
         orderBy: { completedAt: "desc" },
+      }),
+      // 오늘 퀴즈 완료 여부 (KST 기준)
+      prisma.userQuizAttempt.count({
+        where: { userId, attemptedAt: getTodayKSTRange() },
       }),
     ]);
 
@@ -51,6 +56,7 @@ export async function GET(req: Request) {
         hasCompletedDiagnosis: false,
         weaknessAreas: null,
         vocabularyProgress: 0,
+        hasCompletedTodayQuiz: todayQuizCount > 0,
       });
     }
 
@@ -74,6 +80,7 @@ export async function GET(req: Request) {
       weaknessAreas: profile.weaknessAreas,
       vocabularyProgress,
       lastStudyDate: profile.lastStudyDate,
+      hasCompletedTodayQuiz: todayQuizCount > 0,
     });
   } catch (error) {
     console.error("Profile stats error:", error);

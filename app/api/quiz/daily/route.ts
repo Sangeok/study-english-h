@@ -12,6 +12,7 @@ import {
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { shuffleArray } from "@/shared/lib";
+import { getTodayKSTRange } from "@/entities/user/lib/streak";
 
 const QUESTION_INCLUDE = {
   options: {
@@ -161,11 +162,17 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const count = getQuizCount(searchParams);
 
-    const [{ hasCompleted }, profile] = await Promise.all([
+    const [{ hasCompleted }, profile, todayAttemptCount] = await Promise.all([
       checkDiagnosisStatus(session.user.id),
       prisma.userProfile.findUnique({
         where: {
           userId: session.user.id,
+        },
+      }),
+      prisma.userQuizAttempt.count({
+        where: {
+          userId: session.user.id,
+          attemptedAt: getTodayKSTRange(),
         },
       }),
     ]);
@@ -261,6 +268,7 @@ export async function GET(req: Request) {
       questions: questions.map(createQuizQuestionResponse),
       userLevel,
       totalQuestions: questions.length,
+      hasCompletedToday: todayAttemptCount > 0,
     });
   } catch (error) {
     console.error("Quiz generation error:", error);

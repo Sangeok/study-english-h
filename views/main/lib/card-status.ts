@@ -19,11 +19,14 @@ export function getDiagnosisCardStatus(
 }
 
 /**
- * 퀴즈 카드 상태 결정 (진단 완료 여부에 따라)
+ * 퀴즈 카드 상태 결정 (진단 완료 여부 + 오늘 완료 여부에 따라)
  */
 export function getQuizCardStatus(
-  diagnosisCompleted: boolean
+  diagnosisCompleted: boolean,
+  hasCompletedToday: boolean = false
 ): FeatureCardStatus {
-  return diagnosisCompleted ? 'available' : 'locked';
+  if (!diagnosisCompleted) return 'locked';
+  if (hasCompletedToday) return 'completed';
+  return 'available';
 }
 

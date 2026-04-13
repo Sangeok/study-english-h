@@ -36,7 +36,8 @@
       "Bash(npx:*)",
       "Bash(cmd:*)",
       "Bash(echo \"EXIT:$?\")",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(curl -si http://localhost:3000/api/quiz/daily?count=10)"
     ]
   }
 }

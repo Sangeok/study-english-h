@@ -28,16 +28,21 @@ const getPerformanceMessage = (accuracy: number) => {
   return { emoji: "🌱", title: "시작이에요!", message: "다음엔 더 잘할 거예요!" };
 };
 
+function getConfettiCount(isExtraPractice: boolean, accuracy: number): number {
+  if (isExtraPractice) return 0;
+  if (accuracy >= QUIZ_CONFETTI.HIGH_ACCURACY_THRESHOLD) return QUIZ_CONFETTI.HIGH_COUNT;
+  return QUIZ_CONFETTI.LOW_COUNT;
+}
+
 export function QuizFeedback({ result }: QuizFeedbackProps) {
   const router = useRouter();
-  const { summary, results } = result;
+  const { summary, results, isExtraPractice } = result;
   const [showDetails, setShowDetails] = useState(false);
-  const xpCounter = useAnimatedCounter(summary.xpEarned);
+
+  const displayXP = isExtraPractice ? 0 : summary.xpEarned;
+  const xpCounter = useAnimatedCounter(displayXP);
   const performance = getPerformanceMessage(summary.accuracy);
-  const confettiCount =
-    summary.accuracy >= QUIZ_CONFETTI.HIGH_ACCURACY_THRESHOLD
-      ? QUIZ_CONFETTI.HIGH_COUNT
-      : QUIZ_CONFETTI.LOW_COUNT;
+  const confettiCount = getConfettiCount(isExtraPractice, summary.accuracy);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden relative">
@@ -59,19 +64,24 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
 
       <div className="relative z-10 py-12 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
-          <QuizFeedbackHeader performance={performance} />
-          <QuizAccuracyCard summary={summary} xpCounter={xpCounter} />
+          <QuizFeedbackHeader performance={performance} isExtraPractice={isExtraPractice} />
+          <QuizAccuracyCard summary={summary} xpCounter={xpCounter} isExtraPractice={isExtraPractice} />
           <QuizHintStats
             hintStats={summary.hintStats}
             correctBaseXP={summary.correctBaseXP}
             xpEarned={summary.xpEarned}
+            isExtraPractice={isExtraPractice}
           />
           <QuizDetailResults
             results={results}
             showDetails={showDetails}
             onToggle={() => setShowDetails((prev) => !prev)}
           />
-          <QuizFeedbackActions onGoMain={() => router.push("/main")} onRetry={() => router.push("/quiz")} />
+          <QuizFeedbackActions
+            onGoMain={() => router.push("/main")}
+            onRetry={() => router.push("/quiz")}
+            isExtraPractice={isExtraPractice}
+          />
         </div>
       </div>
     </div>

@@ -25,11 +25,20 @@ export interface QuizSummary {
   };
 }
 
+import type { QuizQuestion } from "@/entities/question";
 import type { GamificationResult } from "@/features/gamification/types";
+
+export interface DailyQuizResponse {
+  questions: QuizQuestion[];
+  userLevel: string;
+  totalQuestions: number;
+  hasCompletedToday: boolean;
+}
 
 export interface QuizSubmitResponse {
   results: QuizResult[];
   summary: QuizSummary;
   gamification?: GamificationResult;
+  isExtraPractice: boolean;
 }
 

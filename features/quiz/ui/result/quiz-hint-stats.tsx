@@ -4,9 +4,11 @@ interface QuizHintStatsProps {
   hintStats: QuizSummary["hintStats"];
   correctBaseXP: number;
   xpEarned: number;
+  isExtraPractice: boolean;
 }
 
-export function QuizHintStats({ hintStats, correctBaseXP, xpEarned }: QuizHintStatsProps) {
+export function QuizHintStats({ hintStats, correctBaseXP, xpEarned, isExtraPractice }: QuizHintStatsProps) {
+  const hasXpGap = !isExtraPractice && correctBaseXP > xpEarned;
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.3s" }}>
       <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-purple-100">
@@ -41,7 +43,7 @@ export function QuizHintStats({ hintStats, correctBaseXP, xpEarned }: QuizHintSt
           </div>
         </div>
 
-        {correctBaseXP > xpEarned && (
+        {hasXpGap && (
           <div className="mt-4 p-4 bg-violet-400/10 rounded-2xl border border-violet-400/20">
             <p className="text-sm text-purple-700 text-center">
               힌트 없이 풀었다면{" "}

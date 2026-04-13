@@ -3,6 +3,7 @@ import type { QuizSummary } from "../../types";
 interface QuizAccuracyCardProps {
   summary: QuizSummary;
   xpCounter: number;
+  isExtraPractice: boolean;
 }
 
 function getCircleFilter(accuracy: number): string {
@@ -13,7 +14,40 @@ function getCircleFilter(accuracy: number): string {
   return "none";
 }
 
-export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) {
+function XpCard({ xpCounter }: { xpCounter: number }) {
+  return (
+    <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-6 border border-amber-200 shadow-lg">
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-md">
+          <span className="text-3xl">💎</span>
+        </div>
+        <div className="flex-1">
+          <div className="text-sm font-medium text-orange-700 mb-1">획득 XP</div>
+          <div className="text-4xl font-bold text-orange-900 animate-quiz-count-up">+{xpCounter}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NoXpCard() {
+  return (
+    <div className="bg-gradient-to-br from-gray-100 to-slate-100 rounded-2xl p-6 border border-gray-200 shadow-lg">
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 bg-gray-300 rounded-2xl flex items-center justify-center shadow-md">
+          <span className="text-3xl">💎</span>
+        </div>
+        <div className="flex-1">
+          <div className="text-sm font-medium text-gray-500 mb-1">추가 연습</div>
+          <div className="text-base font-bold text-gray-600">XP 없음</div>
+          <div className="text-xs text-gray-400 mt-0.5">첫 완료 시에만 XP가 적립됩니다</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice }: QuizAccuracyCardProps) {
   const accuracyPercentage = summary.accuracy;
   const circleFilter = getCircleFilter(accuracyPercentage);
 
@@ -74,17 +108,8 @@ export function QuizAccuracyCard({ summary, xpCounter }: QuizAccuracyCardProps) 
             </div>
 
             <div className="space-y-6">
-              <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-6 border border-amber-200 shadow-lg">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-md">
-                    <span className="text-3xl">💎</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-orange-700 mb-1">획득 XP</div>
-                    <div className="text-4xl font-bold text-orange-900 animate-quiz-count-up">+{xpCounter}</div>
-                  </div>
-                </div>
-              </div>
+              {isExtraPractice && <NoXpCard />}
+              {!isExtraPractice && <XpCard xpCounter={xpCounter} />}
 
               <div className="grid grid-cols-3 gap-3">
                 <div className="bg-white rounded-2xl p-4 shadow-md text-center border border-purple-100">
