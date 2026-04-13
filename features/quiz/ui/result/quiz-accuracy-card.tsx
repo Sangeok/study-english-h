@@ -1,9 +1,13 @@
+import { cn } from "@/lib/utils";
 import type { QuizSummary } from "../../types";
+import type { GamificationResult } from "@/features/gamification/types";
 
 interface QuizAccuracyCardProps {
   summary: QuizSummary;
   xpCounter: number;
   isExtraPractice: boolean;
+  currentStreak: number;
+  gamification?: GamificationResult;
 }
 
 function getCircleFilter(accuracy: number): string {
@@ -12,6 +16,27 @@ function getCircleFilter(accuracy: number): string {
   }
 
   return "none";
+}
+
+function getStreakLabel(currentStreak: number): string {
+  if (currentStreak >= 2) return `연속 ${currentStreak}일`;
+  return "첫 걸음!";
+}
+
+function getRewardInfo(gamification?: GamificationResult): { emoji: string; label: string } {
+  if (!gamification) {
+    return { emoji: "💤", label: "추가 연습" };
+  }
+
+  if (gamification.promoted && gamification.newTierName) {
+    return { emoji: "🏆", label: `${gamification.newTierName} 승급!` };
+  }
+
+  if (gamification.milestones.length > 0) {
+    return { emoji: "🎁", label: "마일스톤 달성" };
+  }
+
+  return { emoji: "⭐", label: `+${gamification.leaguePoints}LP` };
 }
 
 function XpCard({ xpCounter }: { xpCounter: number }) {
@@ -47,9 +72,12 @@ function NoXpCard() {
   );
 }
 
-export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice }: QuizAccuracyCardProps) {
+export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentStreak, gamification }: QuizAccuracyCardProps) {
   const accuracyPercentage = summary.accuracy;
   const circleFilter = getCircleFilter(accuracyPercentage);
+  const streakLabel = getStreakLabel(currentStreak);
+  const rewardInfo = getRewardInfo(gamification);
+  const isRewardMuted = !gamification;
 
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
@@ -118,11 +146,17 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice }: QuizAc
                 </div>
                 <div className="bg-white rounded-2xl p-4 shadow-md text-center border border-purple-100">
                   <div className="text-3xl mb-1">🔥</div>
-                  <div className="text-xs text-purple-700 font-medium">연속 7일</div>
+                  <div className="text-xs text-purple-700 font-medium">{streakLabel}</div>
                 </div>
-                <div className="bg-white rounded-2xl p-4 shadow-md text-center border border-purple-100">
-                  <div className="text-3xl mb-1">⭐</div>
-                  <div className="text-xs text-purple-700 font-medium">레벨업</div>
+                <div className={cn(
+                  "rounded-2xl p-4 shadow-md text-center border",
+                  isRewardMuted ? "bg-gray-50 border-gray-200" : "bg-white border-purple-100",
+                )}>
+                  <div className="text-3xl mb-1">{rewardInfo.emoji}</div>
+                  <div className={cn(
+                    "text-xs font-medium",
+                    isRewardMuted ? "text-gray-400" : "text-purple-700",
+                  )}>{rewardInfo.label}</div>
                 </div>
               </div>
             </div>

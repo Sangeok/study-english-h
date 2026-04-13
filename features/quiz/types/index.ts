@@ -40,5 +40,6 @@ export interface QuizSubmitResponse {
   summary: QuizSummary;
   gamification?: GamificationResult;
   isExtraPractice: boolean;
+  currentStreak: number;
 }
 

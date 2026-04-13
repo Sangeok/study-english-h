@@ -65,7 +65,13 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
       <div className="relative z-10 py-12 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
           <QuizFeedbackHeader performance={performance} isExtraPractice={isExtraPractice} />
-          <QuizAccuracyCard summary={summary} xpCounter={xpCounter} isExtraPractice={isExtraPractice} />
+          <QuizAccuracyCard
+            summary={summary}
+            xpCounter={xpCounter}
+            isExtraPractice={isExtraPractice}
+            currentStreak={result.currentStreak}
+            gamification={result.gamification}
+          />
           <QuizHintStats
             hintStats={summary.hintStats}
             correctBaseXP={summary.correctBaseXP}

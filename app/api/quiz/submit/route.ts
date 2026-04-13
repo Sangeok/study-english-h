@@ -150,6 +150,7 @@ export async function POST(req: Request) {
       },
       gamification: gamificationResult,
       isExtraPractice: txResult.isExtraPractice,
+      currentStreak: streakData.currentStreak,
     });
   } catch (error) {
     console.error("Quiz submit error:", error);
