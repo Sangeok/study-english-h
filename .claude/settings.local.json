@@ -38,7 +38,12 @@
       "Bash(echo \"EXIT:$?\")",
       "Bash(python3:*)",
       "Bash(curl -si http://localhost:3000/api/quiz/daily?count=10)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(python -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\(f'Total questions: {len\\(data\\)}'\\); from collections import Counter; diffs=Counter\\(q['difficulty'] for q in data\\); print\\('By difficulty:'\\); [print\\(f' {k}: {v}'\\) for k,v in sorted\\(diffs.items\\(\\)\\)]\")",
+      "Skill(idea-doc)",
+      "Bash(git remote:*)",
+      "Read(//tmp/**)",
+      "Bash(2>&1)"
     ]
   }
 }

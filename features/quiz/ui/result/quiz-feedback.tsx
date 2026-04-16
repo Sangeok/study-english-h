@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import type { QuizSubmitResponse } from "../../types";
 import { QuizFeedbackHeader } from "./quiz-feedback-header";
 import { QuizAccuracyCard } from "./quiz-accuracy-card";
@@ -36,8 +37,15 @@ function getConfettiCount(isExtraPractice: boolean, accuracy: number): number {
 
 export function QuizFeedback({ result }: QuizFeedbackProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { summary, results, isExtraPractice } = result;
   const [showDetails, setShowDetails] = useState(false);
+
+  // (RV8) 퀴즈 완료 시 shop 쿼리 무효화 — todayQuizDone 최신성 보장
+  //   staleTime > 0으로 전역 조정되더라도 상점 진입 시 최신값을 조회한다.
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["shop"] });
+  }, [queryClient]);
 
   const displayXP = isExtraPractice ? 0 : summary.xpEarned;
   const xpCounter = useAnimatedCounter(displayXP);
@@ -74,8 +82,7 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
           />
           <QuizHintStats
             hintStats={summary.hintStats}
-            correctBaseXP={summary.correctBaseXP}
-            xpEarned={summary.xpEarned}
+            xpPenaltyFromHints={summary.xpPenaltyFromHints}
             isExtraPractice={isExtraPractice}
           />
           <QuizDetailResults

@@ -17,7 +17,8 @@ export interface QuizSummary {
   correct: number;
   accuracy: number;
   xpEarned: number;
-  correctBaseXP: number;
+  // (RV4) correctBaseXP 제거 — 유일 소비처가 xpPenaltyFromHints로 교체되어 고아 필드
+  xpPenaltyFromHints: number; // v2 신규 — route가 pre-compute (부스트 배수 반영된 값)
   hintStats: {
     noHintCorrect: number;
     partialHintCorrect: number;
@@ -42,4 +43,3 @@ export interface QuizSubmitResponse {
   isExtraPractice: boolean;
   currentStreak: number;
 }
-

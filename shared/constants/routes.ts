@@ -7,6 +7,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   ACHIEVEMENTS: "/achievements",
   LEAGUE: "/league",
+  SHOP: "/shop",
 } as const;
 
 export const QUERY_PARAMS = {

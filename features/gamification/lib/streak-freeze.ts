@@ -24,7 +24,8 @@ export async function grantStreakFreeze(
 export async function checkStreakMilestones(
   userId: string,
   currentStreak: number,
-  tx: TxClient = prisma
+  tx: TxClient = prisma,
+  boostMultiplier: number = 1 // v2 신규 — 퀴즈 트리거 시 부스트 배수 전파
 ): Promise<StreakMilestoneResult[]> {
   const profile = await tx.userProfile.findUnique({
     where: { userId },
@@ -42,17 +43,20 @@ export async function checkStreakMilestones(
 
   let totalXP = 0;
   let totalFreeze = 0;
-  const results: StreakMilestoneResult[] = [];
 
   for (const milestone of pendingMilestones) {
-    totalXP += milestone.xpReward;
+    // (RV1) Math.floor 적용 — quiz 본체와 동일 불변식.
+    //   v3에서 1.5x 같은 분수 배수 도입 시 totalXP(Int) 무결성 보장.
+    totalXP += Math.floor(milestone.xpReward * boostMultiplier);
     totalFreeze += milestone.freezeReward;
-    results.push({
-      milestone: milestone.days,
-      xpReward: milestone.xpReward,
-      freezeReward: milestone.freezeReward,
-    });
   }
+
+  // results도 배수 반영하여 결과 화면에 정확한 XP 표시 (RV1 동일 가드)
+  const results: StreakMilestoneResult[] = pendingMilestones.map((m) => ({
+    milestone: m.days,
+    xpReward: Math.floor(m.xpReward * boostMultiplier),
+    freezeReward: m.freezeReward,
+  }));
 
   const highestGranted = pendingMilestones[pendingMilestones.length - 1].days;
 
@@ -61,6 +65,7 @@ export async function checkStreakMilestones(
     where: { userId },
     data: {
       totalXP: { increment: totalXP },
+      spendableXP: { increment: totalXP },
       freezeCount: { increment: totalFreeze },
       lastMilestoneGranted: highestGranted,
     },

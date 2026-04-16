@@ -10,5 +10,6 @@ export const HEADER_NAV_ITEMS: HeaderNavItem[] = [
   { href: ROUTES.QUIZ, label: "일일 퀴즈" },
   { href: ROUTES.FLASHCARD_MODES, label: "플래시카드" },
   { href: ROUTES.DASHBOARD, label: "대시보드" },
+  { href: ROUTES.SHOP, label: "상점" },
 ];
 
