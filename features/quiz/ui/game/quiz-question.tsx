@@ -10,7 +10,7 @@ import {
   QUIZ_OPTION_STYLES,
   QUIZ_OPTION_TEXT_STYLES,
 } from "../../config/quiz-option-styles";
-import { calculateQuestionXP } from "../../lib/quiz-xp";
+import { BASE_XP_PER_QUESTION, calculateQuestionXP } from "../../lib/quiz-xp";
 import {
   canRequestMoreHints,
   getHintButtonLabel,
@@ -26,6 +26,10 @@ interface QuizQuestionProps {
   disabled?: boolean;
   hintLevel: 0 | 1 | 2;
   onHintRequest: () => void;
+  // 현재 보유한 프리 힌트 팩 수량. 서버 스냅샷 기준.
+  freeHintCount: number;
+  // 이번 세션에서 힌트를 1회 이상 연 문제의 누적 수 (현재 문제 포함).
+  hintedCount: number;
 }
 
 interface Sparkle {
@@ -85,10 +89,19 @@ export function QuizQuestion({
   disabled = false,
   hintLevel,
   onHintRequest,
+  freeHintCount,
+  hintedCount,
 }: QuizQuestionProps) {
   const { selectingOption, sparkles, handleSelect } = useOptionSelection(question.id, onAnswer);
   const difficultyStyle = getDifficultyStyle(question.difficulty);
-  const currentXP = calculateQuestionXP(true, hintLevel);
+  // 낙관적 미리보기:
+  //   힌트를 열었고, 지금까지 힌트를 연 문제 수가 보유 프리 힌트 이하라면
+  //   서버의 selectFreeHintTargets 가 이 문제를 프리 힌트 대상으로 잡아 XP 페널티를 상쇄할 것으로 본다.
+  //   (단, 사용자의 실제 정답 여부에 따라 서버 최종값은 달라질 수 있다 — 그 경우는 결과 화면이 보정.)
+  const isHintUsed = hintLevel > 0;
+  const willBeFree = isHintUsed && hintedCount <= freeHintCount;
+  const currentXP = willBeFree ? BASE_XP_PER_QUESTION : calculateQuestionXP(true, hintLevel);
+  const xpBadgeTitle = willBeFree ? "프리 힌트 적용 예정" : undefined;
   const showHintBlock = hintLevel > 0;
   const showContextHint = shouldShowContextHint(hintLevel, question.contextHint);
   const showKoreanHint = shouldShowKoreanHint(hintLevel, question.contextHint);
@@ -113,9 +126,27 @@ export function QuizQuestion({
             <div className="px-3 py-1 bg-violet-100/50 rounded-lg border border-violet-200 text-xs font-semibold text-violet-700">
               {question.category}
             </div>
-            <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 bg-amber-400/20 rounded-lg border border-amber-400/30">
+            <div
+              className={cn(
+                "ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg border",
+                !willBeFree && "bg-amber-400/20 border-amber-400/30",
+                willBeFree && "bg-emerald-400/20 border-emerald-400/40"
+              )}
+              title={xpBadgeTitle}
+            >
               <span className="text-sm">💎</span>
-              <span className="text-xs font-black text-amber-100">+{currentXP} XP</span>
+              <span
+                className={cn(
+                  "text-xs font-black",
+                  !willBeFree && "text-amber-100",
+                  willBeFree && "text-emerald-100"
+                )}
+              >
+                +{currentXP} XP
+              </span>
+              {willBeFree && (
+                <span className="text-[10px] font-bold text-emerald-100/90">프리 힌트</span>
+              )}
             </div>
           </div>
 

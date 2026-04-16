@@ -80,44 +80,45 @@ export async function POST(req: NextRequest) {
     const totalReviews = reviews.length;
     const accuracy = (correctCount / totalReviews) * 100;
 
-    // 5. Create flashcard session record
-    await prisma.flashcardSession.create({
-      data: {
-        userId,
-        mode,
-        vocabularyCount: totalReviews,
-        accuracy,
-        duration,
-        easyCount,
-        normalCount,
-        hardCount,
-        forgotCount,
-      },
-    });
-
-    // 6. Calculate and award XP (5 XP per correct answer)
+    // 5-7. FlashcardSession 생성 + UserProfile 업데이트를 단일 트랜잭션으로 처리
     const xpEarned = correctCount * 5;
-
-    // 7. Update user profile (XP + streak)
     const streakData = await getStreakUpdateData(userId);
 
-    await prisma.userProfile.upsert({
-      where: { userId },
-      create: {
-        userId,
-        totalXP: xpEarned,
-        lastStudyDate: streakData.lastStudyDate,
-        currentStreak: streakData.currentStreak,
-        longestStreak: streakData.longestStreak,
-        freezeCount: streakData.newFreezeCount,
-      },
-      update: {
-        totalXP: { increment: xpEarned },
-        lastStudyDate: streakData.lastStudyDate,
-        currentStreak: streakData.currentStreak,
-        longestStreak: streakData.longestStreak,
-        freezeCount: streakData.newFreezeCount,
-      },
+    await prisma.$transaction(async (tx) => {
+      await tx.flashcardSession.create({
+        data: {
+          userId,
+          mode,
+          vocabularyCount: totalReviews,
+          accuracy,
+          duration,
+          easyCount,
+          normalCount,
+          hardCount,
+          forgotCount,
+        },
+      });
+
+      await tx.userProfile.upsert({
+        where: { userId },
+        create: {
+          userId,
+          totalXP: xpEarned,
+          spendableXP: xpEarned,
+          lastStudyDate: streakData.lastStudyDate,
+          currentStreak: streakData.currentStreak,
+          longestStreak: streakData.longestStreak,
+          freezeCount: streakData.newFreezeCount,
+        },
+        update: {
+          totalXP: { increment: xpEarned },
+          spendableXP: { increment: xpEarned },
+          lastStudyDate: streakData.lastStudyDate,
+          currentStreak: streakData.currentStreak,
+          longestStreak: streakData.longestStreak,
+          freezeCount: streakData.newFreezeCount,
+        },
+      });
     });
 
     const gamificationResult = await processGamificationRewards(userId, {

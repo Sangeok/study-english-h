@@ -12,6 +12,7 @@ export interface GamificationEvent {
   totalCount: number;
   accuracy: number;
   currentStreak: number;
+  boostMultiplier?: number; // v2 신규 — 기본값 1, 퀴즈 경로만 명시 전달
 }
 
 export interface GamificationResult {

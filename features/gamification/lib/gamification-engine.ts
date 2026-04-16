@@ -14,6 +14,9 @@ export async function processGamificationRewards(
   userId: string,
   event: GamificationEvent
 ): Promise<GamificationResult> {
+  // v2: boostMultiplier 추출 — 기본값 1 (퀴즈 외 경로는 미적용)
+  const multiplier = event.boostMultiplier ?? 1;
+
   return prisma.$transaction(async (tx) => {
     // 1. 리그 포인트 계산 및 적립
     let leaguePoints = 0;
@@ -32,14 +35,15 @@ export async function processGamificationRewards(
 
     const leagueResult = await addLeaguePoints(userId, leaguePoints, tx);
 
-    // 2. 스트릭 마일스톤 체크
+    // 2. 스트릭 마일스톤 체크 — boostMultiplier 전파 (v2 T3)
     const milestoneResults = await checkStreakMilestones(
       userId,
       event.currentStreak,
-      tx
+      tx,
+      multiplier
     );
 
-    // 3. 배지 달성 체크
+    // 3. 배지 달성 체크 — boostMultiplier 전파 (v2 T3)
     const profile = await tx.userProfile.findUnique({
       where: { userId },
       select: {
@@ -61,7 +65,8 @@ export async function processGamificationRewards(
         recentAccuracy: event.accuracy,
         leagueTier: league?.tier ?? 0,
       },
-      tx
+      tx,
+      multiplier
     );
 
     return {

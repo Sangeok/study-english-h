@@ -29,6 +29,9 @@ model User {
   // Phase 1-5 추가
   league       UserLeague?
   achievements UserAchievement[]
+
+  // Phase 2: 상점
+  purchases    UserPurchase[]
 }
 
 model Account {
@@ -102,6 +105,13 @@ model UserProfile {
   lastMilestoneGranted Int @default(0)
   dailyGoalMinutes     Int @default(10)
   dailyGoalWords       Int @default(15)
+
+  // Phase 2: 상점 통화 (소비 가능 XP — totalXP와 별개로 차감됨)
+  spendableXP     Int @default(0)
+
+  // Phase 2-v2: 상점 v2 소모품 재고
+  freeHintCount       Int @default(0)  // 프리 힌트 보유량 (힌트 팩 구매로 증가)
+  xpBoostCharges      Int @default(0)  // 퀴즈 2배 충전권 보유량 (퀴즈 완료 시 자동 소비)
 
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -306,4 +316,18 @@ model FlashcardSession {
 
   @@index([userId, createdAt])
   @@map("flashcard_sessions")
+}
+
+// Phase 2: 상점 구매 이력
+model UserPurchase {
+  id          String   @id @default(cuid())
+  userId      String
+  itemCode    String   // shop-items.ts의 code와 매칭
+  xpCost      Int      // 구매 시점 가격 기록
+  purchasedAt DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purchasedAt])
+  @@index([userId, itemCode])
 }

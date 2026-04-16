@@ -17,7 +17,8 @@ export interface QuizSummary {
   correct: number;
   accuracy: number;
   xpEarned: number;
-  correctBaseXP: number;
+  // (RV4) correctBaseXP 제거 — 유일 소비처가 xpPenaltyFromHints로 교체되어 고아 필드
+  xpPenaltyFromHints: number; // v2 신규 — route가 pre-compute (부스트 배수 반영된 값)
   hintStats: {
     noHintCorrect: number;
     partialHintCorrect: number;
@@ -33,6 +34,9 @@ export interface DailyQuizResponse {
   userLevel: string;
   totalQuestions: number;
   hasCompletedToday: boolean;
+  // 서버가 내려주는 UserProfile.freeHintCount 스냅샷.
+  // hasCompletedToday=true(추가 연습) 시에는 0으로 강제됨 — 이 경우 XP 미적립.
+  freeHintCount: number;
 }
 
 export interface QuizSubmitResponse {
@@ -42,4 +46,3 @@ export interface QuizSubmitResponse {
   isExtraPractice: boolean;
   currentStreak: number;
 }
-

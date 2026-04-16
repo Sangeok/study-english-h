@@ -20,7 +20,7 @@ import { useQuizState } from "../hooks/use-quiz-state";
 
 export function QuizContainer() {
   const router = useRouter();
-  const { questions, userLevel, hasCompletedToday } = useDailyQuiz();
+  const { questions, userLevel, hasCompletedToday, freeHintCount } = useDailyQuiz();
   const answersRef = useRef<Record<string, QuizSubmission>>({});
   const queryClient = useQueryClient();
   const { showRewards } = useRewardToast();
@@ -55,6 +55,11 @@ export function QuizContainer() {
   );
   const { currentQuestion, currentHintLevel, answeredCount, isLastQuestion, isAnswered, canSubmit } =
     useQuizState(questions, currentIndex, answers, hintLevels);
+
+  // 현재 세션에서 힌트를 1회 이상 연 문제의 수.
+  // 서버의 selectFreeHintTargets는 정답 여부까지 고려하지만 클라이언트는 정답을 모르므로,
+  // "힌트 사용한 문제 수 ≤ freeHintCount" 일 때 이 힌트는 프리 힌트로 상쇄된다고 낙관적으로 본다.
+  const hintedCount = Object.values(hintLevels).filter((level) => level > 0).length;
 
   useEffect(() => {
     answersRef.current = answers;
@@ -106,6 +111,8 @@ export function QuizContainer() {
               disabled={submitMutation.isPending}
               hintLevel={currentHintLevel}
               onHintRequest={handleHintRequest}
+              freeHintCount={freeHintCount}
+              hintedCount={hintedCount}
             />
           </div>
         </div>

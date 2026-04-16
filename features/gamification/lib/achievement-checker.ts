@@ -10,7 +10,8 @@ import type { AchievementCheckContext, TxClient } from "../types";
 export async function checkAchievements(
   userId: string,
   context: AchievementCheckContext,
-  tx: TxClient = prisma
+  tx: TxClient = prisma,
+  boostMultiplier: number = 1 // v2 신규 — 기본값 1로 기존 호출자(플래시카드 등) 동작 불변
 ) {
   const unlockedCodes = new Set(
     (
@@ -40,7 +41,9 @@ export async function checkAchievements(
       await tx.userAchievement.create({
         data: { userId, achievementId: achievement.id },
       });
-      totalXPToAdd += def.xpReward;
+      // (RV1) Math.floor — quiz 본체/마일스톤과 동일 불변식. 분수 배수 도입 대비.
+      //   create() 성공 이후에만 XP 누적 (기존 로직 그대로 유지)
+      totalXPToAdd += Math.floor(def.xpReward * boostMultiplier);
       newlyUnlocked.push(def.code);
     } catch (error) {
       if (isPrismaUniqueConstraintError(error)) continue;
@@ -52,7 +55,10 @@ export async function checkAchievements(
   if (totalXPToAdd > 0) {
     await tx.userProfile.update({
       where: { userId },
-      data: { totalXP: { increment: totalXPToAdd } },
+      data: {
+        totalXP: { increment: totalXPToAdd },
+        spendableXP: { increment: totalXPToAdd },
+      },
     });
   }
 
