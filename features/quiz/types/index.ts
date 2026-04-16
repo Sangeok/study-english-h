@@ -34,6 +34,9 @@ export interface DailyQuizResponse {
   userLevel: string;
   totalQuestions: number;
   hasCompletedToday: boolean;
+  // 서버가 내려주는 UserProfile.freeHintCount 스냅샷.
+  // hasCompletedToday=true(추가 연습) 시에는 0으로 강제됨 — 이 경우 XP 미적립.
+  freeHintCount: number;
 }
 
 export interface QuizSubmitResponse {

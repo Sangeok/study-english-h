@@ -9,6 +9,7 @@ interface DailyQuizReturn {
   questions: QuizQuestion[];
   userLevel: string;
   hasCompletedToday: boolean;
+  freeHintCount: number;
 }
 
 export function useDailyQuiz(): DailyQuizReturn {
@@ -23,5 +24,6 @@ export function useDailyQuiz(): DailyQuizReturn {
     questions: data.questions,
     userLevel: data.userLevel,
     hasCompletedToday: data.hasCompletedToday,
+    freeHintCount: data.freeHintCount,
   };
 }

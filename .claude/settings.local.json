@@ -43,7 +43,8 @@
       "Skill(idea-doc)",
       "Bash(git remote:*)",
       "Read(//tmp/**)",
-      "Bash(2>&1)"
+      "Bash(2>&1)",
+      "Bash(curl -s -o /tmp/stats.json -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/api/profile/stats)"
     ]
   }
 }

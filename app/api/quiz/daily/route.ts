@@ -264,11 +264,16 @@ export async function GET(req: Request) {
       questions.push(...emergencyFallback);
     }
 
+    const hasCompletedToday = todayAttemptCount > 0;
+
     return NextResponse.json({
       questions: questions.map(createQuizQuestionResponse),
       userLevel,
       totalQuestions: questions.length,
-      hasCompletedToday: todayAttemptCount > 0,
+      hasCompletedToday,
+      // 추가 연습(isExtraPractice) 모드에서는 서버가 프리 힌트를 소비하지 않으므로
+      // 클라이언트 미리보기도 낙관적 상쇄를 꺼야 한다. 그래서 0으로 내려보낸다.
+      freeHintCount: hasCompletedToday ? 0 : profile?.freeHintCount ?? 0,
     });
   } catch (error) {
     console.error("Quiz generation error:", error);
