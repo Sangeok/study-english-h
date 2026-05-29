@@ -43,15 +43,15 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 py-12 px-4">
+    <div className="min-h-screen bg-cream-canvas px-4 py-12">
       <Confetti
         count={50}
-        colors={["#a855f7", "#8b5cf6", "#6366f1", "#ec4899"]}
+        colors={["#12b886", "#4dabf7", "#ffb020", "#ff6b6b"]}
         delay={300}
       />
 
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-purple-100">
+      <div className="mx-auto max-w-2xl">
+        <div className="tactile-card tactile-card--raised p-6 md:p-10">
           <CEFRLevelBadge cefrLevel={data.cefrLevel} totalScore={data.totalScore} />
 
           <WeaknessAreasList weaknessAreas={data.weaknessAreas} />

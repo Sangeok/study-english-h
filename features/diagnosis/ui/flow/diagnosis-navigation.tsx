@@ -23,10 +23,10 @@ function SubmitButton({
     <button
       onClick={onSubmit}
       disabled={!canSubmit || isSubmitting}
-      className="px-8 py-4 bg-gradient-to-br from-purple-600 to-violet-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300 flex items-center gap-3"
+      className="tactile-btn tactile-btn--teal tactile-btn--lg"
     >
       {isSubmitting && (
-        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+        <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
       )}
       {isSubmitting && <span>제출 중...</span>}
       {!isSubmitting && <span>제출하기</span>}
@@ -46,22 +46,10 @@ function NextButton({
     <button
       onClick={onNext}
       disabled={isSubmitting}
-      className="px-8 py-4 bg-gradient-to-br from-purple-600 to-violet-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2"
+      className="tactile-btn tactile-btn--ocean tactile-btn--lg"
     >
       <span>다음</span>
-      <svg
-        className="w-5 h-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 5l7 7-7 7"
-        />
-      </svg>
+      <span className="text-xl">→</span>
     </button>
   );
 }
@@ -81,27 +69,15 @@ export function DiagnosisNavigation({
       <button
         onClick={onPrevious}
         disabled={currentIndex === 0 || isSubmitting}
-        className="px-6 py-4 bg-white/80 backdrop-blur-md text-purple-900 font-semibold rounded-2xl border border-purple-200 hover:bg-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-2"
+        className="tactile-btn tactile-btn--ghost tactile-btn--lg"
       >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
+        <span className="text-xl">←</span>
         <span>이전</span>
       </button>
 
       <div className="flex-1 text-center">
         {!hasCurrentAnswer && (
-          <p className="text-sm text-purple-700 animate-pulse">
+          <p className="animate-bounce-gentle text-sm font-medium text-coral-edge">
             답을 선택해주세요
           </p>
         )}

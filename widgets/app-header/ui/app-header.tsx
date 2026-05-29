@@ -25,7 +25,7 @@ export function AppHeader({ isAuthenticated, streak, level, userName }: AppHeade
   const initial = getInitial(userName);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-purple-100/70 bg-white/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b-2 border-border-warm bg-paper/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8 lg:px-12">
         <HeaderLogo />
         <DesktopNav pathname={pathname} />

@@ -16,10 +16,15 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
   }
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-md">
-      <h2 className="text-2xl font-sans font-bold text-gray-800 mb-6">Mastery Breakdown</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {MASTERY_ORDER.map((level) => {
+    <div className="tactile-card p-6 md:p-8">
+      <div className="mb-5 flex items-center gap-3">
+        <div className="tactile-tile h-11 w-11 border-grape bg-grape-tint text-xl">
+          <span>🗂️</span>
+        </div>
+        <h2 className="font-display text-xl font-bold text-ink">숙련도 분포</h2>
+      </div>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        {MASTERY_ORDER.map((level, idx) => {
           const count = breakdown[level];
           if (!count) {
             return null;
@@ -30,13 +35,18 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
           return (
             <div
               key={level}
-              className={cn("rounded-2xl p-4 border-2", card.bgColor, card.borderColor)}
+              style={{ animationDelay: `${idx * 70}ms` }}
+              className={cn(
+                "rounded-[20px] border-2 p-4 text-center animate-[pop-in]",
+                card.bgColor,
+                card.borderColor
+              )}
             >
-              <div className="text-center">
-                <p className="text-2xl mb-1">{card.emoji}</p>
-                <p className={cn("text-sm mb-1", card.sublabelColor)}>{card.label}</p>
-                <p className={cn("text-2xl font-bold", card.textColor)}>{count}</p>
-              </div>
+              <p className="mb-1 text-2xl">{card.emoji}</p>
+              <p className={cn("mb-1 text-xs font-bold uppercase tracking-wide", card.sublabelColor)}>
+                {card.label}
+              </p>
+              <p className={cn("font-display text-3xl font-bold", card.textColor)}>{count}</p>
             </div>
           );
         })}

@@ -27,9 +27,10 @@ export function PeriodChartSection({
             key={opt.value}
             onClick={() => onPeriodChange(opt.value)}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-medium transition-colors",
-              period === opt.value && "bg-purple-600 text-white",
-              period !== opt.value && "bg-purple-100 text-purple-700 hover:bg-purple-200"
+              "px-4 py-2 rounded-full text-sm font-bold border-2 transition-colors",
+              period === opt.value && "bg-teal border-teal-edge text-white",
+              period !== opt.value &&
+                "bg-paper border-border-warm text-ink-soft hover:bg-muted-warm hover:text-ink"
             )}
           >
             {opt.label}
@@ -39,10 +40,10 @@ export function PeriodChartSection({
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {/* 일별 학습 시간 */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
-          <h3 className="text-lg font-bold text-purple-950 mb-4">일별 학습 시간</h3>
+        <div className="tactile-card p-6">
+          <h3 className="text-lg font-display font-bold text-ink mb-4">일별 학습 시간</h3>
           {isLoading && (
-            <div className="h-[250px] bg-gray-100 rounded-xl animate-pulse" />
+            <div className="h-[250px] bg-muted-warm rounded-xl animate-pulse" />
           )}
           {!isLoading && periodStats && (
             <ResponsiveContainer width="100%" height={250}>
@@ -62,8 +63,9 @@ export function PeriodChartSection({
                 <Line
                   type="monotone"
                   dataKey="totalStudyTimeSec"
-                  stroke="#8B5CF6"
-                  strokeWidth={2}
+                  stroke="#12b886"
+                  strokeWidth={3}
+                  dot={{ fill: "#12b886", r: 3 }}
                   name="학습 시간"
                 />
               </LineChart>
@@ -72,11 +74,11 @@ export function PeriodChartSection({
         </div>
 
         {/* 신규 학습 어휘 카테고리 */}
-        <div className="bg-white rounded-2xl shadow-md p-6">
-          <h3 className="text-lg font-bold text-purple-950 mb-4">신규 학습 어휘 카테고리</h3>
-          <p className="text-xs text-gray-500 mb-3">기간 내 처음 추가된 어휘의 카테고리 분포</p>
+        <div className="tactile-card p-6">
+          <h3 className="text-lg font-display font-bold text-ink mb-4">신규 학습 어휘 카테고리</h3>
+          <p className="text-xs text-ink-soft mb-3">기간 내 처음 추가된 어휘의 카테고리 분포</p>
           {isLoading && (
-            <div className="h-[250px] bg-gray-100 rounded-xl animate-pulse" />
+            <div className="h-[250px] bg-muted-warm rounded-xl animate-pulse" />
           )}
           {!isLoading && periodStats && periodStats.categoryStats.length > 0 && (
             <ResponsiveContainer width="100%" height={250}>
@@ -106,7 +108,7 @@ export function PeriodChartSection({
             </ResponsiveContainer>
           )}
           {!isLoading && periodStats && periodStats.categoryStats.length === 0 && (
-            <p className="text-center text-gray-500 py-16">
+            <p className="text-center text-ink-soft py-16">
               아직 학습한 어휘가 없습니다
             </p>
           )}

@@ -13,27 +13,35 @@ export function FooterCTA({
 }: FooterCTAProps) {
   return (
     <SectionWrapper aria-label="학습 시작 안내">
-      <div className="max-w-4xl mx-auto bg-gradient-to-br from-purple-600 to-violet-600 rounded-3xl p-12 text-center text-white shadow-2xl">
-        <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
-          레벨업 준비되셨나요?
-        </h3>
-        <p className="text-lg opacity-90 mb-8">
-          지금 바로 학습을 시작하고 영어 실력을 향상시키세요
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <button
-            onClick={onQuizClick}
-            disabled={!diagnosisCompleted}
-            className="px-8 py-4 bg-white text-purple-600 font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            학습 시작하기
-          </button>
-          <button
-            onClick={onFlashcardClick}
-            className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300"
-          >
-            플래시카드 학습
-          </button>
+      <div
+        className="relative mx-auto max-w-4xl overflow-hidden rounded-[28px] border-2 border-teal-edge bg-teal p-12 text-center text-white"
+        style={{ boxShadow: "0 6px 0 0 var(--teal-edge), 0 30px 50px -28px rgba(18,184,134,0.7)" }}
+      >
+        <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
+        <div className="absolute -right-12 bottom-0 h-48 w-48 rounded-full bg-white/10" />
+        <div className="relative z-10">
+          <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+            레벨업 준비되셨나요?
+          </h3>
+          <p className="text-lg opacity-90 mb-8">
+            지금 바로 학습을 시작하고 영어 실력을 향상시키세요
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <button
+              onClick={onQuizClick}
+              disabled={!diagnosisCompleted}
+              className="tactile-btn tactile-btn--gold tactile-btn--lg"
+            >
+              학습 시작하기
+            </button>
+            <button
+              onClick={onFlashcardClick}
+              className="tactile-btn tactile-btn--lg border-white/40 bg-white/15 text-white"
+              style={{ boxShadow: "0 4px 0 0 rgba(255,255,255,0.25)" }}
+            >
+              플래시카드 학습
+            </button>
+          </div>
         </div>
       </div>
     </SectionWrapper>

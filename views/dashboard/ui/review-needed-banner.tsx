@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ROUTES } from "@/shared/constants";
+import { tactileButtonClass } from "@/shared/ui";
 
 interface ReviewNeededBannerProps {
   count: number;
@@ -7,20 +8,20 @@ interface ReviewNeededBannerProps {
 
 export function ReviewNeededBanner({ count }: ReviewNeededBannerProps) {
   return (
-    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded-xl">
-      <div className="flex items-center justify-between">
-        <div>
-          <h3 className="font-bold text-yellow-800 mb-1">
-            복습이 필요한 단어가 {count}개 있습니다
-          </h3>
-          <p className="text-sm text-yellow-700">
-            지금 복습하고 기억을 강화하세요!
-          </p>
+    <div className="tactile-card p-6 mb-8 border-gold bg-gold-tint">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="tactile-tile w-12 h-12 shrink-0 bg-gold border-gold-edge text-2xl">
+            <span>🔔</span>
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-ink mb-1">
+              복습이 필요한 단어가 {count}개 있습니다
+            </h3>
+            <p className="text-sm text-ink-soft">지금 복습하고 기억을 강화하세요!</p>
+          </div>
         </div>
-        <Link
-          href={ROUTES.FLASHCARD_MODES}
-          className="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-        >
+        <Link href={ROUTES.FLASHCARD_MODES} className={tactileButtonClass("gold")}>
           복습 시작
         </Link>
       </div>

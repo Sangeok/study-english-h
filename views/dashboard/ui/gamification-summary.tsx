@@ -12,8 +12,8 @@ export function GamificationSummary({
   if (isLoading) {
     return (
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-gray-100 rounded-2xl h-48 animate-pulse" />
-        <div className="bg-gray-100 rounded-2xl h-48 animate-pulse" />
+        <div className="bg-muted-warm rounded-2xl h-48 animate-pulse" />
+        <div className="bg-muted-warm rounded-2xl h-48 animate-pulse" />
       </div>
     );
   }

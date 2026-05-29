@@ -28,17 +28,17 @@ export function ProgressSection({
     : "레벨 진단을 완료해주세요";
 
   return (
-    <SectionWrapper className="bg-white/40 backdrop-blur-sm" aria-label="학습 진행률">
+    <SectionWrapper aria-label="학습 진행률">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-2">
+          <h3 className="text-3xl md:text-4xl font-display font-bold text-ink mb-2">
             학습 진행률
           </h3>
-          <p className="text-purple-800/80">계속 화이팅!</p>
+          <p className="text-ink-soft">계속 화이팅!</p>
         </div>
         <button
           onClick={onViewAllStats}
-          className="text-purple-600 font-semibold hover:text-purple-700 transition-colors"
+          className="font-bold text-teal-edge hover:text-teal transition-colors"
         >
           모든 통계 보기 →
         </button>
@@ -52,7 +52,7 @@ export function ProgressSection({
           gradient="purple"
           isLoading={isLoading}
           footer={
-            <div className="flex items-center gap-2 text-sm text-purple-600">
+            <div className="flex items-center gap-2 text-sm text-gold-edge">
               <span className="font-semibold">학습하며 XP를 모으세요!</span>
             </div>
           }
@@ -70,9 +70,9 @@ export function ProgressSection({
                 <div
                   key={i}
                   className={cn(
-                    "flex-1 h-2 rounded-full",
-                    i < streak && "bg-violet-500",
-                    i >= streak && "bg-gray-200"
+                    "flex-1 h-2.5 rounded-full border",
+                    i < streak && "bg-coral border-coral-edge",
+                    i >= streak && "bg-muted-warm border-border-warm"
                   )}
                 />
               ))}
@@ -87,7 +87,7 @@ export function ProgressSection({
           gradient="indigo"
           isLoading={isLoading}
           footer={
-            <div className="flex items-center gap-2 text-sm text-purple-600">
+            <div className="flex items-center gap-2 text-sm text-ocean-edge">
               <span className="font-semibold">{levelFooter}</span>
             </div>
           }

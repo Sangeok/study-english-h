@@ -12,7 +12,7 @@ export default async function ShopRoute() {
 
   return (
     <Suspense fallback={<FullPageSpinner />}>
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-8">
+      <div className="min-h-screen bg-cream py-8">
         <div className="max-w-4xl mx-auto px-4">
           <ShopPage />
         </div>

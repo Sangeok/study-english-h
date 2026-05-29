@@ -12,7 +12,7 @@ interface QuizAccuracyCardProps {
 
 function getCircleFilter(accuracy: number): string {
   if (accuracy >= 80) {
-    return "drop-shadow(0 0 8px rgba(139, 92, 246, 0.5))";
+    return "drop-shadow(0 0 8px rgba(18, 184, 134, 0.45))";
   }
 
   return "none";
@@ -41,14 +41,17 @@ function getRewardInfo(gamification?: GamificationResult): { emoji: string; labe
 
 function XpCard({ xpCounter }: { xpCounter: number }) {
   return (
-    <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-6 border border-amber-200 shadow-lg">
+    <div className="rounded-2xl border-2 border-gold bg-gold-tint p-6">
       <div className="flex items-center gap-4">
-        <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-md">
-          <span className="text-3xl">💎</span>
+        <div
+          className="tactile-tile w-16 h-16 bg-gold border-gold-edge text-3xl"
+          style={{ boxShadow: "0 4px 0 0 var(--gold-edge)" }}
+        >
+          <span>💎</span>
         </div>
         <div className="flex-1">
-          <div className="text-sm font-medium text-orange-700 mb-1">획득 XP</div>
-          <div className="text-4xl font-bold text-orange-900 animate-quiz-count-up">+{xpCounter}</div>
+          <div className="text-sm font-semibold text-gold-edge mb-1">획득 XP</div>
+          <div className="text-4xl font-display font-bold text-ink animate-quiz-count-up">+{xpCounter}</div>
         </div>
       </div>
     </div>
@@ -57,15 +60,15 @@ function XpCard({ xpCounter }: { xpCounter: number }) {
 
 function NoXpCard() {
   return (
-    <div className="bg-gradient-to-br from-gray-100 to-slate-100 rounded-2xl p-6 border border-gray-200 shadow-lg">
+    <div className="rounded-2xl border-2 border-border-warm bg-muted-warm p-6">
       <div className="flex items-center gap-4">
-        <div className="w-16 h-16 bg-gray-300 rounded-2xl flex items-center justify-center shadow-md">
-          <span className="text-3xl">💎</span>
+        <div className="tactile-tile w-16 h-16 bg-paper border-border-strong text-3xl">
+          <span>💎</span>
         </div>
         <div className="flex-1">
-          <div className="text-sm font-medium text-gray-500 mb-1">추가 연습</div>
-          <div className="text-base font-bold text-gray-600">XP 없음</div>
-          <div className="text-xs text-gray-400 mt-0.5">첫 완료 시에만 XP가 적립됩니다</div>
+          <div className="text-sm font-semibold text-ink-soft mb-1">추가 연습</div>
+          <div className="text-base font-bold text-ink">XP 없음</div>
+          <div className="text-xs text-ink-soft/70 mt-0.5">첫 완료 시에만 XP가 적립됩니다</div>
         </div>
       </div>
     </div>
@@ -81,9 +84,9 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
 
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-purple-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-200/30 to-transparent rounded-full -mr-32 -mt-32" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-violet-200/30 to-transparent rounded-full -ml-24 -mb-24" />
+      <div className="tactile-card tactile-card--raised p-8 md:p-12 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-teal/10 rounded-full -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-coral/10 rounded-full -ml-24 -mb-24" />
 
         <div className="relative z-10">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -95,9 +98,8 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                     cy="100"
                     r="85"
                     fill="none"
-                    stroke="#e9d5ff"
+                    stroke="var(--border-warm)"
                     strokeWidth="14"
-                    className="opacity-30"
                   />
                   <circle
                     cx="100"
@@ -116,20 +118,20 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                   />
                   <defs>
                     <linearGradient id="accuracyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#8b5cf6" />
-                      <stop offset="100%" stopColor="#6366f1" />
+                      <stop offset="0%" stopColor="#12b886" />
+                      <stop offset="100%" stopColor="#4dabf7" />
                     </linearGradient>
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl font-display font-bold bg-gradient-to-br from-purple-600 to-violet-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-6xl font-display font-bold text-teal mb-2">
                     {summary.accuracy}%
                   </div>
-                  <div className="text-sm font-semibold text-purple-700">정확도</div>
+                  <div className="text-sm font-semibold text-ink-soft">정확도</div>
                 </div>
               </div>
               <div className="text-center mt-4">
-                <p className="text-lg font-medium text-purple-900">
+                <p className="text-lg font-medium text-ink">
                   {summary.correct} / {summary.total} 정답
                 </p>
               </div>
@@ -140,22 +142,22 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
               {!isExtraPractice && <XpCard xpCounter={xpCounter} />}
 
               <div className="grid grid-cols-3 gap-3">
-                <div className="bg-white rounded-2xl p-4 shadow-md text-center border border-purple-100">
+                <div className="rounded-2xl border-2 border-border-warm bg-paper p-4 text-center">
                   <div className="text-3xl mb-1">⚡</div>
-                  <div className="text-xs text-purple-700 font-medium">완료</div>
+                  <div className="text-xs font-semibold text-ink-soft">완료</div>
                 </div>
-                <div className="bg-white rounded-2xl p-4 shadow-md text-center border border-purple-100">
+                <div className="rounded-2xl border-2 border-coral bg-coral-tint p-4 text-center">
                   <div className="text-3xl mb-1">🔥</div>
-                  <div className="text-xs text-purple-700 font-medium">{streakLabel}</div>
+                  <div className="text-xs font-semibold text-coral-edge">{streakLabel}</div>
                 </div>
                 <div className={cn(
-                  "rounded-2xl p-4 shadow-md text-center border",
-                  isRewardMuted ? "bg-gray-50 border-gray-200" : "bg-white border-purple-100",
+                  "rounded-2xl p-4 text-center border-2",
+                  isRewardMuted ? "bg-muted-warm border-border-warm" : "bg-gold-tint border-gold",
                 )}>
                   <div className="text-3xl mb-1">{rewardInfo.emoji}</div>
                   <div className={cn(
-                    "text-xs font-medium",
-                    isRewardMuted ? "text-gray-400" : "text-purple-700",
+                    "text-xs font-semibold",
+                    isRewardMuted ? "text-ink-soft/70" : "text-gold-edge",
                   )}>{rewardInfo.label}</div>
                 </div>
               </div>

@@ -76,12 +76,12 @@ export function ProfileMenu({
         ref={triggerButtonRef}
         type="button"
         onClick={toggleMenu}
-        className="flex items-center gap-2 rounded-xl border border-purple-200 bg-white px-3 py-2 text-sm text-purple-900 shadow-sm transition-shadow hover:shadow-md"
+        className="flex items-center gap-2 rounded-xl border-2 border-border-strong bg-paper px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-muted-warm"
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label="계정 메뉴"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-violet-600 text-xs font-bold text-white">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal text-xs font-bold text-white">
           {initial}
         </span>
         <span className="max-w-28 truncate font-medium">{displayName}</span>
@@ -90,12 +90,12 @@ export function ProfileMenu({
       {isOpen && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 w-44 overflow-hidden rounded-xl border border-purple-100 bg-white shadow-xl"
+          className="absolute right-0 mt-2 w-44 overflow-hidden rounded-2xl border-2 border-border-warm bg-paper shadow-[0_12px_28px_-16px_rgba(34,50,79,0.5)]"
         >
           <Link
             href={ROUTES.HOME}
             onClick={closeMenu}
-            className="block px-4 py-2.5 text-sm text-purple-800 transition-colors hover:bg-purple-50"
+            className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-muted-warm"
             role="menuitem"
           >
             내 학습 홈
@@ -104,7 +104,7 @@ export function ProfileMenu({
             type="button"
             onClick={handleSignOutClick}
             disabled={isSigningOut}
-            className="w-full px-4 py-2.5 text-left text-sm text-rose-700 transition-colors hover:bg-rose-50 disabled:opacity-50"
+            className="w-full px-4 py-2.5 text-left text-sm font-medium text-coral-edge transition-colors hover:bg-coral-tint disabled:opacity-50"
             role="menuitem"
           >
             {signOutLabel}

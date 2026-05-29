@@ -3,69 +3,128 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Custom Color Palette - Playful Academia Theme */
-  --cream: #faf8f5;
-  --navy: #1a2b4a;
-  --navy-light: #5a6b8a;
+  /* ============================================================
+     Playful Tactile — Brand palette
+     Warm cream paper · teal brand · coral energy · sunny rewards
+     ============================================================ */
+  --cream: #fbf7f0;
+  --cream-deep: #f3ecdf;
+  --paper: #ffffff;
+  --ink: #22324f;
+  --ink-soft: #5a6b8a;
+
+  --teal: #12b886;
+  --teal-edge: #0c9a72;
+  --teal-tint: #e4f7ef;
+
   --coral: #ff6b6b;
-  --coral-dark: #ee5a5a;
-  --sage: #6bcf9f;
-  --sage-dark: #4ab881;
-  --ocean: #4a90e2;
-  --ocean-dark: #3a7bc8;
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --coral-edge: #e85555;
+  --coral-tint: #ffe7e3;
+
+  --gold: #ffb020;
+  --gold-edge: #e8970f;
+  --gold-tint: #fff2d8;
+
+  --ocean: #4dabf7;
+  --ocean-edge: #3b95e0;
+  --ocean-tint: #e4f1ff;
+
+  --grape: #9775fa;
+  --grape-edge: #7f5ee8;
+  --grape-tint: #efeafe;
+
+  --border-warm: #ece3d6;
+  --border-strong: #ddd0bd;
+  --muted-warm: #f4eee4;
+
+  /* Legacy "Playful Academia" aliases (kept for pre-sweep compatibility) */
+  --navy: #22324f;
+  --navy-light: #5a6b8a;
+  --coral-dark: var(--coral-edge);
+  --sage: #12b886;
+  --sage-dark: var(--teal-edge);
+  --ocean-dark: var(--ocean-edge);
+
+  --radius: 1rem;
+
+  /* Semantic tokens (shadcn-compatible) remapped to the warm palette */
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--teal);
+  --primary-foreground: #ffffff;
+  --secondary: var(--muted-warm);
+  --secondary-foreground: var(--ink);
+  --muted: var(--muted-warm);
+  --muted-foreground: #6e7689;
+  --accent: var(--teal-tint);
+  --accent-foreground: var(--ink);
+  --destructive: #f0524d;
+  --border: var(--border-warm);
+  --input: var(--border-warm);
+  --ring: var(--teal);
+  --chart-1: var(--teal);
+  --chart-2: var(--coral);
+  --chart-3: var(--ocean);
+  --chart-4: var(--gold);
+  --chart-5: var(--grape);
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--teal);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--muted-warm);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--border-warm);
+  --sidebar-ring: var(--teal);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-geist-mono);
-  --font-display: Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "Pretendard Variable", Pretendard, system-ui, "Apple SD Gothic Neo",
+    "Malgun Gothic", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
+  --font-display: "Fredoka", "Pretendard Variable", Pretendard, system-ui, sans-serif;
 
-  /* Custom Color Tokens */
+  /* Brand color tokens → enables bg-teal / text-coral / border-gold-edge etc. */
   --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+
+  --color-teal: var(--teal);
+  --color-teal-edge: var(--teal-edge);
+  --color-teal-tint: var(--teal-tint);
+  --color-coral: var(--coral);
+  --color-coral-edge: var(--coral-edge);
+  --color-coral-tint: var(--coral-tint);
+  --color-coral-dark: var(--coral-edge);
+  --color-gold: var(--gold);
+  --color-gold-edge: var(--gold-edge);
+  --color-gold-tint: var(--gold-tint);
+  --color-ocean: var(--ocean);
+  --color-ocean-edge: var(--ocean-edge);
+  --color-ocean-tint: var(--ocean-tint);
+  --color-ocean-dark: var(--ocean-edge);
+  --color-grape: var(--grape);
+  --color-grape-edge: var(--grape-edge);
+  --color-grape-tint: var(--grape-tint);
+
+  --color-border-warm: var(--border-warm);
+  --color-border-strong: var(--border-strong);
+  --color-muted-warm: var(--muted-warm);
+
+  /* Legacy aliases */
   --color-navy: var(--navy);
   --color-navy-light: var(--navy-light);
-  --color-coral: var(--coral);
-  --color-coral-dark: var(--coral-dark);
   --color-sage: var(--sage);
   --color-sage-dark: var(--sage-dark);
-  --color-ocean: var(--ocean);
-  --color-ocean-dark: var(--ocean-dark);
 
-  /* Custom animations for login page */
+  /* ---- Animations (preserved) ---- */
   @keyframes float {
     0%,
     100% {
@@ -233,6 +292,33 @@
     }
   }
 
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.8) translateY(6px);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.04);
+    }
+    100% {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-6deg);
+    }
+    75% {
+      transform: rotate(6deg);
+    }
+  }
+
   --animate-hero-fade-up: heroFadeUp 0.6s ease-out both;
   --animate-float: float linear infinite;
   --animate-slide-in-left: slide-in-left 0.6s ease-out;
@@ -243,6 +329,9 @@
   --animate-quiz-expand: quiz-expand 0.5s ease-out forwards;
   --animate-quiz-count-up: quiz-count-up 0.5s ease-out forwards;
   --animate-bounce-gentle: bounce-gentle 2s ease-in-out infinite;
+  --animate-pop-in: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-wiggle: wiggle 0.4s ease-in-out;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -272,13 +361,248 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: calc(var(--radius) - 2px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 4px);
+  --radius-3xl: calc(var(--radius) + 8px);
+  --radius-4xl: calc(var(--radius) + 12px);
+}
+
+.dark {
+  --background: #161b27;
+  --foreground: #f4f1ea;
+  --card: #1f2738;
+  --card-foreground: #f4f1ea;
+  --popover: #1f2738;
+  --popover-foreground: #f4f1ea;
+  --primary: var(--teal);
+  --primary-foreground: #0c1018;
+  --secondary: #28324a;
+  --secondary-foreground: #f4f1ea;
+  --muted: #28324a;
+  --muted-foreground: #9aa6bf;
+  --accent: #28324a;
+  --accent-foreground: #f4f1ea;
+  --destructive: #ff6b6b;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: var(--teal);
+  --border-warm: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --muted-warm: #28324a;
+}
+
+/* ================================================================
+   Playful Tactile — component primitives
+   The signature: chunky pressable buttons with a SOLID bottom edge
+   (no blur). Press = sink into the edge. Flat fills, 2px borders.
+   ================================================================ */
+@layer components {
+  .tactile-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.07s ease, box-shadow 0.07s ease, filter 0.15s ease,
+      background-color 0.15s ease;
+    transform: translateY(0);
+  }
+  .tactile-btn:hover:not(:disabled) {
+    filter: brightness(1.04) saturate(1.03);
+  }
+  .tactile-btn:active:not(:disabled) {
+    transform: translateY(4px);
+  }
+  .tactile-btn:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .tactile-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .tactile-btn--sm {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+  }
+  .tactile-btn--lg {
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    font-size: 1.0625rem;
+  }
+  .tactile-btn--block {
+    width: 100%;
+  }
+
+  .tactile-btn--teal {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal-edge);
+    box-shadow: 0 4px 0 0 var(--teal-edge);
+  }
+  .tactile-btn--coral {
+    background: var(--coral);
+    color: #fff;
+    border-color: var(--coral-edge);
+    box-shadow: 0 4px 0 0 var(--coral-edge);
+  }
+  .tactile-btn--gold {
+    background: var(--gold);
+    color: #6a4500;
+    border-color: var(--gold-edge);
+    box-shadow: 0 4px 0 0 var(--gold-edge);
+  }
+  .tactile-btn--ocean {
+    background: var(--ocean);
+    color: #fff;
+    border-color: var(--ocean-edge);
+    box-shadow: 0 4px 0 0 var(--ocean-edge);
+  }
+  .tactile-btn--grape {
+    background: var(--grape);
+    color: #fff;
+    border-color: var(--grape-edge);
+    box-shadow: 0 4px 0 0 var(--grape-edge);
+  }
+  .tactile-btn--ink {
+    background: var(--ink);
+    color: #fff;
+    border-color: #16223a;
+    box-shadow: 0 4px 0 0 #16223a;
+  }
+  .tactile-btn--ghost {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--border-strong);
+    box-shadow: 0 4px 0 0 var(--border-strong);
+  }
+  .tactile-btn--teal:active:not(:disabled),
+  .tactile-btn--coral:active:not(:disabled),
+  .tactile-btn--gold:active:not(:disabled),
+  .tactile-btn--ocean:active:not(:disabled),
+  .tactile-btn--grape:active:not(:disabled),
+  .tactile-btn--ink:active:not(:disabled),
+  .tactile-btn--ghost:active:not(:disabled) {
+    box-shadow: 0 0 0 0 var(--teal-edge);
+  }
+
+  /* Tactile card — warm paper, 2px border, soft solid bottom edge */
+  .tactile-card {
+    background: var(--card);
+    border: 2px solid var(--border-warm);
+    border-radius: 20px;
+    box-shadow: 0 3px 0 0 var(--border-warm),
+      0 12px 24px -18px rgba(34, 50, 79, 0.35);
+  }
+  .tactile-card--raised {
+    box-shadow: 0 5px 0 0 var(--border-strong),
+      0 18px 30px -20px rgba(34, 50, 79, 0.4);
+  }
+  .tactile-card--interactive {
+    transition: transform 0.12s ease, box-shadow 0.12s ease,
+      border-color 0.15s ease;
+    cursor: pointer;
+  }
+  .tactile-card--interactive:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 0 var(--border-strong),
+      0 22px 34px -20px rgba(34, 50, 79, 0.45);
+  }
+  .tactile-card--interactive:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 0 0 var(--border-strong);
+  }
+
+  /* Colored icon tile */
+  .tactile-tile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  /* Pill chip / badge */
+  .tactile-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    border: 2px solid var(--border-warm);
+    background: var(--paper);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    line-height: 1;
+  }
+
+  /* Chunky candy progress bar */
+  .tactile-progress {
+    position: relative;
+    height: 16px;
+    background: var(--muted-warm);
+    border: 2px solid var(--border-warm);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .tactile-progress__fill {
+    position: relative;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--teal);
+    transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+  .tactile-progress__fill::after {
+    content: "";
+    position: absolute;
+    inset: 3px 6px auto 6px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@layer utilities {
+  /* Warm paper canvas with subtle dotted texture */
+  .bg-cream-canvas {
+    background-color: var(--cream);
+    background-image: radial-gradient(rgba(34, 50, 79, 0.045) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: -11px -11px;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .duration-600 {
+    transition-duration: 0.6s;
+  }
 }
 
 .confetti-particle {
@@ -295,63 +619,12 @@
   animation: scale-in 0.3s ease-out forwards;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  .transform-style-3d {
-    transform-style: preserve-3d;
-  }
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
-  .duration-600 {
-    transition-duration: 0.6s;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv01";
   }
 }

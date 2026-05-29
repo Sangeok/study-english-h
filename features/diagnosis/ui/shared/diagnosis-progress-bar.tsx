@@ -20,13 +20,10 @@ interface DiagnosisProgressBarProps {
   timer: TimerState;
 }
 
-function getProgressDotClassName(
-  idx: number,
-  currentIndex: number
-): string {
-  if (idx < currentIndex) return "bg-white scale-125";
-  if (idx === currentIndex) return "bg-white/70 scale-150 animate-pulse";
-  return "bg-purple-200/50";
+function getProgressDotClassName(idx: number, currentIndex: number): string {
+  if (idx < currentIndex) return "bg-teal scale-110";
+  if (idx === currentIndex) return "bg-teal-edge scale-150 animate-pulse";
+  return "bg-border-warm";
 }
 
 export function DiagnosisProgressBar({
@@ -34,52 +31,56 @@ export function DiagnosisProgressBar({
   timer,
 }: DiagnosisProgressBarProps) {
   return (
-    <div className="mb-8 animate-slide-down">
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-purple-100">
+    <div className="mb-6 animate-slide-down">
+      <div className="tactile-card tactile-card--raised p-5 md:p-6">
         <div className="flex items-center justify-between gap-6">
           {/* 진행 상황 */}
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-3">
+            <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-md">
-                  <span className="text-white font-bold text-sm">
+                <div className="tactile-tile h-11 w-11 border-teal-edge bg-teal text-white">
+                  <span className="font-display text-base font-bold">
                     {progress.currentIndex + 1}
                   </span>
                 </div>
-                <div>
-                  <h2 className="text-lg font-display font-bold text-purple-950">
+                <div className="leading-tight">
+                  <p className="font-display text-[10px] font-semibold uppercase tracking-[0.2em] text-teal-edge">
+                    Level Test
+                  </p>
+                  <h2 className="font-display text-lg font-bold text-ink">
                     레벨 진단
                   </h2>
-                  <p className="text-xs text-purple-700">
+                  <p className="text-xs text-ink-soft">
                     {progress.answeredCount} / {progress.totalQuestions} 완료
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-purple-900">
-                  {Math.round(progress.percentage)}%
+                <div className="font-display text-3xl font-bold leading-none text-ink">
+                  {Math.round(progress.percentage)}
+                  <span className="text-lg text-ink-soft">%</span>
                 </div>
               </div>
             </div>
 
             {/* 진행 바 */}
-            <div className="relative h-3 bg-purple-100 rounded-full overflow-hidden">
-              <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progress.percentage}%` }}
-              />
-              <div className="absolute inset-0 flex items-center justify-between px-1">
-                {Array.from({ length: progress.totalQuestions }).map(
-                  (_, idx) => (
-                    <div
-                      key={idx}
-                      className={cn(
-                        "w-2 h-2 rounded-full transition-all duration-300",
-                        getProgressDotClassName(idx, progress.currentIndex)
-                      )}
-                    />
-                  )
-                )}
+            <div className="relative">
+              <div className="tactile-progress h-3.5">
+                <div
+                  className="tactile-progress__fill"
+                  style={{ width: `${progress.percentage}%` }}
+                />
+              </div>
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-1.5">
+                {Array.from({ length: progress.totalQuestions }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={cn(
+                      "h-1.5 w-1.5 rounded-full transition-all duration-300",
+                      getProgressDotClassName(idx, progress.currentIndex)
+                    )}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -90,10 +91,17 @@ export function DiagnosisProgressBar({
             size="md"
             isWarning={timer.isWarning}
           >
-            <div className="text-xl font-bold text-purple-900">
+            <div
+              className={cn(
+                "font-display text-xl font-bold",
+                timer.isWarning ? "text-coral-edge" : "text-ink"
+              )}
+            >
               {timer.minutes}:{timer.seconds.toString().padStart(2, "0")}
             </div>
-            <div className="text-xs text-purple-600">남음</div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-ink-soft">
+              남음
+            </div>
           </CircularProgress>
         </div>
       </div>

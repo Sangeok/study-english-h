@@ -8,12 +8,7 @@ interface MasteryBadgeProps {
 
 export function MasteryBadge({ masteryLevel }: MasteryBadgeProps) {
   return (
-    <span
-      className={cn(
-        "inline-block px-4 py-1 rounded-full text-sm font-semibold",
-        MASTERY_STYLES[masteryLevel]
-      )}
-    >
+    <span className={cn("text-sm font-bold", MASTERY_STYLES[masteryLevel])}>
       {MASTERY_LABELS[masteryLevel]}
     </span>
   );

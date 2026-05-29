@@ -10,19 +10,27 @@ export function DiagnosisError({
   onRetry,
 }: DiagnosisErrorProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 flex items-center justify-center px-4">
-      <div className="text-center max-w-md">
-        <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span className="text-4xl">⚠️</span>
-        </div>
-        <h2 className="text-2xl font-display font-bold text-purple-950 mb-3">{title}</h2>
-        <p className="text-purple-700 mb-8">{description}</p>
-        <button
-          onClick={onRetry}
-          className="px-8 py-4 bg-gradient-to-br from-purple-600 to-violet-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+    <div className="min-h-screen bg-cream-canvas flex items-center justify-center px-4">
+      <div className="tactile-card tactile-card--raised animate-[pop-in] relative max-w-md w-full overflow-hidden p-8 text-center">
+        <span
+          className="pointer-events-none absolute -bottom-6 -right-4 select-none text-8xl opacity-10"
+          aria-hidden
         >
-          다시 시도하기
-        </button>
+          ⚠️
+        </span>
+        <div className="relative">
+          <div className="tactile-tile mx-auto mb-6 h-20 w-20 border-coral-edge bg-coral text-4xl">
+            <span>⚠️</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-ink">{title}</h2>
+          <p className="mt-3 text-sm text-ink-soft">{description}</p>
+          <button
+            onClick={onRetry}
+            className="tactile-btn tactile-btn--coral tactile-btn--lg mt-8"
+          >
+            다시 시도하기
+          </button>
+        </div>
       </div>
     </div>
   );

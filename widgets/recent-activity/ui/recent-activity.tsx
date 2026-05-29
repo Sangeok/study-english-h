@@ -45,12 +45,12 @@ export function RecentActivity({
 
   if (isError || !data) {
     return (
-      <div className={cn("bg-white rounded-3xl p-8 shadow-md", className)}>
-        <p className="text-center text-purple-700">학습 기록을 불러올 수 없습니다.</p>
+      <div className={cn("tactile-card p-8", className)}>
+        <p className="text-center text-ink-soft">학습 기록을 불러올 수 없습니다.</p>
         <button
           type="button"
           onClick={() => void refetch()}
-          className="mx-auto mt-3 block text-sm text-purple-700 underline underline-offset-2 hover:text-purple-800"
+          className="mx-auto mt-3 block text-sm font-bold text-teal-edge underline underline-offset-2"
         >
           다시 시도
         </button>
@@ -60,14 +60,14 @@ export function RecentActivity({
 
   if (data.activities.length === 0) {
     return (
-      <section className={cn("bg-white rounded-3xl p-8 shadow-md", className)} aria-label="최근 학습 기록">
-        <h3 className="font-display font-bold text-2xl text-purple-950 mb-6">최근 학습 기록</h3>
-        <div className="text-center py-8 space-y-3">
-          <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto">
-            <span className="text-3xl" aria-hidden="true">📚</span>
+      <section className={cn("tactile-card p-8", className)} aria-label="최근 학습 기록">
+        <h3 className="mb-6 font-display text-2xl font-bold text-ink">최근 학습 기록</h3>
+        <div className="space-y-3 py-8 text-center">
+          <div className="tactile-tile mx-auto h-16 w-16 border-teal bg-teal-tint text-3xl">
+            <span aria-hidden="true">📚</span>
           </div>
-          <p className="text-purple-700">아직 학습 기록이 없습니다</p>
-          <p className="text-sm text-purple-600">퀴즈나 플래시카드로 학습을 시작해보세요!</p>
+          <p className="text-ink">아직 학습 기록이 없습니다</p>
+          <p className="text-sm text-ink-soft">퀴즈나 플래시카드로 학습을 시작해보세요!</p>
         </div>
       </section>
     );
@@ -77,19 +77,21 @@ export function RecentActivity({
   const dateReference = createRelativeDateReference(new Date());
 
   return (
-    <section className={cn("bg-white rounded-3xl p-8 shadow-md", className)} aria-label="최근 학습 기록">
+    <section className={cn("tactile-card p-8", className)} aria-label="최근 학습 기록">
       <div className="mb-6">
-        <h3 className="font-display font-bold text-2xl text-purple-950 mb-2">최근 학습 기록</h3>
-        <p className="text-sm text-purple-700">최근 {data.activities.length}개의 학습 활동</p>
+        <h3 className="mb-1 font-display text-2xl font-bold text-ink">최근 학습 기록</h3>
+        <p className="text-sm text-ink-soft">최근 {data.activities.length}개의 학습 활동</p>
       </div>
 
       <div className="space-y-3">
         {data.activities.map((activity, index) => (
-          <ActivityCard
+          <div
             key={getActivityKey(activity, index)}
-            activity={activity}
-            dateReference={dateReference}
-          />
+            className="animate-slide-up"
+            style={{ animationDelay: `${index * 60}ms` }}
+          >
+            <ActivityCard activity={activity} dateReference={dateReference} />
+          </div>
         ))}
       </div>
 
@@ -97,7 +99,7 @@ export function RecentActivity({
         <div className="mt-6 text-center">
           <Link
             href={viewAllHref}
-            className="text-purple-600 font-semibold hover:text-purple-700 transition-colors text-sm"
+            className="text-sm font-bold text-teal-edge transition-colors hover:text-teal"
           >
             더 보기 →
           </Link>

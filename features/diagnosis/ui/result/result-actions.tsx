@@ -5,16 +5,16 @@ interface ResultActionsProps {
 
 export function ResultActions({ onStartStudy, onGoHome }: ResultActionsProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 mt-8">
+    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <button
         onClick={onStartStudy}
-        className="flex-1 px-8 py-4 bg-gradient-to-br from-purple-600 to-violet-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+        className="tactile-btn tactile-btn--teal tactile-btn--lg tactile-btn--block flex-1"
       >
-        맞춤 학습 시작하기
+        맞춤 학습 시작하기 →
       </button>
       <button
         onClick={onGoHome}
-        className="flex-1 px-8 py-4 bg-white/80 backdrop-blur-md text-purple-900 font-semibold rounded-2xl border border-purple-200 hover:bg-white hover:shadow-lg transition-all duration-300"
+        className="tactile-btn tactile-btn--ghost tactile-btn--lg tactile-btn--block flex-1"
       >
         메인으로 돌아가기
       </button>

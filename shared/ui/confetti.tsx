@@ -11,7 +11,8 @@ interface ConfettiProps {
 
 export function Confetti({
   count = 50,
-  colors = ["#a855f7", "#8b5cf6", "#6366f1", "#ec4899", "#f59e0b"],
+  // Playful Tactile palette: teal · coral · gold · ocean · grape
+  colors = ["#12b886", "#ff6b6b", "#ffb020", "#4dabf7", "#9775fa"],
   delay = 500,
   duration = 5000,
 }: ConfettiProps) {

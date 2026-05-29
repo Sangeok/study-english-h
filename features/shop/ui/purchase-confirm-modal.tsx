@@ -1,6 +1,5 @@
 "use client";
 
-import { GradientButton } from "@/shared/ui";
 import type { ShopItemWithStatus } from "@/features/shop/types";
 
 interface PurchaseConfirmModalProps {
@@ -43,67 +42,72 @@ export function PurchaseConfirmModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 animate-fade-in"
       onClick={handleBackdropCancel}
     >
       <div
-        className="bg-white rounded-3xl p-6 shadow-xl max-w-sm w-full"
+        className="tactile-card tactile-card--raised w-full max-w-sm p-6 animate-[pop-in]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center">
-            <span className="text-2xl">{item.icon}</span>
+        <div className="mb-5 flex items-center gap-3">
+          <div className="tactile-tile h-12 w-12 border-ocean bg-ocean-tint text-2xl">
+            <span>{item.icon}</span>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-purple-950">구매 확인</h2>
-            <p className="text-sm text-gray-500">{item.nameKo}</p>
+            <h2 className="font-display text-lg font-bold text-ink">구매 확인</h2>
+            <p className="text-sm text-ink-soft">{item.nameKo}</p>
           </div>
         </div>
 
         {isBoostCharge && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 mb-4">
-            <p className="text-xs text-amber-800">
+          <div className="mb-5 rounded-2xl border-2 border-gold bg-gold-tint p-3">
+            <p className="text-xs font-semibold text-ink">
               📅 {purchaseTargetLabel}에 자동 적용됩니다
             </p>
           </div>
         )}
 
-        <div className="space-y-2 text-sm mb-6">
-          <div className="flex justify-between">
-            <span className="text-gray-600">가격</span>
-            <span className="font-semibold text-purple-700">
-              ✨ {item.xpCost.toLocaleString()} XP
+        <div className="mb-6 space-y-3 rounded-2xl border-2 border-border-warm bg-muted-warm p-4 text-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-ink-soft">가격</span>
+            <span className="tactile-chip border-gold bg-gold-tint text-ink">
+              <span className="text-sm">🪙</span>
+              <span className="font-display font-bold">
+                {item.xpCost.toLocaleString()}
+              </span>
             </span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">보유 XP</span>
-            <span>{spendableXP.toLocaleString()}</span>
+          <div className="flex items-center justify-between">
+            <span className="text-ink-soft">보유 XP</span>
+            <span className="font-display font-bold text-ink">
+              {spendableXP.toLocaleString()}
+            </span>
           </div>
-          <div className="flex justify-between pt-2 border-t border-gray-100">
-            <span className="text-gray-600">구매 후 잔액</span>
-            <span className="font-semibold">
+          <div className="flex items-center justify-between border-t-2 border-border-warm pt-3">
+            <span className="text-ink-soft">구매 후 잔액</span>
+            <span className="font-display font-bold text-teal-edge">
               {remainingAfter.toLocaleString()} XP
             </span>
           </div>
         </div>
 
         <div className="flex gap-3">
-          <GradientButton
-            variant="outline"
+          <button
+            type="button"
             onClick={handleBackdropCancel}
             disabled={isPurchasing}
-            className="flex-1"
+            className="tactile-btn tactile-btn--ghost tactile-btn--block flex-1"
           >
             취소
-          </GradientButton>
-          <GradientButton
-            variant="primary"
+          </button>
+          <button
+            type="button"
             onClick={onConfirm}
             disabled={isPurchasing}
-            className="flex-1"
+            className="tactile-btn tactile-btn--teal tactile-btn--block flex-1"
           >
             {confirmLabel}
-          </GradientButton>
+          </button>
         </div>
       </div>
     </div>

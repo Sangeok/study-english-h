@@ -22,43 +22,46 @@ export function FlashcardActivityCard({
 
   return (
     <article
-      className="p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border border-indigo-200 hover:shadow-md transition-all duration-300"
+      className="tactile-card tactile-card--interactive p-4"
       aria-label="플래시카드 학습 활동"
     >
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-          <span className="text-2xl" aria-hidden="true">🃏</span>
+        <div className="tactile-tile h-12 w-12 shrink-0 border-ocean bg-ocean-tint text-2xl">
+          <span aria-hidden="true">🃏</span>
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-1">
-            <h4 className="font-semibold text-purple-950">플래시카드</h4>
-            <span className="text-xs text-purple-600">
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 flex items-center justify-between">
+            <h4 className="font-display font-bold text-ink">플래시카드</h4>
+            <span className="text-xs text-ink-soft">
               {formatRelativeDate(activity.date, dateReference)}
             </span>
           </div>
-          <div className="flex items-center gap-3 text-sm text-purple-700">
-            <span>{activity.vocabularyCount}개 단어</span>
+          <div className="flex items-center gap-3 text-sm text-ink-soft">
+            <span className="font-display font-bold text-ink">
+              {activity.vocabularyCount}
+              <span className="ml-0.5 font-sans text-sm font-normal text-ink-soft">개 단어</span>
+            </span>
             <span>{minutes}분 학습</span>
           </div>
           {hasQualityCounts && (
-            <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
               {qualityCounts.easy > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                <span className="tactile-chip border-teal bg-teal-tint text-ink">
                   😊 {qualityCounts.easy}
                 </span>
               )}
               {qualityCounts.normal > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                <span className="tactile-chip border-ocean bg-ocean-tint text-ink">
                   ✓ {qualityCounts.normal}
                 </span>
               )}
               {qualityCounts.hard > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                <span className="tactile-chip border-gold bg-gold-tint text-ink">
                   😓 {qualityCounts.hard}
                 </span>
               )}
               {qualityCounts.forgot > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                <span className="tactile-chip border-coral bg-coral-tint text-ink">
                   ✗ {qualityCounts.forgot}
                 </span>
               )}

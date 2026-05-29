@@ -29,21 +29,18 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
 
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-purple-100">
+      <div className="tactile-card p-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">📊</span>
+            <div className="tactile-tile w-12 h-12 bg-ocean border-ocean-edge text-2xl">
+              <span>📊</span>
             </div>
             <div>
-              <h3 className="text-2xl font-display font-bold text-purple-950">상세 결과</h3>
-              <p className="text-sm text-purple-700">문제별 정답 확인</p>
+              <h3 className="text-2xl font-display font-bold text-ink">상세 결과</h3>
+              <p className="text-sm text-ink-soft">문제별 정답 확인</p>
             </div>
           </div>
-          <button
-            onClick={onToggle}
-            className="px-4 py-2 bg-purple-100 hover:bg-purple-200 rounded-xl text-purple-900 font-medium transition-colors"
-          >
+          <button onClick={onToggle} className="tactile-btn tactile-btn--ghost tactile-btn--sm">
             {toggleLabel}
           </button>
         </div>
@@ -58,7 +55,7 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                 <div
                   key={idx}
                   className={cn(
-                    "bg-gradient-to-br rounded-2xl p-5 border hover:shadow-lg transition-all duration-300",
+                    "rounded-2xl p-5 border-2 transition-transform duration-200 hover:-translate-y-0.5",
                     styles.background,
                     styles.border
                   )}
@@ -67,16 +64,16 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                   <div className="flex items-start gap-4">
                     <div
                       className={cn(
-                        "flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center shadow-md",
+                        "flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center",
                         styles.iconBackground
                       )}
                     >
-                      <span className="text-white font-bold text-lg">{idx + 1}</span>
+                      <span className="text-white font-display font-bold text-lg">{idx + 1}</span>
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-semibold text-purple-950">문제 {idx + 1}</span>
+                        <span className="font-bold text-ink">문제 {idx + 1}</span>
                         <div className={cn("flex items-center gap-1 px-3 py-1 rounded-full", styles.badge)}>
                           <span className="text-lg">{styles.mark}</span>
                           <span className="text-sm font-semibold">{styles.label}</span>
@@ -84,13 +81,13 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                       </div>
 
                       {!item.isCorrect && item.correctAnswer && (
-                        <div className="mb-2 p-3 bg-white/50 rounded-xl">
-                          <span className="text-sm font-semibold text-purple-900">정답: </span>
-                          <span className="text-sm text-purple-800">{item.correctAnswer}</span>
+                        <div className="mb-2 p-3 bg-paper/70 rounded-xl border border-border-warm">
+                          <span className="text-sm font-bold text-ink">정답: </span>
+                          <span className="text-sm text-ink">{item.correctAnswer}</span>
                         </div>
                       )}
 
-                      <div className="text-sm text-purple-700 leading-relaxed">{item.explanation}</div>
+                      <div className="text-sm text-ink-soft leading-relaxed">{item.explanation}</div>
                     </div>
                   </div>
                 </div>

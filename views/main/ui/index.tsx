@@ -54,7 +54,7 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
   const stats = profileStats || DEFAULT_STATS;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden">
+    <div className="min-h-screen bg-cream-canvas overflow-hidden">
       <HeroSection
         diagnosisCompleted={diagnosisCompleted}
         onDiagnosisClick={handlers.handleDiagnosisClick}
@@ -63,8 +63,8 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
 
       {hasError && (
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-center">
-            <p className="text-amber-800 font-medium">
+          <div className="tactile-card border-gold bg-gold-tint p-6 text-center">
+            <p className="font-semibold text-ink">
               데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
             </p>
           </div>
