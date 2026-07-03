@@ -1,3 +1,3 @@
 "use client";
 
-export { signIn, signOut, signUp, useSession } from "./auth-client";
+export { signIn, signOut } from "./auth-client";

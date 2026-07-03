@@ -1,6 +1,5 @@
 "use client";
 
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type TactileTone =
@@ -47,29 +46,3 @@ export function tactileButtonClass(
     options?.className
   );
 }
-
-export interface TactileButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
-  tone?: TactileTone;
-  size?: TactileSize;
-  block?: boolean;
-  children: ReactNode;
-}
-
-export const TactileButton = forwardRef<HTMLButtonElement, TactileButtonProps>(
-  function TactileButton(
-    { tone = "teal", size = "md", block = false, className, children, type, ...rest },
-    ref
-  ) {
-    return (
-      <button
-        ref={ref}
-        type={type ?? "button"}
-        className={tactileButtonClass(tone, size, { block, className })}
-        {...rest}
-      >
-        {children}
-      </button>
-    );
-  }
-);

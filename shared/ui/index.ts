@@ -8,9 +8,7 @@ export { StatCard, type StatCardProps, type StatCardGradient } from "./stat-card
 export { FloatingCard, type FloatingCardProps, type FloatingCardGradient } from "./floating-card";
 export { GradientButton, type GradientButtonProps, type ButtonVariant } from "./gradient-button";
 export {
-  TactileButton,
   tactileButtonClass,
-  type TactileButtonProps,
   type TactileTone,
   type TactileSize,
 } from "./tactile-button";
