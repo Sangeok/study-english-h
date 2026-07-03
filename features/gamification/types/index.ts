@@ -1,10 +1,7 @@
-import type { PrismaClient } from "@/lib/generated/prisma/client";
-
-// Prisma interactive transaction client
-export type TxClient = Omit<
-  PrismaClient,
-  "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends"
->;
+// 여러 feature가 공유하는 타입(GamificationResult, StreakMilestoneResult, TxClient)은
+// features 간 수평 의존을 피하기 위해 entities/gamification에 정의되어 있다.
+// 외부 feature는 "@/entities/gamification"에서 직접 import할 것.
+export type { GamificationResult, StreakMilestoneResult, TxClient } from "@/entities/gamification";
 
 export interface GamificationEvent {
   type: "quiz" | "flashcard" | "diagnosis";
@@ -12,21 +9,7 @@ export interface GamificationEvent {
   totalCount: number;
   accuracy: number;
   currentStreak: number;
-  boostMultiplier?: number; // v2 신규 — 기본값 1, 퀴즈 경로만 명시 전달
-}
-
-export interface GamificationResult {
-  leaguePoints: number;
-  promoted: boolean;
-  newTierName: string | null;
-  milestones: StreakMilestoneResult[];
-  newAchievements: string[];
-}
-
-export interface StreakMilestoneResult {
-  milestone: number;
-  xpReward: number;
-  freezeReward: number;
+  boostMultiplier?: number; // 기본값 1, 퀴즈 경로만 명시 전달
 }
 
 export interface AchievementCheckContext {

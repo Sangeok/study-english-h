@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { QuizSummary } from "../../types";
-import type { GamificationResult } from "@/features/gamification/types";
+import type { GamificationResult } from "@/entities/gamification";
 
 interface QuizAccuracyCardProps {
   summary: QuizSummary;
@@ -9,6 +9,12 @@ interface QuizAccuracyCardProps {
   currentStreak: number;
   gamification?: GamificationResult;
 }
+
+// 정확도 링 지오메트리 — strokeDasharray는 원주(2πr)에서 유도 (diagnosis의 SVG_CIRCLE 패턴과 동일)
+const SVG_CIRCLE = {
+  RADIUS: 85,
+  CIRCUMFERENCE: Math.round(2 * Math.PI * 85), // 534
+} as const;
 
 function getCircleFilter(accuracy: number): string {
   if (accuracy >= 80) {
@@ -96,7 +102,7 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                   <circle
                     cx="100"
                     cy="100"
-                    r="85"
+                    r={SVG_CIRCLE.RADIUS}
                     fill="none"
                     stroke="var(--border-warm)"
                     strokeWidth="14"
@@ -104,12 +110,12 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                   <circle
                     cx="100"
                     cy="100"
-                    r="85"
+                    r={SVG_CIRCLE.RADIUS}
                     fill="none"
                     stroke="url(#accuracyGradient)"
                     strokeWidth="14"
                     strokeLinecap="round"
-                    strokeDasharray={`${534 * (accuracyPercentage / 100)} 534`}
+                    strokeDasharray={`${SVG_CIRCLE.CIRCUMFERENCE * (accuracyPercentage / 100)} ${SVG_CIRCLE.CIRCUMFERENCE}`}
                     className="transition-all duration-2000 ease-out"
                     style={{
                       animation: "drawCircle 2s ease-out forwards",

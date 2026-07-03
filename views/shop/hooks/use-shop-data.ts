@@ -1,12 +1,12 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "@/shared/lib";
+import { apiClient, queryKeys } from "@/shared/lib";
 import type { PurchaseResponse, ShopPageData } from "@/features/shop/types";
 
 export function useShopData() {
   return useQuery({
-    queryKey: ["shop", "items"],
+    queryKey: queryKeys.shop.items(),
     queryFn: () => apiClient.get<ShopPageData>("/api/shop/items"),
   });
 }
@@ -18,7 +18,7 @@ export function usePurchaseItem() {
     mutationFn: (itemCode: string) =>
       apiClient.post<PurchaseResponse>("/api/shop/purchase", { itemCode }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shop"] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.shop.all });
     },
   });
 }

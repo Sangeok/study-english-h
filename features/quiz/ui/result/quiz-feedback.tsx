@@ -10,7 +10,7 @@ import { QuizHintStats } from "./quiz-hint-stats";
 import { QuizDetailResults } from "./quiz-detail-results";
 import { QuizFeedbackActions } from "./quiz-feedback-actions";
 import { Confetti } from "@/shared/ui";
-import { useAnimatedCounter } from "@/shared/lib";
+import { queryKeys, useAnimatedCounter } from "@/shared/lib";
 import { QUIZ_CONFETTI, QUIZ_PERFORMANCE_THRESHOLDS } from "@/shared/constants/quiz";
 
 interface QuizFeedbackProps {
@@ -41,10 +41,10 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
   const { summary, results, isExtraPractice } = result;
   const [showDetails, setShowDetails] = useState(false);
 
-  // (RV8) 퀴즈 완료 시 shop 쿼리 무효화 — todayQuizDone 최신성 보장
+  // 퀴즈 완료 시 shop 쿼리 무효화 — todayQuizDone 최신성 보장
   //   staleTime > 0으로 전역 조정되더라도 상점 진입 시 최신값을 조회한다.
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["shop"] });
+    queryClient.invalidateQueries({ queryKey: queryKeys.shop.all });
   }, [queryClient]);
 
   const displayXP = isExtraPractice ? 0 : summary.xpEarned;

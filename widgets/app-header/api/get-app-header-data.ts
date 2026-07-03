@@ -1,5 +1,3 @@
-"use server";
-
 import { calculateEffectiveCurrentStreak, getUserProfile } from "@/entities/user";
 import { getSession } from "@/shared/lib/get-session";
 

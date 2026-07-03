@@ -32,4 +32,8 @@ export const queryKeys = {
     periodStats: (period: string) =>
       [...queryKeys.dashboard.all, "period-stats", period] as const,
   },
+  shop: {
+    all: ["shop"] as const,
+    items: () => [...queryKeys.shop.all, "items"] as const,
+  },
 } as const;

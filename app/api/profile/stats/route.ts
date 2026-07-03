@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { calculateEffectiveCurrentStreak } from "@/entities/user";
+import { calculateEffectiveCurrentStreak, type ProfileStats } from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 
@@ -56,8 +56,9 @@ export async function GET(req: Request) {
         hasCompletedDiagnosis: false,
         weaknessAreas: null,
         vocabularyProgress: 0,
+        lastStudyDate: null,
         hasCompletedTodayQuiz: todayQuizCount > 0,
-      });
+      } satisfies ProfileStats);
     }
 
     // 어휘 진행률 계산 (숙달 단어 / 전체 학습 단어)
@@ -77,11 +78,11 @@ export async function GET(req: Request) {
       masteredWords: profile.masteredWords,
       reviewNeeded: profile.reviewNeeded,
       hasCompletedDiagnosis: !!diagnosisStatus,
-      weaknessAreas: profile.weaknessAreas,
+      weaknessAreas: profile.weaknessAreas as Record<string, number> | null,
       vocabularyProgress,
-      lastStudyDate: profile.lastStudyDate,
+      lastStudyDate: profile.lastStudyDate?.toISOString() ?? null,
       hasCompletedTodayQuiz: todayQuizCount > 0,
-    });
+    } satisfies ProfileStats);
   } catch (error) {
     console.error("Profile stats error:", error);
     return NextResponse.json({ error: "통계 조회 중 오류가 발생했습니다" }, { status: 500 });

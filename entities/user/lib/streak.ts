@@ -1,3 +1,5 @@
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
 /**
  * UTC Date를 KST(Asia/Seoul) 기준 YYYY-MM-DD 문자열로 변환
  * en-CA 로케일은 ISO 8601 형식(YYYY-MM-DD)을 네이티브 출력하므로 파싱 불필요
@@ -13,7 +15,7 @@ export function toKSTDateString(date: Date): string {
 export function getTodayKSTRange(now: Date = new Date()): { gte: Date; lt: Date } {
   const todayKST = toKSTDateString(now);
   const gte = new Date(`${todayKST}T00:00:00+09:00`);
-  const lt = new Date(gte.getTime() + 24 * 60 * 60 * 1000);
+  const lt = new Date(gte.getTime() + MS_PER_DAY);
   return { gte, lt };
 }
 
@@ -64,7 +66,7 @@ export function calculateStreakUpdate(
     };
   }
 
-  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const yesterday = new Date(now.getTime() - MS_PER_DAY);
   const yesterdayKST = toKSTDateString(yesterday);
 
   if (lastKST === yesterdayKST) {
@@ -121,7 +123,7 @@ export function calculateEffectiveCurrentStreak(
     return currentStreak;
   }
 
-  const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const yesterday = new Date(now.getTime() - MS_PER_DAY);
   const yesterdayKST = toKSTDateString(yesterday);
 
   if (lastKST === yesterdayKST) {
