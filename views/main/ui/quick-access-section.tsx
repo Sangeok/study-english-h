@@ -22,10 +22,10 @@ export function QuickAccessSection({
     <SectionWrapper aria-label="빠른 실행">
       <div className="flex items-end justify-between mb-8">
         <div>
-          <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-2">
+          <h3 className="text-3xl md:text-4xl font-display font-bold text-ink mb-2">
             빠른 실행
           </h3>
-          <p className="text-purple-800/80">좋아하는 활동을 바로 시작하세요</p>
+          <p className="text-ink-soft">좋아하는 활동을 바로 시작하세요</p>
         </div>
       </div>
 

@@ -29,27 +29,27 @@ const MAX_TOASTS = 3;
 const VARIANT_STYLES: Record<ToastVariant, { icon: string; border: string; text: string; background: string }> = {
   info: {
     icon: "💡",
-    border: "border-purple-100",
-    text: "text-purple-950",
-    background: "bg-white/95",
+    border: "border-ocean",
+    text: "text-ink",
+    background: "bg-paper",
   },
   success: {
     icon: "✅",
-    border: "border-emerald-100",
-    text: "text-emerald-950",
-    background: "bg-emerald-50/95",
+    border: "border-teal",
+    text: "text-ink",
+    background: "bg-teal-tint",
   },
   warning: {
     icon: "⚠️",
-    border: "border-amber-100",
-    text: "text-amber-950",
-    background: "bg-amber-50/95",
+    border: "border-gold",
+    text: "text-ink",
+    background: "bg-gold-tint",
   },
   error: {
     icon: "⛔",
-    border: "border-rose-100",
-    text: "text-rose-950",
-    background: "bg-rose-50/95",
+    border: "border-coral",
+    text: "text-ink",
+    background: "bg-coral-tint",
   },
 };
 
@@ -180,14 +180,15 @@ function ToastViewport({ toasts, onDismiss }: { toasts: ToastItem[]; onDismiss: 
           <div key={toast.id} className="pointer-events-auto">
             <div
               role="status"
-              className={`flex items-start gap-3 rounded-2xl border ${styles.border} ${styles.background} px-4 py-3 text-sm ${styles.text} shadow-xl backdrop-blur-md animate-fade-in`}
+              className={`flex items-start gap-3 rounded-2xl border-2 ${styles.border} ${styles.background} px-4 py-3 text-sm ${styles.text} animate-fade-in`}
+              style={{ boxShadow: "0 4px 0 0 var(--border-warm), 0 16px 28px -18px rgba(34,50,79,.5)" }}
             >
               <span className="text-lg">{styles.icon}</span>
-              <p className="flex-1">{toast.message}</p>
+              <p className="flex-1 font-medium">{toast.message}</p>
               <button
                 type="button"
                 onClick={() => onDismiss(toast.id)}
-                className="text-purple-400 hover:text-purple-600 transition-colors"
+                className="text-ink-soft hover:text-ink transition-colors"
                 aria-label="알림 닫기"
               >
                 ✕

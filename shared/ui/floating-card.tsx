@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type FloatingCardGradient = 'purple' | 'violet' | 'indigo';
+export type FloatingCardGradient = "purple" | "violet" | "indigo";
 
 export interface FloatingCardProps {
   icon: string;
@@ -15,10 +15,32 @@ export interface FloatingCardProps {
   gradient?: FloatingCardGradient;
 }
 
-const floatingGradientStyles: Record<FloatingCardGradient, string> = {
-  purple: "bg-gradient-to-br from-purple-500 to-purple-600 text-white",
-  violet: "bg-gradient-to-br from-violet-500 to-violet-600 text-white",
-  indigo: "bg-gradient-to-br from-indigo-500 to-indigo-600 text-white",
+// Legacy gradient keys → solid tactile tones
+const toneStyles: Record<
+  FloatingCardGradient,
+  { surface: string; tile: string; title: string; subtitle: string; badge: string }
+> = {
+  purple: {
+    surface: "bg-teal border-teal-edge text-white",
+    tile: "bg-white/20 border-white/30",
+    title: "text-white",
+    subtitle: "text-white/85",
+    badge: "bg-white/25 border-white/30 text-white",
+  },
+  violet: {
+    surface: "bg-coral border-coral-edge text-white",
+    tile: "bg-white/20 border-white/30",
+    title: "text-white",
+    subtitle: "text-white/85",
+    badge: "bg-white/25 border-white/30 text-white",
+  },
+  indigo: {
+    surface: "bg-ocean border-ocean-edge text-white",
+    tile: "bg-white/20 border-white/30",
+    title: "text-white",
+    subtitle: "text-white/85",
+    badge: "bg-white/25 border-white/30 text-white",
+  },
 };
 
 export function FloatingCard({
@@ -30,51 +52,50 @@ export function FloatingCard({
   position = "absolute",
   children,
   className,
-  gradient
+  gradient,
 }: FloatingCardProps) {
-  const gradientClass = gradient
-    ? floatingGradientStyles[gradient]
-    : "bg-white border border-purple-100";
+  const s = gradient ? toneStyles[gradient] : null;
 
   return (
     <div
       className={cn(
         position,
-        "rounded-3xl shadow-xl p-6 hover:scale-105 transition-transform duration-300",
-        gradientClass,
+        "rounded-[20px] border-2 p-6 transition-transform duration-300 hover:-translate-y-1",
+        s ? s.surface : "tactile-card",
         className
       )}
-      style={{ transform: `rotate(${rotation}deg)` }}
+      style={{
+        transform: `rotate(${rotation}deg)`,
+        boxShadow: s
+          ? "0 6px 0 0 rgba(0,0,0,0.12), 0 18px 30px -18px rgba(34,50,79,0.5)"
+          : undefined,
+      }}
     >
       {badge && (
-        <div className={cn(
-          "absolute top-4 right-4 px-2 py-1 text-xs font-semibold rounded-full",
-          gradient ? "bg-white/30 backdrop-blur-sm text-white" : "bg-violet-500 text-white"
-        )}>
+        <div
+          className={cn(
+            "tactile-chip absolute top-4 right-4",
+            s ? s.badge : "border-coral bg-coral-tint text-ink"
+          )}
+        >
           {badge}
         </div>
       )}
 
       <div className="flex items-center gap-3 mb-4">
-        <div className={cn(
-          "w-12 h-12 rounded-2xl flex items-center justify-center",
-          gradient ? "bg-white/20 backdrop-blur-sm" : "bg-gradient-to-br from-purple-500 to-purple-600"
-        )}>
-          <span className="text-2xl">{icon}</span>
+        <div
+          className={cn(
+            "tactile-tile w-12 h-12 text-2xl",
+            s ? s.tile : "bg-teal-tint border-teal"
+          )}
+        >
+          <span>{icon}</span>
         </div>
         <div>
-          <h3 className={cn(
-            "font-display font-bold",
-            gradient ? "text-white" : "text-purple-950"
-          )}>
+          <h3 className={cn("font-display font-bold", s ? s.title : "text-ink")}>
             {title}
           </h3>
-          <p className={cn(
-            "text-xs",
-            gradient ? "text-white opacity-90" : "text-purple-700"
-          )}>
-            {subtitle}
-          </p>
+          <p className={cn("text-xs", s ? s.subtitle : "text-ink-soft")}>{subtitle}</p>
         </div>
       </div>
 

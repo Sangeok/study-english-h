@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import type { Prisma } from "@/lib/generated/prisma/client";
-import { BASE_XP_PER_QUESTION, calculateQuestionXP, type QuizResult } from "@/features/quiz/lib";
+import {
+  BASE_XP_PER_QUESTION,
+  calculateQuestionXP,
+  type QuizResult,
+  type QuizSubmission,
+  type QuizSubmitResponse,
+} from "@/features/quiz/lib";
 import { getStreakUpdateData } from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
@@ -10,13 +16,6 @@ import { POINT_EVENTS } from "@/features/gamification/config/point-events";
 import { selectFreeHintTargets } from "@/features/shop/lib/select-free-hint-targets";
 import { QUIZ_BOOST_MULTIPLIER } from "@/features/shop/config/shop-items";
 import { isPrismaCheckConstraintError } from "@/features/shop/lib/prisma-errors";
-
-interface QuizSubmission {
-  questionId: string;
-  selectedAnswer: string;
-  timeSpent: number;
-  hintLevel: 0 | 1 | 2;
-}
 
 export async function POST(req: Request) {
   try {
@@ -29,8 +28,7 @@ export async function POST(req: Request) {
     const userId = session.user.id;
     const { answers } = (await req.json()) as { answers: QuizSubmission[] };
 
-    // (Issue 3.1) 빈 제출 차단 — pre-existing 버그 동시 수정
-    //   기존 코드는 answers=[]일 때 DAILY_GOAL_COMPLETE(100 XP) 지급 + 충전/힌트까지 소비.
+    // 빈 제출 차단 — answers=[]가 DAILY_GOAL_COMPLETE(100 XP) 지급 + 충전/힌트 소비를 트리거하지 않도록 한다.
     if (!Array.isArray(answers) || answers.length === 0) {
       return NextResponse.json(
         { error: "제출된 답변이 없습니다" },
@@ -47,7 +45,7 @@ export async function POST(req: Request) {
     });
     const questionMap = new Map(questions.map((question) => [question.id, question]));
 
-    // (RV10) 유효 questionId가 최소 1개 있어야 한다.
+    // 유효 questionId가 최소 1개 있어야 한다.
     //   answers.length > 0만으로는 bogus questionId 제출이 bonus XP + 충전 소비를 트리거한다.
     const hasValidAnswer = answers.some((a) => questionMap.has(a.questionId));
     if (!hasValidAnswer) {
@@ -147,7 +145,7 @@ export async function POST(req: Request) {
         if (streakData.currentStreak > 1) bonusXP += POINT_EVENTS.DAILY_STREAK;
       }
 
-      // (RV11) correctBaseXP는 tx 내부 국소 변수로만 사용 — 응답 계약에서 제거됨 (RV4)
+      // correctBaseXP는 tx 내부 국소 변수로만 사용 — 응답 계약에는 포함되지 않는다.
       // Math.floor: 현재 multiplier=2.0은 정수 결과를 보장하지만
       //   v3에서 1.5x 같은 분수 배수 도입 시 Int 컬럼 무결성을 선제 보장한다.
       const boostedPerQuestionXP = Math.floor(perQuestionXP * boostMultiplier);
@@ -189,7 +187,7 @@ export async function POST(req: Request) {
 
       // 응답용 집계 (부스트 반영된 값)
       totalXP = finalXP;
-      // (RV4) xpPenaltyFromHints: 부스트 반영된 기본 XP - 실제 지급 XP
+      // xpPenaltyFromHints: 부스트 반영된 기본 XP - 실제 지급 XP
       //   tx 내부에서 계산 후 return으로 반출 (outer let 불필요)
       const xpPenaltyFromHints = boostedCorrectBaseXP - boostedPerQuestionXP;
 
@@ -203,7 +201,7 @@ export async function POST(req: Request) {
 
     let gamificationResult;
     if (!txResult.isExtraPractice) {
-      // (v2 T3) boostMultiplier 전파 — 퀴즈 트리거 스트릭 마일스톤/업적 XP도 동일 배수 적용
+      // boostMultiplier 전파 — 퀴즈 트리거 스트릭 마일스톤/업적 XP도 동일 배수 적용
       gamificationResult = await processGamificationRewards(userId, {
         type: "quiz",
         correctCount,
@@ -221,16 +219,15 @@ export async function POST(req: Request) {
         correct: correctCount,
         accuracy: Math.round(accuracy),
         xpEarned: totalXP,
-        // (RV4) correctBaseXP 제거 — xpPenaltyFromHints 단일 계약으로 일원화
         xpPenaltyFromHints: txResult.xpPenaltyFromHints,
         hintStats,
       },
       gamification: gamificationResult,
       isExtraPractice: txResult.isExtraPractice,
       currentStreak: streakData.currentStreak,
-    });
+    } satisfies QuizSubmitResponse);
   } catch (error) {
-    // (RV2) CHECK 제약 위반 — 동시 퀴즈 제출로 인한 충전/힌트 잔량 음수화 시도.
+    // CHECK 제약 위반 — 동시 퀴즈 제출로 인한 충전/힌트 잔량 음수화 시도.
     //   500→400 매핑 필수.
     if (isPrismaCheckConstraintError(error)) {
       return NextResponse.json(

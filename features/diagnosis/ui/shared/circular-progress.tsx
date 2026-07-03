@@ -26,8 +26,8 @@ const STROKE_WIDTH_MAP = {
 export function CircularProgress({
   percentage,
   size = "md",
-  strokeColor = "#8b5cf6",
-  warningColor = "#ef4444",
+  strokeColor = "var(--teal)",
+  warningColor = "var(--coral)",
   isWarning = false,
   children,
   className,
@@ -48,9 +48,9 @@ export function CircularProgress({
           cy={CENTER}
           r={RADIUS}
           fill="none"
-          stroke="#e9d5ff"
+          stroke="var(--border-warm)"
           strokeWidth={strokeWidth}
-          className="opacity-30"
+          className="opacity-60"
         />
         <circle
           cx={CENTER}

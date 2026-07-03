@@ -1,8 +1,8 @@
 "use client";
 
 import { memo, useState } from "react";
+import { Check } from "lucide-react";
 import type { DiagnosisQuestion } from "@/entities/question";
-import { getDifficultyStyle } from "@/shared/constants";
 import { cn } from "@/lib/utils";
 import { TRANSITION_DURATION_MS } from "../../config";
 
@@ -18,19 +18,19 @@ const OPTION_LABELS = ["A", "B", "C", "D"];
 
 function getOptionClassName(isSelected: boolean, isSelecting: boolean): string {
   if (isSelected) {
-    return "border-purple-500 bg-gradient-to-br from-purple-50 to-violet-50 shadow-lg scale-[1.02]";
+    return "border-teal bg-teal-tint scale-[1.01]";
   }
   if (isSelecting) {
-    return "border-purple-300 bg-purple-50 scale-[0.98]";
+    return "border-teal bg-teal-tint scale-[0.98]";
   }
-  return "border-purple-200 hover:border-purple-300 hover:bg-purple-50/50 hover:shadow-md hover:scale-[1.01]";
+  return "border-border-warm bg-paper hover:border-teal hover:bg-teal-tint/40";
 }
 
 function getLabelClassName(isSelected: boolean): string {
   if (isSelected) {
-    return "border-purple-600 bg-gradient-to-br from-purple-600 to-violet-600 shadow-lg";
+    return "border-teal-edge bg-teal text-white";
   }
-  return "border-purple-300 bg-white group-hover:border-purple-400";
+  return "border-border-warm bg-cream text-ink-soft group-hover:border-teal";
 }
 
 export const DiagnosisQuestionCard = memo(function DiagnosisQuestionCard({
@@ -41,7 +41,6 @@ export const DiagnosisQuestionCard = memo(function DiagnosisQuestionCard({
   isTransitioning,
 }: DiagnosisQuestionCardProps) {
   const [selectingOption, setSelectingOption] = useState<string | null>(null);
-  const difficultyStyle = getDifficultyStyle(question.difficulty);
 
   const handleSelect = (optionText: string) => {
     setSelectingOption(optionText);
@@ -59,54 +58,41 @@ export const DiagnosisQuestionCard = memo(function DiagnosisQuestionCard({
         !isTransitioning && "opacity-100 translate-y-0"
       )}
     >
-      <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-purple-100 relative overflow-hidden mb-6">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-transparent rounded-full -mr-16 -mt-16" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-violet-200/30 to-transparent rounded-full -ml-12 -mb-12" />
+      <div className="tactile-card tactile-card--raised relative mb-6 overflow-hidden p-6 md:p-9">
+        <span
+          className="pointer-events-none absolute -right-6 -top-6 select-none text-8xl opacity-[0.07]"
+          aria-hidden
+        >
+          📖
+        </span>
 
         <div className="relative z-10">
           {/* 난이도 + 카테고리 배지 */}
-          <div className="flex items-center gap-3 mb-6">
-            <div
-              className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm",
-                difficultyStyle.bg,
-                difficultyStyle.text,
-                difficultyStyle.border
-              )}
-            >
-              <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
-              <span className="text-sm font-semibold uppercase tracking-wide">
+          <div className="mb-6 flex items-center gap-2">
+            <div className="tactile-chip border-ocean bg-ocean-tint text-ink">
+              <span className="font-display text-xs font-bold uppercase tracking-wide text-ocean-edge">
                 {question.difficulty}
               </span>
             </div>
-            <div className="px-4 py-2 bg-purple-100 rounded-full">
-              <span className="text-sm font-medium text-purple-700">
+            <div className="tactile-chip border-teal bg-teal-tint text-ink">
+              <span className="text-xs font-bold text-teal-edge">
                 {question.category}
               </span>
             </div>
           </div>
 
-          {/* 한국어 힌트 */}
-          <div className="text-center mb-8">
-            <div className="inline-block px-6 py-3 bg-gradient-to-br from-purple-100 to-violet-100 rounded-2xl mb-4">
-              <span className="text-sm font-medium text-purple-700">
-                한국어 힌트
-              </span>
-            </div>
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-purple-950 mb-6">
-              {question.koreanHint}
+          {/* 문장 — hero prompt. 빈칸에 들어갈 단어를 문맥으로 추론한다 (뜻 힌트 없음) */}
+          <div className="mb-8 mt-2 text-center">
+            <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">
+              Complete the sentence
+            </p>
+            <h3 className="mt-4 font-display text-2xl font-bold leading-snug text-ink md:text-3xl">
+              {question.sentence}
             </h3>
           </div>
 
-          {/* 문장 */}
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl p-6 mb-8 border border-purple-100">
-            <p className="text-xl md:text-2xl text-purple-900 text-center leading-relaxed font-medium">
-              {question.sentence}
-            </p>
-          </div>
-
           {/* 선택지 */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {question.options.map((option, idx) => {
               const isSelected = selectedAnswer === option.text;
               const isSelecting = selectingOption === option.text;
@@ -117,56 +103,39 @@ export const DiagnosisQuestionCard = memo(function DiagnosisQuestionCard({
                   onClick={() => handleSelect(option.text)}
                   disabled={disabled}
                   className={cn(
-                    "group w-full p-5 rounded-2xl border-2 text-left transition-all duration-300",
-                    "disabled:opacity-50 disabled:cursor-not-allowed",
+                    "group w-full rounded-2xl border-2 p-4 text-left transition-all duration-200",
+                    "disabled:cursor-not-allowed disabled:opacity-40",
                     getOptionClassName(isSelected, isSelecting)
                   )}
                 >
                   <div className="flex items-center gap-4">
                     <div
                       className={cn(
-                        "flex-shrink-0 w-12 h-12 rounded-xl border-2 flex items-center justify-center transition-all duration-300",
+                        "flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border-2 font-display text-lg font-bold transition-all duration-200",
                         getLabelClassName(isSelected)
                       )}
                     >
-                      <span
-                        className={cn(
-                          "font-bold text-lg",
-                          isSelected && "text-white",
-                          !isSelected &&
-                            "text-purple-400 group-hover:text-purple-500"
-                        )}
-                      >
-                        {OPTION_LABELS[idx]}
-                      </span>
+                      {OPTION_LABELS[idx]}
                     </div>
 
                     <span
                       className={cn(
-                        "text-lg font-medium transition-colors",
-                        isSelected && "text-purple-900",
-                        !isSelected &&
-                          "text-purple-800 group-hover:text-purple-900"
+                        "flex-1 text-base font-medium transition-colors md:text-lg",
+                        isSelected ? "text-ink" : "text-ink"
                       )}
                     >
                       {option.text}
                     </span>
 
                     {isSelected && (
-                      <div className="ml-auto flex-shrink-0 w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center animate-scale-in">
-                        <svg
-                          className="w-4 h-4 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
+                      <div
+                        className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 border-teal-edge bg-teal"
+                        style={{
+                          animation:
+                            "checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                        }}
+                      >
+                        <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
                       </div>
                     )}
                   </div>

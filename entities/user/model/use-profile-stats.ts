@@ -2,21 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { ApiError, apiClient, queryKeys } from "@/shared/lib";
+import type { ProfileStats } from "../types";
 
-export interface ProfileStats {
-  level: string;
-  totalXP: number;
-  streak: number;
-  longestStreak: number;
-  totalWordLearned: number;
-  masteredWords: number;
-  reviewNeeded: number;
-  hasCompletedDiagnosis: boolean;
-  weaknessAreas: Record<string, number> | null;
-  vocabularyProgress: number;
-  lastStudyDate: string | null;
-  hasCompletedTodayQuiz: boolean;
-}
+export type { ProfileStats };
 
 async function fetchProfileStats(): Promise<ProfileStats> {
   return apiClient.get<ProfileStats>("/api/profile/stats");

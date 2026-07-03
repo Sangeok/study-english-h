@@ -1,39 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { QueryProvider, ToastProvider } from "@/shared/ui";
-
-const geistSans = localFont({
-  src: [
-    {
-      path: "./fonts/geist-latin.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-    {
-      path: "./fonts/geist-latin-ext.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = localFont({
-  src: [
-    {
-      path: "./fonts/geist-mono-latin.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-    {
-      path: "./fonts/geist-mono-latin-ext.woff2",
-      weight: "100 900",
-      style: "normal",
-    },
-  ],
-  variable: "--font-geist-mono",
-});
 
 export const metadata: Metadata = {
   title: "Study English - 영어 학습 플랫폼",
@@ -48,7 +15,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        {/* Pretendard — premium Korean UI typeface (replaces generic Geist) */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+        {/* Fredoka — rounded, friendly display face for numbers & headings */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="antialiased">
         <QueryProvider>
           <ToastProvider>{children}</ToastProvider>
         </QueryProvider>

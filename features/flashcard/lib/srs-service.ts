@@ -8,7 +8,7 @@
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
 import type { MasteryLevel, ReviewQuality } from "../types";
-import { calculateNextReview } from "./srs-algorithm";
+import { calculateNextReview, DEFAULT_EASE_FACTOR } from "./srs-algorithm";
 
 // Extended vocabulary with user progress
 export interface VocabularyWithProgress extends Vocabulary {
@@ -121,7 +121,7 @@ export async function recordReview(
   // Build current SRS card state
   const currentCard = {
     repetitions: userVocab?.repetitions ?? 0,
-    easeFactor: userVocab?.easeFactor ?? 2.5,
+    easeFactor: userVocab?.easeFactor ?? DEFAULT_EASE_FACTOR,
     interval: userVocab?.interval ?? 1,
     lastReviewDate: userVocab?.lastReviewDate ?? null,
     masteryLevel: (userVocab?.masteryLevel as MasteryLevel) ?? "new",
@@ -174,9 +174,6 @@ export async function recordReview(
     },
   });
 
-  // Update user profile statistics
-  await updateProfileStats(userId);
-
   return updatedUserVocab;
 }
 
@@ -224,40 +221,4 @@ export async function updateProfileStats(userId: string): Promise<void> {
       reviewNeeded,
     },
   });
-}
-
-/**
- * Get user's vocabulary statistics
- *
- * @param userId - User ID
- * @returns Statistics object with mastery level breakdown
- */
-export async function getVocabularyStats(
-  userId: string
-): Promise<{ byMasteryLevel: Record<string, number>; dueForReview: number }> {
-  const stats = await prisma.userVocabulary.groupBy({
-    by: ["masteryLevel"],
-    where: { userId },
-    _count: true,
-  });
-
-  const dueCount = await prisma.userVocabulary.count({
-    where: {
-      userId,
-      nextReviewDate: {
-        lte: new Date(),
-      },
-    },
-  });
-
-  return {
-    byMasteryLevel: stats.reduce(
-      (acc, stat) => {
-        acc[stat.masteryLevel] = stat._count;
-        return acc;
-      },
-      {} as Record<string, number>
-    ),
-    dueForReview: dueCount,
-  };
 }

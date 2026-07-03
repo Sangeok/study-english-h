@@ -118,19 +118,19 @@ export function DiagnosisTest() {
   const canSubmit = answeredCount === questions.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden relative">
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="relative min-h-screen overflow-hidden bg-cream-canvas">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div
-          className="absolute top-20 -right-32 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl animate-float"
+          className="absolute -right-32 top-20 h-96 w-96 animate-float rounded-full bg-teal-tint/60 blur-3xl"
           style={{ animationDuration: "20s" }}
         />
         <div
-          className="absolute bottom-20 -left-32 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl animate-float"
+          className="absolute -left-32 bottom-20 h-96 w-96 animate-float rounded-full bg-ocean-tint/60 blur-3xl"
           style={{ animationDuration: "25s", animationDelay: "2s" }}
         />
       </div>
 
-      <div className="relative z-10 py-8 px-4 md:px-8">
+      <div className="relative z-10 px-4 py-8 md:px-8">
         <div className="max-w-4xl mx-auto">
           <DiagnosisProgressBar
             progress={{

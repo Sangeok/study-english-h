@@ -55,7 +55,7 @@ const SparkleLayer = memo(function SparkleLayer({ sparkles }: SparkleLayerProps)
             animation: "sparkle 0.6s ease-out forwards",
           }}
         >
-          <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
+          <div className="w-1.5 h-1.5 bg-gold rounded-full" />
         </div>
       ))}
     </>
@@ -109,43 +109,41 @@ export function QuizQuestion({
   const hintButtonAriaLabel = getHintButtonLabel(hintLevel);
 
   return (
-    <div className="bg-white/10 backdrop-blur-2xl rounded-2xl p-5 shadow-2xl border border-white/20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
-
+    <div className="tactile-card tactile-card--raised p-5 relative overflow-hidden">
       <SparkleLayer sparkles={sparkles} />
 
       <div className="relative z-10">
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-3">
             <div
-              className={`inline-flex items-center gap-1.5 px-3 py-1 ${difficultyStyle.bg} ${difficultyStyle.text} rounded-lg border ${difficultyStyle.border} text-xs font-bold uppercase`}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 ${difficultyStyle.bg} ${difficultyStyle.text} rounded-lg border-2 ${difficultyStyle.border} text-xs font-bold uppercase`}
             >
               <span className="text-sm">{difficultyStyle.icon}</span>
               <span>{question.difficulty}</span>
             </div>
-            <div className="px-3 py-1 bg-violet-100/50 rounded-lg border border-violet-200 text-xs font-semibold text-violet-700">
+            <div className="px-3 py-1 bg-teal-tint rounded-lg border-2 border-teal text-xs font-bold text-teal-edge">
               {question.category}
             </div>
             <div
               className={cn(
-                "ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg border",
-                !willBeFree && "bg-amber-400/20 border-amber-400/30",
-                willBeFree && "bg-emerald-400/20 border-emerald-400/40"
+                "ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg border-2",
+                !willBeFree && "bg-gold-tint border-gold",
+                willBeFree && "bg-teal-tint border-teal"
               )}
               title={xpBadgeTitle}
             >
               <span className="text-sm">💎</span>
               <span
                 className={cn(
-                  "text-xs font-black",
-                  !willBeFree && "text-amber-100",
-                  willBeFree && "text-emerald-100"
+                  "text-xs font-display font-bold",
+                  !willBeFree && "text-gold-edge",
+                  willBeFree && "text-teal-edge"
                 )}
               >
                 +{currentXP} XP
               </span>
               {willBeFree && (
-                <span className="text-[10px] font-bold text-emerald-100/90">프리 힌트</span>
+                <span className="text-[10px] font-bold text-teal-edge">프리 힌트</span>
               )}
             </div>
           </div>
@@ -153,24 +151,24 @@ export function QuizQuestion({
           {showHintBlock && (
             <div className="mb-4 space-y-2 animate-slide-down" role="region" aria-label="힌트 영역">
               {showContextHint && (
-                <div className="bg-amber-400/20 rounded-xl p-3 border border-amber-400/30">
+                <div className="bg-gold-tint rounded-xl p-3 border-2 border-gold">
                   <div className="flex items-start gap-2">
                     <span className="text-lg">📝</span>
                     <div>
-                      <p className="text-xs font-semibold text-amber-200 mb-0.5">상황 힌트</p>
-                      <p className="text-sm text-white/90">{question.contextHint}</p>
+                      <p className="text-xs font-bold text-gold-edge mb-0.5">상황 힌트</p>
+                      <p className="text-sm text-ink">{question.contextHint}</p>
                     </div>
                   </div>
                 </div>
               )}
 
               {showKoreanHint && (
-                <div className="bg-violet-400/20 rounded-xl p-3 border border-violet-400/30">
+                <div className="bg-teal-tint rounded-xl p-3 border-2 border-teal">
                   <div className="flex items-start gap-2">
                     <span className="text-lg">🇰🇷</span>
                     <div>
-                      <p className="text-xs font-semibold text-violet-200 mb-0.5">한국어 힌트</p>
-                      <p className="text-base font-bold text-white">{question.koreanHint}</p>
+                      <p className="text-xs font-bold text-teal-edge mb-0.5">한국어 힌트</p>
+                      <p className="text-base font-bold text-ink">{question.koreanHint}</p>
                     </div>
                   </div>
                 </div>
@@ -183,7 +181,7 @@ export function QuizQuestion({
               onClick={onHintRequest}
               disabled={disabled}
               aria-label={hintButtonAriaLabel}
-              className="w-full mb-4 py-2.5 px-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white/80 hover:text-white hover:bg-white/15 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="tactile-btn tactile-btn--ghost tactile-btn--block tactile-btn--sm mb-4"
             >
               <HintButtonContent hintLevel={hintLevel} />
             </button>
@@ -191,8 +189,8 @@ export function QuizQuestion({
         </div>
 
         <div className="relative mb-4">
-          <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-white/10">
-            <p className="text-base md:text-lg text-white/95 text-center leading-relaxed font-medium">{question.sentence}</p>
+          <div className="bg-cream rounded-xl p-4 border-2 border-border-warm">
+            <p className="text-base md:text-lg text-ink text-center leading-relaxed font-medium">{question.sentence}</p>
           </div>
         </div>
 
@@ -240,17 +238,13 @@ export function QuizQuestion({
 
                   {isSelected && (
                     <div
-                      className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-violet-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg"
+                      className="flex-shrink-0 w-6 h-6 bg-teal border-2 border-teal-edge rounded-full flex items-center justify-center"
                       style={{ animation: "checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)" }}
                     >
                       <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
                     </div>
                   )}
                 </div>
-
-                {isSelected && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-400 via-indigo-400 to-violet-400" />
-                )}
               </button>
             );
           })}

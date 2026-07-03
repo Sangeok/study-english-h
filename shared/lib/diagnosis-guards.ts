@@ -1,5 +1,3 @@
-"use server";
-
 import prisma from "@/lib/db";
 import { getSession } from "./get-session";
 import { redirect } from "next/navigation";

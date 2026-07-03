@@ -16,12 +16,14 @@ export function LeagueProgress({ currentTier, currentPoints }: LeagueProgressPro
   const progressPercent = getProgressPercent(currentPoints, tier, nextTier);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
+    <div className="tactile-card p-6">
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-3xl">{tier.icon}</span>
+        <div className="tactile-tile w-14 h-14 bg-gold-tint border-gold text-3xl shrink-0">
+          <span>{tier.icon}</span>
+        </div>
         <div>
-          <p className="font-bold text-purple-950">{tier.nameKo}</p>
-          <p className="text-sm text-gray-500">
+          <p className="font-display font-bold text-lg text-ink">{tier.nameKo}</p>
+          <p className="text-sm text-ink-soft">
             {currentPoints.toLocaleString()} 포인트
           </p>
         </div>
@@ -29,24 +31,24 @@ export function LeagueProgress({ currentTier, currentPoints }: LeagueProgressPro
 
       {!isMaxTier && nextTier && (
         <>
-          <div className="bg-gray-200 rounded-full h-3 mb-2">
+          <div className="tactile-progress mb-2">
             <div
-              className="h-3 rounded-full transition-all"
+              className="tactile-progress__fill"
               style={{
                 width: `${progressPercent}%`,
-                backgroundColor: tier.color,
+                background: tier.color,
               }}
             />
           </div>
-          <p className="text-xs text-gray-500 text-right">
+          <p className="text-xs text-ink-soft text-right">
             다음 티어: {nextTier.icon} {nextTier.nameKo} ({nextTier.minPoints.toLocaleString()}P)
           </p>
         </>
       )}
 
       {isMaxTier && (
-        <p className="text-sm text-purple-600 font-semibold">
-          최고 티어 달성!
+        <p className="text-sm text-gold-edge font-bold">
+          🏆 최고 티어 달성!
         </p>
       )}
     </div>

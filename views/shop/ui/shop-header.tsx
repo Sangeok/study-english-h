@@ -15,13 +15,40 @@ export function ShopHeader({
   isLoading,
 }: ShopHeaderProps) {
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-md">
-      <div className="flex items-center justify-between">
+    <div
+      className="relative overflow-hidden rounded-[28px] border-2 border-gold-edge bg-gold p-8 text-ink animate-[pop-in]"
+      style={{
+        boxShadow:
+          "0 6px 0 0 var(--gold-edge), 0 28px 44px -26px rgba(232,151,15,0.7)",
+      }}
+    >
+      {/* Decorative depth */}
+      <div className="absolute -right-12 -top-14 h-52 w-52 rounded-full bg-ink/5" />
+      <div className="absolute right-16 -bottom-12 h-32 w-32 rounded-full bg-ink/5" />
+      <span
+        className="pointer-events-none absolute -bottom-6 right-6 select-none text-[8rem] leading-none opacity-15"
+        aria-hidden
+      >
+        🪙
+      </span>
+      <div
+        className="absolute left-8 top-8 h-2.5 w-2.5 rounded-full bg-ink/30"
+        aria-hidden
+      />
+
+      <div className="relative flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-purple-950">상점</h1>
-          <p className="text-sm text-gray-500 mt-1">XP로 학습에 도움이 되는 아이템을 구매하세요</p>
+          <div className="tactile-tile mb-4 h-12 w-12 border-ink/15 bg-ink/10 text-2xl">
+            <span>🛍️</span>
+          </div>
+          <h1 className="font-display text-2xl font-bold tracking-tight text-ink">
+            상점
+          </h1>
+          <p className="mt-1 text-sm font-medium text-ink/70">
+            XP로 학습에 도움이 되는 아이템을 구매하세요
+          </p>
           {boostCharges > 0 && (
-            <div className="mt-3">
+            <div className="mt-4">
               <QuizBoostPreviewBadge
                 charges={boostCharges}
                 nextTarget={boostNextTarget}
@@ -29,10 +56,17 @@ export function ShopHeader({
             </div>
           )}
         </div>
-        <div className="text-right">
-          <p className="text-xs text-purple-600 font-medium mb-0.5">보유 XP</p>
-          <p className="text-2xl font-bold text-purple-700">
-            {isLoading ? "…" : `✨ ${spendableXP.toLocaleString()}`}
+
+        {/* Currency balance hero */}
+        <div className="sm:text-right">
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
+            Spendable XP
+          </p>
+          <p className="font-display text-5xl font-bold leading-none text-ink md:text-6xl">
+            {isLoading ? "—" : spendableXP.toLocaleString()}
+          </p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-ink/55">
+            보유 XP
           </p>
         </div>
       </div>

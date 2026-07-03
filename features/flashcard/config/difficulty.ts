@@ -7,29 +7,31 @@ export interface DifficultyOption {
   colorClass: string;
 }
 
+// colorClass maps each review quality to a tactile button tone.
+// Used by DifficultyButtons as: `tactile-btn tactile-btn--${colorClass}`.
 export const DIFFICULTY_OPTIONS: DifficultyOption[] = [
   {
     quality: "forgot",
-    label: "Forgot",
-    sublabel: "Again",
-    colorClass: "bg-red-500 hover:bg-red-600",
+    label: "잊음",
+    sublabel: "다시 보기",
+    colorClass: "coral",
   },
   {
     quality: "hard",
-    label: "Hard",
-    sublabel: "Tough",
-    colorClass: "bg-orange-500 hover:bg-orange-600",
+    label: "어려움",
+    sublabel: "힘들었어요",
+    colorClass: "gold",
   },
   {
     quality: "normal",
-    label: "Good",
-    sublabel: "Normal",
-    colorClass: "bg-blue-500 hover:bg-blue-600",
+    label: "보통",
+    sublabel: "괜찮아요",
+    colorClass: "ocean",
   },
   {
     quality: "easy",
-    label: "Easy",
-    sublabel: "Fast",
-    colorClass: "bg-green-500 hover:bg-green-600",
+    label: "쉬움",
+    sublabel: "잘 알아요",
+    colorClass: "teal",
   },
 ];

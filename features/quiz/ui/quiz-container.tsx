@@ -74,16 +74,17 @@ export function QuizContainer() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-violet-900 overflow-hidden flex flex-col">
-      <div className="fixed inset-0 opacity-20 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
+    <div className="h-screen bg-cream-canvas overflow-hidden flex flex-col">
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-teal/15 blur-3xl" />
+        <div className="absolute -bottom-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-coral/12 blur-3xl" />
       </div>
 
       {hasCompletedToday && (
         <div className="relative z-10 px-4 pt-2">
           <div className="max-w-5xl mx-auto">
-            <div className="flex items-center gap-2 text-sm py-2 px-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
-              <span className="text-blue-300">ℹ️ 추가 연습 모드 — 오늘 퀴즈는 이미 완료했습니다. XP는 적립되지 않습니다.</span>
+            <div className="flex items-center gap-2 text-sm py-2 px-4 bg-ocean-tint rounded-xl border-2 border-ocean">
+              <span className="text-ink">ℹ️ 추가 연습 모드 — 오늘 퀴즈는 이미 완료했습니다. XP는 적립되지 않습니다.</span>
             </div>
           </div>
         </div>
@@ -121,11 +122,11 @@ export function QuizContainer() {
       {submitMutation.isError && (
         <div className="relative z-10 px-4 py-2">
           <div className="max-w-5xl mx-auto">
-            <div className="flex items-center justify-between text-sm py-2 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
-              <span className="text-red-400">퀴즈 제출 중 오류가 발생했습니다.</span>
+            <div className="flex items-center justify-between text-sm py-2 px-4 bg-coral-tint rounded-xl border-2 border-coral">
+              <span className="text-coral-edge font-semibold">퀴즈 제출 중 오류가 발생했습니다.</span>
               <button
                 onClick={handleSubmit}
-                className="text-red-300 hover:text-red-100 font-semibold underline transition-colors"
+                className="text-coral-edge hover:text-ink font-bold underline transition-colors"
               >
                 다시 시도
               </button>

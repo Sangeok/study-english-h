@@ -1,9 +1,10 @@
 "use client";
 
 import { ReactNode } from "react";
+import { tactileButtonClass, type TactileTone } from "./tactile-button";
 import { cn } from "@/lib/utils";
 
-export type ButtonVariant = 'primary' | 'secondary' | 'white' | 'outline';
+export type ButtonVariant = "primary" | "secondary" | "white" | "outline";
 
 export interface GradientButtonProps {
   children: ReactNode;
@@ -13,30 +14,27 @@ export interface GradientButtonProps {
   className?: string;
 }
 
+// Legacy variant API mapped onto the new tactile tone system so every
+// existing call site upgrades to the pressable button automatically.
+const variantTone: Record<ButtonVariant, TactileTone> = {
+  primary: "teal",
+  secondary: "coral",
+  white: "ghost",
+  outline: "ghost",
+};
+
 export function GradientButton({
   children,
   onClick,
   disabled = false,
-  variant = 'primary',
-  className
+  variant = "primary",
+  className,
 }: GradientButtonProps) {
-  const variantStyles: Record<ButtonVariant, string> = {
-    primary: "bg-gradient-to-br from-purple-600 to-violet-600 text-white shadow-lg hover:shadow-xl",
-    secondary: "bg-white/20 backdrop-blur-sm text-white hover:bg-white/30",
-    white: "bg-white text-purple-600 shadow-lg hover:shadow-xl",
-    outline: "bg-white text-purple-900 shadow-md hover:shadow-lg"
-  };
-
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={cn(
-        "px-8 py-4 font-semibold rounded-2xl transition-all duration-300",
-        "hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100",
-        variantStyles[variant],
-        className
-      )}
+      className={cn(tactileButtonClass(variantTone[variant], "lg"), className)}
     >
       {children}
     </button>

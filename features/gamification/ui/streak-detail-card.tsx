@@ -8,39 +8,38 @@ export function StreakDetailCard() {
   const { data, isLoading } = useStreakDetails();
 
   if (isLoading) {
-    return <div className="bg-gray-100 rounded-2xl h-48 animate-pulse" />;
+    return <div className="bg-muted-warm rounded-2xl h-48 animate-pulse" />;
   }
 
   if (!data) return null;
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
+    <div className="tactile-card p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-purple-950">연속 학습</h3>
-          <p className="text-4xl font-bold text-purple-600 mt-1">
+          <h3 className="text-xl font-display font-bold text-ink">연속 학습</h3>
+          <p className="text-4xl font-display font-bold text-coral mt-1 flex items-center gap-1">
+            <span>🔥</span>
             {data.currentStreak}일
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm text-gray-500">최장 기록</p>
-          <p className="text-lg font-semibold text-purple-800">
-            {data.longestStreak}일
-          </p>
+          <p className="text-sm text-ink-soft">최장 기록</p>
+          <p className="text-lg font-bold text-ink">{data.longestStreak}일</p>
         </div>
       </div>
 
       {/* Freeze 보유 */}
-      <div className="flex items-center gap-2 mb-6 bg-blue-50 rounded-xl px-4 py-3">
+      <div className="flex items-center gap-2 mb-6 bg-ocean-tint border-2 border-ocean rounded-xl px-4 py-3">
         <span className="text-xl">🧊</span>
-        <span className="text-sm text-blue-800">
-          스트릭 보호권 <strong>{data.freezeCount}개</strong> 보유
+        <span className="text-sm text-ink">
+          스트릭 보호권 <strong className="text-ocean-edge">{data.freezeCount}개</strong> 보유
         </span>
       </div>
 
       {/* 마일스톤 진행도 */}
       <div>
-        <p className="text-sm font-medium text-gray-600 mb-3">마일스톤</p>
+        <p className="text-sm font-bold text-ink-soft mb-3">마일스톤</p>
         <div className="space-y-3">
           {STREAK_MILESTONES.map((milestone) => {
             const achieved = data.currentStreak >= milestone.days;
@@ -52,23 +51,25 @@ export function StreakDetailCard() {
             return (
               <div key={milestone.days} className="flex items-center gap-3">
                 <span className={cn(
-                  "text-sm font-medium w-12",
-                  achieved && "text-purple-600",
-                  !achieved && "text-gray-400"
+                  "text-sm font-bold w-12",
+                  achieved && "text-coral",
+                  !achieved && "text-ink-soft/60"
                 )}>
                   {milestone.days}일
                 </span>
-                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                <div className="tactile-progress flex-1 h-3">
                   <div
                     className={cn(
-                      "h-2 rounded-full transition-all",
-                      achieved && "bg-purple-600",
-                      !achieved && "bg-purple-300"
+                      "tactile-progress__fill",
+                      !achieved && "opacity-60"
                     )}
-                    style={{ width: `${progress}%` }}
+                    style={{
+                      width: `${progress}%`,
+                      background: achieved ? "var(--coral)" : "var(--coral)",
+                    }}
                   />
                 </div>
-                <span className="text-xs text-gray-500 w-20 text-right">
+                <span className="text-xs text-ink-soft w-20 text-right">
                   +{milestone.xpReward}XP, {milestone.freezeReward}🧊
                 </span>
               </div>

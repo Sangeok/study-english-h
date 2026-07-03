@@ -5,7 +5,8 @@ export const PERIOD_OPTIONS = [
   { value: "all", label: "최근 3개월" },
 ] as const;
 
-export const PIE_COLORS = ["#8B5CF6", "#10B981", "#F59E0B", "#EF4444", "#3B82F6"];
+// Playful Tactile palette: teal · coral · gold · ocean · grape
+export const PIE_COLORS = ["#12b886", "#ff6b6b", "#ffb020", "#4dabf7", "#9775fa"];
 
 export const CATEGORY_LABELS: Record<string, string> = {
   daily: "일상",

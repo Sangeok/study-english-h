@@ -59,7 +59,7 @@ export interface ReviewResult {
   nextReviewDate: string;
 }
 
-import type { GamificationResult } from "@/features/gamification/types";
+import type { GamificationResult } from "@/entities/gamification";
 
 // Review submission response
 export interface SubmitResponse {

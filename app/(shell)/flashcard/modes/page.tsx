@@ -61,12 +61,18 @@ const modes: ModeCard[] = [
   },
 ];
 
-function getModeCardClassName(available: boolean): string {
-  if (available) {
-    return "bg-white hover:scale-105 hover:shadow-2xl cursor-pointer";
-  }
-  return "bg-gray-100 opacity-60 cursor-not-allowed";
-}
+type ModeTone = "teal" | "coral" | "ocean" | "gold" | "grape";
+
+// Decorative tone per mode tile (cycles through the palette).
+const MODE_TONES: ModeTone[] = ["teal", "coral", "ocean", "gold", "grape"];
+
+const tileTone: Record<ModeTone, string> = {
+  teal: "border-teal bg-teal-tint",
+  coral: "border-coral bg-coral-tint",
+  ocean: "border-ocean bg-ocean-tint",
+  gold: "border-gold bg-gold-tint",
+  grape: "border-grape bg-grape-tint",
+};
 
 export default function ModesPage() {
   const router = useRouter();
@@ -78,66 +84,91 @@ export default function ModesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-sans font-bold text-gray-800">학습 모드 선택</h1>
-          <p className="text-gray-600">다양한 방식으로 단어를 학습하세요!</p>
+    <div className="relative min-h-screen overflow-hidden bg-cream-canvas px-4 py-12">
+      <div className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-teal-tint blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-24 top-48 h-64 w-64 rounded-full bg-coral-tint blur-3xl" aria-hidden />
+
+      <div className="relative mx-auto max-w-4xl space-y-8">
+        {/* Header — solid coral hero block */}
+        <div
+          className="relative overflow-hidden rounded-[28px] border-2 border-coral-edge bg-coral p-8 text-white animate-[pop-in]"
+          style={{ boxShadow: "0 6px 0 0 var(--coral-edge), 0 28px 44px -26px rgba(255,107,107,0.55)" }}
+        >
+          <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/10" aria-hidden />
+          <span className="pointer-events-none absolute -bottom-6 right-6 select-none text-8xl opacity-20" aria-hidden>
+            🎴
+          </span>
+          <div className="relative">
+            <p className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/70">
+              Study Modes
+            </p>
+            <h1 className="mt-2 font-display text-3xl font-bold md:text-4xl">학습 모드 선택</h1>
+            <p className="mt-2 text-white/85">다양한 방식으로 단어를 학습하세요!</p>
+          </div>
         </div>
 
         {/* Mode Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {modes.map((mode) => (
-            <button
-              key={mode.id}
-              onClick={() => handleModeClick(mode)}
-              disabled={!mode.available}
-              className={cn(
-                "relative p-8 rounded-2xl shadow-lg transition-all duration-300",
-                getModeCardClassName(mode.available)
-              )}
-            >
-              {/* Coming Soon Badge */}
-              {!mode.available && (
-                <div className="absolute top-4 right-4 px-3 py-1 bg-purple-500 text-white text-xs font-semibold rounded-full">
-                  준비 중
-                </div>
-              )}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {modes.map((mode, idx) => {
+            const tone = MODE_TONES[idx % MODE_TONES.length];
+            return (
+              <button
+                key={mode.id}
+                onClick={() => handleModeClick(mode)}
+                disabled={!mode.available}
+                style={{ animationDelay: `${idx * 60}ms` }}
+                className={cn(
+                  "tactile-card relative p-7 text-left animate-[pop-in]",
+                  mode.available
+                    ? "tactile-card--interactive cursor-pointer"
+                    : "cursor-not-allowed opacity-60"
+                )}
+              >
+                {!mode.available && (
+                  <div className="tactile-chip absolute right-4 top-4 border-grape bg-grape-tint text-[11px] font-bold text-ink">
+                    준비 중
+                  </div>
+                )}
 
-              <div className="text-center space-y-4">
-                <p className="text-6xl">{mode.emoji}</p>
-                <h3 className="text-xl font-sans font-bold text-gray-800">{mode.title}</h3>
-                <p className="text-sm text-gray-600">{mode.description}</p>
-              </div>
-            </button>
-          ))}
+                <div className={cn("tactile-tile mb-4 h-16 w-16 text-3xl", tileTone[tone])}>
+                  <span>{mode.emoji}</span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-ink">{mode.title}</h3>
+                <p className="mt-1 text-sm text-ink-soft">{mode.description}</p>
+              </button>
+            );
+          })}
         </div>
 
         {/* Back Button */}
-        <div className="text-center pt-8">
+        <div className="pt-2 text-center">
           <button
             onClick={() => router.push("/")}
-            className="px-8 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-semibold shadow-md transition-all hover:scale-105"
+            className="tactile-btn tactile-btn--ghost tactile-btn--lg"
           >
             홈으로 돌아가기
           </button>
         </div>
 
         {/* Info Section */}
-        <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md">
-          <h3 className="text-lg font-sans font-semibold text-gray-800 mb-3">💡 학습 팁</h3>
-          <ul className="space-y-2 text-sm text-gray-600">
-            <li className="flex items-start">
-              <span className="mr-2">•</span>
+        <div className="tactile-card mx-auto max-w-2xl p-6">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="tactile-tile h-11 w-11 border-gold bg-gold-tint text-xl">
+              <span>💡</span>
+            </div>
+            <h3 className="font-display text-lg font-bold text-ink">학습 팁</h3>
+          </div>
+          <ul className="space-y-2 text-sm text-ink-soft">
+            <li className="flex items-start gap-2">
+              <span className="text-teal-edge">•</span>
               <span>매일 꾸준히 복습하면 장기 기억에 효과적입니다</span>
             </li>
-            <li className="flex items-start">
-              <span className="mr-2">•</span>
+            <li className="flex items-start gap-2">
+              <span className="text-teal-edge">•</span>
               <span>다양한 학습 모드를 번갈아 사용하면 더 재미있게 학습할 수 있습니다</span>
             </li>
-            <li className="flex items-start">
-              <span className="mr-2">•</span>
+            <li className="flex items-start gap-2">
+              <span className="text-teal-edge">•</span>
               <span>어려운 단어는 여러 번 반복하여 학습하세요</span>
             </li>
           </ul>

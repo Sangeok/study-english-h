@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/shared/lib";
+import { queryKeys, ApiError } from "@/shared/lib";
 import { DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/constants";
 import {
   fetchDiagnosisQuestions,
@@ -14,6 +14,14 @@ export function useDiagnosisQuiz() {
     queryKey: queryKeys.diagnosis.start(),
     queryFn: fetchDiagnosisQuestions,
     staleTime: Infinity,
+    // 4xx(예: 쿨다운 409)는 재시도해도 동일하게 실패하므로 즉시 노출한다.
+    // 네트워크/5xx 등 일시적 오류만 최대 2회 재시도.
+    retry: (failureCount, error) => {
+      if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
+        return false;
+      }
+      return failureCount < 2;
+    },
   });
 
   const submitMutation = useMutation({

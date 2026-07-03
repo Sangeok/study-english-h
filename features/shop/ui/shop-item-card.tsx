@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { GradientButton } from "@/shared/ui";
 import type { ShopItemWithStatus } from "@/features/shop/types";
 
 interface ShopItemCardProps {
@@ -13,6 +12,7 @@ interface ShopItemCardProps {
 export function ShopItemCard({ item, onPurchase, isPurchasing }: ShopItemCardProps) {
   const isMaxOwned = item.maxOwned !== undefined && item.currentOwned >= item.maxOwned;
   const isDisabled = !item.canPurchase || isPurchasing || isMaxOwned;
+  const isAffordable = item.canPurchase && !isMaxOwned;
 
   function getButtonLabel() {
     if (isMaxOwned) return "보유 최대";
@@ -20,44 +20,70 @@ export function ShopItemCard({ item, onPurchase, isPurchasing }: ShopItemCardPro
     return "구매";
   }
 
+  // Disabled buy button keeps tactile shape but reads as muted; active = gold currency action.
+  const buyClass = cn(
+    "tactile-btn tactile-btn--sm",
+    isAffordable ? "tactile-btn--gold" : "tactile-btn--ghost"
+  );
+
   return (
     <div
       className={cn(
-        "bg-white rounded-3xl p-6 shadow-md border transition-all duration-200",
-        item.canPurchase && !isMaxOwned
-          ? "border-purple-100 hover:shadow-lg"
-          : "border-gray-100 opacity-70"
+        "tactile-card p-6 flex flex-col",
+        isAffordable && "tactile-card--interactive",
+        isMaxOwned && "bg-teal-tint",
+        !isAffordable && !isMaxOwned && "opacity-80"
       )}
     >
       <div className="flex items-start gap-4">
-        <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center shrink-0">
-          <span className="text-2xl">{item.icon}</span>
+        <div
+          className={cn(
+            "tactile-tile w-14 h-14 text-2xl shrink-0",
+            isMaxOwned ? "bg-teal border-teal-edge" : "bg-ocean-tint border-ocean"
+          )}
+        >
+          <span>{item.icon}</span>
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-bold text-purple-950">{item.nameKo}</h3>
-          <p className="text-sm text-gray-500 mt-0.5">{item.description}</p>
+          <h3 className="font-display text-lg font-bold text-ink">{item.nameKo}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+            {item.description}
+          </p>
 
           {item.maxOwned !== undefined && (
-            <p className="text-xs text-purple-600 mt-1.5 font-medium">
+            <div
+              className={cn(
+                "tactile-chip mt-2",
+                isMaxOwned
+                  ? "border-teal bg-teal-tint text-ink"
+                  : "border-border-warm bg-muted-warm text-ink-soft"
+              )}
+            >
               보유 {item.currentOwned} / {item.maxOwned}
-            </p>
+            </div>
           )}
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-        <span className="text-purple-700 font-semibold text-sm">
-          ✨ {item.xpCost.toLocaleString()} XP
-        </span>
-        <GradientButton
-          variant={isDisabled ? "outline" : "primary"}
+      <div className="mt-5 flex items-center justify-between gap-3 border-t-2 border-border-warm pt-4">
+        <div className="tactile-chip border-gold bg-gold-tint text-ink">
+          <span className="text-base">🪙</span>
+          <span className="font-display font-bold">
+            {item.xpCost.toLocaleString()}
+          </span>
+          <span className="text-xs font-semibold uppercase tracking-[0.1em] text-ink-soft">
+            XP
+          </span>
+        </div>
+        <button
+          type="button"
           onClick={() => onPurchase(item.code)}
           disabled={isDisabled}
-          className="px-5 py-2.5 text-sm font-semibold"
+          className={buyClass}
         >
           {getButtonLabel()}
-        </GradientButton>
+        </button>
       </div>
     </div>
   );

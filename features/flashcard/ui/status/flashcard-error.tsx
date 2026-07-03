@@ -4,14 +4,16 @@ interface FlashcardErrorProps {
 
 export function FlashcardError({ onRetry }: FlashcardErrorProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="text-center space-y-4 max-w-md p-8 bg-white rounded-2xl shadow-lg">
-        <p className="text-2xl">❌</p>
-        <h2 className="text-xl font-sans font-bold text-gray-800">오류 발생</h2>
-        <p className="text-gray-600">플래시카드를 불러올 수 없습니다.</p>
+    <div className="flex min-h-screen items-center justify-center bg-cream-canvas px-4">
+      <div className="tactile-card tactile-card--raised w-full max-w-md p-8 text-center animate-[pop-in]">
+        <div className="tactile-tile mx-auto mb-5 h-16 w-16 border-coral bg-coral-tint text-3xl">
+          <span>😢</span>
+        </div>
+        <h2 className="font-display text-xl font-bold text-ink">오류 발생</h2>
+        <p className="mt-2 text-ink-soft">플래시카드를 불러올 수 없습니다.</p>
         <button
           onClick={onRetry}
-          className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="tactile-btn tactile-btn--coral tactile-btn--block mt-6"
         >
           다시 시도
         </button>

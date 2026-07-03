@@ -1,9 +1,10 @@
 "use client";
 
 import { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type FeatureCardStatus = 'available' | 'locked' | 'completed' | 'coming-soon';
+export type FeatureCardStatus = "available" | "locked" | "completed" | "coming-soon";
 
 export interface FeatureCardProps {
   icon: string;
@@ -22,67 +23,62 @@ export function FeatureCard({
   title,
   description,
   actionLabel,
-  status = 'available',
+  status = "available",
   badge,
   statusIcon,
   onClick,
-  className
+  className,
 }: FeatureCardProps) {
-  const isInteractive = status === 'available' || status === 'coming-soon' || status === 'completed';
-
-  const statusStyles: Record<FeatureCardStatus, string> = {
-    available: "hover:shadow-2xl border-transparent hover:border-purple-200 cursor-pointer",
-    locked: "opacity-50 cursor-not-allowed border-gray-200",
-    completed: "bg-green-50 border-green-200 hover:shadow-2xl hover:border-green-300 cursor-pointer",
-    'coming-soon': "bg-gradient-to-br from-purple-600 to-violet-600 text-white opacity-75 cursor-pointer"
-  };
+  const isInteractive =
+    status === "available" || status === "coming-soon" || status === "completed";
+  const isComingSoon = status === "coming-soon";
+  const isCompleted = status === "completed";
+  const isLocked = status === "locked";
 
   return (
     <div
       onClick={isInteractive ? onClick : undefined}
       className={cn(
-        "group relative bg-white rounded-3xl p-6 shadow-md transition-all duration-300 border",
-        statusStyles[status],
+        "tactile-card p-6 relative",
+        isInteractive && "tactile-card--interactive",
+        isLocked && "opacity-50 cursor-not-allowed",
+        isCompleted && "bg-teal-tint",
+        isComingSoon && "bg-grape-tint border-grape",
         className
       )}
     >
       {badge && (
-        <div className="absolute top-4 right-4 px-2 py-1 bg-white/30 backdrop-blur-sm text-xs font-semibold rounded-full">
+        <div className="tactile-chip absolute top-4 right-4 border-gold bg-gold-tint text-ink">
           {badge}
         </div>
       )}
 
-      <div className={cn(
-        "w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300",
-        status === 'coming-soon' ? "bg-white/20 backdrop-blur-sm" : "bg-gradient-to-br from-purple-500 to-purple-600",
-        isInteractive && "group-hover:scale-110"
-      )}>
-        <span className="text-3xl">{icon}</span>
+      <div
+        className={cn(
+          "tactile-tile w-16 h-16 mb-4 text-3xl",
+          isComingSoon && "bg-grape border-grape-edge",
+          isCompleted && "bg-teal border-teal-edge",
+          !isComingSoon && !isCompleted && "bg-teal-tint border-teal"
+        )}
+      >
+        <span>{icon}</span>
       </div>
 
-      <h4 className={cn(
-        "font-display font-bold text-xl mb-2 flex items-center gap-2",
-        status === 'coming-soon' ? "text-white" : "text-purple-950"
-      )}>
+      <h4 className="font-display font-bold text-xl mb-2 flex items-center gap-2 text-ink">
         {title}
         {statusIcon}
       </h4>
 
-      <p className={cn(
-        "text-sm mb-4",
-        status === 'coming-soon' ? "text-white opacity-90" : "text-purple-700"
-      )}>
-        {description}
-      </p>
+      <p className="text-sm mb-4 text-ink-soft leading-relaxed">{description}</p>
 
-      <div className={cn(
-        "flex items-center gap-2 font-semibold text-sm",
-        status === 'coming-soon' ? "text-white" : "text-purple-600"
-      )}>
-        <span>{actionLabel}</span>
-        {isInteractive && (
-          <span className="group-hover:translate-x-1 transition-transform">→</span>
+      <div
+        className={cn(
+          "flex items-center gap-2 font-bold text-sm",
+          isComingSoon ? "text-grape-edge" : "text-teal-edge"
         )}
+      >
+        <span>{actionLabel}</span>
+        {isInteractive && <ArrowRight className="w-4 h-4" />}
       </div>
     </div>
   );

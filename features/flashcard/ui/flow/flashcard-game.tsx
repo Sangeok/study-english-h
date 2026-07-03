@@ -38,26 +38,32 @@ export function FlashcardGame({
   }, [currentCard.audioUrl, toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-8 px-4">
-      <FlashcardProgressBar
-        current={currentIndex + 1}
-        total={cards.length}
-        progress={progress}
-      />
+    <div className="relative min-h-screen overflow-hidden bg-cream-canvas px-4 py-8">
+      {/* corner glows */}
+      <div className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-teal-tint blur-3xl" aria-hidden />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-64 w-64 rounded-full bg-coral-tint blur-3xl" aria-hidden />
 
-      <FlashcardCard
-        card={currentCard}
-        isFlipped={isFlipped}
-        onFlip={handleFlip}
-        onPlayAudio={handlePlayAudio}
-      />
+      <div className="relative">
+        <FlashcardProgressBar
+          current={currentIndex + 1}
+          total={cards.length}
+          progress={progress}
+        />
 
-      {isFlipped && (
-        <DifficultyButtons isPending={isPending} onReview={handleReview} />
-      )}
+        <FlashcardCard
+          card={currentCard}
+          isFlipped={isFlipped}
+          onFlip={handleFlip}
+          onPlayAudio={handlePlayAudio}
+        />
 
-      <div className="max-w-2xl mx-auto mt-6 text-center">
-        <MasteryBadge masteryLevel={currentCard.masteryLevel} />
+        {isFlipped && (
+          <DifficultyButtons isPending={isPending} onReview={handleReview} />
+        )}
+
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <MasteryBadge masteryLevel={currentCard.masteryLevel} />
+        </div>
       </div>
     </div>
   );

@@ -14,12 +14,12 @@ function getMobileStreakLabel(streak: number): string {
 export function DesktopUserStatusBadges({ level, streak }: UserStatusBadgesProps) {
   return (
     <>
-      <div className="rounded-full border border-purple-100 bg-white/90 px-3 py-1.5 text-sm font-semibold text-purple-800">
-        LEVEL {level}
+      <div className="tactile-chip border-ocean bg-ocean-tint text-ink">
+        <span className="text-ocean-edge">LEVEL</span> {level}
       </div>
       {streak > 0 && (
-        <div className="rounded-full border border-purple-100 bg-white/90 px-3 py-1.5 text-sm font-semibold text-purple-800">
-          {streak}일 연속 학습
+        <div className="tactile-chip border-coral bg-coral-tint text-ink">
+          <span>🔥</span> {streak}일 연속
         </div>
       )}
     </>
@@ -31,13 +31,12 @@ export function MobileUserStatusBadges({ level, streak }: UserStatusBadgesProps)
 
   return (
     <div className="mb-4 grid grid-cols-2 gap-2">
-      <div className="rounded-xl border border-purple-100 bg-purple-50 px-3 py-2 text-center text-sm font-semibold text-purple-800">
+      <div className="rounded-xl border-2 border-ocean bg-ocean-tint px-3 py-2 text-center text-sm font-bold text-ink">
         LEVEL {level}
       </div>
-      <div className="rounded-xl border border-purple-100 bg-purple-50 px-3 py-2 text-center text-sm font-semibold text-purple-800">
-        {streakLabel}
+      <div className="rounded-xl border-2 border-coral bg-coral-tint px-3 py-2 text-center text-sm font-bold text-ink">
+        🔥 {streakLabel}
       </div>
     </div>
   );
 }
-

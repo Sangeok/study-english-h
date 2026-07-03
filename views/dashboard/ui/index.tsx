@@ -3,6 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useDashboardData } from "../hooks/use-dashboard-data";
+import { DashboardHero } from "./dashboard-hero";
 import { OverviewStats } from "./overview-stats";
 import { GamificationSummary } from "./gamification-summary";
 import { StudySummarySection } from "./study-summary-section";
@@ -15,8 +16,8 @@ const PeriodChartSection = dynamic(
     ssr: false,
     loading: () => (
       <div className="grid md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-gray-100 rounded-2xl h-[320px] animate-pulse" />
-        <div className="bg-gray-100 rounded-2xl h-[320px] animate-pulse" />
+        <div className="bg-muted-warm rounded-2xl h-[320px] animate-pulse" />
+        <div className="bg-muted-warm rounded-2xl h-[320px] animate-pulse" />
       </div>
     ),
   }
@@ -34,15 +35,17 @@ export default function DashboardPage() {
   } = useDashboardData(period);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* 헤더 */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-purple-950 mb-2">대시보드</h1>
-          <p className="text-purple-800/70">학습 진행 상황을 한눈에 확인하세요</p>
-        </div>
+    <div className="min-h-screen bg-cream-canvas py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        {/* 히어로 — 레벨/스트릭/오늘의 퀴즈 */}
+        <DashboardHero
+          level={profile?.level ?? "A1"}
+          streak={profile?.streak ?? 0}
+          totalXP={profile?.totalXP ?? 0}
+          hasCompletedDiagnosis={profile?.hasCompletedDiagnosis ?? false}
+        />
 
-        {/* 주요 통계 카드 */}
+        {/* 벤토 통계 타일 */}
         <OverviewStats
           totalXP={profile?.totalXP ?? 0}
           streak={profile?.streak ?? 0}

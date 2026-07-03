@@ -34,14 +34,16 @@ export function FlashcardEmpty({ mode, onSwitchMode }: FlashcardEmptyProps) {
   const content = getEmptyStateContent(mode);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="text-center space-y-6 max-w-md p-8 bg-white rounded-2xl shadow-lg">
-        <p className="text-4xl">📚</p>
-        <h2 className="text-2xl font-sans font-bold text-gray-800">{content.title}</h2>
-        <p className="text-gray-600">{content.description}</p>
+    <div className="flex min-h-screen items-center justify-center bg-cream-canvas px-4">
+      <div className="tactile-card tactile-card--raised w-full max-w-md p-8 text-center animate-[pop-in]">
+        <div className="tactile-tile mx-auto mb-5 h-16 w-16 border-ocean bg-ocean-tint text-3xl">
+          <span>📚</span>
+        </div>
+        <h2 className="font-display text-2xl font-bold text-ink">{content.title}</h2>
+        <p className="mt-2 text-ink-soft">{content.description}</p>
         <button
           onClick={() => onSwitchMode(content.alternateMode)}
-          className="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold"
+          className="tactile-btn tactile-btn--teal tactile-btn--block tactile-btn--lg mt-6"
         >
           {content.buttonText}
         </button>

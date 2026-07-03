@@ -1,16 +1,14 @@
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
+
+type StatTone = "ocean" | "gold" | "teal" | "coral";
 
 interface StatItem {
   id: string;
   label: string;
   value: string;
   subtext: string;
-  borderColor: string;
-  labelColor: string;
-  valueColor: string;
-  subtextColor: string;
-  extra?: ReactNode;
+  tone: StatTone;
+  icon: string;
 }
 
 interface StatsGridProps {
@@ -20,76 +18,102 @@ interface StatsGridProps {
   total: number;
 }
 
+const toneSurface: Record<StatTone, string> = {
+  ocean: "bg-ocean border-ocean-edge",
+  gold: "bg-gold border-gold-edge",
+  teal: "bg-teal border-teal-edge",
+  coral: "bg-coral border-coral-edge",
+};
+
+const toneEdge: Record<StatTone, string> = {
+  ocean: "var(--ocean-edge)",
+  gold: "var(--gold-edge)",
+  teal: "var(--teal-edge)",
+  coral: "var(--coral-edge)",
+};
+
 export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
   const stats: StatItem[] = [
     {
       id: "accuracy",
-      label: "Accuracy",
+      label: "정답률",
       value: `${accuracy.toFixed(1)}%`,
-      subtext: "",
-      borderColor: "border-blue-200",
-      labelColor: "text-blue-700",
-      valueColor: "text-blue-900",
-      subtextColor: "",
-      extra: (
-        <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-500"
-            style={{ width: `${accuracy}%` }}
-          />
-        </div>
-      ),
+      subtext: "이번 세션 정답률",
+      tone: "ocean",
+      icon: "🎯",
     },
     {
       id: "xp",
-      label: "XP",
+      label: "획득 XP",
       value: `+${xp}`,
-      subtext: "5 XP per correct answer",
-      borderColor: "border-purple-200",
-      labelColor: "text-purple-700",
-      valueColor: "text-purple-900",
-      subtextColor: "text-purple-600",
+      subtext: "정답당 5 XP",
+      tone: "gold",
+      icon: "💎",
     },
     {
       id: "correct",
-      label: "Correct",
+      label: "정답",
       value: String(correct),
-      subtext: `${total} questions`,
-      borderColor: "border-green-200",
-      labelColor: "text-green-700",
-      valueColor: "text-green-900",
-      subtextColor: "text-green-600",
+      subtext: `총 ${total}문제`,
+      tone: "teal",
+      icon: "✅",
     },
     {
       id: "total",
-      label: "Total",
+      label: "전체",
       value: String(total),
-      subtext: "Session complete",
-      borderColor: "border-orange-200",
-      labelColor: "text-orange-700",
-      valueColor: "text-orange-900",
-      subtextColor: "text-orange-600",
+      subtext: "이번 세션 완료",
+      tone: "coral",
+      icon: "📦",
     },
   ];
 
+  // gold tile keeps ink text for legibility (XP convention); others are white-on-color.
+  const isGold = (tone: StatTone) => tone === "gold";
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {stats.map((stat) => (
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {stats.map((stat, idx) => (
         <div
           key={stat.id}
+          style={{
+            boxShadow: `0 5px 0 0 ${toneEdge[stat.tone]}`,
+            animationDelay: `${idx * 70}ms`,
+          }}
           className={cn(
-            "bg-white rounded-2xl p-6 shadow-md border-2",
-            stat.borderColor
+            "relative overflow-hidden rounded-[22px] border-2 p-5 animate-[pop-in]",
+            toneSurface[stat.tone],
+            isGold(stat.tone) ? "text-ink" : "text-white"
           )}
         >
-          <div className="text-center space-y-2">
-            <p className={cn("text-sm font-medium", stat.labelColor)}>{stat.label}</p>
-            <p className={cn("text-4xl font-bold", stat.valueColor)}>{stat.value}</p>
-            {stat.extra}
-            {stat.subtext && (
-              <p className={cn("text-xs", stat.subtextColor)}>{stat.subtext}</p>
+          <span
+            className={cn(
+              "pointer-events-none absolute -bottom-3 -right-1 select-none text-6xl opacity-20",
+              isGold(stat.tone) ? "opacity-25" : "opacity-20"
             )}
-          </div>
+            aria-hidden
+          >
+            {stat.icon}
+          </span>
+          <p
+            className={cn(
+              "relative font-display text-[11px] font-bold uppercase tracking-[0.2em]",
+              isGold(stat.tone) ? "text-ink/70" : "text-white/80"
+            )}
+          >
+            {stat.label}
+          </p>
+          <p className="relative mt-1 font-display text-3xl font-bold tracking-tight">
+            {stat.value}
+          </p>
+          <p
+            className={cn(
+              "relative mt-1 text-xs font-medium",
+              isGold(stat.tone) ? "text-ink/70" : "text-white/80"
+            )}
+          >
+            {stat.subtext}
+          </p>
         </div>
       ))}
     </div>

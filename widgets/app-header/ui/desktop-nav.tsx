@@ -17,9 +17,9 @@ export function DesktopNav({ pathname }: DesktopNavProps) {
             key={item.href}
             href={item.href}
             className={cn(
-              "rounded-xl px-4 py-2 text-sm font-medium transition-colors",
-              isActive && "bg-purple-100 text-purple-900",
-              !isActive && "text-purple-700 hover:bg-purple-50 hover:text-purple-900"
+              "rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+              isActive && "bg-teal-tint text-teal-edge",
+              !isActive && "text-ink-soft hover:bg-muted-warm hover:text-ink"
             )}
           >
             {item.label}

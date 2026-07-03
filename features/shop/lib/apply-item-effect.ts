@@ -1,4 +1,4 @@
-import type { TxClient } from "@/features/gamification/types";
+import type { TxClient } from "@/entities/gamification";
 import { HINT_PACK_FREE_HINT_COUNT } from "../config/shop-items";
 
 type EffectHandler = (userId: string, tx: TxClient) => Promise<void>;
@@ -36,7 +36,7 @@ export async function applyItemEffect(
   userId: string,
   tx: TxClient
 ): Promise<void> {
-  // (RV5) Object.hasOwn으로 prototype 체인 접근 차단
+  // Object.hasOwn으로 prototype 체인 접근 차단
   //   itemCode가 "constructor" / "toString" / "__proto__" 등일 때
   //   Record 인덱싱은 Object.prototype 함수를 반환한다.
   if (!Object.hasOwn(EFFECT_HANDLERS, itemCode)) {

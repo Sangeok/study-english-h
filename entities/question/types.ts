@@ -37,12 +37,13 @@ interface BaseQuestion {
 /**
  * 레벨 진단용 문제
  *
+ * 진단은 실력을 변별하는 평가이므로 도움/정답 노출 요소를 클라이언트에 내려보내지 않는다.
+ * - koreanHint(한국어 뜻): 제외 — 일반 퀴즈에선 단계별 유료 힌트로 쓰이는 도움 요소
+ * - englishWord(정답 단어): 제외 — 채점은 서버가 DB 재조회로 수행하므로 불필요한 정답 누출
+ *
  * @see features/diagnosis — 진단 플로우 구현
  */
-export interface DiagnosisQuestion extends BaseQuestion {
-  /** 정답 영어 단어. 진단에서만 사용 (퀴즈는 options로 정답 판단) */
-  readonly englishWord: string;
-}
+export type DiagnosisQuestion = Omit<BaseQuestion, "koreanHint">;
 
 export interface DiagnosisAnswer {
   readonly questionId: string;

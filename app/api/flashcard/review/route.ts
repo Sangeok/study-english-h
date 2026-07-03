@@ -11,7 +11,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-import { recordReview } from "@/features/flashcard/lib/srs-service";
+import { recordReview, updateProfileStats } from "@/features/flashcard/lib/srs-service";
 import { reviewRequestSchema } from "@/features/flashcard/lib/srs-validation";
 import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 import prisma from "@/lib/db";
@@ -75,6 +75,9 @@ export async function POST(req: NextRequest) {
         nextReviewDate: userVocab.nextReviewDate.toISOString(),
       });
     }
+
+    // 리뷰 반영 완료 후 프로필 어휘 통계를 1회만 재계산 (멱등 — DB 전체 상태 기준)
+    await updateProfileStats(userId);
 
     // 4. Calculate session statistics
     const totalReviews = reviews.length;

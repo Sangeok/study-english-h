@@ -10,7 +10,7 @@ import { QuizHintStats } from "./quiz-hint-stats";
 import { QuizDetailResults } from "./quiz-detail-results";
 import { QuizFeedbackActions } from "./quiz-feedback-actions";
 import { Confetti } from "@/shared/ui";
-import { useAnimatedCounter } from "@/shared/lib";
+import { queryKeys, useAnimatedCounter } from "@/shared/lib";
 import { QUIZ_CONFETTI, QUIZ_PERFORMANCE_THRESHOLDS } from "@/shared/constants/quiz";
 
 interface QuizFeedbackProps {
@@ -41,10 +41,10 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
   const { summary, results, isExtraPractice } = result;
   const [showDetails, setShowDetails] = useState(false);
 
-  // (RV8) 퀴즈 완료 시 shop 쿼리 무효화 — todayQuizDone 최신성 보장
+  // 퀴즈 완료 시 shop 쿼리 무효화 — todayQuizDone 최신성 보장
   //   staleTime > 0으로 전역 조정되더라도 상점 진입 시 최신값을 조회한다.
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["shop"] });
+    queryClient.invalidateQueries({ queryKey: queryKeys.shop.all });
   }, [queryClient]);
 
   const displayXP = isExtraPractice ? 0 : summary.xpEarned;
@@ -53,19 +53,19 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
   const confettiCount = getConfettiCount(isExtraPractice, summary.accuracy);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50 overflow-hidden relative">
+    <div className="min-h-screen bg-cream-canvas overflow-hidden relative">
       <Confetti count={confettiCount} />
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute top-20 -right-32 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl animate-float"
+          className="absolute top-20 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl animate-float"
           style={{ animationDuration: "20s" }}
         />
         <div
-          className="absolute bottom-20 -left-32 w-96 h-96 bg-violet-200/20 rounded-full blur-3xl animate-float"
+          className="absolute bottom-20 -left-32 w-96 h-96 bg-coral/12 rounded-full blur-3xl animate-float"
           style={{ animationDuration: "25s", animationDelay: "2s" }}
         />
         <div
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-indigo-200/20 rounded-full blur-3xl animate-float"
+          className="absolute top-1/2 left-1/2 w-64 h-64 bg-gold/12 rounded-full blur-3xl animate-float"
           style={{ animationDuration: "30s", animationDelay: "4s" }}
         />
       </div>

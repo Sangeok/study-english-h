@@ -1,28 +1,11 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
-
-interface QuizActivity {
-  date: string;
-  type: "quiz";
-  totalQuestions: number;
-  correctAnswers: number;
-  totalTime: number;
-}
-
-interface FlashcardActivity {
-  date: string;
-  type: "flashcard";
-  mode: string;
-  vocabularyCount: number;
-  duration: number;
-  qualityCounts: {
-    easy: number;
-    normal: number;
-    hard: number;
-    forgot: number;
-  };
-}
+import type {
+  FlashcardActivity,
+  QuizActivity,
+  RecentActivityResponse,
+} from "@/widgets/recent-activity/model/activity-types";
 
 /**
  * GET /api/profile/recent-activity
@@ -118,7 +101,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       activities: allActivities,
       totalActivities: allActivities.length,
-    });
+    } satisfies RecentActivityResponse);
   } catch (error) {
     console.error("Recent activity error:", error);
     return NextResponse.json({ error: "활동 기록 조회 중 오류가 발생했습니다" }, { status: 500 });

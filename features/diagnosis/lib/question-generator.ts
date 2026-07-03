@@ -25,8 +25,8 @@ export async function generateDiagnosisQuestions(): Promise<DiagnosisQuestion[]>
         .slice(0, count)
         .map((q) => ({
           id: q.id,
-          koreanHint: q.koreanHint,
-          englishWord: q.englishWord,
+          // koreanHint(뜻)·englishWord(정답)는 진단에 노출하지 않는다
+          // — 실력 변별을 위해 도움/정답 요소 제외 (채점은 서버가 DB 재조회로 수행)
           sentence: q.sentence,
           difficulty: q.difficulty,
           category: q.category,

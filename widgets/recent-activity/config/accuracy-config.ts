@@ -1,9 +1,9 @@
 export type AccuracyLevel = "excellent" | "good" | "needsWork";
 
 export const ACCURACY_STYLES: Record<AccuracyLevel, string> = {
-  excellent: "bg-green-100 text-green-700",
-  good: "bg-yellow-100 text-yellow-700",
-  needsWork: "bg-orange-100 text-orange-700",
+  excellent: "border-teal bg-teal-tint text-ink",
+  good: "border-gold bg-gold-tint text-ink",
+  needsWork: "border-coral bg-coral-tint text-ink",
 };
 
 export const ACCURACY_LABELS: Record<AccuracyLevel, string> = {

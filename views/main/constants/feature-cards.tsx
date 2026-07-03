@@ -71,7 +71,7 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
 
     getStatusIcon: ({ diagnosisCompleted }) => {
       if (diagnosisCompleted) {
-        return <span className="text-green-600">✓</span>;
+        return <span className="text-teal-edge">✓</span>;
       }
       return null;
     }
@@ -100,7 +100,7 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
 
     getStatusIcon: ({ diagnosisCompleted }) => {
       if (!diagnosisCompleted) {
-        return <span className="text-gray-400">🔒</span>;
+        return <span className="text-ink-soft/60">🔒</span>;
       }
       return null;
     }

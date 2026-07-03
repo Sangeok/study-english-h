@@ -9,28 +9,28 @@ export interface DifficultyStyle {
 
 const DIFFICULTY_STYLES: Record<string, DifficultyStyle> = {
   easy: {
-    bg: "bg-emerald-100",
-    text: "text-emerald-700",
-    border: "border-emerald-200",
+    bg: "bg-teal-tint",
+    text: "text-teal-edge",
+    border: "border-teal",
     icon: "🌱",
-    glow: "shadow-emerald-200",
-    gradient: "from-emerald-500 to-green-600",
+    glow: "shadow-teal-tint",
+    gradient: "from-teal to-teal-edge",
   },
   medium: {
-    bg: "bg-amber-100",
-    text: "text-amber-700",
-    border: "border-amber-200",
+    bg: "bg-gold-tint",
+    text: "text-gold-edge",
+    border: "border-gold",
     icon: "⚡",
-    glow: "shadow-amber-200",
-    gradient: "from-amber-500 to-orange-600",
+    glow: "shadow-gold-tint",
+    gradient: "from-gold to-gold-edge",
   },
   hard: {
-    bg: "bg-rose-100",
-    text: "text-rose-700",
-    border: "border-rose-200",
+    bg: "bg-coral-tint",
+    text: "text-coral-edge",
+    border: "border-coral",
     icon: "🔥",
-    glow: "shadow-rose-200",
-    gradient: "from-rose-500 to-pink-600",
+    glow: "shadow-coral-tint",
+    gradient: "from-coral to-coral-edge",
   },
 };
 
