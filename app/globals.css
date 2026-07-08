@@ -416,9 +416,9 @@
 }
 
 /* ================================================================
-   Playful Tactile — component primitives
-   The signature: chunky pressable buttons with a SOLID bottom edge
-   (no blur). Press = sink into the edge. Flat fills, 2px borders.
+   Premium Modern — component primitives (ADR-0001)
+   Flat confident surfaces. 1px borders, soft depth, no 3D edges.
+   Class names kept from the tactile era for call-site compatibility.
    ================================================================ */
 @layer components {
   .tactile-btn {
@@ -428,26 +428,22 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.01em;
     border-radius: 14px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 0.07s ease, box-shadow 0.07s ease, filter 0.15s ease,
-      background-color 0.15s ease;
-    transform: translateY(0);
-  }
-  .tactile-btn:hover:not(:disabled) {
-    filter: brightness(1.04) saturate(1.03);
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+      color 0.15s ease, transform 0.15s ease;
   }
   .tactile-btn:active:not(:disabled) {
-    transform: translateY(4px);
+    transform: translateY(1px);
   }
   .tactile-btn:focus-visible {
-    outline: 3px solid var(--ring);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
   .tactile-btn:disabled {
@@ -457,13 +453,13 @@
 
   .tactile-btn--sm {
     padding: 0.5rem 1rem;
-    border-radius: 12px;
+    border-radius: 11px;
     font-size: 0.875rem;
   }
   .tactile-btn--lg {
-    padding: 1rem 2rem;
-    border-radius: 16px;
-    font-size: 1.0625rem;
+    padding: 0.9375rem 1.75rem;
+    border-radius: 14px;
+    font-size: 1rem;
   }
   .tactile-btn--block {
     width: 100%;
@@ -472,80 +468,79 @@
   .tactile-btn--teal {
     background: var(--teal);
     color: #fff;
-    border-color: var(--teal-edge);
-    box-shadow: 0 4px 0 0 var(--teal-edge);
+  }
+  .tactile-btn--teal:hover:not(:disabled) {
+    background: var(--teal-edge);
   }
   .tactile-btn--coral {
     background: var(--coral);
     color: #fff;
-    border-color: var(--coral-edge);
-    box-shadow: 0 4px 0 0 var(--coral-edge);
+  }
+  .tactile-btn--coral:hover:not(:disabled) {
+    background: var(--coral-edge);
   }
   .tactile-btn--gold {
     background: var(--gold);
-    color: #6a4500;
-    border-color: var(--gold-edge);
-    box-shadow: 0 4px 0 0 var(--gold-edge);
+    color: #3d2e0e;
+  }
+  .tactile-btn--gold:hover:not(:disabled) {
+    background: var(--gold-edge);
   }
   .tactile-btn--ocean {
     background: var(--ocean);
     color: #fff;
-    border-color: var(--ocean-edge);
-    box-shadow: 0 4px 0 0 var(--ocean-edge);
+  }
+  .tactile-btn--ocean:hover:not(:disabled) {
+    background: var(--ocean-edge);
   }
   .tactile-btn--grape {
     background: var(--grape);
     color: #fff;
-    border-color: var(--grape-edge);
-    box-shadow: 0 4px 0 0 var(--grape-edge);
+  }
+  .tactile-btn--grape:hover:not(:disabled) {
+    background: var(--grape-edge);
   }
   .tactile-btn--ink {
     background: var(--ink);
     color: #fff;
-    border-color: #16223a;
-    box-shadow: 0 4px 0 0 #16223a;
+  }
+  .tactile-btn--ink:hover:not(:disabled) {
+    background: #16263f;
   }
   .tactile-btn--ghost {
-    background: var(--paper);
+    background: transparent;
     color: var(--ink);
     border-color: var(--border-strong);
-    box-shadow: 0 4px 0 0 var(--border-strong);
   }
-  .tactile-btn--teal:active:not(:disabled),
-  .tactile-btn--coral:active:not(:disabled),
-  .tactile-btn--gold:active:not(:disabled),
-  .tactile-btn--ocean:active:not(:disabled),
-  .tactile-btn--grape:active:not(:disabled),
-  .tactile-btn--ink:active:not(:disabled),
-  .tactile-btn--ghost:active:not(:disabled) {
-    box-shadow: 0 0 0 0 var(--teal-edge);
+  .tactile-btn--ghost:hover:not(:disabled) {
+    border-color: var(--ink-soft);
   }
 
-  /* Tactile card — warm paper, 2px border, soft solid bottom edge */
+  /* Card — clean paper surface, 1px border, soft shadow */
   .tactile-card {
     background: var(--card);
-    border: 2px solid var(--border-warm);
-    border-radius: 20px;
-    box-shadow: 0 3px 0 0 var(--border-warm),
-      0 12px 24px -18px rgba(34, 50, 79, 0.35);
+    border: 1px solid var(--border-warm);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(12, 27, 46, 0.04),
+      0 12px 32px -24px rgba(12, 27, 46, 0.16);
   }
   .tactile-card--raised {
-    box-shadow: 0 5px 0 0 var(--border-strong),
-      0 18px 30px -20px rgba(34, 50, 79, 0.4);
+    box-shadow: 0 1px 2px rgba(12, 27, 46, 0.05),
+      0 20px 44px -28px rgba(12, 27, 46, 0.24);
   }
   .tactile-card--interactive {
-    transition: transform 0.12s ease, box-shadow 0.12s ease,
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
       border-color 0.15s ease;
     cursor: pointer;
   }
   .tactile-card--interactive:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 0 0 var(--border-strong),
-      0 22px 34px -20px rgba(34, 50, 79, 0.45);
+    transform: translateY(-2px);
+    border-color: var(--teal);
+    box-shadow: 0 2px 4px rgba(12, 27, 46, 0.05),
+      0 24px 48px -28px rgba(12, 27, 46, 0.28);
   }
   .tactile-card--interactive:active {
     transform: translateY(0);
-    box-shadow: 0 2px 0 0 var(--border-strong);
   }
 
   /* Colored icon tile */
@@ -553,8 +548,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    border-width: 2px;
+    border-radius: 12px;
+    border-width: 1px;
     border-style: solid;
   }
 
@@ -563,21 +558,20 @@
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.3125rem 0.75rem;
     border-radius: 999px;
-    border: 2px solid var(--border-warm);
+    border: 1px solid var(--border-warm);
     background: var(--paper);
-    font-weight: 700;
+    font-weight: 650;
     font-size: 0.8125rem;
     line-height: 1;
   }
 
-  /* Chunky candy progress bar */
+  /* Slim progress bar */
   .tactile-progress {
     position: relative;
-    height: 16px;
+    height: 8px;
     background: var(--muted-warm);
-    border: 2px solid var(--border-warm);
     border-radius: 999px;
     overflow: hidden;
   }
@@ -586,15 +580,7 @@
     height: 100%;
     border-radius: 999px;
     background: var(--teal);
-    transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-  }
-  .tactile-progress__fill::after {
-    content: "";
-    position: absolute;
-    inset: 3px 6px auto 6px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.5);
+    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 }
 
