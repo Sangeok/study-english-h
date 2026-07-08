@@ -4,44 +4,55 @@
 
 :root {
   /* ============================================================
-     Playful Tactile — Brand palette
-     Warm cream paper · teal brand · coral energy · sunny rewards
+     Premium Modern — Brand palette (ADR-0001, concept v3)
+     Navy = training · Paper = record · Cobalt axis, no violet
      ============================================================ */
-  --cream: #fbf7f0;
-  --cream-deep: #f3ecdf;
+  --cream: #fcfbf9; /* warm paper canvas (name kept for util compat) */
+  --cream-deep: #f4f2ed;
   --paper: #ffffff;
-  --ink: #22324f;
-  --ink-soft: #5a6b8a;
+  --ink: #0c1b2e;
+  --ink-soft: #5b6b84;
 
-  --teal: #12b886;
-  --teal-edge: #0c9a72;
-  --teal-tint: #e4f7ef;
+  --teal: #2e6bff; /* Cobalt — brand (name kept for util compat) */
+  --teal-edge: #1d54e8;
+  --teal-tint: #eaf0ff;
 
-  --coral: #ff6b6b;
-  --coral-edge: #e85555;
-  --coral-tint: #ffe7e3;
+  --coral: #f9701a; /* Ember — energy/streak */
+  --coral-edge: #e05e0d;
+  --coral-tint: #ffeee2;
 
-  --gold: #ffb020;
-  --gold-edge: #e8970f;
-  --gold-tint: #fff2d8;
+  --gold: #e8a23d; /* Amber — XP/reward (desaturated) */
+  --gold-edge: #c98a2b;
+  --gold-tint: #fbf1df;
 
-  --ocean: #4dabf7;
-  --ocean-edge: #3b95e0;
-  --ocean-tint: #e4f1ff;
+  --ocean: #6e9bff; /* Cobalt-light — info */
+  --ocean-edge: #4d7fe8;
+  --ocean-tint: #eef3ff;
 
-  --grape: #9775fa;
-  --grape-edge: #7f5ee8;
-  --grape-tint: #efeafe;
+  --grape: #3e5578; /* Slate — rare/coming-soon (violet is banned) */
+  --grape-edge: #2c405e;
+  --grape-tint: #e9eef6;
 
-  --border-warm: #ece3d6;
-  --border-strong: #ddd0bd;
-  --muted-warm: #f4eee4;
+  --meadow: #0e9f6e; /* success */
+  --meadow-tint: #e7f6f0;
 
-  /* Legacy "Playful Academia" aliases (kept for pre-sweep compatibility) */
-  --navy: #22324f;
-  --navy-light: #5a6b8a;
+  --chamber: #08111f; /* immersive canvas */
+  --chamber-panel: #0f1d33;
+  --chamber-panel-hi: #13294b;
+  --chamber-line: #223350;
+  --chamber-soft: #8fa2bd;
+  --chamber-ink: #f2f6fc;
+  --cobalt-lt: #6e9bff;
+
+  --border-warm: #e9e7e0;
+  --border-strong: #d9d6cc;
+  --muted-warm: #f4f2ec;
+
+  /* Legacy aliases (kept for pre-sweep compatibility) */
+  --navy: #0c1b2e;
+  --navy-light: #5b6b84;
   --coral-dark: var(--coral-edge);
-  --sage: #12b886;
+  --sage: var(--teal);
   --sage-dark: var(--teal-edge);
   --ocean-dark: var(--ocean-edge);
 
@@ -62,7 +73,7 @@
   --muted-foreground: #6e7689;
   --accent: var(--teal-tint);
   --accent-foreground: var(--ink);
-  --destructive: #f0524d;
+  --destructive: #e5484d;
   --border: var(--border-warm);
   --input: var(--border-warm);
   --ring: var(--teal);
@@ -117,6 +128,16 @@
   --color-border-warm: var(--border-warm);
   --color-border-strong: var(--border-strong);
   --color-muted-warm: var(--muted-warm);
+
+  --color-meadow: var(--meadow);
+  --color-meadow-tint: var(--meadow-tint);
+  --color-chamber: var(--chamber);
+  --color-chamber-panel: var(--chamber-panel);
+  --color-chamber-panel-hi: var(--chamber-panel-hi);
+  --color-chamber-line: var(--chamber-line);
+  --color-chamber-soft: var(--chamber-soft);
+  --color-chamber-ink: var(--chamber-ink);
+  --color-cobalt-lt: var(--cobalt-lt);
 
   /* Legacy aliases */
   --color-navy: var(--navy);
@@ -371,27 +392,27 @@
 }
 
 .dark {
-  --background: #161b27;
-  --foreground: #f4f1ea;
-  --card: #1f2738;
-  --card-foreground: #f4f1ea;
-  --popover: #1f2738;
-  --popover-foreground: #f4f1ea;
-  --primary: var(--teal);
-  --primary-foreground: #0c1018;
-  --secondary: #28324a;
-  --secondary-foreground: #f4f1ea;
-  --muted: #28324a;
-  --muted-foreground: #9aa6bf;
-  --accent: #28324a;
-  --accent-foreground: #f4f1ea;
+  --background: var(--chamber);
+  --foreground: var(--chamber-ink);
+  --card: var(--chamber-panel);
+  --card-foreground: var(--chamber-ink);
+  --popover: var(--chamber-panel);
+  --popover-foreground: var(--chamber-ink);
+  --primary: var(--cobalt-lt);
+  --primary-foreground: #08111f;
+  --secondary: var(--chamber-panel-hi);
+  --secondary-foreground: var(--chamber-ink);
+  --muted: var(--chamber-panel-hi);
+  --muted-foreground: var(--chamber-soft);
+  --accent: var(--chamber-panel-hi);
+  --accent-foreground: var(--chamber-ink);
   --destructive: #ff6b6b;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.14);
-  --ring: var(--teal);
-  --border-warm: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --muted-warm: #28324a;
+  --border: var(--chamber-line);
+  --input: var(--chamber-line);
+  --ring: var(--cobalt-lt);
+  --border-warm: var(--chamber-line);
+  --border-strong: #2c405e;
+  --muted-warm: var(--chamber-panel-hi);
 }
 
 /* ================================================================
@@ -578,12 +599,9 @@
 }
 
 @layer utilities {
-  /* Warm paper canvas with subtle dotted texture */
+  /* Warm paper canvas */
   .bg-cream-canvas {
     background-color: var(--cream);
-    background-image: radial-gradient(rgba(34, 50, 79, 0.045) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: -11px -11px;
   }
   .text-balance {
     text-wrap: balance;
