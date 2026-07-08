@@ -87,7 +87,7 @@
   --font-sans: "Pretendard Variable", Pretendard, system-ui, "Apple SD Gothic Neo",
     "Malgun Gothic", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
-  --font-display: "Fredoka", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-display: "Archivo", "Pretendard Variable", Pretendard, system-ui, sans-serif;
 
   /* Brand color tokens → enables bg-teal / text-coral / border-gold-edge etc. */
   --color-cream: var(--cream);

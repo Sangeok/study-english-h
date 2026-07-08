@@ -50,7 +50,7 @@ export function CEFRLevelBadge({ cefrLevel, totalScore }: CEFRLevelBadgeProps) {
 
   return (
     <div className="mb-8 animate-[pop-in] text-center">
-      {/* 레벨 히어로 — 단색 블록, 거대한 Fredoka 레벨 */}
+      {/* 레벨 히어로 — 단색 블록, 거대한 디스플레이 레벨 */}
       <div
         className={`relative mx-auto mb-6 overflow-hidden rounded-[28px] border-2 p-8 ${TONE_SURFACE[tone]} ${textOnSurface}`}
         style={{

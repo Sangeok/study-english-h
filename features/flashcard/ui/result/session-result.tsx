@@ -58,7 +58,7 @@ export function SessionResultContent() {
       <div className="pointer-events-none absolute -right-24 top-40 h-64 w-64 rounded-full bg-gold-tint blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-4xl space-y-6">
-        {/* Celebratory hero — accuracy as giant Fredoka % */}
+        {/* Celebratory hero — accuracy as giant display % */}
         <div
           className="relative overflow-hidden rounded-[28px] border-2 border-teal-edge bg-teal p-8 text-white animate-[pop-in]"
           style={{

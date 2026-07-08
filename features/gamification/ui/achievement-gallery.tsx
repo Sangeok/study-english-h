@@ -37,7 +37,7 @@ export function AchievementGallery() {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero — colored solid block, earned/total as giant Fredoka */}
+      {/* Hero — colored solid block, earned/total as giant display numerals */}
       <div
         className="relative mb-6 overflow-hidden rounded-[28px] border-2 border-gold-edge bg-gold p-8 text-ink"
         style={{
