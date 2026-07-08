@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import type { Prisma } from "@/lib/generated/prisma/client";
-import {
-  BASE_XP_PER_QUESTION,
-  calculateQuestionXP,
-  type QuizResult,
-  type QuizSubmission,
-  type QuizSubmitResponse,
-} from "@/features/quiz/lib";
+import { BASE_XP_PER_QUESTION } from "@/features/quiz/config/quiz-xp-config";
+import { calculateQuestionXP } from "@/features/quiz/lib/quiz-xp";
+import type { QuizResult, QuizSubmission, QuizSubmitResponse } from "@/features/quiz/types";
 import { getStreakUpdateData } from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";

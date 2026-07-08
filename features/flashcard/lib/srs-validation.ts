@@ -40,11 +40,6 @@ export const sessionQuerySchema = z.object({
   limit: z.number().int().min(1).max(50).default(20),
 });
 
-// Derived request/response validation types
-export type ReviewEntry = z.infer<typeof reviewEntrySchema>;
-export type ReviewRequest = z.infer<typeof reviewRequestSchema>;
-export type SessionQuery = z.infer<typeof sessionQuerySchema>;
-
 // Compile-time compatibility checks with domain types.
 type Assert<T extends true> = T;
 type IsSubset<T, U> = [T] extends [U] ? true : false;

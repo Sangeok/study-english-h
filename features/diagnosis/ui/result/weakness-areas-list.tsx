@@ -96,7 +96,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
             </div>
             {isWeak && (
               <p className={cn("mt-2 text-xs font-medium", TONE_TEXT[tone])}>
-                {style.emoji} {style.label}
+                {style.status} {style.label}
               </p>
             )}
           </div>

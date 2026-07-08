@@ -5,7 +5,7 @@ import type { TxClient } from "../types";
 /**
  * 포인트 기반 티어 계산
  */
-export function calculateTier(points: number): number {
+function calculateTier(points: number): number {
   for (let i = LEAGUE_TIERS.length - 1; i >= 0; i--) {
     if (points >= LEAGUE_TIERS[i].minPoints) {
       return LEAGUE_TIERS[i].tier;

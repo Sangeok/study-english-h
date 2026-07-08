@@ -1,24 +1,23 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type StatCardGradient = "purple" | "violet" | "indigo";
+export type StatCardTone = "gold" | "coral" | "ocean";
 
-// Legacy keys → tactile tones (XP=gold, streak=coral, words=ocean by convention)
 const toneStyles: Record<
-  StatCardGradient,
+  StatCardTone,
   { tile: string; label: string; value: string }
 > = {
-  purple: {
+  gold: {
     tile: "bg-gold-tint border-gold text-ink",
     label: "text-ink-soft",
     value: "text-ink",
   },
-  violet: {
+  coral: {
     tile: "bg-coral-tint border-coral text-ink",
     label: "text-ink-soft",
     value: "text-ink",
   },
-  indigo: {
+  ocean: {
     tile: "bg-ocean-tint border-ocean text-ink",
     label: "text-ink-soft",
     value: "text-ink",
@@ -29,7 +28,7 @@ export interface StatCardProps {
   icon: string;
   label: string;
   value: string | number;
-  gradient: StatCardGradient;
+  tone: StatCardTone;
   footer?: ReactNode;
   isLoading?: boolean;
   className?: string;
@@ -39,12 +38,12 @@ export function StatCard({
   icon,
   label,
   value,
-  gradient,
+  tone,
   footer,
   isLoading = false,
   className,
 }: StatCardProps) {
-  const styles = toneStyles[gradient];
+  const styles = toneStyles[tone];
 
   return (
     <div className={cn("tactile-card p-6", className)}>

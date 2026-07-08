@@ -65,19 +65,11 @@ const SparkleLayer = memo(function SparkleLayer({ sparkles }: SparkleLayerProps)
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
 
 function HintButtonContent({ hintLevel }: { hintLevel: 0 | 1 | 2 }) {
-  if (hintLevel === 0) {
-    return (
-      <>
-        <Lightbulb className="h-4 w-4" />
-        <span className="text-sm font-semibold">힌트 보기</span>
-      </>
-    );
-  }
-
+  const Icon = hintLevel === 0 ? Lightbulb : Search;
   return (
     <>
-      <Search className="h-4 w-4" />
-      <span className="text-sm font-semibold">전체 힌트 보기</span>
+      <Icon className="h-4 w-4" />
+      <span className="text-sm font-semibold">{getHintButtonLabel(hintLevel)}</span>
     </>
   );
 }

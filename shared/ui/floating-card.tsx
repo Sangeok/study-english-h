@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export type FloatingCardGradient = "purple" | "violet" | "indigo";
+export type FloatingCardTone = "teal" | "coral" | "ocean";
 
 export interface FloatingCardProps {
   icon: string;
@@ -12,29 +12,28 @@ export interface FloatingCardProps {
   position?: string;
   children?: ReactNode;
   className?: string;
-  gradient?: FloatingCardGradient;
+  tone?: FloatingCardTone;
 }
 
-// Legacy gradient keys → solid tactile tones
 const toneStyles: Record<
-  FloatingCardGradient,
+  FloatingCardTone,
   { surface: string; tile: string; title: string; subtitle: string; badge: string }
 > = {
-  purple: {
+  teal: {
     surface: "bg-teal border-teal-edge text-white",
     tile: "bg-white/20 border-white/30",
     title: "text-white",
     subtitle: "text-white/85",
     badge: "bg-white/25 border-white/30 text-white",
   },
-  violet: {
+  coral: {
     surface: "bg-coral border-coral-edge text-white",
     tile: "bg-white/20 border-white/30",
     title: "text-white",
     subtitle: "text-white/85",
     badge: "bg-white/25 border-white/30 text-white",
   },
-  indigo: {
+  ocean: {
     surface: "bg-ocean border-ocean-edge text-white",
     tile: "bg-white/20 border-white/30",
     title: "text-white",
@@ -52,9 +51,9 @@ export function FloatingCard({
   position = "absolute",
   children,
   className,
-  gradient,
+  tone,
 }: FloatingCardProps) {
-  const s = gradient ? toneStyles[gradient] : null;
+  const s = tone ? toneStyles[tone] : null;
 
   return (
     <div

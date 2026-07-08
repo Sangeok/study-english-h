@@ -1,18 +1,17 @@
+import { apiClient } from "@/shared/lib";
 import type { StreakDetailResponse, LeagueRankingEntry, AchievementResponse } from "../types";
 
 export async function fetchStreakDetails(): Promise<StreakDetailResponse> {
-  const res = await fetch("/api/gamification/streak");
-  if (!res.ok) throw new Error("Failed to fetch streak details");
-  return res.json();
+  return apiClient.get<StreakDetailResponse>("/api/gamification/streak");
 }
 
 export async function fetchLeagueRanking(
   tier: number = 1,
   limit: number = 10
 ): Promise<{ tier: number; ranking: LeagueRankingEntry[] }> {
-  const res = await fetch(`/api/gamification/league/ranking?tier=${tier}&limit=${limit}`);
-  if (!res.ok) throw new Error("Failed to fetch league ranking");
-  return res.json();
+  return apiClient.get<{ tier: number; ranking: LeagueRankingEntry[] }>(
+    `/api/gamification/league/ranking?tier=${tier}&limit=${limit}`
+  );
 }
 
 export async function fetchAchievements(): Promise<{
@@ -20,13 +19,13 @@ export async function fetchAchievements(): Promise<{
   totalUnlocked: number;
   totalAchievements: number;
 }> {
-  const res = await fetch("/api/gamification/achievements");
-  if (!res.ok) throw new Error("Failed to fetch achievements");
-  return res.json();
+  return apiClient.get<{
+    all: AchievementResponse[];
+    totalUnlocked: number;
+    totalAchievements: number;
+  }>("/api/gamification/achievements");
 }
 
 export async function fetchMyLeague(): Promise<{ tier: number; leaguePoints: number }> {
-  const res = await fetch("/api/gamification/league/me");
-  if (!res.ok) throw new Error("Failed to fetch my league");
-  return res.json();
+  return apiClient.get<{ tier: number; leaguePoints: number }>("/api/gamification/league/me");
 }

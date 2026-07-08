@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import { SHOP_ITEMS, HINT_PACK_FREE_HINT_COUNT } from "../config/shop-items";
+import { SHOP_ITEMS } from "../config/shop-items";
 import { applyItemEffect } from "./apply-item-effect";
 import { getCurrentOwnedCount } from "./get-current-owned-count";
 import type { PurchaseResult } from "../types";
@@ -44,11 +44,9 @@ export async function purchaseItem(
     }
 
     if (item.maxOwned !== undefined) {
-      const currentOwned = getCurrentOwnedCount(item.code, profile);
-      // (RV9) 1회 구매당 증분이 1을 초과하는 아이템(hint_pack_3: +3) 대비.
-      //   "구매 후 총 보유량"이 maxOwned를 초과하지 않도록 increment 반영.
-      const grantAmount = item.code === "hint_pack_3" ? HINT_PACK_FREE_HINT_COUNT : 1;
-      if (currentOwned + grantAmount > item.maxOwned) {
+      const currentOwned = getCurrentOwnedCount(item, profile);
+      // "구매 후 총 보유량"이 maxOwned를 초과하지 않도록 1회 증분을 반영해 검사한다.
+      if (currentOwned + item.grantPerPurchase > item.maxOwned) {
         return { success: false, error: "MAX_OWNED" };
       }
     }
@@ -59,7 +57,7 @@ export async function purchaseItem(
       data: { spendableXP: { decrement: item.xpCost } },
     });
 
-    await applyItemEffect(item.code, userId, tx);
+    await applyItemEffect(item, userId, tx);
 
     await tx.userPurchase.create({
       data: { userId, itemCode: item.code, xpCost: item.xpCost },
