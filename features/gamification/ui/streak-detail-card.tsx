@@ -1,5 +1,6 @@
 "use client";
 
+import { Snowflake } from "lucide-react";
 import { useStreakDetails } from "../hooks/use-streak-details";
 import { STREAK_MILESTONES } from "../config/streak-milestones";
 import { cn } from "@/lib/utils";
@@ -18,8 +19,7 @@ export function StreakDetailCard() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-xl font-display font-bold text-ink">연속 학습</h3>
-          <p className="text-4xl font-display font-bold text-coral mt-1 flex items-center gap-1">
-            <span>🔥</span>
+          <p className="text-4xl font-display font-bold tabular-nums text-coral mt-1">
             {data.currentStreak}일
           </p>
         </div>
@@ -30,8 +30,8 @@ export function StreakDetailCard() {
       </div>
 
       {/* Freeze 보유 */}
-      <div className="flex items-center gap-2 mb-6 bg-ocean-tint border-2 border-ocean rounded-xl px-4 py-3">
-        <span className="text-xl">🧊</span>
+      <div className="flex items-center gap-2 mb-6 bg-ocean-tint border border-ocean rounded-xl px-4 py-3">
+        <Snowflake className="h-4 w-4 text-ocean-edge" />
         <span className="text-sm text-ink">
           스트릭 보호권 <strong className="text-ocean-edge">{data.freezeCount}개</strong> 보유
         </span>
@@ -69,8 +69,8 @@ export function StreakDetailCard() {
                     }}
                   />
                 </div>
-                <span className="text-xs text-ink-soft w-20 text-right">
-                  +{milestone.xpReward}XP, {milestone.freezeReward}🧊
+                <span className="text-xs text-ink-soft w-28 text-right tabular-nums">
+                  +{milestone.xpReward}XP · 보호권 {milestone.freezeReward}
                 </span>
               </div>
             );

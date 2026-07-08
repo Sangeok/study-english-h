@@ -34,7 +34,7 @@ export function useMainPageHandlers({
       return;
     }
 
-    toast("레벨 진단을 먼저 완료해주세요!", { variant: "warning" });
+    toast("레벨 진단을 먼저 완료해 주세요", { variant: "warning" });
     router.push(ROUTES.DIAGNOSIS);
   }, [diagnosisCompleted, isAuthenticated, redirectToLogin, router, toast]);
 
@@ -55,7 +55,7 @@ export function useMainPageHandlers({
     }
 
     const days = diagnosisStatus?.daysUntilRetake ?? 0;
-    toast(`재진단은 ${days}일 후에 가능합니다. 현재는 퀴즈로 학습을 계속하세요!`);
+    toast(`재진단은 ${days}일 후에 가능합니다. 지금은 퀴즈로 학습을 이어가면 돼요`);
   }, [
     diagnosisCompleted,
     diagnosisStatus,
@@ -77,10 +77,10 @@ export function useMainPageHandlers({
   const handleComingSoon = useCallback(
     (feature?: string) => {
       if (feature) {
-        toast(`${feature} 기능은 곧 제공될 예정입니다! 🚀`);
+        toast(`${feature} 기능은 곧 만나요`);
         return;
       }
-      toast("이 기능은 곧 제공될 예정입니다! 🚀");
+      toast("이 기능은 곧 만나요");
     },
     [toast]
   );

@@ -46,7 +46,7 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
     <div className="min-h-screen bg-cream-canvas px-4 py-12">
       <Confetti
         count={50}
-        colors={["#12b886", "#4dabf7", "#ffb020", "#ff6b6b"]}
+        colors={["#2E6BFF", "#6E9BFF", "#E8A23D", "#F9701A"]}
         delay={300}
       />
 

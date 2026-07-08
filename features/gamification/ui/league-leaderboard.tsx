@@ -5,8 +5,6 @@ import { useLeagueRanking } from "../hooks/use-league-ranking";
 import { LEAGUE_TIERS } from "../config/league-tiers";
 import { cn } from "@/lib/utils";
 
-const RANK_MEDALS = ["🥇", "🥈", "🥉"] as const;
-
 function rankChipClass(rank: number): string {
   if (rank === 1) return "border-gold bg-gold text-ink";
   if (rank === 2) return "border-ocean bg-ocean-tint text-ink";
@@ -23,38 +21,21 @@ export function LeagueLeaderboard() {
   return (
     <div className="animate-fade-in">
       {/* Hero — colored solid tier block */}
-      <div
-        className="relative mb-6 overflow-hidden rounded-[28px] border-2 border-gold-edge bg-gold p-8 text-ink"
-        style={{
-          boxShadow:
-            "0 6px 0 0 var(--gold-edge), 0 28px 44px -26px rgba(245,179,52,0.7)",
-        }}
-      >
+      <div className="relative mb-6 overflow-hidden rounded-[28px] border border-gold-edge bg-gold p-8 text-ink">
         <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/15" />
         <div className="absolute right-24 -bottom-12 h-36 w-36 rounded-full bg-white/10" />
-        <span
-          className="pointer-events-none absolute -bottom-6 left-4 select-none text-8xl opacity-15"
-          aria-hidden
-        >
-          🏆
-        </span>
 
         <div className="relative">
           <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
             League
           </p>
-          <div className="mt-2 flex items-center gap-4">
-            <span className="text-6xl leading-none drop-shadow-sm" aria-hidden>
-              {activeTier?.icon}
-            </span>
-            <div>
-              <p className="font-display text-5xl font-bold leading-none md:text-6xl">
-                {activeTier?.nameKo}
-              </p>
-              <p className="mt-2 font-medium text-ink/70">
-                {activeTier?.minPoints.toLocaleString()}P 이상 · 상위 랭킹
-              </p>
-            </div>
+          <div className="mt-2">
+            <p className="font-display text-5xl font-bold leading-none md:text-6xl">
+              {activeTier?.nameKo}
+            </p>
+            <p className="mt-2 font-medium text-ink/70">
+              {activeTier?.minPoints.toLocaleString()}P 이상 · 상위 랭킹
+            </p>
           </div>
         </div>
       </div>
@@ -74,7 +55,6 @@ export function LeagueLeaderboard() {
                   : "border-border-warm bg-paper text-ink-soft"
               )}
             >
-              <span>{tier.icon}</span>
               <span className="font-display font-bold">{tier.nameKo}</span>
             </button>
           );
@@ -99,15 +79,15 @@ export function LeagueLeaderboard() {
                 <div className="flex items-center gap-4">
                   <span
                     className={cn(
-                      "tactile-chip h-10 w-10 justify-center px-0 font-display text-lg font-bold",
+                      "tactile-chip h-10 w-10 justify-center px-0 font-display text-lg font-bold tabular-nums",
                       rankChipClass(entry.rank)
                     )}
                   >
-                    {isTop3 ? RANK_MEDALS[entry.rank - 1] : entry.rank}
+                    {entry.rank}
                   </span>
                   <span className="font-bold text-ink">{entry.nickname}</span>
                 </div>
-                <span className="font-display text-lg font-bold text-gold-edge">
+                <span className="font-display text-lg font-bold tabular-nums text-gold-edge">
                   {entry.points.toLocaleString()}
                   <span className="ml-1 text-sm text-ink-soft">P</span>
                 </span>
@@ -116,9 +96,6 @@ export function LeagueLeaderboard() {
           })}
           {data.ranking.length === 0 && (
             <div className="tactile-card flex flex-col items-center gap-2 py-12 text-center">
-              <span className="text-4xl" aria-hidden>
-                🪺
-              </span>
               <p className="text-ink-soft">아직 이 티어에 참가자가 없습니다</p>
             </div>
           )}

@@ -18,7 +18,7 @@ const SVG_CIRCLE = {
 
 function getCircleFilter(accuracy: number): string {
   if (accuracy >= 80) {
-    return "drop-shadow(0 0 8px rgba(18, 184, 134, 0.45))";
+    return "drop-shadow(0 0 8px rgba(46, 107, 255, 0.35))";
   }
 
   return "none";
@@ -26,39 +26,31 @@ function getCircleFilter(accuracy: number): string {
 
 function getStreakLabel(currentStreak: number): string {
   if (currentStreak >= 2) return `연속 ${currentStreak}일`;
-  return "첫 걸음!";
+  return "첫 걸음";
 }
 
-function getRewardInfo(gamification?: GamificationResult): { emoji: string; label: string } {
+function getRewardLabel(gamification?: GamificationResult): string {
   if (!gamification) {
-    return { emoji: "💤", label: "추가 연습" };
+    return "추가 연습";
   }
 
   if (gamification.promoted && gamification.newTierName) {
-    return { emoji: "🏆", label: `${gamification.newTierName} 승급!` };
+    return `${gamification.newTierName} 승급`;
   }
 
   if (gamification.milestones.length > 0) {
-    return { emoji: "🎁", label: "마일스톤 달성" };
+    return "마일스톤 달성";
   }
 
-  return { emoji: "⭐", label: `+${gamification.leaguePoints}LP` };
+  return `+${gamification.leaguePoints}LP`;
 }
 
 function XpCard({ xpCounter }: { xpCounter: number }) {
   return (
-    <div className="rounded-2xl border-2 border-gold bg-gold-tint p-6">
-      <div className="flex items-center gap-4">
-        <div
-          className="tactile-tile w-16 h-16 bg-gold border-gold-edge text-3xl"
-          style={{ boxShadow: "0 4px 0 0 var(--gold-edge)" }}
-        >
-          <span>💎</span>
-        </div>
-        <div className="flex-1">
-          <div className="text-sm font-semibold text-gold-edge mb-1">획득 XP</div>
-          <div className="text-4xl font-display font-bold text-ink animate-quiz-count-up">+{xpCounter}</div>
-        </div>
+    <div className="p-2">
+      <div className="text-sm font-semibold text-ink-soft mb-1">획득 XP</div>
+      <div className="text-5xl font-display font-bold tabular-nums text-gold-edge animate-quiz-count-up">
+        +{xpCounter}
       </div>
     </div>
   );
@@ -66,17 +58,10 @@ function XpCard({ xpCounter }: { xpCounter: number }) {
 
 function NoXpCard() {
   return (
-    <div className="rounded-2xl border-2 border-border-warm bg-muted-warm p-6">
-      <div className="flex items-center gap-4">
-        <div className="tactile-tile w-16 h-16 bg-paper border-border-strong text-3xl">
-          <span>💎</span>
-        </div>
-        <div className="flex-1">
-          <div className="text-sm font-semibold text-ink-soft mb-1">추가 연습</div>
-          <div className="text-base font-bold text-ink">XP 없음</div>
-          <div className="text-xs text-ink-soft/70 mt-0.5">첫 완료 시에만 XP가 적립됩니다</div>
-        </div>
-      </div>
+    <div className="rounded-2xl border border-border-warm bg-muted-warm p-6">
+      <div className="text-sm font-semibold text-ink-soft mb-1">추가 연습</div>
+      <div className="text-base font-bold text-ink">XP 없음</div>
+      <div className="text-xs text-ink-soft/70 mt-0.5">첫 완료 시에만 XP가 적립됩니다</div>
     </div>
   );
 }
@@ -85,7 +70,7 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
   const accuracyPercentage = summary.accuracy;
   const circleFilter = getCircleFilter(accuracyPercentage);
   const streakLabel = getStreakLabel(currentStreak);
-  const rewardInfo = getRewardInfo(gamification);
+  const rewardLabel = getRewardLabel(gamification);
   const isRewardMuted = !gamification;
 
   return (
@@ -112,7 +97,7 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                     cy="100"
                     r={SVG_CIRCLE.RADIUS}
                     fill="none"
-                    stroke="url(#accuracyGradient)"
+                    stroke="var(--teal)"
                     strokeWidth="14"
                     strokeLinecap="round"
                     strokeDasharray={`${SVG_CIRCLE.CIRCUMFERENCE * (accuracyPercentage / 100)} ${SVG_CIRCLE.CIRCUMFERENCE}`}
@@ -122,22 +107,16 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                       filter: circleFilter,
                     }}
                   />
-                  <defs>
-                    <linearGradient id="accuracyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#12b886" />
-                      <stop offset="100%" stopColor="#4dabf7" />
-                    </linearGradient>
-                  </defs>
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl font-display font-bold text-teal mb-2">
+                  <div className="text-6xl font-display font-bold tabular-nums text-teal mb-2">
                     {summary.accuracy}%
                   </div>
                   <div className="text-sm font-semibold text-ink-soft">정확도</div>
                 </div>
               </div>
               <div className="text-center mt-4">
-                <p className="text-lg font-medium text-ink">
+                <p className="text-lg font-medium tabular-nums text-ink">
                   {summary.correct} / {summary.total} 정답
                 </p>
               </div>
@@ -148,23 +127,20 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
               {!isExtraPractice && <XpCard xpCounter={xpCounter} />}
 
               <div className="grid grid-cols-3 gap-3">
-                <div className="rounded-2xl border-2 border-border-warm bg-paper p-4 text-center">
-                  <div className="text-3xl mb-1">⚡</div>
+                <div className="rounded-2xl border border-border-warm bg-paper p-4 text-center">
                   <div className="text-xs font-semibold text-ink-soft">완료</div>
                 </div>
-                <div className="rounded-2xl border-2 border-coral bg-coral-tint p-4 text-center">
-                  <div className="text-3xl mb-1">🔥</div>
-                  <div className="text-xs font-semibold text-coral-edge">{streakLabel}</div>
+                <div className="rounded-2xl border border-coral bg-coral-tint p-4 text-center">
+                  <div className="text-xs font-semibold tabular-nums text-coral-edge">{streakLabel}</div>
                 </div>
                 <div className={cn(
-                  "rounded-2xl p-4 text-center border-2",
+                  "rounded-2xl p-4 text-center border",
                   isRewardMuted ? "bg-muted-warm border-border-warm" : "bg-gold-tint border-gold",
                 )}>
-                  <div className="text-3xl mb-1">{rewardInfo.emoji}</div>
                   <div className={cn(
-                    "text-xs font-semibold",
+                    "text-xs font-semibold tabular-nums",
                     isRewardMuted ? "text-ink-soft/70" : "text-gold-edge",
-                  )}>{rewardInfo.label}</div>
+                  )}>{rewardLabel}</div>
                 </div>
               </div>
             </div>

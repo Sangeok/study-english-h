@@ -49,43 +49,35 @@ export function PurchaseConfirmModal({
         className="tactile-card tactile-card--raised w-full max-w-sm p-6 animate-[pop-in]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mb-5 flex items-center gap-3">
-          <div className="tactile-tile h-12 w-12 border-ocean bg-ocean-tint text-2xl">
-            <span>{item.icon}</span>
-          </div>
-          <div>
-            <h2 className="font-display text-lg font-bold text-ink">구매 확인</h2>
-            <p className="text-sm text-ink-soft">{item.nameKo}</p>
-          </div>
+        <div className="mb-5">
+          <h2 className="font-display text-lg font-bold text-ink">구매 확인</h2>
+          <p className="text-sm text-ink-soft">{item.nameKo}</p>
         </div>
 
         {isBoostCharge && (
-          <div className="mb-5 rounded-2xl border-2 border-gold bg-gold-tint p-3">
+          <div className="mb-5 rounded-2xl border border-gold bg-gold-tint p-3">
             <p className="text-xs font-semibold text-ink">
-              📅 {purchaseTargetLabel}에 자동 적용됩니다
+              {purchaseTargetLabel}에 자동 적용됩니다
             </p>
           </div>
         )}
 
-        <div className="mb-6 space-y-3 rounded-2xl border-2 border-border-warm bg-muted-warm p-4 text-sm">
+        <div className="mb-6 space-y-3 rounded-2xl border border-border-warm bg-muted-warm p-4 text-sm">
           <div className="flex items-center justify-between">
             <span className="text-ink-soft">가격</span>
-            <span className="tactile-chip border-gold bg-gold-tint text-ink">
-              <span className="text-sm">🪙</span>
-              <span className="font-display font-bold">
-                {item.xpCost.toLocaleString()}
-              </span>
+            <span className="text-gold-edge font-display font-bold tabular-nums">
+              {item.xpCost.toLocaleString()} XP
             </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-ink-soft">보유 XP</span>
-            <span className="font-display font-bold text-ink">
+            <span className="font-display font-bold tabular-nums text-ink">
               {spendableXP.toLocaleString()}
             </span>
           </div>
-          <div className="flex items-center justify-between border-t-2 border-border-warm pt-3">
+          <div className="flex items-center justify-between border-t border-border-warm pt-3">
             <span className="text-ink-soft">구매 후 잔액</span>
-            <span className="font-display font-bold text-teal-edge">
+            <span className="font-display font-bold tabular-nums text-teal-edge">
               {remainingAfter.toLocaleString()} XP
             </span>
           </div>

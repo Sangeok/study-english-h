@@ -1,3 +1,4 @@
+import { Zap } from "lucide-react";
 import type { BoostNextTarget } from "@/features/shop/types";
 
 interface QuizBoostPreviewBadgeProps {
@@ -12,7 +13,7 @@ export function QuizBoostPreviewBadge({ charges, nextTarget }: QuizBoostPreviewB
 
   return (
     <div className="tactile-chip border-coral bg-paper text-ink">
-      <span className="text-base">⚡</span>
+      <Zap className="h-4 w-4 text-coral-edge" />
       <span className="font-display font-bold text-coral-edge">2x</span>
       <span className="text-xs font-semibold text-ink-soft">
         충전 {charges}개 · {targetLabel}에 자동 적용

@@ -1,7 +1,6 @@
 import type { MasteryLevel } from "../types";
 
 export interface MasteryResultCardStyle {
-  emoji: string;
   label: string;
   bgColor: string;
   borderColor: string;
@@ -26,7 +25,6 @@ export const MASTERY_LABELS: Record<MasteryLevel, string> = {
 
 export const MASTERY_RESULT_CARDS: Record<MasteryLevel, MasteryResultCardStyle> = {
   new: {
-    emoji: "🌱",
     label: "신규",
     bgColor: "bg-muted-warm",
     borderColor: "border-border-strong",
@@ -34,7 +32,6 @@ export const MASTERY_RESULT_CARDS: Record<MasteryLevel, MasteryResultCardStyle> 
     sublabelColor: "text-ink-soft",
   },
   learning: {
-    emoji: "📖",
     label: "학습 중",
     bgColor: "bg-gold-tint",
     borderColor: "border-gold",
@@ -42,7 +39,6 @@ export const MASTERY_RESULT_CARDS: Record<MasteryLevel, MasteryResultCardStyle> 
     sublabelColor: "text-gold-edge",
   },
   reviewing: {
-    emoji: "🔁",
     label: "복습 중",
     bgColor: "bg-ocean-tint",
     borderColor: "border-ocean",
@@ -50,7 +46,6 @@ export const MASTERY_RESULT_CARDS: Record<MasteryLevel, MasteryResultCardStyle> 
     sublabelColor: "text-ocean-edge",
   },
   mastered: {
-    emoji: "🏆",
     label: "완료",
     bgColor: "bg-teal-tint",
     borderColor: "border-teal",

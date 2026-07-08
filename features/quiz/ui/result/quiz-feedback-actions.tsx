@@ -14,14 +14,12 @@ export function QuizFeedbackActions({ onGoMain, onRetry, isExtraPractice }: Quiz
         className="tactile-btn tactile-btn--teal tactile-btn--lg flex-1"
       >
         <span>메인으로 돌아가기</span>
-        <span className="text-2xl">🏠</span>
       </button>
       <button
         onClick={onRetry}
         className="tactile-btn tactile-btn--ghost tactile-btn--lg sm:w-48"
       >
         <span>{retryLabel}</span>
-        <span className="text-xl">🔄</span>
       </button>
     </div>
   );

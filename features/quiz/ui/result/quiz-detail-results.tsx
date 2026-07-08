@@ -1,3 +1,4 @@
+import { ListChecks } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { QUIZ_RESULT_ITEM_STYLES, type QuizResultStatus } from "../../config";
 import type { QuizResult } from "../../types";
@@ -32,11 +33,11 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
       <div className="tactile-card p-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="tactile-tile w-12 h-12 bg-ocean border-ocean-edge text-2xl">
-              <span>📊</span>
+            <div className="tactile-tile w-12 h-12 bg-ocean border-ocean-edge text-white">
+              <ListChecks className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-2xl font-display font-bold text-ink">상세 결과</h3>
+              <h3 className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">상세 결과</h3>
               <p className="text-sm text-ink-soft">문제별 정답 확인</p>
             </div>
           </div>
@@ -55,7 +56,7 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                 <div
                   key={idx}
                   className={cn(
-                    "rounded-2xl p-5 border-2 transition-transform duration-200 hover:-translate-y-0.5",
+                    "rounded-2xl p-5 border",
                     styles.background,
                     styles.border
                   )}

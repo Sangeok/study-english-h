@@ -19,14 +19,14 @@ interface QuizFeedbackProps {
 
 const getPerformanceMessage = (accuracy: number) => {
   if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.PERFECT)
-    return { emoji: "🌟", title: "완벽해요!", message: "놀라운 실력이에요!" };
+    return { title: "완벽해요", message: "놀라운 실력이에요" };
   if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.EXCELLENT)
-    return { emoji: "🎉", title: "훌륭해요!", message: "정말 잘하셨어요!" };
+    return { title: "훌륭해요", message: "정말 잘하고 있어요" };
   if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.GOOD)
-    return { emoji: "👍", title: "잘했어요!", message: "좋은 결과예요!" };
+    return { title: "잘했어요", message: "좋은 결과예요" };
   if (accuracy >= QUIZ_PERFORMANCE_THRESHOLDS.FAIR)
-    return { emoji: "💪", title: "좋아요!", message: "계속 노력하세요!" };
-  return { emoji: "🌱", title: "시작이에요!", message: "다음엔 더 잘할 거예요!" };
+    return { title: "좋아요", message: "꾸준히 이어가고 있어요" };
+  return { title: "시작이에요", message: "다음엔 더 잘할 수 있어요" };
 };
 
 function getConfettiCount(isExtraPractice: boolean, accuracy: number): number {
