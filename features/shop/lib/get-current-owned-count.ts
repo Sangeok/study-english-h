@@ -1,24 +1,22 @@
+import type { ItemEffectField, ShopItem } from "../config/shop-items";
+
 /**
- * 아이템별 현재 보유량을 UserProfile 필드에서 읽어온다.
+ * 아이템별 현재 보유량을 UserProfile 카운터 필드(effectField)에서 읽어온다.
  *
  * 호출처:
  *   - features/shop/lib/purchase-item.ts (구매 직전 maxOwned 체크)
  *   - app/api/shop/items/route.ts (상점 카드 표시용)
  *
- * 신규 아이템 추가 시 이 함수 한 곳만 수정한다.
- * quiz_boost_charge는 maxOwned 미설정이므로 분기에서 제외 — YAGNI.
+ * maxOwned가 없는 아이템(quiz_boost_charge)은 보유 상한 검사/표시 대상이 아니므로
+ * 0을 반환한다 — 부스트 보유량은 상점 응답의 별도 boostCharges 필드로 내려간다.
  */
 
-interface OwnedCountSource {
-  freezeCount: number;
-  freeHintCount: number;
-}
+type OwnedCountSource = Record<ItemEffectField, number>;
 
 export function getCurrentOwnedCount(
-  itemCode: string,
+  item: ShopItem,
   profile: OwnedCountSource
 ): number {
-  if (itemCode === "streak_freeze") return profile.freezeCount;
-  if (itemCode === "hint_pack_3") return profile.freeHintCount;
-  return 0;
+  if (item.maxOwned === undefined) return 0;
+  return profile[item.effectField];
 }

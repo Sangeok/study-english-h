@@ -47,7 +47,11 @@ export async function GET(req: Request) {
     const boostNextTarget = resolveBoostNextTarget(boostCharges, todayQuizDone);
 
     const items: ShopItemWithStatus[] = SHOP_ITEMS.map((item) => {
-      const currentOwned = getCurrentOwnedCount(item.code, { freezeCount, freeHintCount });
+      const currentOwned = getCurrentOwnedCount(item, {
+        freezeCount,
+        freeHintCount,
+        xpBoostCharges: boostCharges,
+      });
       return {
         ...item,
         canPurchase:

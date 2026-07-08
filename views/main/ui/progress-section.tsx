@@ -49,7 +49,7 @@ export function ProgressSection({
           icon="⭐"
           label="총 경험치"
           value={totalXP.toLocaleString()}
-          gradient="purple"
+          tone="gold"
           isLoading={isLoading}
           footer={
             <div className="flex items-center gap-2 text-sm text-gold-edge">
@@ -62,7 +62,7 @@ export function ProgressSection({
           icon="🔥"
           label="연속 학습"
           value={`${streak ?? 0}일`}
-          gradient="violet"
+          tone="coral"
           isLoading={isLoading}
           footer={
             <div className="flex gap-1">
@@ -84,7 +84,7 @@ export function ProgressSection({
           icon="🏆"
           label="현재 레벨"
           value={levelDisplay}
-          gradient="indigo"
+          tone="ocean"
           isLoading={isLoading}
           footer={
             <div className="flex items-center gap-2 text-sm text-ocean-edge">

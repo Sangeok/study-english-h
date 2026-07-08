@@ -93,7 +93,7 @@ export function HeroSection({ diagnosisCompleted, onDiagnosisClick, onQuizClick 
           aria-hidden
         >
           <FloatingCard
-            gradient="purple"
+            tone="teal"
             icon="🔥"
             title="7일 연속"
             subtitle="스트릭 유지 중"
@@ -101,7 +101,7 @@ export function HeroSection({ diagnosisCompleted, onDiagnosisClick, onQuizClick 
             className="left-4 top-4 w-60 animate-bounce-gentle"
           />
           <FloatingCard
-            gradient="indigo"
+            tone="ocean"
             icon="⭐"
             title="1,240 XP"
             subtitle="이번 주 +320"
@@ -109,7 +109,7 @@ export function HeroSection({ diagnosisCompleted, onDiagnosisClick, onQuizClick 
             className="right-2 top-28 w-56"
           />
           <FloatingCard
-            gradient="violet"
+            tone="coral"
             icon="🏆"
             title="Level B1"
             subtitle="중급 어휘 마스터 중"

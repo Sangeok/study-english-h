@@ -19,12 +19,6 @@ export type { StreakMilestone } from "./config/streak-milestones";
 export { ACHIEVEMENTS } from "./config/achievements";
 export type { AchievementDefinition } from "./config/achievements";
 
-// Validation (클라이언트/서버 공용)
-export {
-  streakFreezeSchema,
-  leagueRankingQuerySchema,
-} from "./lib/validation";
-
 // Hooks (클라이언트 전용)
 export { useMyLeague } from "./hooks/use-my-league";
 export { useRewardToast } from "./hooks/use-reward-toast";

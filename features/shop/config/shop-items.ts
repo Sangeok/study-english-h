@@ -1,3 +1,6 @@
+/** 아이템 효과가 반영되는 UserProfile 카운터 필드 */
+export type ItemEffectField = "freezeCount" | "freeHintCount" | "xpBoostCharges";
+
 export interface ShopItem {
   code: string;
   name: string;
@@ -6,7 +9,11 @@ export interface ShopItem {
   icon: string;
   xpCost: number;
   category: "utility" | "cosmetic";
+  /** 구매 후 총 보유 상한. maxOwned 검사식은 `currentOwned + grantPerPurchase > maxOwned` */
   maxOwned?: number;
+  /** 구매 시 grantPerPurchase만큼 increment되는 효과 대상 필드 */
+  effectField: ItemEffectField;
+  grantPerPurchase: number;
 }
 
 export const SHOP_ITEMS: readonly ShopItem[] = [
@@ -19,6 +26,8 @@ export const SHOP_ITEMS: readonly ShopItem[] = [
     xpCost: 200,
     category: "utility",
     maxOwned: 5,
+    effectField: "freezeCount",
+    grantPerPurchase: 1,
   },
   {
     code: "quiz_boost_charge",
@@ -29,6 +38,8 @@ export const SHOP_ITEMS: readonly ShopItem[] = [
     xpCost: 150,
     category: "utility",
     // maxOwned 없음: 누적 보유 허용
+    effectField: "xpBoostCharges",
+    grantPerPurchase: 1,
   },
   {
     code: "hint_pack_3",
@@ -38,11 +49,10 @@ export const SHOP_ITEMS: readonly ShopItem[] = [
     icon: "💡",
     xpCost: 30,
     category: "utility",
-    // (RV9) maxOwned = 구매 후 총 보유 상한. 1회 구매당 HINT_PACK_FREE_HINT_COUNT(+3) 증가하므로
-    //   maxOwned 검사식은 `currentOwned + grantAmount > maxOwned`로 증분을 반영해야 한다.
     maxOwned: 9,
+    effectField: "freeHintCount",
+    grantPerPurchase: 3,
   },
 ];
 
 export const QUIZ_BOOST_MULTIPLIER = 2.0;
-export const HINT_PACK_FREE_HINT_COUNT = 3;
