@@ -20,7 +20,7 @@ export function useRewardToast() {
     for (const code of result.newAchievements) {
       const definition = ACHIEVEMENTS.find((a) => a.code === code);
       const displayName = definition?.name ?? code;
-      toast(`🏆 업적 해제: ${displayName}`, {
+      toast(`업적 해제 · ${displayName}`, {
         variant: "success",
         duration: 5000,
       });
@@ -29,19 +29,19 @@ export function useRewardToast() {
     // 3. 마일스톤 달성
     for (const milestone of result.milestones) {
       toast(
-        `🔥 ${milestone.milestone}일 연속 학습 달성! +${milestone.xpReward}XP`,
+        `${milestone.milestone}일 연속 학습 달성 · +${milestone.xpReward}XP`,
         { variant: "success", duration: 5000 }
       );
     }
 
     // 2. 리그 포인트 획득 (승급이 아닌 경우만)
     if (result.leaguePoints > 0 && !result.promoted) {
-      toast(`⚡ +${result.leaguePoints} 리그 포인트`, { variant: "info" });
+      toast(`+${result.leaguePoints} 리그 포인트`, { variant: "info" });
     }
 
     // 1. 리그 승급 (가장 높은 우선순위)
     if (result.promoted && result.newTierName) {
-      toast(`🎉 ${result.newTierName} 리그로 승급했습니다!`, {
+      toast(`${result.newTierName} 리그로 승급했어요`, {
         variant: "success",
         duration: 5000,
       });
