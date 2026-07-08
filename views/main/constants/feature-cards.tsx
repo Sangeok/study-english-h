@@ -90,9 +90,9 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
     },
 
     getActionLabel: ({ diagnosisCompleted, hasCompletedTodayQuiz }) => {
-      if (!diagnosisCompleted) return "잠김";
+      if (!diagnosisCompleted) return "진단 후 열려요";
       if (hasCompletedTodayQuiz) return "추가 연습하기";
-      return "지금 플레이";
+      return "시작하기";
     },
 
     getStatus: ({ diagnosisCompleted, hasCompletedTodayQuiz }) =>
