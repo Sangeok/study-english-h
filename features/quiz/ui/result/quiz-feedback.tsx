@@ -55,21 +55,6 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
   return (
     <div className="min-h-screen bg-cream-canvas overflow-hidden relative">
       <Confetti count={confettiCount} />
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-20 -right-32 w-96 h-96 bg-teal/15 rounded-full blur-3xl animate-float"
-          style={{ animationDuration: "20s" }}
-        />
-        <div
-          className="absolute bottom-20 -left-32 w-96 h-96 bg-coral/12 rounded-full blur-3xl animate-float"
-          style={{ animationDuration: "25s", animationDelay: "2s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-gold/12 rounded-full blur-3xl animate-float"
-          style={{ animationDuration: "30s", animationDelay: "4s" }}
-        />
-      </div>
-
       <div className="relative z-10 py-12 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
           <QuizFeedbackHeader performance={performance} isExtraPractice={isExtraPractice} />

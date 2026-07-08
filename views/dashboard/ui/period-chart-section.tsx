@@ -5,11 +5,8 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 import { cn } from "@/lib/utils";
-import { PERIOD_OPTIONS, CATEGORY_LABELS } from "../config/chart-config";
+import { PERIOD_OPTIONS, CATEGORY_LABELS, PIE_COLORS } from "../config/chart-config";
 import type { PeriodStatsResponse } from "@/features/dashboard";
-
-// Premium Modern palette — teal(cobalt) · coral(ember) · gold(amber) · ocean · grape(slate)
-const PIE_COLORS = ["#2E6BFF", "#F9701A", "#E8A23D", "#6E9BFF", "#3E5578"];
 
 interface PeriodChartSectionProps {
   periodStats: PeriodStatsResponse | undefined;
