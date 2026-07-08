@@ -76,7 +76,7 @@ export function ProfileMenu({
         ref={triggerButtonRef}
         type="button"
         onClick={toggleMenu}
-        className="flex items-center gap-2 rounded-xl border-2 border-border-strong bg-paper px-3 py-2 text-sm font-medium text-ink transition-colors hover:bg-muted-warm"
+        className="flex items-center gap-2 rounded-xl border border-chamber-line bg-chamber-panel px-3 py-2 text-sm font-medium text-chamber-ink transition-colors hover:bg-chamber-panel-hi"
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-label="계정 메뉴"
@@ -90,12 +90,12 @@ export function ProfileMenu({
       {isOpen && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 w-44 overflow-hidden rounded-2xl border-2 border-border-warm bg-paper shadow-[0_12px_28px_-16px_rgba(34,50,79,0.5)]"
+          className="absolute right-0 mt-2 w-44 overflow-hidden rounded-2xl border border-chamber-line bg-chamber-panel shadow-[0_12px_28px_-16px_rgba(4,9,18,0.7)]"
         >
           <Link
             href={ROUTES.HOME}
             onClick={closeMenu}
-            className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-muted-warm"
+            className="block px-4 py-2.5 text-sm font-medium text-chamber-ink transition-colors hover:bg-chamber-panel-hi"
             role="menuitem"
           >
             내 학습 홈
@@ -104,7 +104,7 @@ export function ProfileMenu({
             type="button"
             onClick={handleSignOutClick}
             disabled={isSigningOut}
-            className="w-full px-4 py-2.5 text-left text-sm font-medium text-coral-edge transition-colors hover:bg-coral-tint disabled:opacity-50"
+            className="w-full px-4 py-2.5 text-left text-sm font-medium text-coral transition-colors hover:bg-chamber-panel-hi disabled:opacity-50"
             role="menuitem"
           >
             {signOutLabel}

@@ -70,7 +70,7 @@ export function MobileMenu({
     <>
       <button
         type="button"
-        className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-border-strong bg-paper text-ink md:hidden"
+        className="flex h-10 w-10 items-center justify-center rounded-xl border border-chamber-line bg-chamber-panel text-chamber-ink md:hidden"
         onClick={toggleMenu}
         aria-label={menuButtonLabel}
         aria-expanded={isMenuOpen}
@@ -80,7 +80,7 @@ export function MobileMenu({
       </button>
 
       {isMenuOpen && (
-        <div className="border-t-2 border-border-warm bg-paper px-4 py-4 md:hidden">
+        <div className="border-t border-chamber-line bg-chamber px-4 py-4 md:hidden">
           <nav className="mb-4 flex flex-col gap-1" aria-label="모바일 주요 메뉴">
             {HEADER_NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
@@ -92,8 +92,8 @@ export function MobileMenu({
                   onClick={closeMenu}
                   className={cn(
                     "rounded-xl px-3 py-2 text-sm font-bold transition-colors",
-                    isActive && "bg-teal-tint text-teal-edge",
-                    !isActive && "text-ink-soft hover:bg-muted-warm hover:text-ink"
+                    isActive && "bg-chamber-panel-hi text-white",
+                    !isActive && "text-chamber-soft hover:bg-chamber-panel hover:text-chamber-ink"
                   )}
                 >
                   {item.label}
@@ -110,7 +110,7 @@ export function MobileMenu({
               type="button"
               onClick={handleSignOutClick}
               disabled={isSigningOut}
-              className="w-full rounded-xl border-2 border-coral bg-coral-tint px-3 py-2 text-sm font-bold text-coral-edge disabled:opacity-50"
+              className="w-full rounded-xl border border-chamber-line bg-chamber-panel px-3 py-2 text-sm font-bold text-coral disabled:opacity-50"
             >
               {signOutLabel}
             </button>

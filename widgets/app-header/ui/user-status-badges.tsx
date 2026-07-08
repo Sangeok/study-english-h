@@ -1,3 +1,5 @@
+import { Flame } from "lucide-react";
+
 interface UserStatusBadgesProps {
   level: string;
   streak: number;
@@ -14,12 +16,13 @@ function getMobileStreakLabel(streak: number): string {
 export function DesktopUserStatusBadges({ level, streak }: UserStatusBadgesProps) {
   return (
     <>
-      <div className="tactile-chip border-ocean bg-ocean-tint text-ink">
-        <span className="text-ocean-edge">LEVEL</span> {level}
+      <div className="tactile-chip border-chamber-line bg-chamber-panel text-chamber-ink">
+        <span className="text-cobalt-lt">LEVEL</span> {level}
       </div>
       {streak > 0 && (
-        <div className="tactile-chip border-coral bg-coral-tint text-ink">
-          <span>🔥</span> {streak}일 연속
+        <div className="tactile-chip border-chamber-line bg-chamber-panel text-chamber-ink">
+          <Flame className="h-3.5 w-3.5 text-coral" aria-hidden />
+          {streak}일 연속
         </div>
       )}
     </>
@@ -31,11 +34,12 @@ export function MobileUserStatusBadges({ level, streak }: UserStatusBadgesProps)
 
   return (
     <div className="mb-4 grid grid-cols-2 gap-2">
-      <div className="rounded-xl border-2 border-ocean bg-ocean-tint px-3 py-2 text-center text-sm font-bold text-ink">
-        LEVEL {level}
+      <div className="rounded-xl border border-chamber-line bg-chamber-panel-hi px-3 py-2 text-center text-sm font-bold text-chamber-ink">
+        <span className="text-cobalt-lt">LEVEL</span> {level}
       </div>
-      <div className="rounded-xl border-2 border-coral bg-coral-tint px-3 py-2 text-center text-sm font-bold text-ink">
-        🔥 {streakLabel}
+      <div className="flex items-center justify-center gap-1.5 rounded-xl border border-chamber-line bg-chamber-panel-hi px-3 py-2 text-center text-sm font-bold text-chamber-ink">
+        <Flame className="h-3.5 w-3.5 text-coral" aria-hidden />
+        {streakLabel}
       </div>
     </div>
   );
