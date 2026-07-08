@@ -507,6 +507,13 @@
   .tactile-btn--ink:hover:not(:disabled) {
     background: #16263f;
   }
+  .tactile-btn--meadow {
+    background: var(--meadow);
+    color: #fff;
+  }
+  .tactile-btn--meadow:hover:not(:disabled) {
+    background: #0c8a5f;
+  }
   .tactile-btn--ghost {
     background: transparent;
     color: var(--ink);

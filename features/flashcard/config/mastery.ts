@@ -9,11 +9,12 @@ export interface MasteryResultCardStyle {
   sublabelColor: string;
 }
 
+// 챔버(다크) 화면 위에서 쓰이는 아웃라인 칩 스타일
 export const MASTERY_STYLES: Record<MasteryLevel, string> = {
-  new: "tactile-chip border-border-strong bg-muted-warm text-ink",
-  learning: "tactile-chip border-gold bg-gold-tint text-ink",
-  reviewing: "tactile-chip border-ocean bg-ocean-tint text-ink",
-  mastered: "tactile-chip border-teal bg-teal-tint text-ink",
+  new: "tactile-chip border-chamber-line bg-chamber-panel text-chamber-soft",
+  learning: "tactile-chip border-chamber-line bg-chamber-panel text-gold",
+  reviewing: "tactile-chip border-chamber-line bg-chamber-panel text-cobalt-lt",
+  mastered: "tactile-chip border-chamber-line bg-chamber-panel text-meadow",
 };
 
 export const MASTERY_LABELS: Record<MasteryLevel, string> = {

@@ -38,11 +38,7 @@ export function FlashcardGame({
   }, [currentCard.audioUrl, toast]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-cream-canvas px-4 py-8">
-      {/* corner glows */}
-      <div className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-teal-tint blur-3xl" aria-hidden />
-      <div className="pointer-events-none absolute -right-24 bottom-10 h-64 w-64 rounded-full bg-coral-tint blur-3xl" aria-hidden />
-
+    <div className="relative min-h-screen overflow-hidden bg-chamber px-4 py-8">
       <div className="relative">
         <FlashcardProgressBar
           current={currentIndex + 1}
