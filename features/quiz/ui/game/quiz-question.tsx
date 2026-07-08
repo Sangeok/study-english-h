@@ -4,7 +4,6 @@ import { memo } from "react";
 import { Check, Lightbulb, Search } from "lucide-react";
 import type { QuizQuestion } from "@/entities/question";
 import { cn } from "@/lib/utils";
-import { getDifficultyStyle } from "@/shared/constants";
 import {
   QUIZ_OPTION_LABEL_STYLES,
   QUIZ_OPTION_STYLES,
@@ -85,7 +84,6 @@ export function QuizQuestion({
   hintedCount,
 }: QuizQuestionProps) {
   const { selectingOption, sparkles, handleSelect } = useOptionSelection(question.id, onAnswer);
-  const difficultyStyle = getDifficultyStyle(question.difficulty);
   // 낙관적 미리보기:
   //   힌트를 열었고, 지금까지 힌트를 연 문제 수가 보유 프리 힌트 이하라면
   //   서버의 selectFreeHintTargets 가 이 문제를 프리 힌트 대상으로 잡아 XP 페널티를 상쇄할 것으로 본다.
@@ -101,41 +99,33 @@ export function QuizQuestion({
   const hintButtonAriaLabel = getHintButtonLabel(hintLevel);
 
   return (
-    <div className="tactile-card tactile-card--raised p-5 relative overflow-hidden">
+    <div className="relative overflow-hidden rounded-2xl border border-chamber-line bg-chamber-panel p-5">
       <SparkleLayer sparkles={sparkles} />
 
       <div className="relative z-10">
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-3">
-            <div
-              className={`inline-flex items-center gap-1.5 px-3 py-1 ${difficultyStyle.bg} ${difficultyStyle.text} rounded-lg border-2 ${difficultyStyle.border} text-xs font-bold uppercase`}
-            >
-              <span className="text-sm">{difficultyStyle.icon}</span>
-              <span>{question.difficulty}</span>
+            <div className="inline-flex items-center rounded-full border border-chamber-line px-3 py-1 text-xs font-bold uppercase text-chamber-soft">
+              {question.difficulty}
             </div>
-            <div className="px-3 py-1 bg-teal-tint rounded-lg border-2 border-teal text-xs font-bold text-teal-edge">
+            <div className="inline-flex items-center rounded-full border border-chamber-line px-3 py-1 text-xs font-bold text-chamber-soft">
               {question.category}
             </div>
             <div
-              className={cn(
-                "ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg border-2",
-                !willBeFree && "bg-gold-tint border-gold",
-                willBeFree && "bg-teal-tint border-teal"
-              )}
+              className="ml-auto flex items-center gap-1.5 rounded-full border border-chamber-line px-3 py-1"
               title={xpBadgeTitle}
             >
-              <span className="text-sm">💎</span>
               <span
                 className={cn(
-                  "text-xs font-display font-bold",
-                  !willBeFree && "text-gold-edge",
-                  willBeFree && "text-teal-edge"
+                  "text-xs font-display font-bold tabular-nums",
+                  !willBeFree && "text-cobalt-lt",
+                  willBeFree && "text-meadow"
                 )}
               >
                 +{currentXP} XP
               </span>
               {willBeFree && (
-                <span className="text-[10px] font-bold text-teal-edge">프리 힌트</span>
+                <span className="text-[10px] font-bold text-meadow">프리 힌트</span>
               )}
             </div>
           </div>
@@ -143,26 +133,16 @@ export function QuizQuestion({
           {showHintBlock && (
             <div className="mb-4 space-y-2 animate-slide-down" role="region" aria-label="힌트 영역">
               {showContextHint && (
-                <div className="bg-gold-tint rounded-xl p-3 border-2 border-gold">
-                  <div className="flex items-start gap-2">
-                    <span className="text-lg">📝</span>
-                    <div>
-                      <p className="text-xs font-bold text-gold-edge mb-0.5">상황 힌트</p>
-                      <p className="text-sm text-ink">{question.contextHint}</p>
-                    </div>
-                  </div>
+                <div className="rounded-xl border border-chamber-line bg-chamber-panel-hi p-3">
+                  <p className="text-xs font-bold text-gold mb-0.5">상황 힌트</p>
+                  <p className="text-sm text-chamber-ink">{question.contextHint}</p>
                 </div>
               )}
 
               {showKoreanHint && (
-                <div className="bg-teal-tint rounded-xl p-3 border-2 border-teal">
-                  <div className="flex items-start gap-2">
-                    <span className="text-lg">🇰🇷</span>
-                    <div>
-                      <p className="text-xs font-bold text-teal-edge mb-0.5">한국어 힌트</p>
-                      <p className="text-base font-bold text-ink">{question.koreanHint}</p>
-                    </div>
-                  </div>
+                <div className="rounded-xl border border-chamber-line bg-chamber-panel-hi p-3">
+                  <p className="text-xs font-bold text-cobalt-lt mb-0.5">한국어 힌트</p>
+                  <p className="text-base font-bold text-chamber-ink">{question.koreanHint}</p>
                 </div>
               )}
             </div>
@@ -173,17 +153,17 @@ export function QuizQuestion({
               onClick={onHintRequest}
               disabled={disabled}
               aria-label={hintButtonAriaLabel}
-              className="tactile-btn tactile-btn--ghost tactile-btn--block tactile-btn--sm mb-4"
+              className="tactile-btn tactile-btn--ghost tactile-btn--block tactile-btn--sm mb-4 border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
             >
               <HintButtonContent hintLevel={hintLevel} />
             </button>
           )}
         </div>
 
-        <div className="relative mb-4">
-          <div className="bg-cream rounded-xl p-4 border-2 border-border-warm">
-            <p className="text-base md:text-lg text-ink text-center leading-relaxed font-medium">{question.sentence}</p>
-          </div>
+        <div className="relative mb-5 mt-2">
+          <p className="text-center text-lg leading-relaxed font-medium text-chamber-ink md:text-xl">
+            {question.sentence}
+          </p>
         </div>
 
         <div className="space-y-2.5">
@@ -209,7 +189,7 @@ export function QuizQuestion({
                 onClick={() => handleSelect(option.text)}
                 disabled={disabled}
                 className={cn(
-                  "group relative w-full px-4 py-3 rounded-xl border-2 text-left transition-all duration-200",
+                  "group relative w-full px-4 py-3 rounded-xl border text-left transition-all duration-200",
                   optionContainerStyle,
                   "disabled:opacity-30 disabled:cursor-not-allowed"
                 )}
@@ -217,7 +197,7 @@ export function QuizQuestion({
                 <div className="relative flex items-center gap-3">
                   <div
                     className={cn(
-                      "w-8 h-8 rounded-lg border-2 flex items-center justify-center font-black text-sm transition-all duration-200 flex-shrink-0",
+                      "w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm transition-all duration-200 flex-shrink-0",
                       optionLabelStyle
                     )}
                   >
@@ -230,7 +210,7 @@ export function QuizQuestion({
 
                   {isSelected && (
                     <div
-                      className="flex-shrink-0 w-6 h-6 bg-teal border-2 border-teal-edge rounded-full flex items-center justify-center"
+                      className="flex-shrink-0 w-6 h-6 bg-teal rounded-full flex items-center justify-center"
                       style={{ animation: "checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)" }}
                     >
                       <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />

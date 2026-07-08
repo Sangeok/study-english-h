@@ -5,48 +5,34 @@ interface QuizHeaderProps {
   userLevel: string;
 }
 
+/** 챔버 상단 바 — 문항 수만큼의 세그먼트 진행바 + 레벨 칩 */
 export function QuizHeader({ currentIndex, totalQuestions, answeredCount, userLevel }: QuizHeaderProps) {
-  const progress = totalQuestions > 0 ? ((currentIndex + 1) / totalQuestions) * 100 : 0;
-
   return (
-    <div className="relative z-10 flex-shrink-0 px-4 pt-3 pb-2">
-      <div className="max-w-5xl mx-auto">
-        <div className="tactile-card px-4 py-2.5">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="tactile-tile w-10 h-10 bg-teal border-teal-edge text-xl">
-                <span>🎮</span>
-              </div>
-              <div className="leading-tight">
-                <h1 className="text-base font-display font-bold text-ink tracking-tight">
-                  DAILY QUEST
-                </h1>
-                <p className="text-xs text-ink-soft">
-                  LV. <span className="font-bold text-teal-edge">{userLevel}</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="flex-1 max-w-md">
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="font-bold text-ink">
-                  {currentIndex + 1}/{totalQuestions}
-                </span>
-                <span className="text-ink-soft">{answeredCount} 완료</span>
-              </div>
-              <div className="tactile-progress h-3">
-                <div
-                  className="tactile-progress__fill"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </div>
-
-            <div className="tactile-chip border-coral bg-coral-tint text-ink">
-              <span className="text-base">🔥</span>
-              <span className="font-display font-bold text-coral-edge">7</span>
-            </div>
+    <div className="relative z-10 flex-shrink-0 px-4 pb-2 pt-4">
+      <div className="mx-auto max-w-5xl">
+        <div className="flex items-center gap-4">
+          <div
+            className="flex flex-1 gap-1.5"
+            role="img"
+            aria-label={`진행도: ${totalQuestions}문제 중 ${currentIndex + 1}번째, ${answeredCount}문제 완료`}
+          >
+            {Array.from({ length: totalQuestions }, (_, i) => (
+              <i
+                key={i}
+                className={[
+                  "h-[5px] flex-1 rounded-full",
+                  i < currentIndex
+                    ? "bg-cobalt-lt"
+                    : i === currentIndex
+                      ? "bg-cobalt-lt shadow-[0_0_10px_rgba(110,155,255,0.7)]"
+                      : "bg-[#1b2a44]",
+                ].join(" ")}
+              />
+            ))}
           </div>
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-chamber-line px-3 py-1.5 text-xs font-bold text-chamber-soft">
+            {userLevel} 맞춤
+          </span>
         </div>
       </div>
     </div>
