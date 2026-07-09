@@ -144,6 +144,7 @@ model QuizQuestion { // 퀴즈 질문
   contextHintKo   String?  // 상황 설명 힌트 (한국어)
   englishWord     String   // 정답 영어 단어
   sentence        String   // 문맥 문장 (빈칸 포함)
+  sentenceAudioUrl String? // 완성 문장(빈칸→정답) 발음 오디오 R2 URL
   difficulty      QuestionDifficulty
   category        QuestionCategory
 

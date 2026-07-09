@@ -109,6 +109,7 @@ export async function POST(req: Request) {
           isCorrect,
           correctAnswer: correctOption?.text,
           explanation: question.sentence,
+          sentenceAudioUrl: question.sentenceAudioUrl ?? undefined,
         });
       }
 
