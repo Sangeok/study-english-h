@@ -53,7 +53,7 @@ export function HomeHero({
                 다음 목표는 {next}예요.
               </h1>
               <p className="mt-4 max-w-xl text-chamber-soft">
-                오늘 세션은 퀴즈 20문제 · 약 15분이면 돼요.
+                오늘 세션은 퀴즈 10문제 · 약 7분이면 돼요.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3.5">
                 <button
