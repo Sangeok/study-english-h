@@ -75,6 +75,7 @@ export async function GET(req: NextRequest) {
       pronunciation: vocab.pronunciation || undefined,
       exampleSentence: vocab.exampleSentence || undefined,
       audioUrl: vocab.audioUrl || undefined,
+      exampleAudioUrl: vocab.exampleAudioUrl || undefined,
       masteryLevel: vocab.userProgress?.masteryLevel || "new",
       nextReviewDate: vocab.userProgress?.nextReviewDate?.toISOString() || new Date().toISOString(),
     }));
