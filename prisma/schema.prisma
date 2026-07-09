@@ -218,6 +218,7 @@ model Vocabulary {
   category        String   // daily, business, toeic, travel
   level           String   // A1-C2
   audioUrl        String?
+  exampleAudioUrl String?
   userProgress    UserVocabulary[]
   createdAt       DateTime @default(now())
 

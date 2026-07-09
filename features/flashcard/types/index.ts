@@ -26,6 +26,7 @@ export interface VocabularyCard {
   pronunciation?: string;
   exampleSentence?: string;
   audioUrl?: string;
+  exampleAudioUrl?: string;
   masteryLevel: MasteryLevel;
   nextReviewDate: string;
 }

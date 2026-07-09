@@ -3,6 +3,7 @@
 import { useCallback } from "react";
 import { useToast } from "@/shared/ui";
 import { useFlashcardGameFlow } from "../../hooks/use-flashcard-game-flow";
+import { playAudio } from "../../lib/play-audio";
 import { FlashcardCard } from "./flashcard-card";
 import { FlashcardProgressBar } from "./flashcard-progress-bar";
 import { DifficultyButtons } from "./difficulty-buttons";
@@ -30,12 +31,20 @@ export function FlashcardGame({
   const { currentIndex, isFlipped, currentCard, progress, handleFlip, handleReview } =
     useFlashcardGameFlow({ cards, onSubmitReviews, startCardTimer, getCardTime, getSessionDuration });
 
-  const handlePlayAudio = useCallback(() => {
-    if (currentCard.audioUrl) {
-      const audio = new Audio(currentCard.audioUrl);
-      audio.play().catch(() => toast("오디오 재생에 실패했습니다."));
+  const handlePlayWord = useCallback(() => {
+    const played = playAudio(currentCard.word, currentCard.audioUrl);
+    if (!played) {
+      toast("이 브라우저에서는 발음 재생을 지원하지 않아요.");
     }
-  }, [currentCard.audioUrl, toast]);
+  }, [currentCard.word, currentCard.audioUrl, toast]);
+
+  const handlePlayExample = useCallback(() => {
+    if (!currentCard.exampleSentence) return;
+    const played = playAudio(currentCard.exampleSentence, currentCard.exampleAudioUrl);
+    if (!played) {
+      toast("이 브라우저에서는 발음 재생을 지원하지 않아요.");
+    }
+  }, [currentCard.exampleSentence, currentCard.exampleAudioUrl, toast]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-chamber px-4 py-8">
@@ -50,7 +59,8 @@ export function FlashcardGame({
           card={currentCard}
           isFlipped={isFlipped}
           onFlip={handleFlip}
-          onPlayAudio={handlePlayAudio}
+          onPlayWord={handlePlayWord}
+          onPlayExample={handlePlayExample}
         />
 
         {isFlipped && (

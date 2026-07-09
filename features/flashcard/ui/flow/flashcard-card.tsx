@@ -6,10 +6,11 @@ interface FlashcardCardProps {
   card: VocabularyCard;
   isFlipped: boolean;
   onFlip: () => void;
-  onPlayAudio: () => void;
+  onPlayWord: () => void;
+  onPlayExample: () => void;
 }
 
-export function FlashcardCard({ card, isFlipped, onFlip, onPlayAudio }: FlashcardCardProps) {
+export function FlashcardCard({ card, isFlipped, onFlip, onPlayWord, onPlayExample }: FlashcardCardProps) {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Enter" && event.key !== " ") {
       return;
@@ -47,17 +48,15 @@ export function FlashcardCard({ card, isFlipped, onFlip, onPlayAudio }: Flashcar
               {card.pronunciation && (
                 <p className="font-display text-xl text-chamber-soft">[{card.pronunciation}]</p>
               )}
-              {card.audioUrl && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onPlayAudio();
-                  }}
-                  className="tactile-btn tactile-btn--ghost tactile-btn--sm border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
-                >
-                  발음 듣기
-                </button>
-              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPlayWord();
+                }}
+                className="tactile-btn tactile-btn--ghost tactile-btn--sm border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
+              >
+                발음 듣기
+              </button>
             </div>
 
             <p className="absolute bottom-6 left-0 right-0 text-center text-sm font-medium text-chamber-soft">
@@ -76,9 +75,20 @@ export function FlashcardCard({ card, isFlipped, onFlip, onPlayAudio }: Flashcar
             <div className="relative flex flex-col items-center gap-5 text-center">
               <h2 className="text-4xl font-bold leading-snug">{card.meaning}</h2>
               {card.exampleSentence && (
-                <p className="max-w-md rounded-2xl bg-white/12 px-4 py-3 text-base font-medium text-white/95">
-                  {card.exampleSentence}
-                </p>
+                <div className="flex max-w-md flex-col items-center gap-2">
+                  <p className="rounded-2xl bg-white/12 px-4 py-3 text-base font-medium text-white/95">
+                    {card.exampleSentence}
+                  </p>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onPlayExample();
+                    }}
+                    className="rounded-full border border-white/25 px-3.5 py-1.5 text-sm font-semibold text-white/90 transition-colors hover:bg-white/10"
+                  >
+                    예문 듣기
+                  </button>
+                </div>
               )}
             </div>
           </div>
