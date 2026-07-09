@@ -1,6 +1,8 @@
-import { ListChecks } from "lucide-react";
+import { ListChecks, Volume2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { playAudio } from "@/shared/lib/play-audio";
 import { QUIZ_RESULT_ITEM_STYLES, type QuizResultStatus } from "../../config";
+import { fillBlank } from "../../lib/fill-blank";
 import type { QuizResult } from "../../types";
 
 interface QuizDetailResultsProps {
@@ -88,7 +90,25 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                         </div>
                       )}
 
-                      <div className="text-sm text-ink-soft leading-relaxed">{item.explanation}</div>
+                      <div className="flex items-start gap-2">
+                        <div className="flex-1 text-sm text-ink-soft leading-relaxed">
+                          {item.explanation}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            playAudio(
+                              fillBlank(item.explanation, item.correctAnswer),
+                              item.sentenceAudioUrl
+                            )
+                          }
+                          aria-label="문장 발음 듣기"
+                          className="flex flex-shrink-0 items-center gap-1 rounded-lg border border-border-warm px-2.5 py-1 text-xs font-bold text-ink-soft transition-colors hover:border-ink-soft hover:text-ink"
+                        >
+                          <Volume2 className="h-3.5 w-3.5" />
+                          문장 듣기
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
