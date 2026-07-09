@@ -7,11 +7,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { Headphones, Keyboard, Layers, Lightbulb, Link2, ListChecks } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ModeCard {
   id: string;
-  emoji: string;
+  icon: LucideIcon;
   title: string;
   description: string;
   route: string;
@@ -21,7 +23,7 @@ interface ModeCard {
 const modes: ModeCard[] = [
   {
     id: "flashcard",
-    emoji: "🃏",
+    icon: Layers,
     title: "플래시카드",
     description: "앞뒤로 넘기며 학습",
     route: "/flashcard?mode=review",
@@ -29,7 +31,7 @@ const modes: ModeCard[] = [
   },
   {
     id: "matching",
-    emoji: "🔗",
+    icon: Link2,
     title: "매칭",
     description: "한글 뜻과 영어 단어 짝맞추기",
     route: "/flashcard/matching",
@@ -37,7 +39,7 @@ const modes: ModeCard[] = [
   },
   {
     id: "choice",
-    emoji: "✅",
+    icon: ListChecks,
     title: "선택형",
     description: "4개 선택지에서 정답 선택",
     route: "/flashcard/choice",
@@ -45,7 +47,7 @@ const modes: ModeCard[] = [
   },
   {
     id: "typing",
-    emoji: "⌨️",
+    icon: Keyboard,
     title: "타이핑",
     description: "영어 단어 직접 입력",
     route: "/flashcard/typing",
@@ -53,7 +55,7 @@ const modes: ModeCard[] = [
   },
   {
     id: "listening",
-    emoji: "🎧",
+    icon: Headphones,
     title: "리스닝",
     description: "영어 발음 듣고 선택",
     route: "/flashcard/listening",
@@ -67,11 +69,11 @@ type ModeTone = "teal" | "coral" | "ocean" | "gold" | "grape";
 const MODE_TONES: ModeTone[] = ["teal", "coral", "ocean", "gold", "grape"];
 
 const tileTone: Record<ModeTone, string> = {
-  teal: "border-teal bg-teal-tint",
-  coral: "border-coral bg-coral-tint",
-  ocean: "border-ocean bg-ocean-tint",
-  gold: "border-gold bg-gold-tint",
-  grape: "border-grape bg-grape-tint",
+  teal: "border-teal bg-teal-tint text-teal-edge",
+  coral: "border-coral bg-coral-tint text-coral-edge",
+  ocean: "border-ocean bg-ocean-tint text-ocean-edge",
+  gold: "border-gold bg-gold-tint text-gold-edge",
+  grape: "border-grape bg-grape-tint text-grape-edge",
 };
 
 export default function ModesPage() {
@@ -90,20 +92,14 @@ export default function ModesPage() {
 
       <div className="relative mx-auto max-w-4xl space-y-8">
         {/* Header — solid coral hero block */}
-        <div
-          className="relative overflow-hidden rounded-[28px] border-2 border-coral-edge bg-coral p-8 text-white animate-[pop-in]"
-          style={{ boxShadow: "0 6px 0 0 var(--coral-edge), 0 28px 44px -26px rgba(255,107,107,0.55)" }}
-        >
+        <div className="relative overflow-hidden rounded-[28px] border border-coral-edge bg-coral p-8 text-white animate-[pop-in]">
           <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/10" aria-hidden />
-          <span className="pointer-events-none absolute -bottom-6 right-6 select-none text-8xl opacity-20" aria-hidden>
-            🎴
-          </span>
           <div className="relative">
             <p className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/70">
-              Study Modes
+              학습 모드
             </p>
-            <h1 className="mt-2 font-display text-3xl font-bold md:text-4xl">학습 모드 선택</h1>
-            <p className="mt-2 text-white/85">다양한 방식으로 단어를 학습하세요!</p>
+            <h1 className="mt-2 font-display text-3xl font-bold tracking-tight md:text-4xl">학습 모드 선택</h1>
+            <p className="mt-2 text-white/85">다양한 방식으로 단어를 학습할 수 있어요</p>
           </div>
         </div>
 
@@ -130,8 +126,8 @@ export default function ModesPage() {
                   </div>
                 )}
 
-                <div className={cn("tactile-tile mb-4 h-16 w-16 text-3xl", tileTone[tone])}>
-                  <span>{mode.emoji}</span>
+                <div className={cn("tactile-tile mb-4 h-16 w-16", tileTone[tone])}>
+                  <mode.icon className="h-7 w-7" />
                 </div>
                 <h3 className="font-display text-xl font-bold text-ink">{mode.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">{mode.description}</p>
@@ -153,8 +149,8 @@ export default function ModesPage() {
         {/* Info Section */}
         <div className="tactile-card mx-auto max-w-2xl p-6">
           <div className="mb-3 flex items-center gap-3">
-            <div className="tactile-tile h-11 w-11 border-gold bg-gold-tint text-xl">
-              <span>💡</span>
+            <div className="tactile-tile h-11 w-11 border-gold bg-gold-tint text-gold-edge">
+              <Lightbulb className="h-5 w-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-ink">학습 팁</h3>
           </div>
@@ -169,7 +165,7 @@ export default function ModesPage() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-teal-edge">•</span>
-              <span>어려운 단어는 여러 번 반복하여 학습하세요</span>
+              <span>어려운 단어는 여러 번 반복해서 학습하면 좋아요</span>
             </li>
           </ul>
         </div>

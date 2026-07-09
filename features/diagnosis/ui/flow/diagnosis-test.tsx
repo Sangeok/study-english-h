@@ -94,7 +94,7 @@ export function DiagnosisTest() {
   if (isError || questions.length === 0) {
     return (
       <DiagnosisError
-        title="진단 문제를 불러오지 못했습니다."
+        title="진단 문제를 불러오지 못했어요"
         description="네트워크 상태를 확인한 뒤 다시 시도해 주세요."
         onRetry={() => void refetchQuestions()}
       />
@@ -118,18 +118,7 @@ export function DiagnosisTest() {
   const canSubmit = answeredCount === questions.length;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-cream-canvas">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div
-          className="absolute -right-32 top-20 h-96 w-96 animate-float rounded-full bg-teal-tint/60 blur-3xl"
-          style={{ animationDuration: "20s" }}
-        />
-        <div
-          className="absolute -left-32 bottom-20 h-96 w-96 animate-float rounded-full bg-ocean-tint/60 blur-3xl"
-          style={{ animationDuration: "25s", animationDelay: "2s" }}
-        />
-      </div>
-
+    <div className="relative min-h-screen overflow-hidden bg-chamber">
       <div className="relative z-10 px-4 py-8 md:px-8">
         <div className="max-w-4xl mx-auto">
           <DiagnosisProgressBar

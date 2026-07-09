@@ -5,7 +5,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from "recharts";
 import { cn } from "@/lib/utils";
-import { PERIOD_OPTIONS, PIE_COLORS, CATEGORY_LABELS } from "../config/chart-config";
+import { PERIOD_OPTIONS, CATEGORY_LABELS, PIE_COLORS } from "../config/chart-config";
 import type { PeriodStatsResponse } from "@/features/dashboard";
 
 interface PeriodChartSectionProps {
@@ -27,7 +27,7 @@ export function PeriodChartSection({
             key={opt.value}
             onClick={() => onPeriodChange(opt.value)}
             className={cn(
-              "px-4 py-2 rounded-full text-sm font-bold border-2 transition-colors",
+              "px-4 py-2 rounded-full text-sm font-bold border transition-colors",
               period === opt.value && "bg-teal border-teal-edge text-white",
               period !== opt.value &&
                 "bg-paper border-border-warm text-ink-soft hover:bg-muted-warm hover:text-ink"
@@ -63,9 +63,9 @@ export function PeriodChartSection({
                 <Line
                   type="monotone"
                   dataKey="totalStudyTimeSec"
-                  stroke="#12b886"
+                  stroke="#2E6BFF"
                   strokeWidth={3}
-                  dot={{ fill: "#12b886", r: 3 }}
+                  dot={{ fill: "#2E6BFF", r: 3 }}
                   name="학습 시간"
                 />
               </LineChart>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Lock, Trophy } from "lucide-react";
 import { useAchievements } from "../hooks/use-achievements";
 import { cn } from "@/lib/utils";
 import type { AchievementResponse } from "../types";
@@ -37,32 +38,20 @@ export function AchievementGallery() {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero — colored solid block, earned/total as giant Fredoka */}
-      <div
-        className="relative mb-6 overflow-hidden rounded-[28px] border-2 border-gold-edge bg-gold p-8 text-ink"
-        style={{
-          boxShadow:
-            "0 6px 0 0 var(--gold-edge), 0 28px 44px -26px rgba(245,179,52,0.7)",
-        }}
-      >
+      {/* Hero — colored solid block, earned/total as giant display numerals */}
+      <div className="relative mb-6 overflow-hidden rounded-[28px] border border-gold-edge bg-gold p-8 text-ink">
         <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/15" />
         <div className="absolute right-24 -bottom-12 h-36 w-36 rounded-full bg-white/10" />
-        <span
-          className="pointer-events-none absolute -bottom-6 left-3 select-none text-8xl opacity-15"
-          aria-hidden
-        >
-          🏅
-        </span>
 
         <div className="relative">
           <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-ink/60">
             Achievements
           </p>
           <div className="mt-2 flex items-end gap-2">
-            <span className="font-display text-6xl font-bold leading-none">
+            <span className="font-display text-6xl font-bold leading-none tabular-nums">
               {data.totalUnlocked}
             </span>
-            <span className="mb-1 font-display text-2xl font-bold text-ink/60">
+            <span className="mb-1 font-display text-2xl font-bold tabular-nums text-ink/60">
               / {data.totalAchievements}
             </span>
           </div>
@@ -119,6 +108,7 @@ function AchievementCard({
   index: number;
 }) {
   const isUnlocked = achievement.unlocked;
+  const tileIcon = isUnlocked ? <Trophy className="h-7 w-7" /> : <Lock className="h-6 w-6" />;
 
   return (
     <div
@@ -130,13 +120,13 @@ function AchievementCard({
     >
       <div
         className={cn(
-          "tactile-tile mx-auto mb-3 h-16 w-16 text-3xl",
+          "tactile-tile mx-auto mb-3 h-16 w-16",
           isUnlocked
-            ? "border-gold bg-gold-tint"
-            : "border-border-warm bg-muted-warm grayscale"
+            ? "border-gold bg-gold-tint text-gold-edge"
+            : "border-border-warm bg-muted-warm text-ink-soft"
         )}
       >
-        <span>{isUnlocked ? achievement.icon : "🔒"}</span>
+        {tileIcon}
       </div>
       <p
         className={cn(

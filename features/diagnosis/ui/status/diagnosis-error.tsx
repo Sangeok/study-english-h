@@ -10,27 +10,16 @@ export function DiagnosisError({
   onRetry,
 }: DiagnosisErrorProps) {
   return (
-    <div className="min-h-screen bg-cream-canvas flex items-center justify-center px-4">
-      <div className="tactile-card tactile-card--raised animate-[pop-in] relative max-w-md w-full overflow-hidden p-8 text-center">
-        <span
-          className="pointer-events-none absolute -bottom-6 -right-4 select-none text-8xl opacity-10"
-          aria-hidden
+    <div className="min-h-screen bg-chamber flex items-center justify-center px-4">
+      <div className="animate-[pop-in] w-full max-w-md rounded-2xl border border-chamber-line bg-chamber-panel p-8 text-center">
+        <h2 className="font-display text-2xl font-bold text-chamber-ink">{title}</h2>
+        <p className="mt-3 text-sm text-chamber-soft">{description}</p>
+        <button
+          onClick={onRetry}
+          className="tactile-btn tactile-btn--teal tactile-btn--lg mt-8"
         >
-          ⚠️
-        </span>
-        <div className="relative">
-          <div className="tactile-tile mx-auto mb-6 h-20 w-20 border-coral-edge bg-coral text-4xl">
-            <span>⚠️</span>
-          </div>
-          <h2 className="font-display text-2xl font-bold text-ink">{title}</h2>
-          <p className="mt-3 text-sm text-ink-soft">{description}</p>
-          <button
-            onClick={onRetry}
-            className="tactile-btn tactile-btn--coral tactile-btn--lg mt-8"
-          >
-            다시 시도하기
-          </button>
-        </div>
+          다시 시도하기
+        </button>
       </div>
     </div>
   );

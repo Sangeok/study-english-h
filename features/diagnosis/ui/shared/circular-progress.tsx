@@ -5,6 +5,7 @@ interface CircularProgressProps {
   percentage: number;
   size?: "sm" | "md" | "lg";
   strokeColor?: string;
+  trackColor?: string;
   warningColor?: string;
   isWarning?: boolean;
   children?: React.ReactNode;
@@ -27,6 +28,7 @@ export function CircularProgress({
   percentage,
   size = "md",
   strokeColor = "var(--teal)",
+  trackColor = "var(--border-warm)",
   warningColor = "var(--coral)",
   isWarning = false,
   children,
@@ -48,7 +50,7 @@ export function CircularProgress({
           cy={CENTER}
           r={RADIUS}
           fill="none"
-          stroke="var(--border-warm)"
+          stroke={trackColor}
           strokeWidth={strokeWidth}
           className="opacity-60"
         />

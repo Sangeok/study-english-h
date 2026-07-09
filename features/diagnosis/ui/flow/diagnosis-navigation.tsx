@@ -30,7 +30,6 @@ function SubmitButton({
       )}
       {isSubmitting && <span>제출 중...</span>}
       {!isSubmitting && <span>제출하기</span>}
-      {!isSubmitting && <span className="text-xl">🎯</span>}
     </button>
   );
 }
@@ -46,7 +45,7 @@ function NextButton({
     <button
       onClick={onNext}
       disabled={isSubmitting}
-      className="tactile-btn tactile-btn--ocean tactile-btn--lg"
+      className="tactile-btn tactile-btn--teal tactile-btn--lg"
     >
       <span>다음</span>
       <span className="text-xl">→</span>
@@ -69,7 +68,7 @@ export function DiagnosisNavigation({
       <button
         onClick={onPrevious}
         disabled={currentIndex === 0 || isSubmitting}
-        className="tactile-btn tactile-btn--ghost tactile-btn--lg"
+        className="tactile-btn tactile-btn--ghost tactile-btn--lg border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
       >
         <span className="text-xl">←</span>
         <span>이전</span>
@@ -77,8 +76,8 @@ export function DiagnosisNavigation({
 
       <div className="flex-1 text-center">
         {!hasCurrentAnswer && (
-          <p className="animate-bounce-gentle text-sm font-medium text-coral-edge">
-            답을 선택해주세요
+          <p className="animate-pulse text-sm font-medium text-chamber-soft">
+            답을 골라주세요
           </p>
         )}
       </div>

@@ -43,14 +43,14 @@ export function QuizNavigation({
           <button
             onClick={onPrevious}
             disabled={isFirstQuestion || isSubmitting}
-            className="tactile-btn tactile-btn--ghost tactile-btn--sm"
+            className="tactile-btn tactile-btn--ghost tactile-btn--sm border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
           >
             <ChevronLeft className="w-4 h-4" />
             <span>이전</span>
           </button>
 
           <div className="flex-1 text-center">
-            {!isAnswered && <p className="text-xs text-ink-soft animate-pulse font-bold">답을 선택하세요</p>}
+            {!isAnswered && <p className="text-xs text-chamber-soft animate-pulse font-bold">답을 골라주세요</p>}
           </div>
 
           <button

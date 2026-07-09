@@ -1,3 +1,4 @@
+import { Trophy } from "lucide-react";
 import { LEAGUE_TIERS } from "../config/league-tiers";
 import type { LeagueTier } from "../config/league-tiers";
 
@@ -18,12 +19,12 @@ export function LeagueProgress({ currentTier, currentPoints }: LeagueProgressPro
   return (
     <div className="tactile-card p-6">
       <div className="flex items-center gap-3 mb-4">
-        <div className="tactile-tile w-14 h-14 bg-gold-tint border-gold text-3xl shrink-0">
-          <span>{tier.icon}</span>
+        <div className="tactile-tile w-14 h-14 bg-gold-tint border-gold text-gold-edge shrink-0">
+          <Trophy className="h-6 w-6" />
         </div>
         <div>
           <p className="font-display font-bold text-lg text-ink">{tier.nameKo}</p>
-          <p className="text-sm text-ink-soft">
+          <p className="text-sm text-ink-soft tabular-nums">
             {currentPoints.toLocaleString()} 포인트
           </p>
         </div>
@@ -36,19 +37,19 @@ export function LeagueProgress({ currentTier, currentPoints }: LeagueProgressPro
               className="tactile-progress__fill"
               style={{
                 width: `${progressPercent}%`,
-                background: tier.color,
+                background: "var(--gold)",
               }}
             />
           </div>
           <p className="text-xs text-ink-soft text-right">
-            다음 티어: {nextTier.icon} {nextTier.nameKo} ({nextTier.minPoints.toLocaleString()}P)
+            다음 티어: {nextTier.nameKo} ({nextTier.minPoints.toLocaleString()}P)
           </p>
         </>
       )}
 
       {isMaxTier && (
         <p className="text-sm text-gold-edge font-bold">
-          🏆 최고 티어 달성!
+          최고 티어를 달성했어요
         </p>
       )}
     </div>

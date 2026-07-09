@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { AlertTriangle, CheckCircle2, Info, XCircle, X, type LucideIcon } from "lucide-react";
 
 type ToastVariant = "info" | "success" | "warning" | "error";
 
@@ -26,31 +27,12 @@ type ToastContextValue = {
 const DEFAULT_DURATION = 3000;
 const MAX_TOASTS = 3;
 
-const VARIANT_STYLES: Record<ToastVariant, { icon: string; border: string; text: string; background: string }> = {
-  info: {
-    icon: "💡",
-    border: "border-ocean",
-    text: "text-ink",
-    background: "bg-paper",
-  },
-  success: {
-    icon: "✅",
-    border: "border-teal",
-    text: "text-ink",
-    background: "bg-teal-tint",
-  },
-  warning: {
-    icon: "⚠️",
-    border: "border-gold",
-    text: "text-ink",
-    background: "bg-gold-tint",
-  },
-  error: {
-    icon: "⛔",
-    border: "border-coral",
-    text: "text-ink",
-    background: "bg-coral-tint",
-  },
+// 잉크 다크 서피스 위 변형별 액센트 — 라이트(페이퍼)·다크(챔버) 화면 모두에서 동일하게 읽힌다
+const VARIANT_STYLES: Record<ToastVariant, { icon: LucideIcon; accent: string }> = {
+  info: { icon: Info, accent: "text-cobalt-lt" },
+  success: { icon: CheckCircle2, accent: "text-meadow" },
+  warning: { icon: AlertTriangle, accent: "text-gold" },
+  error: { icon: XCircle, accent: "text-coral" },
 };
 
 const ToastContext = createContext<ToastContextValue | null>(null);
@@ -176,22 +158,22 @@ function ToastViewport({ toasts, onDismiss }: { toasts: ToastItem[]; onDismiss: 
     >
       {toasts.map((toast) => {
         const styles = VARIANT_STYLES[toast.variant];
+        const Icon = styles.icon;
         return (
           <div key={toast.id} className="pointer-events-auto">
             <div
               role="status"
-              className={`flex items-start gap-3 rounded-2xl border-2 ${styles.border} ${styles.background} px-4 py-3 text-sm ${styles.text} animate-fade-in`}
-              style={{ boxShadow: "0 4px 0 0 var(--border-warm), 0 16px 28px -18px rgba(34,50,79,.5)" }}
+              className="flex items-start gap-3 rounded-xl bg-ink px-4 py-3.5 text-sm text-white/95 shadow-[0_16px_32px_-16px_rgba(12,27,46,0.55)] animate-fade-in"
             >
-              <span className="text-lg">{styles.icon}</span>
+              <Icon className={`mt-0.5 h-4.5 w-4.5 flex-none ${styles.accent}`} aria-hidden />
               <p className="flex-1 font-medium">{toast.message}</p>
               <button
                 type="button"
                 onClick={() => onDismiss(toast.id)}
-                className="text-ink-soft hover:text-ink transition-colors"
+                className="text-white/50 hover:text-white transition-colors"
                 aria-label="알림 닫기"
               >
-                ✕
+                <X className="h-4 w-4" aria-hidden />
               </button>
             </div>
           </div>

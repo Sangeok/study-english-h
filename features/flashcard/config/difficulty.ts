@@ -26,12 +26,12 @@ export const DIFFICULTY_OPTIONS: DifficultyOption[] = [
     quality: "normal",
     label: "보통",
     sublabel: "괜찮아요",
-    colorClass: "ocean",
+    colorClass: "teal",
   },
   {
     quality: "easy",
     label: "쉬움",
     sublabel: "잘 알아요",
-    colorClass: "teal",
+    colorClass: "meadow",
   },
 ];

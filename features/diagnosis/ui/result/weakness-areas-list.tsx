@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ACCURACY_THRESHOLDS } from "../../config";
 import { getAccuracyStyle } from "../../lib/accuracy-style";
@@ -43,8 +44,8 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
   if (weaknessAreas.length === 0) {
     return (
       <div className="py-8 text-center">
-        <div className="tactile-tile mx-auto mb-4 h-16 w-16 border-teal-edge bg-teal text-2xl">
-          <span>🎉</span>
+        <div className="tactile-tile mx-auto mb-4 h-16 w-16 border-teal-edge bg-teal text-white">
+          <Check className="h-7 w-7" />
         </div>
         <p className="font-medium text-ink">
           약점 영역이 없습니다. 현재 학습 흐름을 유지해 주세요.
@@ -59,10 +60,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
 
   return (
     <div className="mb-8 space-y-4">
-      <div className="flex items-center gap-2">
-        <span className="text-xl">🎯</span>
-        <h3 className="font-display text-xl font-bold text-ink">집중 학습 영역</h3>
-      </div>
+      <h3 className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">집중 학습 영역</h3>
       {sortedWeaknessAreas.map((area, idx) => {
         const style = getAccuracyStyle(area.accuracy);
         const tone = getAccuracyTone(area.accuracy);
@@ -72,7 +70,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
           <div
             key={area.category}
             className={cn(
-              "animate-slide-up rounded-2xl border-2 p-4",
+              "animate-slide-up rounded-2xl border p-4",
               TONE_CARD[tone]
             )}
             style={{ animationDelay: `${idx * 60}ms` }}
@@ -80,7 +78,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
             <div className="mb-2 flex items-center justify-between">
               <span className="font-bold text-ink">{area.category}</span>
               <span
-                className={cn("font-display text-lg font-bold", TONE_TEXT[tone])}
+                className={cn("font-display text-lg font-bold tabular-nums", TONE_TEXT[tone])}
               >
                 {Math.round(area.accuracy)}%
               </span>

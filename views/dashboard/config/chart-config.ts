@@ -5,8 +5,8 @@ export const PERIOD_OPTIONS = [
   { value: "all", label: "최근 3개월" },
 ] as const;
 
-// Playful Tactile palette: teal · coral · gold · ocean · grape
-export const PIE_COLORS = ["#12b886", "#ff6b6b", "#ffb020", "#4dabf7", "#9775fa"];
+// Premium Modern palette — teal(cobalt) · coral(ember) · gold(amber) · ocean · grape(slate)
+export const PIE_COLORS = ["#2E6BFF", "#F9701A", "#E8A23D", "#6E9BFF", "#3E5578"];
 
 export const CATEGORY_LABELS: Record<string, string> = {
   daily: "일상",

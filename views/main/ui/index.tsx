@@ -1,15 +1,14 @@
 "use client";
 
-import { useDiagnosisStatus } from "@/features/diagnosis";
+import { useDiagnosisStatus, WeaknessAreas, normalizeWeaknessAreas } from "@/features/diagnosis";
 import { ApiError } from "@/shared/lib";
 import { useProfileStats } from "@/entities/user/model/use-profile-stats";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
 import { useDiagnosisToast } from "../hooks/use-diagnosis-toast";
-import { HeroSection } from "./hero-section";
-import { QuickAccessSection } from "./quick-access-section";
-import { ProgressSection } from "./progress-section";
-import { ActivitySection } from "./activity-section";
-import { FooterCTA } from "./footer-cta";
+import { HomeHero } from "./home-hero";
+import { ReportSection } from "./report-section";
+import { MetricsStrip } from "./metrics-strip";
+import { ActivityList } from "./activity-list";
 
 interface MainPageProps {
   isAuthenticated: boolean;
@@ -54,57 +53,57 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
   const stats = profileStats || DEFAULT_STATS;
 
   return (
-    <div className="min-h-screen bg-cream-canvas overflow-hidden">
-      <HeroSection
+    <div className="min-h-screen bg-cream-canvas">
+      <HomeHero
         diagnosisCompleted={diagnosisCompleted}
-        onDiagnosisClick={handlers.handleDiagnosisClick}
-        onQuizClick={handlers.handleQuizClick}
+        level={stats.level}
+        streak={stats.streak}
+        onStartSession={handlers.handleQuizClick}
+        onReviewOnly={handlers.handleFlashcardClick}
+        onDiagnosis={handlers.handleDiagnosisClick}
       />
 
-      {hasError && (
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="tactile-card border-gold bg-gold-tint p-6 text-center">
+      <div className="mx-auto max-w-6xl px-6 pb-16 pt-4 md:px-10">
+        {hasError && (
+          <div className="tactile-card mt-6 p-6 text-center">
             <p className="font-semibold text-ink">
-              데이터를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
+              데이터를 불러오지 못했어요. 잠시 후 다시 시도해주세요.
             </p>
           </div>
-        </div>
-      )}
+        )}
 
-      {!hasError && (
-        <>
-          <QuickAccessSection
-            diagnosisStatus={diagnosisStatus}
-            diagnosisCompleted={diagnosisCompleted}
-            hasCompletedTodayQuiz={profileStats?.hasCompletedTodayQuiz ?? false}
-            handlers={handlers}
-          />
+        {!hasError && (
+          <>
+            <ReportSection label="이번 주" divider={false}>
+              <MetricsStrip
+                totalXP={stats.totalXP}
+                streak={stats.streak}
+                totalWordLearned={stats.totalWordLearned}
+                level={stats.level}
+                diagnosisCompleted={diagnosisCompleted}
+                isLoading={isLoading}
+              />
+            </ReportSection>
 
-          <ProgressSection
-            totalXP={stats.totalXP}
-            streak={stats.streak}
-            level={stats.level}
-            weaknessAreas={profileStats?.weaknessAreas}
-            isLoading={isLoading}
-            diagnosisCompleted={diagnosisCompleted}
-            onViewAllStats={() => handlers.handleComingSoon("상세 통계")}
-          />
+            {diagnosisCompleted && !isLoading && (
+              <ReportSection label="진단 리포트">
+                <WeaknessAreas
+                  weaknessAreas={normalizeWeaknessAreas(profileStats?.weaknessAreas)}
+                />
+              </ReportSection>
+            )}
 
-          <ActivitySection
-            diagnosisCompleted={diagnosisCompleted}
-            hasCompletedTodayQuiz={profileStats?.hasCompletedTodayQuiz ?? false}
-            isLoading={isLoading}
-            onQuizClick={handlers.handleQuizClick}
-            onChallengeClick={() => handlers.handleComingSoon("데일리 챌린지")}
-          />
-
-          <FooterCTA
-            diagnosisCompleted={diagnosisCompleted}
-            onQuizClick={handlers.handleQuizClick}
-            onFlashcardClick={handlers.handleFlashcardClick}
-          />
-        </>
-      )}
+            <ReportSection label="학습 활동">
+              <ActivityList
+                diagnosisStatus={diagnosisStatus}
+                diagnosisCompleted={diagnosisCompleted}
+                hasCompletedTodayQuiz={profileStats?.hasCompletedTodayQuiz ?? false}
+                handlers={handlers}
+              />
+            </ReportSection>
+          </>
+        )}
+      </div>
     </div>
   );
 }

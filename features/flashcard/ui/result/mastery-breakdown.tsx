@@ -1,3 +1,4 @@
+import { Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MASTERY_RESULT_CARDS } from "../../config/mastery";
 import type { MasteryLevel } from "../../types";
@@ -18,8 +19,8 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
   return (
     <div className="tactile-card p-6 md:p-8">
       <div className="mb-5 flex items-center gap-3">
-        <div className="tactile-tile h-11 w-11 border-grape bg-grape-tint text-xl">
-          <span>🗂️</span>
+        <div className="tactile-tile h-11 w-11 border-grape bg-grape-tint text-grape-edge">
+          <Layers className="h-5 w-5" />
         </div>
         <h2 className="font-display text-xl font-bold text-ink">숙련도 분포</h2>
       </div>
@@ -37,16 +38,15 @@ export function MasteryBreakdown({ breakdown }: MasteryBreakdownProps) {
               key={level}
               style={{ animationDelay: `${idx * 70}ms` }}
               className={cn(
-                "rounded-[20px] border-2 p-4 text-center animate-[pop-in]",
+                "rounded-[20px] border p-4 text-center animate-[pop-in]",
                 card.bgColor,
                 card.borderColor
               )}
             >
-              <p className="mb-1 text-2xl">{card.emoji}</p>
               <p className={cn("mb-1 text-xs font-bold uppercase tracking-wide", card.sublabelColor)}>
                 {card.label}
               </p>
-              <p className={cn("font-display text-3xl font-bold", card.textColor)}>{count}</p>
+              <p className={cn("font-display text-3xl font-bold tabular-nums", card.textColor)}>{count}</p>
             </div>
           );
         })}

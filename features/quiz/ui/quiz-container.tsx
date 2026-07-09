@@ -74,17 +74,14 @@ export function QuizContainer() {
   }
 
   return (
-    <div className="h-screen bg-cream-canvas overflow-hidden flex flex-col">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-teal/15 blur-3xl" />
-        <div className="absolute -bottom-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-coral/12 blur-3xl" />
-      </div>
-
+    <div className="h-screen bg-chamber overflow-hidden flex flex-col">
       {hasCompletedToday && (
         <div className="relative z-10 px-4 pt-2">
           <div className="max-w-5xl mx-auto">
-            <div className="flex items-center gap-2 text-sm py-2 px-4 bg-ocean-tint rounded-xl border-2 border-ocean">
-              <span className="text-ink">ℹ️ 추가 연습 모드 — 오늘 퀴즈는 이미 완료했습니다. XP는 적립되지 않습니다.</span>
+            <div className="flex items-center gap-2 text-sm py-2 px-4 rounded-xl border border-chamber-line bg-chamber-panel">
+              <span className="text-chamber-soft">
+                추가 연습 모드 — 오늘 퀴즈는 이미 완료했어요. XP는 적립되지 않아요.
+              </span>
             </div>
           </div>
         </div>
@@ -122,11 +119,11 @@ export function QuizContainer() {
       {submitMutation.isError && (
         <div className="relative z-10 px-4 py-2">
           <div className="max-w-5xl mx-auto">
-            <div className="flex items-center justify-between text-sm py-2 px-4 bg-coral-tint rounded-xl border-2 border-coral">
-              <span className="text-coral-edge font-semibold">퀴즈 제출 중 오류가 발생했습니다.</span>
+            <div className="flex items-center justify-between text-sm py-2 px-4 rounded-xl border border-chamber-line bg-chamber-panel">
+              <span className="text-coral font-semibold">퀴즈 제출 중 오류가 발생했어요.</span>
               <button
                 onClick={handleSubmit}
-                className="text-coral-edge hover:text-ink font-bold underline transition-colors"
+                className="text-coral hover:text-chamber-ink font-bold underline transition-colors"
               >
                 다시 시도
               </button>

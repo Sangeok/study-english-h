@@ -36,15 +36,6 @@ export function ShopItemCard({ item, onPurchase, isPurchasing }: ShopItemCardPro
       )}
     >
       <div className="flex items-start gap-4">
-        <div
-          className={cn(
-            "tactile-tile w-14 h-14 text-2xl shrink-0",
-            isMaxOwned ? "bg-teal border-teal-edge" : "bg-ocean-tint border-ocean"
-          )}
-        >
-          <span>{item.icon}</span>
-        </div>
-
         <div className="flex-1 min-w-0">
           <h3 className="font-display text-lg font-bold text-ink">{item.nameKo}</h3>
           <p className="mt-1 text-sm leading-relaxed text-ink-soft">
@@ -66,10 +57,9 @@ export function ShopItemCard({ item, onPurchase, isPurchasing }: ShopItemCardPro
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between gap-3 border-t-2 border-border-warm pt-4">
-        <div className="tactile-chip border-gold bg-gold-tint text-ink">
-          <span className="text-base">🪙</span>
-          <span className="font-display font-bold">
+      <div className="mt-5 flex items-center justify-between gap-3 border-t border-border-warm pt-4">
+        <div className="flex items-baseline gap-1">
+          <span className="text-gold-edge font-display font-bold tabular-nums text-lg">
             {item.xpCost.toLocaleString()}
           </span>
           <span className="text-xs font-semibold uppercase tracking-[0.1em] text-ink-soft">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { BookOpen, Lightbulb } from "lucide-react";
 import { countBy } from "@/shared/lib/array-utils";
 import { FLASHCARD_RESULT_MESSAGES, FLASHCARD_ROUTES, FLASHCARD_STORAGE_KEYS } from "../../config";
 import type { MasteryLevel, SessionResult } from "../../types";
@@ -58,27 +59,15 @@ export function SessionResultContent() {
       <div className="pointer-events-none absolute -right-24 top-40 h-64 w-64 rounded-full bg-gold-tint blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-4xl space-y-6">
-        {/* Celebratory hero — accuracy as giant Fredoka % */}
-        <div
-          className="relative overflow-hidden rounded-[28px] border-2 border-teal-edge bg-teal p-8 text-white animate-[pop-in]"
-          style={{
-            boxShadow:
-              "0 6px 0 0 var(--teal-edge), 0 28px 44px -26px rgba(18,184,134,0.55)",
-          }}
-        >
+        {/* Celebratory hero — accuracy as giant display % */}
+        <div className="relative overflow-hidden rounded-[28px] border border-teal-edge bg-teal p-8 text-white animate-[pop-in]">
           <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/10" aria-hidden />
           <div className="absolute right-24 -bottom-10 h-32 w-32 rounded-full bg-white/10" aria-hidden />
-          <span
-            className="pointer-events-none absolute -bottom-6 left-4 select-none text-8xl opacity-20"
-            aria-hidden
-          >
-            {resultHeader.emoji}
-          </span>
 
           <div className="relative flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/70">
-                세션 완료 {resultHeader.emoji}
+                세션 완료
               </p>
               <h1 className="mt-2 font-display text-2xl font-bold md:text-3xl">
                 {resultHeader.title}
@@ -89,7 +78,7 @@ export function SessionResultContent() {
               <p className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/70">
                 정답률
               </p>
-              <p className="font-display text-6xl font-bold leading-none md:text-7xl">
+              <p className="font-display text-6xl font-bold leading-none tabular-nums md:text-7xl">
                 {accuracy.toFixed(0)}
                 <span className="text-3xl">%</span>
               </p>
@@ -113,10 +102,7 @@ export function SessionResultContent() {
         )}
 
         {nextReviewDate && (
-          <div
-            className="relative overflow-hidden rounded-[24px] border-2 border-ocean-edge bg-ocean p-6 text-white md:p-8"
-            style={{ boxShadow: "0 5px 0 0 var(--ocean-edge)" }}
-          >
+          <div className="relative overflow-hidden rounded-[24px] border border-ocean-edge bg-ocean p-6 text-white md:p-8">
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" aria-hidden />
             <div className="relative flex items-center gap-4">
               <div className="tactile-tile h-16 w-16 shrink-0 border-white/30 bg-white/20 font-display text-lg font-bold text-white">
@@ -142,8 +128,8 @@ export function SessionResultContent() {
 
         <div className="tactile-card p-6 md:p-8">
           <div className="mb-4 flex items-center gap-3">
-            <div className="tactile-tile h-11 w-11 border-teal bg-teal-tint text-xl">
-              <span>🚀</span>
+            <div className="tactile-tile h-11 w-11 border-teal bg-teal-tint text-teal-edge">
+              <BookOpen className="h-5 w-5" />
             </div>
             <h2 className="font-display text-xl font-bold text-ink">다음 학습</h2>
           </div>
@@ -177,14 +163,14 @@ export function SessionResultContent() {
 
         <div className="tactile-card p-6 md:p-8">
           <div className="mb-3 flex items-center gap-3">
-            <div className="tactile-tile h-11 w-11 border-gold bg-gold-tint text-xl">
-              <span>💡</span>
+            <div className="tactile-tile h-11 w-11 border-gold bg-gold-tint text-gold-edge">
+              <Lightbulb className="h-5 w-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-ink">학습 팁</h3>
           </div>
           <div className="space-y-2 text-sm text-ink-soft">
             <p>세션은 짧고 자주 반복할수록 장기 기억에 좋아요.</p>
-            <p>어려웠거나 잊은 카드를 다음 학습에서 먼저 복습하세요.</p>
+            <p>어려웠거나 잊은 카드는 다음 학습에서 먼저 복습하면 좋아요.</p>
             <p>복습 일정을 지키면 꾸준히 실력이 늘어요.</p>
           </div>
         </div>

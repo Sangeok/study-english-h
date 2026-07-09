@@ -8,7 +8,6 @@ interface StatItem {
   value: string;
   subtext: string;
   tone: StatTone;
-  icon: string;
 }
 
 interface StatsGridProps {
@@ -25,13 +24,6 @@ const toneSurface: Record<StatTone, string> = {
   coral: "bg-coral border-coral-edge",
 };
 
-const toneEdge: Record<StatTone, string> = {
-  ocean: "var(--ocean-edge)",
-  gold: "var(--gold-edge)",
-  teal: "var(--teal-edge)",
-  coral: "var(--coral-edge)",
-};
-
 export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
   const stats: StatItem[] = [
     {
@@ -40,7 +32,6 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       value: `${accuracy.toFixed(1)}%`,
       subtext: "이번 세션 정답률",
       tone: "ocean",
-      icon: "🎯",
     },
     {
       id: "xp",
@@ -48,7 +39,6 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       value: `+${xp}`,
       subtext: "정답당 5 XP",
       tone: "gold",
-      icon: "💎",
     },
     {
       id: "correct",
@@ -56,7 +46,6 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       value: String(correct),
       subtext: `총 ${total}문제`,
       tone: "teal",
-      icon: "✅",
     },
     {
       id: "total",
@@ -64,7 +53,6 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       value: String(total),
       subtext: "이번 세션 완료",
       tone: "coral",
-      icon: "📦",
     },
   ];
 
@@ -76,25 +64,13 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
       {stats.map((stat, idx) => (
         <div
           key={stat.id}
-          style={{
-            boxShadow: `0 5px 0 0 ${toneEdge[stat.tone]}`,
-            animationDelay: `${idx * 70}ms`,
-          }}
+          style={{ animationDelay: `${idx * 70}ms` }}
           className={cn(
-            "relative overflow-hidden rounded-[22px] border-2 p-5 animate-[pop-in]",
+            "relative overflow-hidden rounded-[22px] border p-5 animate-[pop-in]",
             toneSurface[stat.tone],
             isGold(stat.tone) ? "text-ink" : "text-white"
           )}
         >
-          <span
-            className={cn(
-              "pointer-events-none absolute -bottom-3 -right-1 select-none text-6xl opacity-20",
-              isGold(stat.tone) ? "opacity-25" : "opacity-20"
-            )}
-            aria-hidden
-          >
-            {stat.icon}
-          </span>
           <p
             className={cn(
               "relative font-display text-[11px] font-bold uppercase tracking-[0.2em]",
@@ -103,7 +79,7 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
           >
             {stat.label}
           </p>
-          <p className="relative mt-1 font-display text-3xl font-bold tracking-tight">
+          <p className="relative mt-1 font-display text-3xl font-bold tracking-tight tabular-nums">
             {stat.value}
           </p>
           <p

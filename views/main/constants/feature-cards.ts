@@ -1,7 +1,9 @@
 import type { DiagnosisStatusResponse } from "@/features/diagnosis";
-import type { FeatureCardStatus } from "@/shared/ui";
-import type { ReactNode } from "react";
-import { getDiagnosisCardStatus, getQuizCardStatus } from "../lib/card-status";
+import {
+  getDiagnosisCardStatus,
+  getQuizCardStatus,
+  type FeatureCardStatus,
+} from "../lib/card-status";
 
 export interface MainPageHandlers {
   handleQuizClick: () => void;
@@ -20,13 +22,10 @@ interface FeatureCardContext {
 
 interface BaseFeatureCardConfig {
   id: string;
-  icon: string;
   title: string;
   getDescription: (context: FeatureCardContext) => string;
   getActionLabel: (context: FeatureCardContext) => string;
   getStatus: (context: FeatureCardContext) => FeatureCardStatus;
-  getStatusIcon?: (context: FeatureCardContext) => ReactNode;
-  getBadge?: () => string;
 }
 
 interface StandardFeatureCardConfig extends BaseFeatureCardConfig {
@@ -43,7 +42,6 @@ export type FeatureCardConfig = StandardFeatureCardConfig | ComingSoonFeatureCar
 export const FEATURE_CARDS: FeatureCardConfig[] = [
   {
     id: "diagnosis",
-    icon: "📝",
     title: "진단 퀴즈",
     handlerKey: "handleDiagnosisClick",
 
@@ -53,7 +51,7 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
       }
 
       if (diagnosisStatus.canRetake) {
-        return "재진단이 가능합니다!";
+        return "재진단이 가능해요";
       }
 
       return `${diagnosisStatus.daysUntilRetake ?? 0}일 후 재진단 가능`;
@@ -68,47 +66,31 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
     },
 
     getStatus: ({ diagnosisStatus }) => getDiagnosisCardStatus(diagnosisStatus),
-
-    getStatusIcon: ({ diagnosisCompleted }) => {
-      if (diagnosisCompleted) {
-        return <span className="text-teal-edge">✓</span>;
-      }
-      return null;
-    }
   },
 
   {
     id: "quiz",
-    icon: "🎮",
     title: "일일 퀴즈",
     handlerKey: "handleQuizClick",
 
     getDescription: ({ diagnosisCompleted, hasCompletedTodayQuiz }) => {
-      if (!diagnosisCompleted) return "진단 완료 후 이용 가능합니다";
-      if (hasCompletedTodayQuiz) return "오늘 퀴즈를 완료했습니다! 추가 연습도 가능합니다";
+      if (!diagnosisCompleted) return "진단 완료 후 이용할 수 있어요";
+      if (hasCompletedTodayQuiz) return "오늘 퀴즈를 완료했어요 · 추가 연습도 가능해요";
       return "맞춤형 퀴즈를 풀어보세요";
     },
 
     getActionLabel: ({ diagnosisCompleted, hasCompletedTodayQuiz }) => {
-      if (!diagnosisCompleted) return "잠김";
+      if (!diagnosisCompleted) return "진단 후 열려요";
       if (hasCompletedTodayQuiz) return "추가 연습하기";
-      return "지금 플레이";
+      return "시작하기";
     },
 
     getStatus: ({ diagnosisCompleted, hasCompletedTodayQuiz }) =>
       getQuizCardStatus(diagnosisCompleted, hasCompletedTodayQuiz),
-
-    getStatusIcon: ({ diagnosisCompleted }) => {
-      if (!diagnosisCompleted) {
-        return <span className="text-ink-soft/60">🔒</span>;
-      }
-      return null;
-    }
   },
 
   {
     id: "flashcard",
-    icon: "🃏",
     title: "플래시카드",
     handlerKey: "handleFlashcardClick",
 
@@ -119,14 +101,12 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
 
   {
     id: "speaking",
-    icon: "🗣️",
     title: "스피킹 코치",
     handlerKey: "handleComingSoon",
     featureName: "스피킹 코치",
 
     getDescription: () => "AI 기반 실시간 발음 피드백",
     getActionLabel: () => "곧 제공 예정",
-    getStatus: () => "coming-soon",
-    getBadge: () => "준비 중"
+    getStatus: () => "coming-soon"
   }
 ];

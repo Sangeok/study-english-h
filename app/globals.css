@@ -4,44 +4,55 @@
 
 :root {
   /* ============================================================
-     Playful Tactile — Brand palette
-     Warm cream paper · teal brand · coral energy · sunny rewards
+     Premium Modern — Brand palette (ADR-0001, concept v3)
+     Navy = training · Paper = record · Cobalt axis, no violet
      ============================================================ */
-  --cream: #fbf7f0;
-  --cream-deep: #f3ecdf;
+  --cream: #fcfbf9; /* warm paper canvas (name kept for util compat) */
+  --cream-deep: #f4f2ed;
   --paper: #ffffff;
-  --ink: #22324f;
-  --ink-soft: #5a6b8a;
+  --ink: #0c1b2e;
+  --ink-soft: #5b6b84;
 
-  --teal: #12b886;
-  --teal-edge: #0c9a72;
-  --teal-tint: #e4f7ef;
+  --teal: #2e6bff; /* Cobalt — brand (name kept for util compat) */
+  --teal-edge: #1d54e8;
+  --teal-tint: #eaf0ff;
 
-  --coral: #ff6b6b;
-  --coral-edge: #e85555;
-  --coral-tint: #ffe7e3;
+  --coral: #f9701a; /* Ember — energy/streak */
+  --coral-edge: #e05e0d;
+  --coral-tint: #ffeee2;
 
-  --gold: #ffb020;
-  --gold-edge: #e8970f;
-  --gold-tint: #fff2d8;
+  --gold: #e8a23d; /* Amber — XP/reward (desaturated) */
+  --gold-edge: #c98a2b;
+  --gold-tint: #fbf1df;
 
-  --ocean: #4dabf7;
-  --ocean-edge: #3b95e0;
-  --ocean-tint: #e4f1ff;
+  --ocean: #6e9bff; /* Cobalt-light — info */
+  --ocean-edge: #4d7fe8;
+  --ocean-tint: #eef3ff;
 
-  --grape: #9775fa;
-  --grape-edge: #7f5ee8;
-  --grape-tint: #efeafe;
+  --grape: #3e5578; /* Slate — rare/coming-soon (violet is banned) */
+  --grape-edge: #2c405e;
+  --grape-tint: #e9eef6;
 
-  --border-warm: #ece3d6;
-  --border-strong: #ddd0bd;
-  --muted-warm: #f4eee4;
+  --meadow: #0e9f6e; /* success */
+  --meadow-tint: #e7f6f0;
 
-  /* Legacy "Playful Academia" aliases (kept for pre-sweep compatibility) */
-  --navy: #22324f;
-  --navy-light: #5a6b8a;
+  --chamber: #08111f; /* immersive canvas */
+  --chamber-panel: #0f1d33;
+  --chamber-panel-hi: #13294b;
+  --chamber-line: #223350;
+  --chamber-soft: #8fa2bd;
+  --chamber-ink: #f2f6fc;
+  --cobalt-lt: #6e9bff;
+
+  --border-warm: #e9e7e0;
+  --border-strong: #d9d6cc;
+  --muted-warm: #f4f2ec;
+
+  /* Legacy aliases (kept for pre-sweep compatibility) */
+  --navy: #0c1b2e;
+  --navy-light: #5b6b84;
   --coral-dark: var(--coral-edge);
-  --sage: #12b886;
+  --sage: var(--teal);
   --sage-dark: var(--teal-edge);
   --ocean-dark: var(--ocean-edge);
 
@@ -62,7 +73,7 @@
   --muted-foreground: #6e7689;
   --accent: var(--teal-tint);
   --accent-foreground: var(--ink);
-  --destructive: #f0524d;
+  --destructive: #e5484d;
   --border: var(--border-warm);
   --input: var(--border-warm);
   --ring: var(--teal);
@@ -87,7 +98,7 @@
   --font-sans: "Pretendard Variable", Pretendard, system-ui, "Apple SD Gothic Neo",
     "Malgun Gothic", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
-  --font-display: "Fredoka", "Pretendard Variable", Pretendard, system-ui, sans-serif;
+  --font-display: "Archivo", "Pretendard Variable", Pretendard, system-ui, sans-serif;
 
   /* Brand color tokens → enables bg-teal / text-coral / border-gold-edge etc. */
   --color-cream: var(--cream);
@@ -118,25 +129,23 @@
   --color-border-strong: var(--border-strong);
   --color-muted-warm: var(--muted-warm);
 
+  --color-meadow: var(--meadow);
+  --color-meadow-tint: var(--meadow-tint);
+  --color-chamber: var(--chamber);
+  --color-chamber-panel: var(--chamber-panel);
+  --color-chamber-panel-hi: var(--chamber-panel-hi);
+  --color-chamber-line: var(--chamber-line);
+  --color-chamber-soft: var(--chamber-soft);
+  --color-chamber-ink: var(--chamber-ink);
+  --color-cobalt-lt: var(--cobalt-lt);
+
   /* Legacy aliases */
   --color-navy: var(--navy);
   --color-navy-light: var(--navy-light);
   --color-sage: var(--sage);
   --color-sage-dark: var(--sage-dark);
 
-  /* ---- Animations (preserved) ---- */
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px) rotate(0deg);
-      opacity: 0.3;
-    }
-    50% {
-      transform: translateY(-20px) rotate(5deg);
-      opacity: 0.5;
-    }
-  }
-
+  /* ---- Animations ---- */
   @keyframes slide-in-left {
     from {
       opacity: 0;
@@ -194,27 +203,6 @@
     }
   }
 
-  @keyframes bounce-gentle {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes scale-in {
-    from {
-      transform: scale(0);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
   @keyframes drawCircle {
     from {
       stroke-dasharray: 0 534;
@@ -229,17 +217,6 @@
     100% {
       transform: translateY(100vh) rotate(720deg);
       opacity: 0;
-    }
-  }
-
-  @keyframes heroFadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 
@@ -306,21 +283,6 @@
     }
   }
 
-  @keyframes wiggle {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    25% {
-      transform: rotate(-6deg);
-    }
-    75% {
-      transform: rotate(6deg);
-    }
-  }
-
-  --animate-hero-fade-up: heroFadeUp 0.6s ease-out both;
-  --animate-float: float linear infinite;
   --animate-slide-in-left: slide-in-left 0.6s ease-out;
   --animate-slide-in-right: slide-in-right 0.6s ease-out;
   --animate-fade-in: fade-in 0.6s ease-out;
@@ -328,9 +290,7 @@
   --animate-slide-down: slide-down 0.3s ease-out;
   --animate-quiz-expand: quiz-expand 0.5s ease-out forwards;
   --animate-quiz-count-up: quiz-count-up 0.5s ease-out forwards;
-  --animate-bounce-gentle: bounce-gentle 2s ease-in-out infinite;
   --animate-pop-in: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  --animate-wiggle: wiggle 0.4s ease-in-out;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -371,33 +331,33 @@
 }
 
 .dark {
-  --background: #161b27;
-  --foreground: #f4f1ea;
-  --card: #1f2738;
-  --card-foreground: #f4f1ea;
-  --popover: #1f2738;
-  --popover-foreground: #f4f1ea;
-  --primary: var(--teal);
-  --primary-foreground: #0c1018;
-  --secondary: #28324a;
-  --secondary-foreground: #f4f1ea;
-  --muted: #28324a;
-  --muted-foreground: #9aa6bf;
-  --accent: #28324a;
-  --accent-foreground: #f4f1ea;
+  --background: var(--chamber);
+  --foreground: var(--chamber-ink);
+  --card: var(--chamber-panel);
+  --card-foreground: var(--chamber-ink);
+  --popover: var(--chamber-panel);
+  --popover-foreground: var(--chamber-ink);
+  --primary: var(--cobalt-lt);
+  --primary-foreground: #08111f;
+  --secondary: var(--chamber-panel-hi);
+  --secondary-foreground: var(--chamber-ink);
+  --muted: var(--chamber-panel-hi);
+  --muted-foreground: var(--chamber-soft);
+  --accent: var(--chamber-panel-hi);
+  --accent-foreground: var(--chamber-ink);
   --destructive: #ff6b6b;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.14);
-  --ring: var(--teal);
-  --border-warm: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --muted-warm: #28324a;
+  --border: var(--chamber-line);
+  --input: var(--chamber-line);
+  --ring: var(--cobalt-lt);
+  --border-warm: var(--chamber-line);
+  --border-strong: #2c405e;
+  --muted-warm: var(--chamber-panel-hi);
 }
 
 /* ================================================================
-   Playful Tactile — component primitives
-   The signature: chunky pressable buttons with a SOLID bottom edge
-   (no blur). Press = sink into the edge. Flat fills, 2px borders.
+   Premium Modern — component primitives (ADR-0001)
+   Flat confident surfaces. 1px borders, soft depth, no 3D edges.
+   Class names kept from the tactile era for call-site compatibility.
    ================================================================ */
 @layer components {
   .tactile-btn {
@@ -407,26 +367,22 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.01em;
     border-radius: 14px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 0.07s ease, box-shadow 0.07s ease, filter 0.15s ease,
-      background-color 0.15s ease;
-    transform: translateY(0);
-  }
-  .tactile-btn:hover:not(:disabled) {
-    filter: brightness(1.04) saturate(1.03);
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+      color 0.15s ease, transform 0.15s ease;
   }
   .tactile-btn:active:not(:disabled) {
-    transform: translateY(4px);
+    transform: translateY(1px);
   }
   .tactile-btn:focus-visible {
-    outline: 3px solid var(--ring);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
   .tactile-btn:disabled {
@@ -436,13 +392,13 @@
 
   .tactile-btn--sm {
     padding: 0.5rem 1rem;
-    border-radius: 12px;
+    border-radius: 11px;
     font-size: 0.875rem;
   }
   .tactile-btn--lg {
-    padding: 1rem 2rem;
-    border-radius: 16px;
-    font-size: 1.0625rem;
+    padding: 0.9375rem 1.75rem;
+    border-radius: 14px;
+    font-size: 1rem;
   }
   .tactile-btn--block {
     width: 100%;
@@ -451,80 +407,86 @@
   .tactile-btn--teal {
     background: var(--teal);
     color: #fff;
-    border-color: var(--teal-edge);
-    box-shadow: 0 4px 0 0 var(--teal-edge);
+  }
+  .tactile-btn--teal:hover:not(:disabled) {
+    background: var(--teal-edge);
   }
   .tactile-btn--coral {
     background: var(--coral);
     color: #fff;
-    border-color: var(--coral-edge);
-    box-shadow: 0 4px 0 0 var(--coral-edge);
+  }
+  .tactile-btn--coral:hover:not(:disabled) {
+    background: var(--coral-edge);
   }
   .tactile-btn--gold {
     background: var(--gold);
-    color: #6a4500;
-    border-color: var(--gold-edge);
-    box-shadow: 0 4px 0 0 var(--gold-edge);
+    color: #3d2e0e;
+  }
+  .tactile-btn--gold:hover:not(:disabled) {
+    background: var(--gold-edge);
   }
   .tactile-btn--ocean {
     background: var(--ocean);
     color: #fff;
-    border-color: var(--ocean-edge);
-    box-shadow: 0 4px 0 0 var(--ocean-edge);
+  }
+  .tactile-btn--ocean:hover:not(:disabled) {
+    background: var(--ocean-edge);
   }
   .tactile-btn--grape {
     background: var(--grape);
     color: #fff;
-    border-color: var(--grape-edge);
-    box-shadow: 0 4px 0 0 var(--grape-edge);
+  }
+  .tactile-btn--grape:hover:not(:disabled) {
+    background: var(--grape-edge);
   }
   .tactile-btn--ink {
     background: var(--ink);
     color: #fff;
-    border-color: #16223a;
-    box-shadow: 0 4px 0 0 #16223a;
+  }
+  .tactile-btn--ink:hover:not(:disabled) {
+    background: #16263f;
+  }
+  .tactile-btn--meadow {
+    background: var(--meadow);
+    color: #fff;
+  }
+  .tactile-btn--meadow:hover:not(:disabled) {
+    background: #0c8a5f;
   }
   .tactile-btn--ghost {
-    background: var(--paper);
+    background: transparent;
     color: var(--ink);
     border-color: var(--border-strong);
-    box-shadow: 0 4px 0 0 var(--border-strong);
   }
-  .tactile-btn--teal:active:not(:disabled),
-  .tactile-btn--coral:active:not(:disabled),
-  .tactile-btn--gold:active:not(:disabled),
-  .tactile-btn--ocean:active:not(:disabled),
-  .tactile-btn--grape:active:not(:disabled),
-  .tactile-btn--ink:active:not(:disabled),
-  .tactile-btn--ghost:active:not(:disabled) {
-    box-shadow: 0 0 0 0 var(--teal-edge);
+  .tactile-btn--ghost:hover:not(:disabled) {
+    border-color: var(--ink-soft);
   }
 
-  /* Tactile card — warm paper, 2px border, soft solid bottom edge */
+  /* Card — clean paper surface, 1px border, soft shadow */
   .tactile-card {
     background: var(--card);
-    border: 2px solid var(--border-warm);
-    border-radius: 20px;
-    box-shadow: 0 3px 0 0 var(--border-warm),
-      0 12px 24px -18px rgba(34, 50, 79, 0.35);
+    border: 1px solid var(--border-warm);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(12, 27, 46, 0.04),
+      0 12px 32px -24px rgba(12, 27, 46, 0.16);
   }
   .tactile-card--raised {
-    box-shadow: 0 5px 0 0 var(--border-strong),
-      0 18px 30px -20px rgba(34, 50, 79, 0.4);
+    box-shadow: 0 1px 2px rgba(12, 27, 46, 0.05),
+      0 20px 44px -28px rgba(12, 27, 46, 0.24);
   }
   .tactile-card--interactive {
-    transition: transform 0.12s ease, box-shadow 0.12s ease,
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
       border-color 0.15s ease;
     cursor: pointer;
   }
   .tactile-card--interactive:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 0 0 var(--border-strong),
-      0 22px 34px -20px rgba(34, 50, 79, 0.45);
+    transform: translateY(-2px);
+    border-color: var(--teal);
+    box-shadow: 0 2px 4px rgba(12, 27, 46, 0.05),
+      0 24px 48px -28px rgba(12, 27, 46, 0.28);
   }
   .tactile-card--interactive:active {
     transform: translateY(0);
-    box-shadow: 0 2px 0 0 var(--border-strong);
   }
 
   /* Colored icon tile */
@@ -532,8 +494,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    border-width: 2px;
+    border-radius: 12px;
+    border-width: 1px;
     border-style: solid;
   }
 
@@ -542,21 +504,20 @@
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.3125rem 0.75rem;
     border-radius: 999px;
-    border: 2px solid var(--border-warm);
+    border: 1px solid var(--border-warm);
     background: var(--paper);
-    font-weight: 700;
+    font-weight: 650;
     font-size: 0.8125rem;
     line-height: 1;
   }
 
-  /* Chunky candy progress bar */
+  /* Slim progress bar */
   .tactile-progress {
     position: relative;
-    height: 16px;
+    height: 8px;
     background: var(--muted-warm);
-    border: 2px solid var(--border-warm);
     border-radius: 999px;
     overflow: hidden;
   }
@@ -565,25 +526,14 @@
     height: 100%;
     border-radius: 999px;
     background: var(--teal);
-    transition: width 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-  }
-  .tactile-progress__fill::after {
-    content: "";
-    position: absolute;
-    inset: 3px 6px auto 6px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.5);
+    transition: width 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 }
 
 @layer utilities {
-  /* Warm paper canvas with subtle dotted texture */
+  /* Warm paper canvas */
   .bg-cream-canvas {
     background-color: var(--cream);
-    background-image: radial-gradient(rgba(34, 50, 79, 0.045) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: -11px -11px;
   }
   .text-balance {
     text-wrap: balance;
@@ -613,10 +563,6 @@
   animation: confetti-fall 4s linear forwards;
   pointer-events: none;
   z-index: 100;
-}
-
-.animate-scale-in {
-  animation: scale-in 0.3s ease-out forwards;
 }
 
 @layer base {

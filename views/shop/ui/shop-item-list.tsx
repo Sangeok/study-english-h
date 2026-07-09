@@ -1,3 +1,4 @@
+import { Store } from "lucide-react";
 import { ShopItemCard } from "@/features/shop";
 import type { ShopItemWithStatus } from "@/features/shop/types";
 
@@ -21,7 +22,7 @@ export function ShopItemList({ items, onPurchase, isPurchasing, isLoading }: Sho
                 <div className="h-3 w-full rounded bg-muted-warm" />
               </div>
             </div>
-            <div className="mt-5 flex justify-between border-t-2 border-border-warm pt-4">
+            <div className="mt-5 flex justify-between border-t border-border-warm pt-4">
               <div className="h-8 w-24 rounded-full bg-muted-warm" />
               <div className="h-9 w-16 rounded-2xl bg-muted-warm" />
             </div>
@@ -34,8 +35,8 @@ export function ShopItemList({ items, onPurchase, isPurchasing, isLoading }: Sho
   if (items.length === 0) {
     return (
       <div className="tactile-card p-12 text-center">
-        <div className="tactile-tile mx-auto mb-4 h-16 w-16 border-ocean bg-ocean-tint text-3xl">
-          <span>🏪</span>
+        <div className="tactile-tile mx-auto mb-4 h-16 w-16 border-ocean bg-ocean-tint text-ocean-edge">
+          <Store className="h-7 w-7" />
         </div>
         <p className="font-display text-lg font-bold text-ink">
           아직 판매 중인 아이템이 없습니다

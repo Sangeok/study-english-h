@@ -1,5 +1,6 @@
 import type { DiagnosisStatusResponse } from "@/features/diagnosis";
-import type { FeatureCardStatus } from "@/shared/ui";
+
+export type FeatureCardStatus = "available" | "locked" | "completed" | "coming-soon";
 
 /**
  * 진단 상태에 따른 Feature Card 상태 결정
