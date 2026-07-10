@@ -7,29 +7,27 @@ export async function GET(req: Request) {
   try {
     const session = await getSessionFromRequest(req);
 
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "인증이 필요합니다" }, { status: 401 });
-    }
-
-    // 기존 진단 여부 확인.
-    // 차단 조건을 페이지 가드(preventDiagnosisRetake)와 동일하게 맞춘다:
+    // 게스트(미인증)도 진단 체험을 허용한다. 인증 사용자는 기존 재진단 쿨다운 체크 유지.
+    //   차단 조건은 페이지 가드(preventDiagnosisRetake)와 동일:
     //   "이미 완료했고 + 재진단 쿨다운(30일)이 끝나지 않은 경우"에만 막는다.
-    //   완료했더라도 canRetake=true 면 재진단을 허용한다(submit 은 항상 새 기록을 생성).
-    const { hasCompleted, canRetake, latestDiagnosis, daysUntilRetake } =
-      await checkDiagnosisStatus(session.user.id);
+    //   문항 생성 자체는 userId 무관이라 게스트·인증 공통.
+    if (session?.user?.id) {
+      const { hasCompleted, canRetake, latestDiagnosis, daysUntilRetake } =
+        await checkDiagnosisStatus(session.user.id);
 
-    if (hasCompleted && !canRetake) {
-      return NextResponse.json(
-        {
-          error: "재진단 대기 기간입니다",
-          alreadyCompleted: true,
-          canRetake: false,
-          daysUntilRetake,
-          completedAt: latestDiagnosis?.completedAt,
-          message: `재진단은 ${daysUntilRetake}일 후에 가능합니다. 그동안 퀴즈로 학습을 이어가세요!`,
-        },
-        { status: 409 }
-      );
+      if (hasCompleted && !canRetake) {
+        return NextResponse.json(
+          {
+            error: "재진단 대기 기간입니다",
+            alreadyCompleted: true,
+            canRetake: false,
+            daysUntilRetake,
+            completedAt: latestDiagnosis?.completedAt,
+            message: `재진단은 ${daysUntilRetake}일 후에 가능합니다. 그동안 퀴즈로 학습을 이어가세요!`,
+          },
+          { status: 409 }
+        );
+      }
     }
 
     const questions = await generateDiagnosisQuestions();
