@@ -8,7 +8,6 @@ import { useDiagnosisQuiz } from "../../hooks/use-diagnosis-quiz";
 import { useDiagnosisTimer } from "../../hooks/use-diagnosis-timer";
 import { useUnsavedDiagnosisWarning } from "../../hooks/use-unsaved-diagnosis-warning";
 import { saveGuestDiagnosis } from "../../lib/guest-diagnosis-storage";
-import type { DiagnosisResult } from "../../types";
 import { DiagnosisNavigation } from "./diagnosis-navigation";
 import { DiagnosisQuestionCard } from "./diagnosis-question-card";
 import { DiagnosisError } from "../status/diagnosis-error";
@@ -42,7 +41,6 @@ export function DiagnosisTest({ isAuthenticated }: DiagnosisTestProps) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [timerExpiredInsufficient, setTimerExpiredInsufficient] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
-  const [guestResult, setGuestResult] = useState<DiagnosisResult | null>(null);
 
   const handleSubmit = useCallback(() => {
     submit(answers);
@@ -67,9 +65,8 @@ export function DiagnosisTest({ isAuthenticated }: DiagnosisTestProps) {
     if (!isSubmitSuccess || !submitResult) return;
 
     if (isGuest) {
-      // 게스트: 답변+결과를 sessionStorage에 저장(가입 후 재전송용) 후 인라인 결과 렌더.
+      // 게스트: 답변+결과를 sessionStorage에 저장(가입 후 재전송용). 결과 렌더는 파생값으로 처리.
       saveGuestDiagnosis({ answers: submittedAnswers, result: submitResult });
-      setGuestResult(submitResult);
       return;
     }
 
@@ -107,9 +104,9 @@ export function DiagnosisTest({ isAuthenticated }: DiagnosisTestProps) {
     refetchQuestions();
   }, [refetchQuestions]);
 
-  // 게스트 제출 성공 → 인라인 결과 화면(가입 CTA 포함).
-  if (guestResult) {
-    return <GuestDiagnosisResult result={guestResult} />;
+  // 게스트 제출 성공 → 인라인 결과 화면(가입 CTA 포함). submitResult에서 직접 파생.
+  if (isGuest && isSubmitSuccess && submitResult) {
+    return <GuestDiagnosisResult result={submitResult} />;
   }
 
   if (isLoading) {

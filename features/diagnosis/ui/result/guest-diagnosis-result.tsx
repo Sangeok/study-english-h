@@ -17,7 +17,8 @@ export function GuestDiagnosisResult({ result }: GuestDiagnosisResultProps) {
     setIsLoading(true);
     try {
       // 같은 탭 리다이렉트 — sessionStorage가 유지되어 가입 후 이관 훅이 답변을 재전송한다.
-      await signIn.social({ provider: "kakao" });
+      // callbackURL을 홈(/)으로 고정 → 복귀 지점에서 이관 훅(MainPage 마운트)이 반드시 실행된다.
+      await signIn.social({ provider: "kakao", callbackURL: "/" });
     } catch (error) {
       console.error("Error signing up with Kakao:", error);
       setIsLoading(false);

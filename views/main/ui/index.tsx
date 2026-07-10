@@ -1,6 +1,11 @@
 "use client";
 
-import { useDiagnosisStatus, WeaknessAreas, normalizeWeaknessAreas } from "@/features/diagnosis";
+import {
+  useDiagnosisStatus,
+  WeaknessAreas,
+  normalizeWeaknessAreas,
+  useGuestDiagnosisMigration,
+} from "@/features/diagnosis";
 import { ApiError } from "@/shared/lib";
 import { useProfileStats } from "@/entities/user/model/use-profile-stats";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
@@ -42,6 +47,8 @@ export default function MainPage({ isAuthenticated }: MainPageProps) {
 
   const handlers = useMainPageHandlers({ diagnosisStatus, isAuthenticated });
   useDiagnosisToast();
+  // 게스트 진단 후 카카오 가입으로 홈 복귀 시, 캐시된 답변을 계정으로 이관.
+  useGuestDiagnosisMigration(isAuthenticated);
 
   const diagnosisHasNonAuthError = diagnosisFailed && !isAuthError(diagnosisError);
   const statsHasNonAuthError = statsFailed && !isAuthError(statsError);
