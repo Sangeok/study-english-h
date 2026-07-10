@@ -10,6 +10,7 @@ export interface QuizResult {
   isCorrect: boolean;
   correctAnswer?: string;
   explanation: string;
+  sentenceAudioUrl?: string;
 }
 
 export interface QuizSummary {

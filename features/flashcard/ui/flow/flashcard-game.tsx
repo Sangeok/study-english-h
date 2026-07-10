@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useToast } from "@/shared/ui";
 import { useFlashcardGameFlow } from "../../hooks/use-flashcard-game-flow";
-import { playAudio } from "../../lib/play-audio";
+import { playAudio } from "@/shared/lib/play-audio";
 import { FlashcardCard } from "./flashcard-card";
 import { FlashcardProgressBar } from "./flashcard-progress-bar";
 import { DifficultyButtons } from "./difficulty-buttons";
