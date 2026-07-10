@@ -69,14 +69,15 @@ export async function requireDiagnosis() {
 }
 
 /**
- * 진단 재실행을 방지하는 가드 함수 (30일 제한)
- * 진단 완료 후 30일이 지나지 않았으면 메인 페이지로 리다이렉트
+ * 진단 페이지 접근 가드.
+ * - 게스트(미인증): 통과(게스트 진단 체험 허용) → null 반환
+ * - 인증 사용자: 진단 완료 후 30일 미경과면 메인으로 리다이렉트(재진단 쿨다운)
  */
-export async function preventDiagnosisRetake() {
+export async function allowGuestOrPreventRetake() {
   const session = await getSession();
 
   if (!session?.user?.id) {
-    redirect("/login");
+    return null; // 게스트 허용
   }
 
   const { hasCompleted, canRetake, daysUntilRetake } = await checkDiagnosisStatus(session.user.id);

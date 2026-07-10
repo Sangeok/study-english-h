@@ -38,6 +38,13 @@ export async function submitDiagnosis(body: {
   return apiClient.post<DiagnosisSubmitResponse>("/api/diagnosis/submit", body);
 }
 
+/** 게스트 진단 채점 — 무인증·미저장. submit과 body 동일, 응답에 diagnosisId·gamification 없음. */
+export async function previewDiagnosis(body: {
+  answers: DiagnosisSubmitAnswer[];
+}): Promise<DiagnosisResult> {
+  return apiClient.post<DiagnosisResult>("/api/diagnosis/preview", body);
+}
+
 export async function fetchDiagnosisResult(
   diagnosisId: string
 ): Promise<DiagnosisResultResponse> {

@@ -1,9 +1,9 @@
 import { DiagnosisTest } from "@/features/diagnosis";
-import { preventDiagnosisRetake } from "@/shared/lib/diagnosis-guards";
+import { allowGuestOrPreventRetake } from "@/shared/lib/diagnosis-guards";
 
 export default async function DiagnosisPage() {
-  // 진단 재실행 방지 (이미 완료 시 자동 리다이렉트)
-  await preventDiagnosisRetake();
+  // 게스트는 통과(null), 인증 사용자는 재진단 쿨다운 체크(완료 시 자동 리다이렉트).
+  const session = await allowGuestOrPreventRetake();
 
-  return <DiagnosisTest />;
+  return <DiagnosisTest isAuthenticated={Boolean(session?.user?.id)} />;
 }
