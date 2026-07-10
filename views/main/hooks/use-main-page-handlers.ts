@@ -39,8 +39,9 @@ export function useMainPageHandlers({
   }, [diagnosisCompleted, isAuthenticated, redirectToLogin, router, toast]);
 
   const handleDiagnosisClick = useCallback(() => {
+    // 게스트는 로그인으로 튕기지 않고 진단을 바로 체험(가입 없이 결과까지).
     if (!isAuthenticated) {
-      redirectToLogin();
+      router.push(ROUTES.DIAGNOSIS);
       return;
     }
 
@@ -56,14 +57,7 @@ export function useMainPageHandlers({
 
     const days = diagnosisStatus?.daysUntilRetake ?? 0;
     toast(`재진단은 ${days}일 후에 가능합니다. 지금은 퀴즈로 학습을 이어가면 돼요`);
-  }, [
-    diagnosisCompleted,
-    diagnosisStatus,
-    isAuthenticated,
-    redirectToLogin,
-    router,
-    toast,
-  ]);
+  }, [diagnosisCompleted, diagnosisStatus, isAuthenticated, router, toast]);
 
   const handleFlashcardClick = useCallback(() => {
     if (!isAuthenticated) {

@@ -7,32 +7,42 @@ import { TRANSITION_DURATION_MS } from "../../config";
 import { useDiagnosisQuiz } from "../../hooks/use-diagnosis-quiz";
 import { useDiagnosisTimer } from "../../hooks/use-diagnosis-timer";
 import { useUnsavedDiagnosisWarning } from "../../hooks/use-unsaved-diagnosis-warning";
+import { saveGuestDiagnosis } from "../../lib/guest-diagnosis-storage";
+import type { DiagnosisResult } from "../../types";
 import { DiagnosisNavigation } from "./diagnosis-navigation";
 import { DiagnosisQuestionCard } from "./diagnosis-question-card";
 import { DiagnosisError } from "../status/diagnosis-error";
 import { DiagnosisExpired } from "../status/diagnosis-expired";
 import { DiagnosisLoading } from "../status/diagnosis-loading";
+import { GuestDiagnosisResult } from "../result/guest-diagnosis-result";
 import { DiagnosisProgressBar } from "../shared/diagnosis-progress-bar";
 
-export function DiagnosisTest() {
+interface DiagnosisTestProps {
+  isAuthenticated: boolean;
+}
+
+export function DiagnosisTest({ isAuthenticated }: DiagnosisTestProps) {
   const router = useRouter();
+  const isGuest = !isAuthenticated;
   const {
     questions,
     timeLimit,
     isLoading,
     isError,
     submit,
+    submittedAnswers,
     isSubmitting,
     submitResult,
     isSubmitSuccess,
     refetchQuestions,
-  } = useDiagnosisQuiz();
+  } = useDiagnosisQuiz(isGuest);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [timerExpiredInsufficient, setTimerExpiredInsufficient] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [guestResult, setGuestResult] = useState<DiagnosisResult | null>(null);
 
   const handleSubmit = useCallback(() => {
     submit(answers);
@@ -54,10 +64,20 @@ export function DiagnosisTest() {
   useUnsavedDiagnosisWarning(hasAnswers && !isSubmitSuccess);
 
   useEffect(() => {
-    if (isSubmitSuccess && submitResult) {
+    if (!isSubmitSuccess || !submitResult) return;
+
+    if (isGuest) {
+      // 게스트: 답변+결과를 sessionStorage에 저장(가입 후 재전송용) 후 인라인 결과 렌더.
+      saveGuestDiagnosis({ answers: submittedAnswers, result: submitResult });
+      setGuestResult(submitResult);
+      return;
+    }
+
+    // 인증: 서버에 저장된 진단 결과 상세 페이지로 이동(submit 응답의 diagnosisId).
+    if ("diagnosisId" in submitResult) {
       router.push(`/diagnosis/result?id=${submitResult.diagnosisId}`);
     }
-  }, [isSubmitSuccess, submitResult, router]);
+  }, [isSubmitSuccess, submitResult, isGuest, submittedAnswers, router]);
 
   const navigateQuestion = useCallback(
     (direction: "next" | "prev") => {
@@ -86,6 +106,11 @@ export function DiagnosisTest() {
     setRetryCount((c) => c + 1);
     refetchQuestions();
   }, [refetchQuestions]);
+
+  // 게스트 제출 성공 → 인라인 결과 화면(가입 CTA 포함).
+  if (guestResult) {
+    return <GuestDiagnosisResult result={guestResult} />;
+  }
 
   if (isLoading) {
     return <DiagnosisLoading />;
