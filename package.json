@@ -12,7 +12,8 @@
     "content:build:quiz": "tsx prisma/scripts/build-quiz-artifact.ts",
     "content:validate:vocabulary": "tsx prisma/scripts/validate-vocabulary-source.ts",
     "content:build:vocabulary": "tsx prisma/scripts/build-vocabulary-artifact.ts",
-    "content:report:collisions": "tsx prisma/scripts/report-content-collisions.ts"
+    "content:report:collisions": "tsx prisma/scripts/report-content-collisions.ts",
+    "content:report:coverage": "tsx prisma/scripts/report-content-coverage.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
