@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "content:validate:quiz": "tsx prisma/scripts/validate-quiz-source.ts"
+    "content:validate:quiz": "tsx prisma/scripts/validate-quiz-source.ts",
+    "content:build:quiz": "tsx prisma/scripts/build-quiz-artifact.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
