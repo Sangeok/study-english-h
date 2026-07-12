@@ -7,8 +7,13 @@
 
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
+import { buildAdjacentPriority, type CefrLevel } from "@/shared/constants";
+import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 import type { MasteryLevel, ReviewQuality } from "../types";
 import { calculateNextReview, DEFAULT_EASE_FACTOR } from "./srs-algorithm";
+
+// 유효하지 않은 level 에 대한 보수적 기본값 — quiz route(getUserLevel)와 동일.
+const DEFAULT_LEVEL: CefrLevel = "A1";
 
 // Extended vocabulary with user progress
 export interface VocabularyWithProgress extends Vocabulary {
@@ -53,12 +58,15 @@ export async function getDueVocabularies(
 }
 
 /**
- * Get new vocabularies that user hasn't learned yet
+ * Get new vocabularies that user hasn't learned yet.
+ *
+ * exact level 을 먼저 채우고, 부족분만 인접 하위→상위 레벨로 확장한다(adjacent fallback, RFC §7).
+ * 신규 카드 고갈 체감을 줄인다. tier 별 반복 쿼리 대신 단일 쿼리로 후보를 모으고 in-memory 우선순위 정렬한다.
  *
  * @param userId - User ID
- * @param level - CEFR level (A1-C2)
+ * @param level - CEFR level (A1-C2). 유효하지 않으면 보수적 기본값(A1)으로 정규화한다.
  * @param limit - Maximum number of vocabularies to return
- * @returns Array of new vocabularies matching user's level
+ * @returns Array of new vocabularies, exact-first 우선순위 순
  */
 export async function getNewVocabularies(
   userId: string,
@@ -73,21 +81,35 @@ export async function getNewVocabularies(
 
   const learnedIds = learnedVocabIds.map((v) => v.vocabularyId);
 
-  // Find vocabularies user hasn't learned yet, matching their level
-  const vocabularies = await prisma.vocabulary.findMany({
+  // 레벨 정규화(RFC 7-1): 유효하지 않은 값이 adjacent index 계산을 깨뜨리지 않도록 safeParse.
+  const parsed = cefrLevelSchema.safeParse(level);
+  const normalizedLevel: CefrLevel = parsed.success ? parsed.data : DEFAULT_LEVEL;
+  const prioritizedLevels = buildAdjacentPriority(normalizedLevel);
+
+  // 단일 쿼리로 fallback 후보를 한 번에 가져온다. 달라지는 것은 level 조건뿐(learnedIds 는 전과 동일).
+  const candidates = await prisma.vocabulary.findMany({
     where: {
-      level,
+      level: { in: prioritizedLevels },
       id: {
         notIn: learnedIds,
       },
     },
-    take: limit,
     orderBy: {
-      createdAt: "asc", // Oldest first for consistent progression
+      createdAt: "asc", // 레벨 내 결정적 진행 순서
     },
   });
 
-  return vocabularies.map((vocab) => ({
+  // in-memory 우선순위 정렬 후 limit 적용. 안정 정렬이라 동일 레벨 내에서는 createdAt asc 가 보존된다.
+  const rankByLevel = new Map<string, number>(
+    prioritizedLevels.map((lv, i): [string, number] => [lv, i])
+  );
+  const ordered = [...candidates].sort(
+    (a, b) =>
+      (rankByLevel.get(a.level) ?? Number.MAX_SAFE_INTEGER) -
+      (rankByLevel.get(b.level) ?? Number.MAX_SAFE_INTEGER)
+  );
+
+  return ordered.slice(0, limit).map((vocab) => ({
     ...vocab,
     userProgress: null,
   }));

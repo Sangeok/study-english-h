@@ -2,9 +2,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // getNewVocabularies 는 Prisma 쿼리 함수이므로 @/lib/db 를 목킹해
-// 실제 DB 없이 "쿼리 형태" 회귀만 고정한다 (RFC 콘텐츠 파이프라인 Phase 1.5 regression 가드).
-// Phase 4 에서 flashcard `new` 모드에 adjacent fallback 을 넣기 전에,
-// 현재 getNewVocabularies 의 두 보장을 먼저 잠근다.
+// 실제 DB 없이 "쿼리 형태·우선순위"를 고정한다.
+// (Phase 1.5 에서 exact-only 를 잠갔고, Phase 4 에서 adjacent fallback 도입에 맞춰 의식적으로 갱신했다.)
 vi.mock("@/lib/db", () => ({
   default: {
     userVocabulary: { findMany: vi.fn() },
@@ -13,6 +12,7 @@ vi.mock("@/lib/db", () => ({
 }));
 
 import prisma from "@/lib/db";
+import { buildAdjacentPriority } from "@/shared/constants";
 import { getNewVocabularies } from "./srs-service";
 
 const db = prisma as unknown as {
@@ -27,7 +27,7 @@ beforeEach(() => {
   db.vocabulary.findMany.mockResolvedValue([]);
 });
 
-describe("getNewVocabularies (Phase 1.5 regression 가드)", () => {
+describe("getNewVocabularies (adjacent fallback, Phase 4)", () => {
   it("보장 1: 이미 학습한 어휘를 제외한다 — where.id.notIn = 학습한 vocabularyId 목록", async () => {
     db.userVocabulary.findMany.mockResolvedValue([
       { vocabularyId: "v1" },
@@ -53,17 +53,53 @@ describe("getNewVocabularies (Phase 1.5 regression 가드)", () => {
     expect(arg.where.id).toEqual({ notIn: [] });
   });
 
-  it("보장 2: exact level 만 조회한다 — where.level 은 전달 레벨과 정확히 일치(범위·in 아님)", async () => {
+  it("보장 2(갱신): exact-first 우선순위로 단일 조회 — where.level.in 의 첫 원소가 exact, take 없음", async () => {
     await getNewVocabularies("user-1", "B2", 15);
 
     const arg = db.vocabulary.findMany.mock.calls[0][0];
-    // exact 우선순위 고정: level 은 단일 문자열 동등 비교여야 한다.
-    // Phase 4 에서 adjacent fallback 도입 시 이 단언을 의식적으로 갱신하며
-    // exact-first 소진을 유지하도록 강제한다.
-    expect(arg.where.level).toBe("B2");
-    expect(arg.take).toBe(15);
-    // oldest-first 결정성(일관된 진행)도 exact 소진 순서의 일부.
+    // tier 별 반복 쿼리 금지 → level in 목록으로 한 번에 조회, exact(B2)가 최우선.
+    expect(arg.where.level).toEqual({ in: buildAdjacentPriority("B2") });
+    expect(arg.where.level.in[0]).toBe("B2");
+    // limit 은 in-memory slice 로 적용되므로 쿼리에는 take 가 없다.
+    expect(arg.take).toBeUndefined();
+    // oldest-first 결정성(레벨 내 일관된 진행)은 유지.
     expect(arg.orderBy).toEqual({ createdAt: "asc" });
+  });
+
+  it("보장 2b: exact 가 limit 을 채우면 exact 만 반환한다(exact-first 소진)", async () => {
+    // 후보에 exact(A1) 3개 + 인접(A2) 1개. limit 2 → A1 우선 2개만, 입력(createdAt) 순 보존.
+    db.vocabulary.findMany.mockResolvedValue([
+      { id: "a1-1", level: "A1" },
+      { id: "a2-1", level: "A2" },
+      { id: "a1-2", level: "A1" },
+      { id: "a1-3", level: "A1" },
+    ]);
+
+    const result = await getNewVocabularies("user-1", "A1", 2);
+
+    expect(result.map((r) => r.id)).toEqual(["a1-1", "a1-2"]);
+  });
+
+  it("보장 2c: exact 부족분은 인접 하위 → 인접 상위 순으로 채운다", async () => {
+    // B1 기준. 후보를 일부러 우선순위와 다른 순서로 준다.
+    db.vocabulary.findMany.mockResolvedValue([
+      { id: "b2", level: "B2" }, // 인접 상위
+      { id: "b1", level: "B1" }, // exact
+      { id: "a2", level: "A2" }, // 인접 하위
+    ]);
+
+    const result = await getNewVocabularies("user-1", "B1", 3);
+
+    // exact(B1) → 인접 하위(A2) → 인접 상위(B2)
+    expect(result.map((r) => r.id)).toEqual(["b1", "a2", "b2"]);
+  });
+
+  it("보장 3: 유효하지 않은 level 은 보수적 기본값(A1)으로 정규화한다", async () => {
+    await getNewVocabularies("user-1", "ZZ", 20);
+
+    const arg = db.vocabulary.findMany.mock.calls[0][0];
+    expect(arg.where.level.in[0]).toBe("A1");
+    expect(arg.where.level).toEqual({ in: buildAdjacentPriority("A1") });
   });
 
   it("조회 결과를 VocabularyWithProgress(userProgress: null)로 매핑한다", async () => {
