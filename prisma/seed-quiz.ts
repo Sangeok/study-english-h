@@ -1,13 +1,15 @@
 /**
  * Quiz Questions Seed Script
  *
- * JSON 파일에서 퀴즈 데이터를 읽어 upsert(difficulty + englishWord 기준)로 갱신합니다.
+ * generated artifact(build 산출물)를 읽어 upsert(difficulty + englishWord 기준)로 갱신합니다.
+ * source 를 직접 조합하지 않는다 — 먼저 `npm run content:build:quiz` 로 artifact 를 생성해야 하며,
+ * 부재 시 즉시 실패합니다(fail-fast, RFC Phase 3).
  * 기본은 비파괴 — 기존 문항과 유저 퀴즈 이력을 보존합니다.
  * SEED_RESET=1 을 주면 파괴적 전체 리셋(문항 + CASCADE 로 유저 퀴즈 이력)을 먼저 수행합니다.
  *
  * 실행 방법:
- * npx tsx prisma/seed-quiz.ts              # 비파괴 upsert (권장)
- * SEED_RESET=1 npx tsx prisma/seed-quiz.ts # 파괴적 전체 리셋 후 재삽입
+ * npm run content:build:quiz && npx tsx prisma/seed-quiz.ts   # 비파괴 upsert (권장)
+ * SEED_RESET=1 npx tsx prisma/seed-quiz.ts                    # 파괴적 전체 리셋 후 재삽입
  */
 
 import { PrismaPg } from "@prisma/adapter-pg";
@@ -17,7 +19,9 @@ import {
   QuestionCategory,
 } from "../lib/generated/prisma/client";
 import dotenv from "dotenv";
-import quizQuestions from "./data/quiz-questions.json";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { loadArtifact, QUIZ_ARTIFACT } from "./scripts/lib/load-artifact";
 
 dotenv.config();
 
@@ -40,6 +44,11 @@ type SeedQuizQuestion = {
 async function main() {
   console.log("🌱 퀴즈 데이터 시드 시작...\n");
 
+  // build 산출물만 읽는다. artifact 부재 시 즉시 실패(재생성 명령 안내) — DB 접근 전에 걸러진다.
+  const root = path.resolve(fileURLToPath(import.meta.url), "../..");
+  const quizQuestions = loadArtifact<SeedQuizQuestion>(root, QUIZ_ARTIFACT);
+  console.log(`📦 generated artifact 로드: ${quizQuestions.length}개 (${QUIZ_ARTIFACT.relPath})\n`);
+
   // 파괴적 전체 리셋은 SEED_RESET=1 일 때만. 기본은 아래 upsert 로 비파괴 갱신한다.
   // quizQuestion 삭제 시 CASCADE 로 QuizOption·UserQuizAttempt(유저 퀴즈 이력)가 함께 삭제된다.
   if (process.env.SEED_RESET === "1") {
@@ -54,7 +63,7 @@ async function main() {
   let successCount = 0;
   let errorCount = 0;
 
-  for (const question of quizQuestions as SeedQuizQuestion[]) {
+  for (const question of quizQuestions) {
     try {
       await prisma.quizQuestion.upsert({
         where: {
@@ -120,11 +129,14 @@ async function main() {
   byCategory.forEach((c) => console.log(`   ${c.category}: ${c._count}개`));
 }
 
-main()
-  .catch((error) => {
-    console.error("💥 시드 중 오류 발생:", error);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// tsx 로 직접 실행될 때만 시드를 수행한다(import 시 DB 접근 방지).
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main()
+    .catch((error) => {
+      console.error("💥 시드 중 오류 발생:", error);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
