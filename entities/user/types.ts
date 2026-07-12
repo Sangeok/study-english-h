@@ -1,4 +1,6 @@
-export type CefrLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+import type { CefrLevel } from "@/shared/constants";
+
+export type { CefrLevel };
 
 export interface UserProfile {
   userId: string;

@@ -54,13 +54,15 @@ yarn-error.log*
 !/docs/specs/
 /docs/specs/*
 !/docs/specs/spec-shared-directory-refactoring.md
-/prisma/seed-quiz.ts
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
 /lib/generated/prisma
+
+# content pipeline 생성물 (로컬·CI 전용). 소스 데이터(prisma/data/*.json)는 추적 유지.
+/prisma/data/generated/
 
 # doc-validation-pipeline snapshots
 /.validation-snapshots

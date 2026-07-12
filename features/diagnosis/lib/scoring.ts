@@ -1,4 +1,5 @@
-import { CEFR_LEVELS, DIFFICULTY_WEIGHTS } from "../config";
+import { DIFFICULTY_WEIGHTS } from "../config";
+import { CEFR_ORDER, type CefrLevel } from "@/shared/constants";
 import type { DiagnosisAnswer } from "@/entities/question";
 import type { DiagnosisResult, WeaknessArea } from "../types";
 
@@ -29,7 +30,7 @@ export function calculateDiagnosisScore(answers: DiagnosisAnswer[]): DiagnosisRe
   return { totalScore, cefrLevel, weaknessAreas, recommendedStartPoint };
 }
 
-function mapScoreToCEFR(score: number): string {
+function mapScoreToCEFR(score: number): CefrLevel {
   if (score >= 96) return "C2";
   if (score >= 81) return "C1";
   if (score >= 61) return "B2";
@@ -63,10 +64,10 @@ function analyzeWeaknesses(answers: DiagnosisAnswer[]): WeaknessArea[] {
     .sort((a, b) => a.accuracy - b.accuracy);
 }
 
-function getRecommendedLevel(cefrLevel: string, weaknessAreas: WeaknessArea[]): string {
+function getRecommendedLevel(cefrLevel: CefrLevel, weaknessAreas: WeaknessArea[]): CefrLevel {
   if (weaknessAreas.length >= 3) {
-    const currentIndex = CEFR_LEVELS.indexOf(cefrLevel);
-    return currentIndex > 0 ? CEFR_LEVELS[currentIndex - 1] : cefrLevel;
+    const currentIndex = CEFR_ORDER.indexOf(cefrLevel);
+    return currentIndex > 0 ? CEFR_ORDER[currentIndex - 1] : cefrLevel;
   }
   return cefrLevel;
 }
