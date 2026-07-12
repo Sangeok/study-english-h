@@ -1,55 +1,68 @@
 /**
  * Vocabulary Seed Script
  *
- * 모든 vocabulary source 파일(prisma/data/vocabularies*.json)을 합쳐 DB에 누적 upsert 한다.
- * 데이터를 소유하지 않고 source 파일만 읽는다 — 인라인 배열은 vocabularies-extra-inline.json 으로 분리됨.
- * 파괴적 reset 은 하지 않는다(createMany + skipDuplicates 누적 적재).
+ * generated artifact(build 산출물)를 읽어 word 기준 upsert 로 적재한다.
+ * source 를 직접 조합하지 않는다 — 먼저 `npm run content:build:vocabulary` 로 artifact 를 생성해야 하며,
+ * 부재 시 즉시 실패한다(fail-fast, RFC Phase 3).
+ * skipDuplicates 대신 word 기준 upsert 로 멱등 재시딩한다(seed-quiz 와 대칭). silent skip 없음 —
+ *   중복/충돌은 build 이전 validate·collision report 가 이미 가시화한다.
  *
- * 실행: npx tsx prisma/seed-vocabulary.ts
+ * 실행: npm run content:build:vocabulary && npx tsx prisma/seed-vocabulary.ts
  */
 
-import { pathToFileURL } from "node:url";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import prisma from "../lib/db";
-import baseVocabularies from "./data/vocabularies.json";
-import extraA1A2 from "./data/vocabularies-extra-a1-a2.json";
-import extraB1B2 from "./data/vocabularies-extra-b1-b2.json";
-import extraC1C2 from "./data/vocabularies-extra-c1-c2.json";
-import extraSupplement from "./data/vocabularies-extra-supplement.json";
-import extraInline from "./data/vocabularies-extra-inline.json";
+import { loadArtifact, VOCAB_ARTIFACT } from "./scripts/lib/load-artifact";
+
+type SeedVocabulary = {
+  word: string;
+  meaning: string;
+  pronunciation?: string;
+  exampleSentence?: string;
+  category: string;
+  level: string;
+};
 
 async function main() {
   console.log("🌱 Starting vocabulary seed...");
 
   try {
+    // build 산출물만 읽는다. artifact 부재 시 즉시 실패(재생성 명령 안내) — DB 접근 전에 걸러진다.
+    const root = path.resolve(fileURLToPath(import.meta.url), "../..");
+    const allVocabularies = loadArtifact<SeedVocabulary>(root, VOCAB_ARTIFACT);
+    console.log(`📦 generated artifact 로드: ${allVocabularies.length}개 (${VOCAB_ARTIFACT.relPath})`);
+
     const existingCount = await prisma.vocabulary.count();
     console.log(`📊 Existing vocabularies: ${existingCount}`);
 
-    // 모든 source 파일을 합친다. (예전 seed 파일에 박혀 있던 인라인 130개는 extraInline 으로 분리)
-    const allVocabularies = [
-      ...baseVocabularies,
-      ...extraA1A2,
-      ...extraB1B2,
-      ...extraC1C2,
-      ...extraSupplement,
-      ...extraInline,
-    ];
-
-    console.log(`📝 Preparing to seed ${allVocabularies.length} vocabularies...`);
-
-    // Insert vocabularies in batches
-    const batchSize = 100;
-    let inserted = 0;
-
-    for (let i = 0; i < allVocabularies.length; i += batchSize) {
-      const batch = allVocabularies.slice(i, i + batchSize);
-
-      await prisma.vocabulary.createMany({
-        data: batch,
-        skipDuplicates: true, // Skip if word already exists
+    // word 기준 upsert — skipDuplicates 없이 멱등 적재. artifact 가 source of truth 이므로
+    // source 필드는 artifact 값으로 수렴시킨다(audioUrl 등 비-source 필드는 update 대상이 아니라 보존).
+    let processed = 0;
+    for (const vocab of allVocabularies) {
+      await prisma.vocabulary.upsert({
+        where: { word: vocab.word },
+        update: {
+          meaning: vocab.meaning,
+          pronunciation: vocab.pronunciation ?? null,
+          exampleSentence: vocab.exampleSentence ?? null,
+          category: vocab.category,
+          level: vocab.level,
+        },
+        create: {
+          word: vocab.word,
+          meaning: vocab.meaning,
+          pronunciation: vocab.pronunciation ?? null,
+          exampleSentence: vocab.exampleSentence ?? null,
+          category: vocab.category,
+          level: vocab.level,
+        },
       });
 
-      inserted += batch.length;
-      console.log(`✓ Inserted ${inserted}/${allVocabularies.length} vocabularies`);
+      processed++;
+      if (processed % 100 === 0 || processed === allVocabularies.length) {
+        console.log(`✓ Upserted ${processed}/${allVocabularies.length} vocabularies`);
+      }
     }
 
     // Verify counts
