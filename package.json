@@ -7,7 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "content:validate:quiz": "tsx prisma/scripts/validate-quiz-source.ts",
+    "content:build:quiz": "tsx prisma/scripts/build-quiz-artifact.ts",
+    "content:validate:vocabulary": "tsx prisma/scripts/validate-vocabulary-source.ts",
+    "content:build:vocabulary": "tsx prisma/scripts/build-vocabulary-artifact.ts",
+    "content:report:collisions": "tsx prisma/scripts/report-content-collisions.ts",
+    "content:report:coverage": "tsx prisma/scripts/report-content-coverage.ts",
+    "content:build": "npm run content:build:vocabulary && npm run content:build:quiz",
+    "content:check": "npm run content:validate:vocabulary && npm run content:validate:quiz && npm run content:report:collisions && npm run content:report:coverage && npm run content:build"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",
