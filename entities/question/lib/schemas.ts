@@ -12,7 +12,6 @@
 import { z } from "zod";
 import { TOTAL_DIAGNOSIS_QUESTION_COUNT } from "@/shared/constants";
 
-export const questionDifficultySchema = z.enum(["A1", "A2", "B1", "B2", "C1", "C2"]);
 export const questionCategorySchema = z.enum(["daily", "business", "toeic", "travel", "idioms"]);
 
 export const diagnosisAnswerSchema = z.object({

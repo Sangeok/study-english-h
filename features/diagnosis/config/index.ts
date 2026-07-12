@@ -10,8 +10,6 @@ export const DIFFICULTY_WEIGHTS: Record<QuestionDifficulty, number> = {
   C2: 6,
 };
 
-export const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
-
 export const TRANSITION_DURATION_MS = 300;
 
 export const QUESTION_DISTRIBUTION = [

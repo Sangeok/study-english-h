@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import type { Prisma } from "@/lib/generated/prisma/client";
 import type { QuestionCategory, QuestionDifficulty } from "@/entities/question";
-import { questionCategorySchema, questionDifficultySchema } from "@/entities/question/lib/schemas";
+import { questionCategorySchema } from "@/entities/question/lib/schemas";
+import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 import {
   DEFAULT_QUIZ_COUNT,
   WEAKNESS_QUESTION_RATIO,
@@ -51,7 +52,7 @@ function getQuizCount(searchParams: URLSearchParams): number {
 }
 
 function getUserLevel(level: string | null | undefined): QuestionDifficulty {
-  const result = questionDifficultySchema.safeParse(level);
+  const result = cefrLevelSchema.safeParse(level);
 
   if (!result.success) {
     return "A1";

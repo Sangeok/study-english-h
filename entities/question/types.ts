@@ -1,5 +1,7 @@
-/** CEFR 難易度レベル。entities/user の CefrLevel と同一の値域。 */
-export type QuestionDifficulty = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
+import type { CefrLevel } from "@/shared/constants";
+
+/** CEFR 난이도 레벨. shared/constants 의 CefrLevel(단일 출처)과 동일. */
+export type QuestionDifficulty = CefrLevel;
 
 /** 問題カテゴリ。DB の category カラム値に対応。 */
 export type QuestionCategory = "daily" | "business" | "toeic" | "travel" | "idioms";
