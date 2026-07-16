@@ -1,6 +1,13 @@
 // @vitest-environment node
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { buildVocabularyArtifact } from "./build-vocabulary-artifact";
+import {
+  buildVocabularyArtifact,
+  writeVocabularyArtifact,
+} from "./build-vocabulary-artifact";
+import { VOCAB_ARTIFACT } from "./lib/load-artifact";
 import type { VocabSourceRecord } from "./lib/vocab-source";
 
 function rec(record: unknown, index = 0, file = "vocabularies.json"): VocabSourceRecord {
@@ -20,28 +27,26 @@ describe("buildVocabularyArtifact", () => {
     }
   });
 
-  it("중복 단어는 first-wins 로 collapse — 첫 등장(순서상 먼저)을 유지", () => {
+  it("conflict 중복 단어가 있으면 build 자체 gate에서 실패한다", () => {
     const records = [
       rec({ word: "achieve", meaning: "달성하다", category: "business", level: "A2" }, 0, "vocabularies.json"),
       rec({ word: "achieve", meaning: "달성하다", category: "toeic", level: "B1" }, 0, "vocabularies-extra-inline.json"),
     ];
     const result = buildVocabularyArtifact(records);
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect(result.artifact).toHaveLength(1);
-      expect(result.collapsed).toBe(1);
-      expect(result.artifact[0].category).toBe("business"); // 첫 등장 유지
-      expect(result.artifact[0].level).toBe("A2");
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.conflicts).toBe(1);
     }
   });
 
-  it("대소문자만 다른 단어도 같은 기준키로 collapse", () => {
+  it("complete 중복은 first-wins로 collapse하고 첫 등장을 유지한다", () => {
     const records = [rec({ ...apple, word: "Apple" }), rec({ ...apple, word: "apple" }, 1)];
     const result = buildVocabularyArtifact(records);
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.artifact).toHaveLength(1);
       expect(result.collapsed).toBe(1);
+      expect(result.artifact[0].word).toBe("Apple");
     }
   });
 
@@ -59,6 +64,25 @@ describe("buildVocabularyArtifact", () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.errors).toBeGreaterThan(0);
+    }
+  });
+
+  it("hard fail이면 미리 존재하던 stale vocabulary artifact를 제거한다", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "study-eng-vocab-build-"));
+    const artifactPath = path.join(root, VOCAB_ARTIFACT.relPath);
+    mkdirSync(path.dirname(artifactPath), { recursive: true });
+    writeFileSync(artifactPath, "stale", "utf8");
+
+    try {
+      const result = writeVocabularyArtifact(root, [
+        rec({ word: "run", meaning: "달리다", category: "daily", level: "A1" }),
+        rec({ word: "run", meaning: "운영하다", category: "business", level: "B1" }, 1),
+      ]);
+
+      expect(result.ok).toBe(false);
+      expect(existsSync(artifactPath)).toBe(false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
     }
   });
 });

@@ -15,6 +15,7 @@ import {
   quizQuestionSourceSchema,
   type QuizQuestionSource,
 } from "@/entities/question/lib/quiz-source-schema";
+import { invalidateArtifact, QUIZ_ARTIFACT } from "./lib/load-artifact";
 import { validateQuizSource } from "./validate-quiz-source";
 
 export type BuildQuizResult =
@@ -37,6 +38,20 @@ export function buildQuizArtifact(records: unknown[]): BuildQuizResult {
   return { ok: true, artifact };
 }
 
+/** 이전 artifact를 먼저 제거하고 schema gate를 통과한 결과만 기록한다. */
+export function writeQuizArtifact(root: string, records: unknown[]): BuildQuizResult {
+  invalidateArtifact(root, QUIZ_ARTIFACT);
+  const result = buildQuizArtifact(records);
+  if (!result.ok) {
+    return result;
+  }
+
+  const outPath = path.join(root, QUIZ_ARTIFACT.relPath);
+  mkdirSync(path.dirname(outPath), { recursive: true });
+  writeFileSync(outPath, `${JSON.stringify(result.artifact, null, 2)}\n`, "utf8");
+  return result;
+}
+
 function normalizeQuizRecord(question: QuizQuestionSource): QuizQuestionSource {
   return {
     koreanHint: question.koreanHint.trim(),
@@ -57,16 +72,22 @@ function normalizeQuizRecord(question: QuizQuestionSource): QuizQuestionSource {
 function main(): void {
   const root = path.resolve(fileURLToPath(import.meta.url), "../../..");
   const inputPath = path.join(root, "prisma/data/quiz-questions.json");
-  const outDir = path.join(root, "prisma/data/generated");
-  const outPath = path.join(outDir, "quiz-questions.generated.json");
+  const outPath = path.join(root, QUIZ_ARTIFACT.relPath);
 
-  const raw: unknown = JSON.parse(readFileSync(inputPath, "utf8"));
+  invalidateArtifact(root, QUIZ_ARTIFACT);
+  let raw: unknown;
+  try {
+    raw = JSON.parse(readFileSync(inputPath, "utf8"));
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
   if (!Array.isArray(raw)) {
     console.error(`❌ ${inputPath} 는 JSON 배열이 아닙니다.`);
     process.exit(1);
   }
 
-  const result = buildQuizArtifact(raw);
+  const result = writeQuizArtifact(root, raw);
   if (!result.ok) {
     console.error(
       `❌ validate 실패로 artifact 미생성 — 스키마 오류 ${result.errors}건, 중복 ${result.duplicates}건`
@@ -75,8 +96,6 @@ function main(): void {
     process.exit(1);
   }
 
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(outPath, `${JSON.stringify(result.artifact, null, 2)}\n`, "utf8");
   console.log(`✅ quiz artifact 생성: ${result.artifact.length}개 → ${path.relative(root, outPath)}`);
   process.exit(0);
 }

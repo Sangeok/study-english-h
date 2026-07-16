@@ -1,6 +1,10 @@
 // @vitest-environment node
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { buildQuizArtifact } from "./build-quiz-artifact";
+import { buildQuizArtifact, writeQuizArtifact } from "./build-quiz-artifact";
+import { QUIZ_ARTIFACT } from "./lib/load-artifact";
 
 const validRecord = {
   koreanHint: "사과",
@@ -70,6 +74,24 @@ describe("buildQuizArtifact", () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.duplicates).toBeGreaterThan(0);
+    }
+  });
+
+  it("hard fail이면 미리 존재하던 stale quiz artifact를 제거한다", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "study-eng-quiz-build-"));
+    const artifactPath = path.join(root, QUIZ_ARTIFACT.relPath);
+    mkdirSync(path.dirname(artifactPath), { recursive: true });
+    writeFileSync(artifactPath, "stale", "utf8");
+
+    try {
+      const result = writeQuizArtifact(root, [
+        { ...validRecord, options: validRecord.options.slice(0, 3) },
+      ]);
+
+      expect(result.ok).toBe(false);
+      expect(existsSync(artifactPath)).toBe(false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
     }
   });
 });

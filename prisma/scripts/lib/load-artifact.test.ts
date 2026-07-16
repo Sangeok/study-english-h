@@ -1,6 +1,14 @@
 // @vitest-environment node
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { parseArtifact, loadArtifact, QUIZ_ARTIFACT } from "./load-artifact";
+import {
+  invalidateArtifact,
+  loadArtifact,
+  parseArtifact,
+  QUIZ_ARTIFACT,
+} from "./load-artifact";
 
 describe("parseArtifact", () => {
   it("비어 있지 않은 JSON 배열은 그대로 반환", () => {
@@ -27,5 +35,23 @@ describe("loadArtifact", () => {
     expect(() => loadArtifact("/no/such/root/__nonexistent__", QUIZ_ARTIFACT)).toThrow(
       QUIZ_ARTIFACT.buildCommand
     );
+  });
+});
+
+describe("invalidateArtifact", () => {
+  it("이전 artifact가 있으면 제거하고 다시 호출해도 실패하지 않는다", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "study-eng-artifact-"));
+    const artifactPath = path.join(root, QUIZ_ARTIFACT.relPath);
+    mkdirSync(path.dirname(artifactPath), { recursive: true });
+    writeFileSync(artifactPath, "stale", "utf8");
+
+    try {
+      invalidateArtifact(root, QUIZ_ARTIFACT);
+      invalidateArtifact(root, QUIZ_ARTIFACT);
+
+      expect(existsSync(artifactPath)).toBe(false);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 });

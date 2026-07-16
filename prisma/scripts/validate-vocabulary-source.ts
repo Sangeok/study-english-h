@@ -12,6 +12,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { vocabularySourceSchema } from "@/entities/vocabulary/lib/vocabulary-source-schema";
+import { invalidateArtifact, VOCAB_ARTIFACT } from "./lib/load-artifact";
 import { loadVocabSource, type VocabSourceRecord } from "./lib/vocab-source";
 
 export interface VocabValidationError {
@@ -57,6 +58,23 @@ export function validateVocabularySource(records: VocabSourceRecord[]): VocabVal
   };
 }
 
+/** validation report를 기록하고 hard fail이면 stale data artifact를 제거한다. */
+export function writeVocabularyValidationReport(
+  root: string,
+  records: VocabSourceRecord[]
+): VocabValidationReport {
+  const report = validateVocabularySource(records);
+  if (!report.passed) {
+    invalidateArtifact(root, VOCAB_ARTIFACT);
+  }
+  const outDir = path.join(root, "prisma/data/generated");
+  const outPath = path.join(outDir, "vocabularies-validation.report.json");
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+  return report;
+}
+
 function readWord(record: unknown): string | null {
   if (record && typeof record === "object" && "word" in record) {
     const word = (record as { word: unknown }).word;
@@ -67,13 +85,16 @@ function readWord(record: unknown): string | null {
 
 function main(): void {
   const root = path.resolve(fileURLToPath(import.meta.url), "../../..");
-  const records = loadVocabSource(root);
-  const report = validateVocabularySource(records);
-
-  const outDir = path.join(root, "prisma/data/generated");
-  const outPath = path.join(outDir, "vocabularies-validation.report.json");
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+  let records: VocabSourceRecord[];
+  try {
+    records = loadVocabSource(root);
+  } catch (error) {
+    invalidateArtifact(root, VOCAB_ARTIFACT);
+    console.error(error);
+    process.exit(1);
+  }
+  const report = writeVocabularyValidationReport(root, records);
+  const outPath = path.join(root, "prisma/data/generated/vocabularies-validation.report.json");
 
   const relReport = path.relative(root, outPath);
   console.log(`📋 vocabulary source 검증: ${report.totalRecords}개`);

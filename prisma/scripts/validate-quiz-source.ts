@@ -11,6 +11,7 @@ import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { quizQuestionSourceSchema } from "@/entities/question/lib/quiz-source-schema";
+import { invalidateArtifact, QUIZ_ARTIFACT } from "./lib/load-artifact";
 
 export interface QuizValidationError {
   index: number;
@@ -54,7 +55,8 @@ export function validateQuizSource(records: unknown[]): QuizValidationReport {
     }
 
     // 스키마를 통과한 레코드만 중복 판정에 넣는다.
-    const key = `${parsed.data.difficulty}::${parsed.data.englishWord}`;
+    // build가 englishWord를 trim하므로 중복 gate도 같은 canonical key를 사용한다.
+    const key = `${parsed.data.difficulty}::${parsed.data.englishWord.trim()}`;
     const indices = seen.get(key) ?? [];
     indices.push(index);
     seen.set(key, indices);
@@ -81,6 +83,23 @@ export function validateQuizSource(records: unknown[]): QuizValidationReport {
   };
 }
 
+/** validation report를 기록하고 hard fail이면 stale data artifact를 제거한다. */
+export function writeQuizValidationReport(
+  root: string,
+  records: unknown[]
+): QuizValidationReport {
+  const report = validateQuizSource(records);
+  if (!report.passed) {
+    invalidateArtifact(root, QUIZ_ARTIFACT);
+  }
+  const outDir = path.join(root, "prisma/data/generated");
+  const outPath = path.join(outDir, "quiz-validation.report.json");
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+  return report;
+}
+
 function readEnglishWord(record: unknown): string | null {
   if (record && typeof record === "object" && "englishWord" in record) {
     const word = (record as { englishWord: unknown }).englishWord;
@@ -96,16 +115,21 @@ function main(): void {
   const outDir = path.join(root, "prisma/data/generated");
   const outPath = path.join(outDir, "quiz-validation.report.json");
 
-  const raw: unknown = JSON.parse(readFileSync(inputPath, "utf8"));
+  let raw: unknown;
+  try {
+    raw = JSON.parse(readFileSync(inputPath, "utf8"));
+  } catch (error) {
+    invalidateArtifact(root, QUIZ_ARTIFACT);
+    console.error(error);
+    process.exit(1);
+  }
   if (!Array.isArray(raw)) {
+    invalidateArtifact(root, QUIZ_ARTIFACT);
     console.error(`❌ ${inputPath} 는 JSON 배열이 아닙니다.`);
     process.exit(1);
   }
 
-  const report = validateQuizSource(raw);
-
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+  const report = writeQuizValidationReport(root, raw);
 
   const relReport = path.relative(root, outPath);
   console.log(`📋 quiz source 검증: ${report.totalRecords}개`);

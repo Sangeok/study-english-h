@@ -1,6 +1,10 @@
 // @vitest-environment node
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { validateQuizSource } from "./validate-quiz-source";
+import { QUIZ_ARTIFACT } from "./lib/load-artifact";
+import { validateQuizSource, writeQuizValidationReport } from "./validate-quiz-source";
 
 const validRecord = {
   koreanHint: "사과",
@@ -60,6 +64,18 @@ describe("validateQuizSource", () => {
     expect(report.duplicates).toEqual([{ difficulty: "A1", englishWord: "apple", indices: [0, 1] }]);
   });
 
+  it("build와 동일하게 trim한 englishWord 기준으로 중복을 차단한다", () => {
+    const report = validateQuizSource([
+      validRecord,
+      { ...validRecord, englishWord: ` ${validRecord.englishWord} ` },
+    ]);
+
+    expect(report.passed).toBe(false);
+    expect(report.duplicates).toEqual([
+      { difficulty: "A1", englishWord: "apple", indices: [0, 1] },
+    ]);
+  });
+
   it("난이도가 다르면 같은 englishWord 여도 중복 아님", () => {
     const report = validateQuizSource([validRecord, { ...validRecord, difficulty: "B1" }]);
     expect(report.passed).toBe(true);
@@ -71,5 +87,26 @@ describe("validateQuizSource", () => {
     delete withoutContext.contextHintKo;
     const report = validateQuizSource([withoutContext]);
     expect(report.passed).toBe(true);
+  });
+
+  it("hard fail report를 기록하고 stale quiz artifact를 제거한다", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "study-eng-quiz-validation-"));
+    const artifactPath = path.join(root, QUIZ_ARTIFACT.relPath);
+    mkdirSync(path.dirname(artifactPath), { recursive: true });
+    writeFileSync(artifactPath, "stale", "utf8");
+
+    try {
+      const report = writeQuizValidationReport(root, [
+        { ...validRecord, options: validRecord.options.slice(0, 3) },
+      ]);
+
+      expect(report.passed).toBe(false);
+      expect(existsSync(artifactPath)).toBe(false);
+      expect(
+        existsSync(path.join(root, "prisma/data/generated/quiz-validation.report.json"))
+      ).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 });
