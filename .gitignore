@@ -54,6 +54,14 @@ yarn-error.log*
 !/docs/specs/
 /docs/specs/*
 !/docs/specs/spec-shared-directory-refactoring.md
+!/docs/specs/spec-service-launch-roadmap.md
+!/docs/specs/spec-diagnosis-scoring-policy.md
+!/docs/specs/spec-diagnosis-incomplete-exit.md
+!/docs/specs/spec-guest-diagnosis-onboarding.md
+!/docs/specs/spec-english-content-pool-expansion.md
+!/docs/archive/
+/docs/archive/*
+!/docs/archive/rfc-remove-diagnosis-korean-hint-four-phase-plan.md
 
 # typescript
 *.tsbuildinfo
