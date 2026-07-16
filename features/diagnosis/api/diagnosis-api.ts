@@ -1,5 +1,5 @@
 import type { DiagnosisQuestion, DiagnosisSubmitAnswer } from "@/entities/question";
-import { apiClient } from "@/shared/lib";
+import { ApiError, apiClient } from "@/shared/lib";
 import type { DiagnosisResult, DiagnosisResultDetail, WeaknessArea } from "../types";
 
 export interface DiagnosisStatusResponse {
@@ -24,6 +24,10 @@ export interface DiagnosisResultResponse extends DiagnosisResultDetail {
   weaknessAreas: WeaknessArea[];
 }
 
+export type GuestDiagnosisMigrationOutcome =
+  | { outcome: "created"; diagnosisId: string }
+  | { outcome: "already-completed" };
+
 export async function fetchDiagnosisStatus(): Promise<DiagnosisStatusResponse> {
   return apiClient.get<DiagnosisStatusResponse>("/api/diagnosis/status");
 }
@@ -36,6 +40,31 @@ export async function submitDiagnosis(body: {
   answers: DiagnosisSubmitAnswer[];
 }): Promise<DiagnosisSubmitResponse> {
   return apiClient.post<DiagnosisSubmitResponse>("/api/diagnosis/submit", body);
+}
+
+export async function migrateGuestDiagnosis(body: {
+  answers: DiagnosisSubmitAnswer[];
+}): Promise<GuestDiagnosisMigrationOutcome> {
+  const currentStatus = await fetchDiagnosisStatus();
+  if (currentStatus.hasCompleted) {
+    return { outcome: "already-completed" };
+  }
+
+  try {
+    const diagnosis = await submitDiagnosis(body);
+    return { outcome: "created", diagnosisId: diagnosis.diagnosisId };
+  } catch (error) {
+    if (!(error instanceof ApiError) || error.status !== 409) {
+      throw error;
+    }
+
+    const confirmedStatus = await fetchDiagnosisStatus();
+    if (confirmedStatus.hasCompleted) {
+      return { outcome: "already-completed" };
+    }
+
+    throw error;
+  }
 }
 
 /** 게스트 진단 채점 — 무인증·미저장. submit과 body 동일, 응답에 diagnosisId·gamification 없음. */

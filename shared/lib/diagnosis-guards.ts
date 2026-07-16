@@ -1,11 +1,26 @@
 import prisma from "@/lib/db";
+import { DIAGNOSIS_COOLDOWN_DAYS } from "@/shared/constants";
 import { getSession } from "./get-session";
 import { redirect } from "next/navigation";
 
-/**
- * 재진단 허용 기간 (일)
- */
-const DIAGNOSIS_COOLDOWN_DAYS = 30;
+const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+
+export function calculateDiagnosisRetakeAvailability(
+  completedAt: Date,
+  now = new Date()
+) {
+  const daysSinceLastDiagnosis = Math.floor(
+    (now.getTime() - completedAt.getTime()) / MILLISECONDS_PER_DAY
+  );
+  const canRetake = daysSinceLastDiagnosis >= DIAGNOSIS_COOLDOWN_DAYS;
+
+  return {
+    canRetake,
+    daysUntilRetake: canRetake
+      ? 0
+      : DIAGNOSIS_COOLDOWN_DAYS - daysSinceLastDiagnosis,
+  };
+}
 
 /**
  * 사용자의 진단 완료 여부를 확인합니다.
@@ -32,13 +47,8 @@ export async function checkDiagnosisStatus(userId: string) {
     };
   }
 
-  // 마지막 진단으로부터 경과 일수 계산
-  const daysSinceLastDiagnosis = Math.floor(
-    (Date.now() - diagnosis.completedAt.getTime()) / (1000 * 60 * 60 * 24)
-  );
-
-  const canRetake = daysSinceLastDiagnosis >= DIAGNOSIS_COOLDOWN_DAYS;
-  const daysUntilRetake = canRetake ? 0 : DIAGNOSIS_COOLDOWN_DAYS - daysSinceLastDiagnosis;
+  const { canRetake, daysUntilRetake } =
+    calculateDiagnosisRetakeAvailability(diagnosis.completedAt);
 
   return {
     hasCompleted: true,
