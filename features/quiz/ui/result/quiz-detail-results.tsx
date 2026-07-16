@@ -1,6 +1,7 @@
 import { ListChecks, Volume2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { playAudio } from "@/shared/lib/play-audio";
+import { useToast } from "@/shared/ui";
 import { QUIZ_RESULT_ITEM_STYLES, type QuizResultStatus } from "../../config";
 import { fillBlank } from "../../lib/fill-blank";
 import type { QuizResult } from "../../types";
@@ -28,7 +29,19 @@ function getToggleLabel(showDetails: boolean): string {
 }
 
 export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetailResultsProps) {
+  const { toast } = useToast();
   const toggleLabel = getToggleLabel(showDetails);
+
+  async function handlePlaySentence(result: QuizResult): Promise<void> {
+    const didStartPlayback = await playAudio(
+      fillBlank(result.explanation, result.correctAnswer),
+      result.sentenceAudioUrl
+    );
+
+    if (!didStartPlayback) {
+      toast("이 브라우저에서는 발음 재생을 지원하지 않아요.");
+    }
+  }
 
   return (
     <div className="mb-8 animate-slide-up" style={{ animationDelay: "0.4s" }}>
@@ -96,12 +109,7 @@ export function QuizDetailResults({ results, showDetails, onToggle }: QuizDetail
                         </div>
                         <button
                           type="button"
-                          onClick={() =>
-                            playAudio(
-                              fillBlank(item.explanation, item.correctAnswer),
-                              item.sentenceAudioUrl
-                            )
-                          }
+                          onClick={() => void handlePlaySentence(item)}
                           aria-label="문장 발음 듣기"
                           className="flex flex-shrink-0 items-center gap-1 rounded-lg border border-border-warm px-2.5 py-1 text-xs font-bold text-ink-soft transition-colors hover:border-ink-soft hover:text-ink"
                         >

@@ -31,17 +31,23 @@ export function FlashcardGame({
   const { currentIndex, isFlipped, currentCard, progress, handleFlip, handleReview } =
     useFlashcardGameFlow({ cards, onSubmitReviews, startCardTimer, getCardTime, getSessionDuration });
 
-  const handlePlayWord = useCallback(() => {
-    const played = playAudio(currentCard.word, currentCard.audioUrl);
-    if (!played) {
+  const handlePlayWord = useCallback(async () => {
+    const didStartPlayback = await playAudio(
+      currentCard.word,
+      currentCard.audioUrl
+    );
+    if (!didStartPlayback) {
       toast("이 브라우저에서는 발음 재생을 지원하지 않아요.");
     }
   }, [currentCard.word, currentCard.audioUrl, toast]);
 
-  const handlePlayExample = useCallback(() => {
+  const handlePlayExample = useCallback(async () => {
     if (!currentCard.exampleSentence) return;
-    const played = playAudio(currentCard.exampleSentence, currentCard.exampleAudioUrl);
-    if (!played) {
+    const didStartPlayback = await playAudio(
+      currentCard.exampleSentence,
+      currentCard.exampleAudioUrl
+    );
+    if (!didStartPlayback) {
       toast("이 브라우저에서는 발음 재생을 지원하지 않아요.");
     }
   }, [currentCard.exampleSentence, currentCard.exampleAudioUrl, toast]);
