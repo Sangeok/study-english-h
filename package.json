@@ -15,7 +15,11 @@
     "content:report:collisions": "tsx prisma/scripts/report-content-collisions.ts",
     "content:report:coverage": "tsx prisma/scripts/report-content-coverage.ts",
     "content:build": "npm run content:build:vocabulary && npm run content:build:quiz",
-    "content:check": "npm run content:validate:vocabulary && npm run content:validate:quiz && npm run content:report:collisions && npm run content:report:coverage && npm run content:build"
+    "content:check": "npm run content:validate:vocabulary && npm run content:validate:quiz && npm run content:report:collisions && npm run content:report:coverage && npm run content:build",
+    "content:seed:vocabulary": "tsx prisma/seed-vocabulary.ts",
+    "content:seed:quiz": "tsx prisma/seed-quiz.ts",
+    "content:seed:quiz:reset": "tsx prisma/seed-quiz.ts --reset",
+    "content:seed": "npm run content:check && npm run content:seed:vocabulary && npm run content:seed:quiz"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.3.0",

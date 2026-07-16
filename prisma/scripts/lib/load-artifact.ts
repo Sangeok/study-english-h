@@ -5,7 +5,7 @@
  * artifact 는 gitignore 되어 있어(로컬·CI 전용) 커밋되지 않는다 — 부재 시 즉시 실패시키고
  * 재생성 명령을 안내한다(fail-fast). silent skip 없이 "어떤 입력이 어떤 DB 를 만들었는가"를 artifact 로 고정한다.
  */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, rmSync } from "node:fs";
 import path from "node:path";
 
 export interface ArtifactRef {
@@ -25,6 +25,14 @@ export const VOCAB_ARTIFACT: ArtifactRef = {
   relPath: "prisma/data/generated/vocabularies.generated.json",
   buildCommand: "npm run content:build:vocabulary",
 };
+
+/**
+ * 실패한 validate/build 실행이 이전 성공 artifact를 재사용하지 못하도록 제거한다.
+ * 파일이 이미 없어도 성공하므로 모든 hard-fail 경로에서 안전하게 호출할 수 있다.
+ */
+export function invalidateArtifact(root: string, ref: ArtifactRef): void {
+  rmSync(path.join(root, ref.relPath), { force: true });
+}
 
 /**
  * generated artifact(JSON 배열)를 읽는다. 부재 시 재생성 명령과 함께 즉시 throw(fail-fast).

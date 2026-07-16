@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ACCURACY_THRESHOLDS } from "../../config";
-import { getAccuracyStyle } from "../../lib/accuracy-style";
+import { getAccuracyFeedback } from "../../lib/accuracy-feedback";
 import type { WeaknessArea } from "../../types";
 
 interface WeaknessAreasListProps {
@@ -62,7 +62,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
     <div className="mb-8 space-y-4">
       <h3 className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">집중 학습 영역</h3>
       {sortedWeaknessAreas.map((area, idx) => {
-        const style = getAccuracyStyle(area.accuracy);
+        const feedback = getAccuracyFeedback(area.accuracy);
         const tone = getAccuracyTone(area.accuracy);
         const isWeak = area.accuracy < ACCURACY_THRESHOLDS.WEAK;
 
@@ -94,7 +94,7 @@ function WeaknessAreaContent({ weaknessAreas }: WeaknessAreasListProps) {
             </div>
             {isWeak && (
               <p className={cn("mt-2 text-xs font-medium", TONE_TEXT[tone])}>
-                {style.status} {style.label}
+                {feedback}
               </p>
             )}
           </div>

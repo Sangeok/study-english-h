@@ -5,6 +5,7 @@ import { formatDiagnosisAnswers } from "@/features/diagnosis/lib/format-answers"
 import { diagnosisSubmitRequestSchema } from "@/entities/question/lib/schemas";
 import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { calculateDiagnosisRetakeAvailability } from "@/shared/lib/diagnosis-guards";
 import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 import { MIN_DIAGNOSIS_ANSWERS } from "@/shared/constants";
 
@@ -70,12 +71,45 @@ export async function POST(req: Request) {
       return acc;
     }, {} as Record<string, number>);
 
-    // streak 데이터 선행 조회
-    const streakData = await getStreakUpdateData(userId);
+    const persistenceResult = await prisma.$transaction(async (transaction) => {
+      const lockKey = `diagnosis-submit:${userId}`;
 
-    // 진단 결과 저장 + UserProfile upsert 병렬 실행
-    const [diagnosis] = await Promise.all([
-      prisma.levelDiagnosis.create({
+      await transaction.$queryRaw`
+        SELECT pg_advisory_xact_lock(
+          hashtextextended(${lockKey}::text, 0)
+        )::text AS "lockResult"
+      `;
+
+      const latestDiagnosis = await transaction.levelDiagnosis.findFirst({
+        where: { userId },
+        select: {
+          id: true,
+          completedAt: true,
+        },
+        orderBy: { completedAt: "desc" },
+      });
+
+      if (latestDiagnosis) {
+        const retakeAvailability = calculateDiagnosisRetakeAvailability(
+          latestDiagnosis.completedAt
+        );
+
+        if (!retakeAvailability.canRetake) {
+          return {
+            kind: "already-completed" as const,
+            diagnosis: latestDiagnosis,
+            daysUntilRetake: retakeAvailability.daysUntilRetake,
+          };
+        }
+      }
+
+      const streakData = await getStreakUpdateData(
+        userId,
+        new Date(),
+        transaction
+      );
+
+      const diagnosis = await transaction.levelDiagnosis.create({
         data: {
           userId,
           totalScore: result.totalScore,
@@ -90,8 +124,9 @@ export async function POST(req: Request) {
         include: {
           weaknessAreas: true,
         },
-      }),
-      prisma.userProfile.upsert({
+      });
+
+      await transaction.userProfile.upsert({
         where: { userId },
         create: {
           userId,
@@ -110,16 +145,46 @@ export async function POST(req: Request) {
           longestStreak: streakData.longestStreak,
           freezeCount: streakData.newFreezeCount,
         },
-      }),
-    ]);
+      });
 
-    const gamificationResult = await processGamificationRewards(userId, {
-      type: "diagnosis",
-      correctCount: result.weaknessAreas.filter((a) => a.accuracy >= 60).length,
-      totalCount: answers.length,
-      accuracy: result.totalScore,
-      currentStreak: streakData.currentStreak,
+      return {
+        kind: "created" as const,
+        diagnosis,
+        streakData,
+      };
     });
+
+    if (persistenceResult.kind === "already-completed") {
+      return NextResponse.json(
+        {
+          error: "DIAGNOSIS_ALREADY_COMPLETED",
+          diagnosisId: persistenceResult.diagnosis.id,
+          completedAt: persistenceResult.diagnosis.completedAt.toISOString(),
+          daysUntilRetake: persistenceResult.daysUntilRetake,
+        },
+        { status: 409 }
+      );
+    }
+
+    const { diagnosis, streakData } = persistenceResult;
+
+    let gamificationResult = null;
+
+    try {
+      gamificationResult = await processGamificationRewards(userId, {
+        type: "diagnosis",
+        correctCount: result.weaknessAreas.filter((a) => a.accuracy >= 60).length,
+        totalCount: answers.length,
+        accuracy: result.totalScore,
+        currentStreak: streakData.currentStreak,
+      });
+    } catch (error) {
+      console.error("Diagnosis gamification error:", {
+        userId,
+        diagnosisId: diagnosis.id,
+        error,
+      });
+    }
 
     return NextResponse.json({
       diagnosisId: diagnosis.id,

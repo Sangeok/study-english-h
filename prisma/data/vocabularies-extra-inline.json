@@ -232,14 +232,6 @@
     "level": "A2"
   },
   {
-    "word": "clean",
-    "meaning": "청소하다",
-    "pronunciation": "kliːn",
-    "exampleSentence": "Clean your room.",
-    "category": "daily",
-    "level": "A2"
-  },
-  {
     "word": "wear",
     "meaning": "입다",
     "pronunciation": "wer",
@@ -480,22 +472,6 @@
     "level": "A2"
   },
   {
-    "word": "achieve",
-    "meaning": "달성하다",
-    "pronunciation": "əˈtʃiːv",
-    "exampleSentence": "She achieved her goal.",
-    "category": "toeic",
-    "level": "B1"
-  },
-  {
-    "word": "advantage",
-    "meaning": "이점",
-    "pronunciation": "ədˈvæn.t̬ɪdʒ",
-    "exampleSentence": "There are many advantages.",
-    "category": "toeic",
-    "level": "B1"
-  },
-  {
     "word": "affect",
     "meaning": "영향을 주다",
     "pronunciation": "əˈfekt",
@@ -504,58 +480,10 @@
     "level": "B1"
   },
   {
-    "word": "approach",
-    "meaning": "접근하다",
-    "pronunciation": "əˈproʊtʃ",
-    "exampleSentence": "Let's try a different approach.",
-    "category": "business",
-    "level": "B1"
-  },
-  {
     "word": "assume",
     "meaning": "가정하다",
     "pronunciation": "əˈsuːm",
     "exampleSentence": "Don't assume anything.",
-    "category": "daily",
-    "level": "B1"
-  },
-  {
-    "word": "attach",
-    "meaning": "첨부하다",
-    "pronunciation": "əˈtætʃ",
-    "exampleSentence": "Please attach the file.",
-    "category": "toeic",
-    "level": "B1"
-  },
-  {
-    "word": "attitude",
-    "meaning": "태도",
-    "pronunciation": "ˈæt̬.ə.tuːd",
-    "exampleSentence": "He has a positive attitude.",
-    "category": "daily",
-    "level": "B1"
-  },
-  {
-    "word": "benefit",
-    "meaning": "혜택",
-    "pronunciation": "ˈben.ə.fɪt",
-    "exampleSentence": "This has many benefits.",
-    "category": "business",
-    "level": "B1"
-  },
-  {
-    "word": "capacity",
-    "meaning": "용량, 능력",
-    "pronunciation": "kəˈpæs.ə.t̬i",
-    "exampleSentence": "The hall has a large capacity.",
-    "category": "business",
-    "level": "B1"
-  },
-  {
-    "word": "challenge",
-    "meaning": "도전",
-    "pronunciation": "ˈtʃæl.ɪndʒ",
-    "exampleSentence": "This is a big challenge.",
     "category": "daily",
     "level": "B1"
   },
@@ -616,14 +544,6 @@
     "level": "B1"
   },
   {
-    "word": "demonstrate",
-    "meaning": "시연하다",
-    "pronunciation": "ˈdem.ən.streɪt",
-    "exampleSentence": "Let me demonstrate how it works.",
-    "category": "business",
-    "level": "B1"
-  },
-  {
     "word": "determine",
     "meaning": "결정하다",
     "pronunciation": "dɪˈtɜːr.mɪn",
@@ -644,14 +564,6 @@
     "meaning": "수용하다",
     "pronunciation": "əˈkɑː.mə.deɪt",
     "exampleSentence": "The hotel can accommodate 200 guests.",
-    "category": "business",
-    "level": "B2"
-  },
-  {
-    "word": "acknowledge",
-    "meaning": "인정하다",
-    "pronunciation": "əkˈnɑː.lɪdʒ",
-    "exampleSentence": "I acknowledge my mistake.",
     "category": "business",
     "level": "B2"
   },
@@ -685,22 +597,6 @@
     "pronunciation": "əˈtrɪb.juːt",
     "exampleSentence": "Success can be attributed to hard work.",
     "category": "daily",
-    "level": "B2"
-  },
-  {
-    "word": "collaborate",
-    "meaning": "협력하다",
-    "pronunciation": "kəˈlæb.ə.reɪt",
-    "exampleSentence": "We need to collaborate more.",
-    "category": "business",
-    "level": "B2"
-  },
-  {
-    "word": "comprehensive",
-    "meaning": "포괄적인",
-    "pronunciation": "ˌkɑːm.prɪˈhen.sɪv",
-    "exampleSentence": "We need a comprehensive plan.",
-    "category": "business",
     "level": "B2"
   },
   {
@@ -744,27 +640,11 @@
     "level": "B2"
   },
   {
-    "word": "dedicate",
-    "meaning": "헌신하다",
-    "pronunciation": "ˈded.ɪ.keɪt",
-    "exampleSentence": "She dedicated her life to research.",
-    "category": "daily",
-    "level": "B2"
-  },
-  {
     "word": "dimension",
     "meaning": "차원",
     "pronunciation": "daɪˈmen.ʃən",
     "exampleSentence": "Consider all dimensions of the problem.",
     "category": "daily",
-    "level": "B2"
-  },
-  {
-    "word": "diminish",
-    "meaning": "감소시키다",
-    "pronunciation": "dɪˈmɪn.ɪʃ",
-    "exampleSentence": "The risk has diminished.",
-    "category": "business",
     "level": "B2"
   },
   {
@@ -840,26 +720,10 @@
     "level": "C1"
   },
   {
-    "word": "concurrent",
-    "meaning": "동시에 발생하는",
-    "pronunciation": "kənˈkɜːr.ənt",
-    "exampleSentence": "The events were concurrent.",
-    "category": "daily",
-    "level": "C1"
-  },
-  {
     "word": "differentiate",
     "meaning": "구별하다",
     "pronunciation": "ˌdɪf.əˈren.ʃi.eɪt",
     "exampleSentence": "We must differentiate between them.",
-    "category": "daily",
-    "level": "C1"
-  },
-  {
-    "word": "discern",
-    "meaning": "식별하다",
-    "pronunciation": "dɪˈsɜːrn",
-    "exampleSentence": "I can discern a pattern.",
     "category": "daily",
     "level": "C1"
   },
@@ -878,14 +742,6 @@
     "exampleSentence": "Prices fluctuate daily.",
     "category": "business",
     "level": "C1"
-  },
-  {
-    "word": "articulate",
-    "meaning": "명료하게 표현하다",
-    "pronunciation": "ɑːrˈtɪk.jə.lət",
-    "exampleSentence": "She articulated her thoughts clearly.",
-    "category": "daily",
-    "level": "C2"
   },
   {
     "word": "elucidate",
@@ -920,14 +776,6 @@
     "level": "C2"
   },
   {
-    "word": "paradigm",
-    "meaning": "패러다임",
-    "pronunciation": "ˈper.ə.daɪm",
-    "exampleSentence": "This represents a new paradigm.",
-    "category": "business",
-    "level": "C2"
-  },
-  {
     "word": "pervasive",
     "meaning": "널리 퍼진",
     "pronunciation": "pərˈveɪ.sɪv",
@@ -941,14 +789,6 @@
     "pronunciation": "səbˈstæn.ʃi.eɪt",
     "exampleSentence": "You must substantiate your claims.",
     "category": "business",
-    "level": "C2"
-  },
-  {
-    "word": "ubiquitous",
-    "meaning": "어디에나 있는",
-    "pronunciation": "juːˈbɪk.wɪ.t̬əs",
-    "exampleSentence": "Smartphones are ubiquitous now.",
-    "category": "daily",
     "level": "C2"
   },
   {
@@ -968,14 +808,6 @@
     "level": "B1"
   },
   {
-    "word": "budget",
-    "meaning": "예산",
-    "pronunciation": "ˈbʌdʒ.ɪt",
-    "exampleSentence": "We need to cut the budget.",
-    "category": "toeic",
-    "level": "B1"
-  },
-  {
     "word": "deadline",
     "meaning": "마감일",
     "pronunciation": "ˈded.laɪn",
@@ -988,14 +820,6 @@
     "meaning": "송장",
     "pronunciation": "ˈɪn.vɔɪs",
     "exampleSentence": "Please send me the invoice.",
-    "category": "toeic",
-    "level": "B1"
-  },
-  {
-    "word": "negotiate",
-    "meaning": "협상하다",
-    "pronunciation": "nɪˈɡoʊ.ʃi.eɪt",
-    "exampleSentence": "We need to negotiate the terms.",
     "category": "toeic",
     "level": "B1"
   },
@@ -1020,14 +844,6 @@
     "meaning": "시행하다",
     "pronunciation": "ˈɪm.plə.ment",
     "exampleSentence": "We will implement the new policy.",
-    "category": "toeic",
-    "level": "B2"
-  },
-  {
-    "word": "facilitate",
-    "meaning": "용이하게 하다",
-    "pronunciation": "fəˈsɪl.ə.teɪt",
-    "exampleSentence": "This will facilitate communication.",
     "category": "toeic",
     "level": "B2"
   },

@@ -1,16 +1,18 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  saveGuestDiagnosis,
-  readGuestDiagnosis,
+  GUEST_DIAGNOSIS_STORAGE_KEY,
   clearGuestDiagnosis,
-  type GuestDiagnosis,
+  readGuestDiagnosis,
+  saveGuestDiagnosis,
+  type CachedGuestDiagnosis,
+  type GuestDiagnosisCacheInput,
 } from "./guest-diagnosis-storage";
 
-const SAMPLE: GuestDiagnosis = {
-  answers: [
-    { questionId: "q1", selectedText: "apple" },
-    { questionId: "q2", selectedText: "" },
-  ],
+const SAMPLE_DIAGNOSIS: GuestDiagnosisCacheInput = {
+  answers: Array.from({ length: 20 }, (_, index) => ({
+    questionId: `question-${index + 1}`,
+    selectedText: index % 2 === 0 ? "apple" : "",
+  })),
   result: {
     totalScore: 42,
     cefrLevel: "B1",
@@ -19,32 +21,111 @@ const SAMPLE: GuestDiagnosis = {
   },
 };
 
+const CACHED_SAMPLE_DIAGNOSIS: CachedGuestDiagnosis = {
+  cacheSchemaVersion: 1,
+  ...SAMPLE_DIAGNOSIS,
+};
+
 describe("guest-diagnosis-storage", () => {
   beforeEach(() => {
     window.sessionStorage.clear();
   });
 
-  it("save 후 read는 동일 데이터를 반환한다(라운드트립)", () => {
-    saveGuestDiagnosis(SAMPLE);
-    expect(readGuestDiagnosis()).toEqual(SAMPLE);
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
-  it("저장된 값이 없으면 null을 반환한다", () => {
-    expect(readGuestDiagnosis()).toBeNull();
+  it("should store cache schema version 1 when saving a diagnosis", () => {
+    expect(saveGuestDiagnosis(SAMPLE_DIAGNOSIS)).toEqual({ status: "success" });
+
+    const rawDiagnosis = window.sessionStorage.getItem(GUEST_DIAGNOSIS_STORAGE_KEY);
+    expect(JSON.parse(rawDiagnosis as string)).toEqual(CACHED_SAMPLE_DIAGNOSIS);
   });
 
-  it("clear 후 read는 null을 반환한다", () => {
-    saveGuestDiagnosis(SAMPLE);
-    clearGuestDiagnosis();
-    expect(readGuestDiagnosis()).toBeNull();
+  it("should return a ready result with the versioned diagnosis after saving", () => {
+    saveGuestDiagnosis(SAMPLE_DIAGNOSIS);
+
+    expect(readGuestDiagnosis()).toEqual({
+      status: "ready",
+      diagnosis: CACHED_SAMPLE_DIAGNOSIS,
+    });
   });
 
-  it("손상된 JSON이면 throw 없이 null을 반환한다", () => {
-    // 내부 키를 하드코딩하지 않도록, 실제 save가 쓴 키를 찾아 손상시킨다.
-    saveGuestDiagnosis(SAMPLE);
-    const key = window.sessionStorage.key(0);
-    expect(key).not.toBeNull();
-    window.sessionStorage.setItem(key as string, "{ not valid json");
-    expect(readGuestDiagnosis()).toBeNull();
+  it("should return empty when no diagnosis is stored", () => {
+    expect(readGuestDiagnosis()).toEqual({ status: "empty" });
+  });
+
+  it("should remove a stored diagnosis when clearing succeeds", () => {
+    saveGuestDiagnosis(SAMPLE_DIAGNOSIS);
+
+    expect(clearGuestDiagnosis()).toEqual({ status: "success" });
+    expect(readGuestDiagnosis()).toEqual({ status: "empty" });
+  });
+
+  it("should return invalid for malformed JSON", () => {
+    window.sessionStorage.setItem(GUEST_DIAGNOSIS_STORAGE_KEY, "{ not valid json");
+
+    expect(readGuestDiagnosis()).toEqual({ status: "invalid" });
+  });
+
+  it("should return invalid when the stored diagnosis has the wrong shape", () => {
+    window.sessionStorage.setItem(
+      GUEST_DIAGNOSIS_STORAGE_KEY,
+      JSON.stringify({ cacheSchemaVersion: 1, answers: [], result: {} })
+    );
+
+    expect(readGuestDiagnosis()).toEqual({ status: "invalid" });
+  });
+
+  it("should return invalid when the cache schema version does not match", () => {
+    window.sessionStorage.setItem(
+      GUEST_DIAGNOSIS_STORAGE_KEY,
+      JSON.stringify({ ...CACHED_SAMPLE_DIAGNOSIS, cacheSchemaVersion: 2 })
+    );
+
+    expect(readGuestDiagnosis()).toEqual({ status: "invalid" });
+  });
+
+  it("should keep invalid data in storage after reading it", () => {
+    const invalidDiagnosis = JSON.stringify({ cacheSchemaVersion: 1, answers: [] });
+    window.sessionStorage.setItem(GUEST_DIAGNOSIS_STORAGE_KEY, invalidDiagnosis);
+
+    expect(readGuestDiagnosis()).toEqual({ status: "invalid" });
+    expect(window.sessionStorage.getItem(GUEST_DIAGNOSIS_STORAGE_KEY)).toBe(
+      invalidDiagnosis
+    );
+  });
+
+  it("should return unavailable when session storage cannot be read", () => {
+    vi.spyOn(window.sessionStorage, "getItem").mockImplementation(() => {
+      throw new Error("read unavailable");
+    });
+
+    expect(readGuestDiagnosis()).toEqual({ status: "unavailable" });
+  });
+
+  it("should return unavailable when session storage cannot be written", () => {
+    vi.spyOn(window.sessionStorage, "setItem").mockImplementation(() => {
+      throw new Error("write unavailable");
+    });
+
+    expect(saveGuestDiagnosis(SAMPLE_DIAGNOSIS)).toEqual({ status: "unavailable" });
+  });
+
+  it("should return unavailable when session storage cannot be cleared", () => {
+    vi.spyOn(window.sessionStorage, "removeItem").mockImplementation(() => {
+      throw new Error("remove unavailable");
+    });
+
+    expect(clearGuestDiagnosis()).toEqual({ status: "unavailable" });
+  });
+
+  it("should return unavailable for all operations during server rendering", () => {
+    vi.stubGlobal("window", undefined);
+
+    expect(readGuestDiagnosis()).toEqual({ status: "unavailable" });
+    expect(saveGuestDiagnosis(SAMPLE_DIAGNOSIS)).toEqual({ status: "unavailable" });
+    expect(clearGuestDiagnosis()).toEqual({ status: "unavailable" });
   });
 });

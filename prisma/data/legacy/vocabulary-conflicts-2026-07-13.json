@@ -1,0 +1,2264 @@
+{
+  "archivedAt": "2026-07-13",
+  "policy": "canonical-first-wins",
+  "officialSourceFiles": [
+    "vocabularies.json",
+    "vocabularies-extra-a1-a2.json",
+    "vocabularies-extra-b1-b2.json",
+    "vocabularies-extra-c1-c2.json",
+    "vocabularies-extra-supplement.json",
+    "vocabularies-extra-inline.json"
+  ],
+  "summary": {
+    "conflictWords": 76,
+    "archivedOccurrences": 80,
+    "originalOfficialRecords": 1644,
+    "remainingOfficialRecords": 1564,
+    "remainingUniqueWords": 1550,
+    "remainingCompleteDuplicates": 14,
+    "remainingConflicts": 0,
+    "artifactDeepEqualToPreCuration": true
+  },
+  "entries": [
+    {
+      "word": "coordinate",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 86
+      },
+      "record": {
+        "word": "coordinate",
+        "meaning": "조정하다",
+        "pronunciation": "koʊˈɔːr.dɪ.neɪt",
+        "exampleSentence": "Coordinate the project schedule.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 308
+      },
+      "canonicalRecord": {
+        "word": "coordinate",
+        "meaning": "조정하다",
+        "pronunciation": "kəʊˈɔː.dɪ.neɪt",
+        "exampleSentence": "She will coordinate the event.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "approve",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 91
+      },
+      "record": {
+        "word": "approve",
+        "meaning": "승인하다",
+        "pronunciation": "əˈpruːv",
+        "exampleSentence": "Approve the budget request.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 252
+      },
+      "canonicalRecord": {
+        "word": "approve",
+        "meaning": "승인하다",
+        "pronunciation": "əˈpruːv",
+        "exampleSentence": "The manager approved the plan.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "cancel",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 104
+      },
+      "record": {
+        "word": "cancel",
+        "meaning": "취소하다",
+        "pronunciation": "ˈkæn.səl",
+        "exampleSentence": "Cancel the order now.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 280
+      },
+      "canonicalRecord": {
+        "word": "cancel",
+        "meaning": "취소하다",
+        "pronunciation": "ˈkæn.səl",
+        "exampleSentence": "I need to cancel my reservation.",
+        "category": "travel",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "generate",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 207
+      },
+      "record": {
+        "word": "generate",
+        "meaning": "발생시키다",
+        "pronunciation": "ˈdʒen.ər.eɪt",
+        "exampleSentence": "Generate new ideas daily.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 114
+      },
+      "canonicalRecord": {
+        "word": "generate",
+        "meaning": "생성하다",
+        "pronunciation": "ˈdʒen.ər.eɪt",
+        "exampleSentence": "Generate more revenue.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "objective",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 219
+      },
+      "record": {
+        "word": "objective",
+        "meaning": "객관적인",
+        "pronunciation": "əbˈdʒek.tɪv",
+        "exampleSentence": "Be objective in analysis.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 145
+      },
+      "canonicalRecord": {
+        "word": "objective",
+        "meaning": "목표",
+        "pronunciation": "əbˈdʒek.tɪv",
+        "exampleSentence": "Set clear objectives.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "profound",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 225
+      },
+      "record": {
+        "word": "profound",
+        "meaning": "심오한",
+        "pronunciation": "prəˈfaʊnd",
+        "exampleSentence": "A profound impact on life.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 328
+      },
+      "canonicalRecord": {
+        "word": "profound",
+        "meaning": "깊은",
+        "pronunciation": "prəˈfaʊnd",
+        "exampleSentence": "This had a profound impact.",
+        "category": "toeic",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "shareholder",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 269
+      },
+      "record": {
+        "word": "shareholder",
+        "meaning": "주주",
+        "pronunciation": "ˈʃer.hoʊl.dər",
+        "exampleSentence": "Inform all shareholders.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 136
+      },
+      "canonicalRecord": {
+        "word": "shareholder",
+        "meaning": "주주",
+        "pronunciation": "ˈʃer.hoʊl.dər",
+        "exampleSentence": "Meet with the shareholders.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "turnover",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 278
+      },
+      "record": {
+        "word": "turnover",
+        "meaning": "이직률",
+        "pronunciation": "ˈtɜːrn.oʊ.vər",
+        "exampleSentence": "High turnover is costly.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 141
+      },
+      "canonicalRecord": {
+        "word": "turnover",
+        "meaning": "매출액",
+        "pronunciation": "ˈtɜːrn.oʊ.vər",
+        "exampleSentence": "Annual turnover increased.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "subsidiary",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 302
+      },
+      "record": {
+        "word": "subsidiary",
+        "meaning": "보조적인",
+        "pronunciation": "səbˈsɪd.i.er.i",
+        "exampleSentence": "A subsidiary company formed.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 135
+      },
+      "canonicalRecord": {
+        "word": "subsidiary",
+        "meaning": "자회사",
+        "pronunciation": "səbˈsɪd.i.er.i",
+        "exampleSentence": "Our subsidiary is in London.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "expedition",
+      "provenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 311
+      },
+      "record": {
+        "word": "expedition",
+        "meaning": "탐험",
+        "pronunciation": "ˌek.spɪˈdɪʃ.ən",
+        "exampleSentence": "Join the arctic expedition.",
+        "category": "travel",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 189
+      },
+      "canonicalRecord": {
+        "word": "expedition",
+        "meaning": "원정",
+        "pronunciation": "ˌek.spɪˈdɪʃ.ən",
+        "exampleSentence": "Join the mountain expedition.",
+        "category": "travel",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "workforce",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 13
+      },
+      "record": {
+        "word": "workforce",
+        "meaning": "노동력",
+        "pronunciation": "ˈwɜːrk.fɔːrs",
+        "exampleSentence": "The workforce is skilled.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 284
+      },
+      "canonicalRecord": {
+        "word": "workforce",
+        "meaning": "노동력",
+        "pronunciation": "ˈwɜːrk.fɔːrs",
+        "exampleSentence": "The workforce is growing.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "contingency",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 28
+      },
+      "record": {
+        "word": "contingency",
+        "meaning": "우발사태",
+        "pronunciation": "kənˈtɪn.dʒən.si",
+        "exampleSentence": "Have a contingency plan.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 307
+      },
+      "canonicalRecord": {
+        "word": "contingency",
+        "meaning": "비상 대책",
+        "pronunciation": "kənˈtɪn.dʒən.si",
+        "exampleSentence": "We have a contingency plan.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "discrepancy",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 37
+      },
+      "record": {
+        "word": "discrepancy",
+        "meaning": "불일치",
+        "pronunciation": "dɪˈskrep.ən.si",
+        "exampleSentence": "There is a discrepancy.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 320
+      },
+      "canonicalRecord": {
+        "word": "discrepancy",
+        "meaning": "불일치",
+        "pronunciation": "dɪˈskrep.ən.si",
+        "exampleSentence": "There's a discrepancy in the records.",
+        "category": "business",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "explicit",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 46
+      },
+      "record": {
+        "word": "explicit",
+        "meaning": "명확한",
+        "pronunciation": "ɪkˈsplɪs.ɪt",
+        "exampleSentence": "Give explicit instructions.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 205
+      },
+      "canonicalRecord": {
+        "word": "explicit",
+        "meaning": "명시적인",
+        "pronunciation": "ɪkˈsplɪs.ɪt",
+        "exampleSentence": "Give explicit instructions.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "mandatory",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 62
+      },
+      "record": {
+        "word": "mandatory",
+        "meaning": "필수적인",
+        "pronunciation": "ˈmæn.də.tɔːr.i",
+        "exampleSentence": "Training is mandatory.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 10
+      },
+      "canonicalRecord": {
+        "word": "mandatory",
+        "meaning": "의무적인",
+        "pronunciation": "ˈmæn.də.tɔːr.i",
+        "exampleSentence": "Attendance is mandatory.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "paramount",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 73
+      },
+      "record": {
+        "word": "paramount",
+        "meaning": "최고의",
+        "pronunciation": "ˈper.ə.maʊnt",
+        "exampleSentence": "Safety is paramount.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 325
+      },
+      "canonicalRecord": {
+        "word": "paramount",
+        "meaning": "최고의",
+        "pronunciation": "ˈpær.ə.maʊnt",
+        "exampleSentence": "Safety is of paramount importance.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "specification",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 91
+      },
+      "record": {
+        "word": "specification",
+        "meaning": "명세",
+        "pronunciation": "ˌspes.ɪ.fɪˈkeɪ.ʃən",
+        "exampleSentence": "Meet the specification.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 270
+      },
+      "canonicalRecord": {
+        "word": "specification",
+        "meaning": "사양",
+        "pronunciation": "ˌspes.ɪ.fɪˈkeɪ.ʃən",
+        "exampleSentence": "Meet the specifications.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "benchmark",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 105
+      },
+      "record": {
+        "word": "benchmark",
+        "meaning": "기준점",
+        "pronunciation": "ˈbentʃ.mɑːrk",
+        "exampleSentence": "Set an industry benchmark.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 169
+      },
+      "canonicalRecord": {
+        "word": "benchmark",
+        "meaning": "벤치마크",
+        "pronunciation": "ˈbentʃ.mɑːrk",
+        "exampleSentence": "Set a performance benchmark.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "endeavor",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 128
+      },
+      "record": {
+        "word": "endeavor",
+        "meaning": "노력하다",
+        "pronunciation": "ɪnˈdev.ər",
+        "exampleSentence": "Endeavor to improve daily.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 322
+      },
+      "canonicalRecord": {
+        "word": "endeavor",
+        "meaning": "노력",
+        "pronunciation": "ɪnˈdev.ər",
+        "exampleSentence": "We wish you success in your endeavors.",
+        "category": "business",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "fundamental",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 141
+      },
+      "record": {
+        "word": "fundamental",
+        "meaning": "근본적인",
+        "pronunciation": "ˌfʌn.dəˈmen.t̬əl",
+        "exampleSentence": "A fundamental principle.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 206
+      },
+      "canonicalRecord": {
+        "word": "fundamental",
+        "meaning": "근본적인",
+        "pronunciation": "ˌfʌn.dəˈmen.t̬əl",
+        "exampleSentence": "A fundamental change is needed.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "infrastructure",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 153
+      },
+      "record": {
+        "word": "infrastructure",
+        "meaning": "인프라",
+        "pronunciation": "ˈɪn.frə.strʌk.tʃər",
+        "exampleSentence": "Critical infrastructure protected.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 54
+      },
+      "canonicalRecord": {
+        "word": "infrastructure",
+        "meaning": "기반 시설",
+        "pronunciation": "ˈɪn.frə.strʌk.tʃər",
+        "exampleSentence": "Upgrade the infrastructure.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "mitigate",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 165
+      },
+      "record": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "Mitigate the risks.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 324
+      },
+      "canonicalRecord": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "We need to mitigate the risks.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "scrutinize",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 194
+      },
+      "record": {
+        "word": "scrutinize",
+        "meaning": "면밀히 조사하다",
+        "pronunciation": "ˈskruː.t̬ɪ.naɪz",
+        "exampleSentence": "Scrutinize the results.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 329
+      },
+      "canonicalRecord": {
+        "word": "scrutinize",
+        "meaning": "면밀히 조사하다",
+        "pronunciation": "ˈskruː.tɪ.naɪz",
+        "exampleSentence": "We need to scrutinize the contract.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "attrition",
+      "provenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 235
+      },
+      "record": {
+        "word": "attrition",
+        "meaning": "감소",
+        "pronunciation": "əˈtrɪʃ.ən",
+        "exampleSentence": "War of attrition.",
+        "category": "toeic",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 102
+      },
+      "canonicalRecord": {
+        "word": "attrition",
+        "meaning": "소모",
+        "pronunciation": "əˈtrɪʃ.ən",
+        "exampleSentence": "Staff attrition is high.",
+        "category": "business",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "mitigate",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 18
+      },
+      "record": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "Mitigate the damage.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 324
+      },
+      "canonicalRecord": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "We need to mitigate the risks.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "pragmatic",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 20
+      },
+      "record": {
+        "word": "pragmatic",
+        "meaning": "실용적인",
+        "pronunciation": "præɡˈmæt.ɪk",
+        "exampleSentence": "A pragmatic decision.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 178
+      },
+      "canonicalRecord": {
+        "word": "pragmatic",
+        "meaning": "실용적인",
+        "pronunciation": "præɡˈmæt.ɪk",
+        "exampleSentence": "A pragmatic approach.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "prevalent",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 21
+      },
+      "record": {
+        "word": "prevalent",
+        "meaning": "널리 퍼진",
+        "pronunciation": "ˈprev.ə.lənt",
+        "exampleSentence": "This view is prevalent.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 327
+      },
+      "canonicalRecord": {
+        "word": "prevalent",
+        "meaning": "널리 퍼진",
+        "pronunciation": "ˈprev.əl.ənt",
+        "exampleSentence": "This practice is prevalent in the industry.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "reinforce",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 22
+      },
+      "record": {
+        "word": "reinforce",
+        "meaning": "강화하다",
+        "pronunciation": "ˌriː.ɪnˈfɔːrs",
+        "exampleSentence": "Reinforce positive habits.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 84
+      },
+      "canonicalRecord": {
+        "word": "reinforce",
+        "meaning": "강화하다",
+        "pronunciation": "ˌriː.ɪnˈfɔːrs",
+        "exampleSentence": "Reinforce positive behaviors.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "ameliorate",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 150
+      },
+      "record": {
+        "word": "ameliorate",
+        "meaning": "개선하다",
+        "pronunciation": "əˈmiː.li.ə.reɪt",
+        "exampleSentence": "Ameliorate conditions.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 96
+      },
+      "canonicalRecord": {
+        "word": "ameliorate",
+        "meaning": "개선하다",
+        "pronunciation": "əˈmiː.li.ə.reɪt",
+        "exampleSentence": "Ameliorate the situation.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "equitable",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 176
+      },
+      "record": {
+        "word": "equitable",
+        "meaning": "공평한",
+        "pronunciation": "ˈek.wɪ.t̬ə.bəl",
+        "exampleSentence": "An equitable solution.",
+        "category": "business",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 42
+      },
+      "canonicalRecord": {
+        "word": "equitable",
+        "meaning": "공평한",
+        "pronunciation": "ˈek.wɪ.t̬ə.bəl",
+        "exampleSentence": "An equitable solution needed.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "spurious",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 239
+      },
+      "record": {
+        "word": "spurious",
+        "meaning": "가짜의",
+        "pronunciation": "ˈspjʊr.i.əs",
+        "exampleSentence": "Spurious claims made.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 198
+      },
+      "canonicalRecord": {
+        "word": "spurious",
+        "meaning": "그릇된",
+        "pronunciation": "ˈspjʊr.i.əs",
+        "exampleSentence": "A spurious argument.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "persist",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 252
+      },
+      "record": {
+        "word": "persist",
+        "meaning": "지속하다",
+        "pronunciation": "pərˈsɪst",
+        "exampleSentence": "She persisted despite the obstacles.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 142
+      },
+      "canonicalRecord": {
+        "word": "persist",
+        "meaning": "고집하다",
+        "pronunciation": "pərˈsɪst",
+        "exampleSentence": "Persist despite obstacles.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "retain",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 253
+      },
+      "record": {
+        "word": "retain",
+        "meaning": "유지하다",
+        "pronunciation": "rɪˈteɪn",
+        "exampleSentence": "We need to retain our best employees.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 119
+      },
+      "canonicalRecord": {
+        "word": "retain",
+        "meaning": "유지하다",
+        "pronunciation": "rɪˈteɪn",
+        "exampleSentence": "Retain loyal customers.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "fluctuation",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 256
+      },
+      "record": {
+        "word": "fluctuation",
+        "meaning": "변동",
+        "pronunciation": "ˌflʌk.tʃuˈeɪ.ʃən",
+        "exampleSentence": "There were fluctuations in the market.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 7
+      },
+      "canonicalRecord": {
+        "word": "fluctuation",
+        "meaning": "변동",
+        "pronunciation": "ˌflʌk.tʃuˈeɪ.ʃən",
+        "exampleSentence": "Price fluctuations are normal.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "mitigate",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 257
+      },
+      "record": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "We must mitigate the risks.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 324
+      },
+      "canonicalRecord": {
+        "word": "mitigate",
+        "meaning": "완화하다",
+        "pronunciation": "ˈmɪt.ɪ.ɡeɪt",
+        "exampleSentence": "We need to mitigate the risks.",
+        "category": "business",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "cognitive",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 259
+      },
+      "record": {
+        "word": "cognitive",
+        "meaning": "인지적인",
+        "pronunciation": "ˈkɑːɡ.nɪ.tɪv",
+        "exampleSentence": "Cognitive abilities decline with age.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 24
+      },
+      "canonicalRecord": {
+        "word": "cognitive",
+        "meaning": "인지적인",
+        "pronunciation": "ˈkɑːɡ.nɪ.t̬ɪv",
+        "exampleSentence": "Cognitive skills matter.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "rhetoric",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 260
+      },
+      "record": {
+        "word": "rhetoric",
+        "meaning": "수사학, 미사여구",
+        "pronunciation": "ˈret.ər.ɪk",
+        "exampleSentence": "His speech was full of empty rhetoric.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 191
+      },
+      "canonicalRecord": {
+        "word": "rhetoric",
+        "meaning": "수사학",
+        "pronunciation": "ˈret.ər.ɪk",
+        "exampleSentence": "Beyond mere rhetoric.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "pragmatic",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 261
+      },
+      "record": {
+        "word": "pragmatic",
+        "meaning": "실용적인",
+        "pronunciation": "præɡˈmæt.ɪk",
+        "exampleSentence": "We need a pragmatic approach to this problem.",
+        "category": "business",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 178
+      },
+      "canonicalRecord": {
+        "word": "pragmatic",
+        "meaning": "실용적인",
+        "pronunciation": "præɡˈmæt.ɪk",
+        "exampleSentence": "A pragmatic approach.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "tenacious",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 263
+      },
+      "record": {
+        "word": "tenacious",
+        "meaning": "끈질긴",
+        "pronunciation": "tɪˈneɪ.ʃəs",
+        "exampleSentence": "She was tenacious in her pursuit of success.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 203
+      },
+      "canonicalRecord": {
+        "word": "tenacious",
+        "meaning": "집요한",
+        "pronunciation": "tɪˈneɪ.ʃəs",
+        "exampleSentence": "A tenacious negotiator.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "coherence",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 264
+      },
+      "record": {
+        "word": "coherence",
+        "meaning": "일관성",
+        "pronunciation": "koʊˈhɪr.əns",
+        "exampleSentence": "The essay lacked coherence.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 2
+      },
+      "canonicalRecord": {
+        "word": "coherence",
+        "meaning": "일관성",
+        "pronunciation": "koʊˈhɪr.əns",
+        "exampleSentence": "The argument lacks coherence.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "catalyst",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 266
+      },
+      "record": {
+        "word": "catalyst",
+        "meaning": "촉매",
+        "pronunciation": "ˈkæt.ə.lɪst",
+        "exampleSentence": "The discovery acted as a catalyst for change.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 22
+      },
+      "canonicalRecord": {
+        "word": "catalyst",
+        "meaning": "촉매",
+        "pronunciation": "ˈkæt.ə.lɪst",
+        "exampleSentence": "Innovation is a catalyst.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "arduous",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 270
+      },
+      "record": {
+        "word": "arduous",
+        "meaning": "힘든",
+        "pronunciation": "ˈɑːr.dʒu.əs",
+        "exampleSentence": "The climb was arduous but rewarding.",
+        "category": "travel",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 99
+      },
+      "canonicalRecord": {
+        "word": "arduous",
+        "meaning": "힘든",
+        "pronunciation": "ˈɑːr.dʒu.əs",
+        "exampleSentence": "An arduous task.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "circumvent",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 271
+      },
+      "record": {
+        "word": "circumvent",
+        "meaning": "우회하다",
+        "pronunciation": "ˌsɜːr.kəmˈvent",
+        "exampleSentence": "They found a way to circumvent the rules.",
+        "category": "business",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 69
+      },
+      "canonicalRecord": {
+        "word": "circumvent",
+        "meaning": "우회하다",
+        "pronunciation": "ˌsɜːr.kəmˈvent",
+        "exampleSentence": "Circumvent the rules.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "discrepancy",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 272
+      },
+      "record": {
+        "word": "discrepancy",
+        "meaning": "불일치",
+        "pronunciation": "dɪˈskrep.ən.si",
+        "exampleSentence": "There is a discrepancy in the accounts.",
+        "category": "business",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 320
+      },
+      "canonicalRecord": {
+        "word": "discrepancy",
+        "meaning": "불일치",
+        "pronunciation": "dɪˈskrep.ən.si",
+        "exampleSentence": "There's a discrepancy in the records.",
+        "category": "business",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "proliferate",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 274
+      },
+      "record": {
+        "word": "proliferate",
+        "meaning": "급증하다",
+        "pronunciation": "prəˈlɪf.ər.eɪt",
+        "exampleSentence": "Mobile devices have proliferated rapidly.",
+        "category": "business",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 183
+      },
+      "canonicalRecord": {
+        "word": "proliferate",
+        "meaning": "급증하다",
+        "pronunciation": "prəˈlɪf.ər.eɪt",
+        "exampleSentence": "Ideas proliferate quickly.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "delegate",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 275
+      },
+      "record": {
+        "word": "delegate",
+        "meaning": "위임하다",
+        "pronunciation": "ˈdel.ɪ.ɡeɪt",
+        "exampleSentence": "The manager delegated tasks to the team.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 313
+      },
+      "canonicalRecord": {
+        "word": "delegate",
+        "meaning": "위임하다",
+        "pronunciation": "ˈdel.ɪ.ɡeɪt",
+        "exampleSentence": "You need to delegate some tasks.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "leverage",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 278
+      },
+      "record": {
+        "word": "leverage",
+        "meaning": "활용하다",
+        "pronunciation": "ˈlev.ər.ɪdʒ",
+        "exampleSentence": "We can leverage our existing resources.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 59
+      },
+      "canonicalRecord": {
+        "word": "leverage",
+        "meaning": "레버리지",
+        "pronunciation": "ˈlev.ər.ɪdʒ",
+        "exampleSentence": "Leverage your strengths.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "intrinsic",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 280
+      },
+      "record": {
+        "word": "intrinsic",
+        "meaning": "본질적인",
+        "pronunciation": "ɪnˈtrɪn.zɪk",
+        "exampleSentence": "There is intrinsic value in learning.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 57
+      },
+      "canonicalRecord": {
+        "word": "intrinsic",
+        "meaning": "본질적인",
+        "pronunciation": "ɪnˈtrɪn.zɪk",
+        "exampleSentence": "Intrinsic motivation is powerful.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "unequivocal",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 286
+      },
+      "record": {
+        "word": "unequivocal",
+        "meaning": "명확한",
+        "pronunciation": "ˌʌn.ɪˈkwɪv.ə.kəl",
+        "exampleSentence": "The answer was unequivocal.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 207
+      },
+      "canonicalRecord": {
+        "word": "unequivocal",
+        "meaning": "명백한",
+        "pronunciation": "ˌʌn.ɪˈkwɪv.ə.kəl",
+        "exampleSentence": "An unequivocal answer.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "veracious",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 287
+      },
+      "record": {
+        "word": "veracious",
+        "meaning": "진실된",
+        "pronunciation": "vəˈreɪ.ʃəs",
+        "exampleSentence": "He was known for his veracious accounts.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 389
+      },
+      "canonicalRecord": {
+        "word": "veracious",
+        "meaning": "진실된",
+        "pronunciation": "vɪˈreɪ.ʃəs",
+        "exampleSentence": "A veracious account.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "reimburse",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 291
+      },
+      "record": {
+        "word": "reimburse",
+        "meaning": "상환하다",
+        "pronunciation": "ˌriː.ɪmˈbɜːrs",
+        "exampleSentence": "The company will reimburse your travel expenses.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 83
+      },
+      "canonicalRecord": {
+        "word": "reimburse",
+        "meaning": "변제하다",
+        "pronunciation": "ˌriː.ɪmˈbɜːrs",
+        "exampleSentence": "Reimburse the expenses.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "procurement",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 293
+      },
+      "record": {
+        "word": "procurement",
+        "meaning": "조달",
+        "pronunciation": "prəˈkjʊər.mənt",
+        "exampleSentence": "Procurement costs have increased.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 167
+      },
+      "canonicalRecord": {
+        "word": "procurement",
+        "meaning": "조달",
+        "pronunciation": "prəˈkjʊər.mənt",
+        "exampleSentence": "Handle procurement efficiently.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "streamline",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 299
+      },
+      "record": {
+        "word": "streamline",
+        "meaning": "능률화하다",
+        "pronunciation": "ˈstriːm.laɪn",
+        "exampleSentence": "We need to streamline our operations.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 272
+      },
+      "canonicalRecord": {
+        "word": "streamline",
+        "meaning": "간소화하다",
+        "pronunciation": "ˈstriːm.laɪn",
+        "exampleSentence": "Streamline the process.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "perspicacious",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 301
+      },
+      "record": {
+        "word": "perspicacious",
+        "meaning": "통찰력 있는",
+        "pronunciation": "ˌpɜːr.spɪˈkeɪ.ʃəs",
+        "exampleSentence": "Her perspicacious observations impressed everyone.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 345
+      },
+      "canonicalRecord": {
+        "word": "perspicacious",
+        "meaning": "통찰력 있는",
+        "pronunciation": "ˌpɜːr.spɪˈkeɪ.ʃəs",
+        "exampleSentence": "A perspicacious observer.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "ostensible",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 304
+      },
+      "record": {
+        "word": "ostensible",
+        "meaning": "표면상의",
+        "pronunciation": "ɑːˈsten.sɪ.bəl",
+        "exampleSentence": "His ostensible reason for leaving was illness.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 171
+      },
+      "canonicalRecord": {
+        "word": "ostensible",
+        "meaning": "겉으로 보이는",
+        "pronunciation": "ɑːˈsten.sɪ.bəl",
+        "exampleSentence": "The ostensible reason given.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "surreptitious",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 305
+      },
+      "record": {
+        "word": "surreptitious",
+        "meaning": "몰래 하는",
+        "pronunciation": "ˌsʌr.əpˈtɪʃ.əs",
+        "exampleSentence": "He took a surreptitious glance at the clock.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 242
+      },
+      "canonicalRecord": {
+        "word": "surreptitious",
+        "meaning": "은밀한",
+        "pronunciation": "ˌsɜːr.əpˈtɪʃ.əs",
+        "exampleSentence": "A surreptitious glance.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "impunity",
+      "provenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 306
+      },
+      "record": {
+        "word": "impunity",
+        "meaning": "처벌 없이",
+        "pronunciation": "ɪmˈpjuː.nɪ.ti",
+        "exampleSentence": "He acted with complete impunity.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 309
+      },
+      "canonicalRecord": {
+        "word": "impunity",
+        "meaning": "처벌 면제",
+        "pronunciation": "ɪmˈpjuː.nɪ.ti",
+        "exampleSentence": "Act with impunity.",
+        "category": "toeic",
+        "level": "C2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "clean",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 29
+      },
+      "record": {
+        "word": "clean",
+        "meaning": "청소하다",
+        "pronunciation": "kliːn",
+        "exampleSentence": "Clean your room.",
+        "category": "daily",
+        "level": "A2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 36
+      },
+      "canonicalRecord": {
+        "word": "clean",
+        "meaning": "깨끗한",
+        "pronunciation": "kliːn",
+        "exampleSentence": "My room is clean.",
+        "category": "daily",
+        "level": "A1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "achieve",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 60
+      },
+      "record": {
+        "word": "achieve",
+        "meaning": "달성하다",
+        "pronunciation": "əˈtʃiːv",
+        "exampleSentence": "She achieved her goal.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 232
+      },
+      "canonicalRecord": {
+        "word": "achieve",
+        "meaning": "달성하다",
+        "pronunciation": "əˈtʃiːv",
+        "exampleSentence": "We need to achieve our goals this year.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "advantage",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 61
+      },
+      "record": {
+        "word": "advantage",
+        "meaning": "이점",
+        "pronunciation": "ədˈvæn.t̬ɪdʒ",
+        "exampleSentence": "There are many advantages.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 234
+      },
+      "canonicalRecord": {
+        "word": "advantage",
+        "meaning": "이점",
+        "pronunciation": "ədˈvæn.tɪdʒ",
+        "exampleSentence": "There are many advantages to this plan.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "approach",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 63
+      },
+      "record": {
+        "word": "approach",
+        "meaning": "접근하다",
+        "pronunciation": "əˈproʊtʃ",
+        "exampleSentence": "Let's try a different approach.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 250
+      },
+      "canonicalRecord": {
+        "word": "approach",
+        "meaning": "접근하다",
+        "pronunciation": "əˈprəʊtʃ",
+        "exampleSentence": "We need a different approach.",
+        "category": "toeic",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "attach",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 65
+      },
+      "record": {
+        "word": "attach",
+        "meaning": "첨부하다",
+        "pronunciation": "əˈtætʃ",
+        "exampleSentence": "Please attach the file.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 258
+      },
+      "canonicalRecord": {
+        "word": "attach",
+        "meaning": "첨부하다",
+        "pronunciation": "əˈtætʃ",
+        "exampleSentence": "Please attach the file to your email.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "attitude",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 66
+      },
+      "record": {
+        "word": "attitude",
+        "meaning": "태도",
+        "pronunciation": "ˈæt̬.ə.tuːd",
+        "exampleSentence": "He has a positive attitude.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 259
+      },
+      "canonicalRecord": {
+        "word": "attitude",
+        "meaning": "태도",
+        "pronunciation": "ˈæt.ɪ.tjuːd",
+        "exampleSentence": "She has a positive attitude.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "benefit",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 67
+      },
+      "record": {
+        "word": "benefit",
+        "meaning": "혜택",
+        "pronunciation": "ˈben.ə.fɪt",
+        "exampleSentence": "This has many benefits.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 270
+      },
+      "canonicalRecord": {
+        "word": "benefit",
+        "meaning": "혜택",
+        "pronunciation": "ˈben.ɪ.fɪt",
+        "exampleSentence": "The company offers great employee benefits.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "capacity",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 68
+      },
+      "record": {
+        "word": "capacity",
+        "meaning": "용량, 능력",
+        "pronunciation": "kəˈpæs.ə.t̬i",
+        "exampleSentence": "The hall has a large capacity.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 282
+      },
+      "canonicalRecord": {
+        "word": "capacity",
+        "meaning": "수용력",
+        "pronunciation": "kəˈpæs.ə.ti",
+        "exampleSentence": "The hall has a capacity of 500 people.",
+        "category": "toeic",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "challenge",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 69
+      },
+      "record": {
+        "word": "challenge",
+        "meaning": "도전",
+        "pronunciation": "ˈtʃæl.ɪndʒ",
+        "exampleSentence": "This is a big challenge.",
+        "category": "daily",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 289
+      },
+      "canonicalRecord": {
+        "word": "challenge",
+        "meaning": "도전",
+        "pronunciation": "ˈtʃæl.ɪndʒ",
+        "exampleSentence": "This project is a real challenge.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "demonstrate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 77
+      },
+      "record": {
+        "word": "demonstrate",
+        "meaning": "시연하다",
+        "pronunciation": "ˈdem.ən.streɪt",
+        "exampleSentence": "Let me demonstrate how it works.",
+        "category": "business",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 315
+      },
+      "canonicalRecord": {
+        "word": "demonstrate",
+        "meaning": "입증하다",
+        "pronunciation": "ˈdem.ən.streɪt",
+        "exampleSentence": "The data demonstrates our point.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "acknowledge",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 81
+      },
+      "record": {
+        "word": "acknowledge",
+        "meaning": "인정하다",
+        "pronunciation": "əkˈnɑː.lɪdʒ",
+        "exampleSentence": "I acknowledge my mistake.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 244
+      },
+      "canonicalRecord": {
+        "word": "acknowledge",
+        "meaning": "인정하다",
+        "pronunciation": "əkˈnɑː.lɪdʒ",
+        "exampleSentence": "Acknowledge the mistake.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "collaborate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 86
+      },
+      "record": {
+        "word": "collaborate",
+        "meaning": "협력하다",
+        "pronunciation": "kəˈlæb.ə.reɪt",
+        "exampleSentence": "We need to collaborate more.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 293
+      },
+      "canonicalRecord": {
+        "word": "collaborate",
+        "meaning": "협력하다",
+        "pronunciation": "kəˈlæb.ə.reɪt",
+        "exampleSentence": "We need to collaborate with other departments.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "comprehensive",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 87
+      },
+      "record": {
+        "word": "comprehensive",
+        "meaning": "포괄적인",
+        "pronunciation": "ˌkɑːm.prɪˈhen.sɪv",
+        "exampleSentence": "We need a comprehensive plan.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 299
+      },
+      "canonicalRecord": {
+        "word": "comprehensive",
+        "meaning": "포괄적인",
+        "pronunciation": "ˌkɒm.prɪˈhen.sɪv",
+        "exampleSentence": "We need a comprehensive analysis.",
+        "category": "business",
+        "level": "B1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "dedicate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 93
+      },
+      "record": {
+        "word": "dedicate",
+        "meaning": "헌신하다",
+        "pronunciation": "ˈded.ɪ.keɪt",
+        "exampleSentence": "She dedicated her life to research.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 312
+      },
+      "canonicalRecord": {
+        "word": "dedicate",
+        "meaning": "전념하다",
+        "pronunciation": "ˈded.ɪ.keɪt",
+        "exampleSentence": "He dedicated his life to research.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "diminish",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 95
+      },
+      "record": {
+        "word": "diminish",
+        "meaning": "감소시키다",
+        "pronunciation": "dɪˈmɪn.ɪʃ",
+        "exampleSentence": "The risk has diminished.",
+        "category": "business",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 319
+      },
+      "canonicalRecord": {
+        "word": "diminish",
+        "meaning": "감소하다",
+        "pronunciation": "dɪˈmɪn.ɪʃ",
+        "exampleSentence": "The effects will diminish over time.",
+        "category": "toeic",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "concurrent",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 105
+      },
+      "record": {
+        "word": "concurrent",
+        "meaning": "동시에 발생하는",
+        "pronunciation": "kənˈkɜːr.ənt",
+        "exampleSentence": "The events were concurrent.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 26
+      },
+      "canonicalRecord": {
+        "word": "concurrent",
+        "meaning": "동시 발생하는",
+        "pronunciation": "kənˈkɜːr.ənt",
+        "exampleSentence": "Concurrent projects are complex.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "discern",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 107
+      },
+      "record": {
+        "word": "discern",
+        "meaning": "식별하다",
+        "pronunciation": "dɪˈsɜːrn",
+        "exampleSentence": "I can discern a pattern.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-supplement.json",
+        "index": 42
+      },
+      "canonicalRecord": {
+        "word": "discern",
+        "meaning": "식별하다",
+        "pronunciation": "dɪˈsɜːrn",
+        "exampleSentence": "Discern a pattern.",
+        "category": "daily",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "articulate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 110
+      },
+      "record": {
+        "word": "articulate",
+        "meaning": "명료하게 표현하다",
+        "pronunciation": "ɑːrˈtɪk.jə.lət",
+        "exampleSentence": "She articulated her thoughts clearly.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 100
+      },
+      "canonicalRecord": {
+        "word": "articulate",
+        "meaning": "명료하게 말하다",
+        "pronunciation": "ɑːrˈtɪk.jə.leɪt",
+        "exampleSentence": "Articulate your thoughts clearly.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "paradigm",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 115
+      },
+      "record": {
+        "word": "paradigm",
+        "meaning": "패러다임",
+        "pronunciation": "ˈper.ə.daɪm",
+        "exampleSentence": "This represents a new paradigm.",
+        "category": "business",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 295
+      },
+      "canonicalRecord": {
+        "word": "paradigm",
+        "meaning": "패러다임",
+        "pronunciation": "ˈper.ə.daɪm",
+        "exampleSentence": "A new business paradigm.",
+        "category": "business",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "ubiquitous",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 118
+      },
+      "record": {
+        "word": "ubiquitous",
+        "meaning": "어디에나 있는",
+        "pronunciation": "juːˈbɪk.wɪ.t̬əs",
+        "exampleSentence": "Smartphones are ubiquitous now.",
+        "category": "daily",
+        "level": "C2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-c1-c2.json",
+        "index": 206
+      },
+      "canonicalRecord": {
+        "word": "ubiquitous",
+        "meaning": "어디에나 존재하는",
+        "pronunciation": "juːˈbɪk.wɪ.t̬əs",
+        "exampleSentence": "Smartphones are ubiquitous.",
+        "category": "daily",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "budget",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 121
+      },
+      "record": {
+        "word": "budget",
+        "meaning": "예산",
+        "pronunciation": "ˈbʌdʒ.ɪt",
+        "exampleSentence": "We need to cut the budget.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 278
+      },
+      "canonicalRecord": {
+        "word": "budget",
+        "meaning": "예산",
+        "pronunciation": "ˈbʌdʒ.ɪt",
+        "exampleSentence": "We need to stay within our budget.",
+        "category": "business",
+        "level": "A2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "negotiate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 124
+      },
+      "record": {
+        "word": "negotiate",
+        "meaning": "협상하다",
+        "pronunciation": "nɪˈɡoʊ.ʃi.eɪt",
+        "exampleSentence": "We need to negotiate the terms.",
+        "category": "toeic",
+        "level": "B1"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies-extra-b1-b2.json",
+        "index": 260
+      },
+      "canonicalRecord": {
+        "word": "negotiate",
+        "meaning": "협상하다",
+        "pronunciation": "nɪˈɡoʊ.ʃi.eɪt",
+        "exampleSentence": "Negotiate better terms.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    },
+    {
+      "word": "facilitate",
+      "provenance": {
+        "file": "vocabularies-extra-inline.json",
+        "index": 128
+      },
+      "record": {
+        "word": "facilitate",
+        "meaning": "용이하게 하다",
+        "pronunciation": "fəˈsɪl.ə.teɪt",
+        "exampleSentence": "This will facilitate communication.",
+        "category": "toeic",
+        "level": "B2"
+      },
+      "canonicalProvenance": {
+        "file": "vocabularies.json",
+        "index": 323
+      },
+      "canonicalRecord": {
+        "word": "facilitate",
+        "meaning": "용이하게 하다",
+        "pronunciation": "fəˈsɪl.ɪ.teɪt",
+        "exampleSentence": "This will facilitate communication.",
+        "category": "business",
+        "level": "C1"
+      },
+      "reason": "Excluded from official sources because this word has conflicting meaning, level, or category values; the first occurrence in VOCAB_SOURCE_FILES order remains canonical."
+    }
+  ]
+}

@@ -3,17 +3,17 @@
  *
  * Input:  정본 vocab source 파일들
  * Output: prisma/data/generated/content-collisions.report.json
- * Exit:   0 (warning만) — 중복을 조용히 버리지 않고 드러내는 것이 목적(RFC 1절).
+ * Exit:   0 complete-only / 1 conflict hard fail
  *
  * 정규화 후 동일 단어를 분류한다:
  *   - complete: 의미·레벨·카테고리까지 동일한 완전 중복 (build 단계에서 collapse)
  *   - conflict: 같은 단어가 레벨/카테고리/의미에서 갈라짐 (수동 큐레이션 후보)
- * build-vocabulary 는 first-wins 로 collapse 하므로, 이 리포트가 유일한 가시화 지점이다.
  * 실행: npm run content:report:collisions
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { invalidateArtifact, VOCAB_ARTIFACT } from "./lib/load-artifact";
 import { loadVocabSource, type VocabSourceRecord } from "./lib/vocab-source";
 
 export interface CollisionOccurrence {
@@ -22,6 +22,8 @@ export interface CollisionOccurrence {
   level: string;
   category: string;
   meaning: string;
+  /** complete 판정에서 제외되는 예문·발음 차이까지 검토할 수 있는 원본 레코드. */
+  record: unknown;
 }
 
 export interface Collision {
@@ -33,6 +35,7 @@ export interface Collision {
 export interface CollisionReport {
   script: "report-content-collisions";
   totalRecords: number;
+  passed: boolean;
   uniqueWords: number;
   duplicateWords: number;
   completeDuplicates: number;
@@ -55,6 +58,7 @@ export function reportContentCollisions(records: VocabSourceRecord[]): Collision
       level: readField(record, "level"),
       category: readField(record, "category"),
       meaning: readField(record, "meaning").trim(),
+      record,
     };
     const list = groups.get(key) ?? [];
     list.push(occurrence);
@@ -86,12 +90,30 @@ export function reportContentCollisions(records: VocabSourceRecord[]): Collision
   return {
     script: "report-content-collisions",
     totalRecords: records.length,
+    passed: conflicts === 0,
     uniqueWords: groups.size,
     duplicateWords: collisions.length,
     completeDuplicates,
     conflicts,
     collisions,
   };
+}
+
+/** 리포트를 항상 기록하고 conflict가 있으면 seed용 artifact를 무효화한다. */
+export function writeContentCollisionReport(
+  root: string,
+  records: VocabSourceRecord[]
+): CollisionReport {
+  const report = reportContentCollisions(records);
+  if (!report.passed) {
+    invalidateArtifact(root, VOCAB_ARTIFACT);
+  }
+  const outDir = path.join(root, "prisma/data/generated");
+  const outPath = path.join(outDir, "content-collisions.report.json");
+  mkdirSync(outDir, { recursive: true });
+  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+  return report;
 }
 
 function readField(record: unknown, key: string): string {
@@ -104,13 +126,16 @@ function readField(record: unknown, key: string): string {
 
 function main(): void {
   const root = path.resolve(fileURLToPath(import.meta.url), "../../..");
-  const records = loadVocabSource(root);
-  const report = reportContentCollisions(records);
-
-  const outDir = path.join(root, "prisma/data/generated");
-  const outPath = path.join(outDir, "content-collisions.report.json");
-  mkdirSync(outDir, { recursive: true });
-  writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+  let records: VocabSourceRecord[];
+  try {
+    records = loadVocabSource(root);
+  } catch (error) {
+    invalidateArtifact(root, VOCAB_ARTIFACT);
+    console.error(error);
+    process.exit(1);
+  }
+  const report = writeContentCollisionReport(root, records);
+  const outPath = path.join(root, "prisma/data/generated/content-collisions.report.json");
 
   console.log(
     `📋 vocab 충돌 리포트: ${report.totalRecords}개 중 유니크 ${report.uniqueWords}, 중복단어 ${report.duplicateWords}`
@@ -118,7 +143,10 @@ function main(): void {
   console.log(
     `   ⚠️  충돌(conflict) ${report.conflicts} · 완전중복(complete) ${report.completeDuplicates} → ${path.relative(root, outPath)}`
   );
-  // 중복은 warning 이다 — build 가 first-wins 로 처리하므로 exit 0.
+  if (!report.passed) {
+    console.error("❌ conflict가 남아 있어 vocabulary pipeline을 중단합니다.");
+    process.exit(1);
+  }
   process.exit(0);
 }
 

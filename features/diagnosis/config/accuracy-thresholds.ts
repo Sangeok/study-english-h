@@ -3,8 +3,3 @@ export const ACCURACY_THRESHOLDS = {
   WEAK: 60,
   GOOD: 80,
 } as const;
-
-export interface AccuracyStyle {
-  status: string;
-  label: string;
-}

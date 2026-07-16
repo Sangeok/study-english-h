@@ -1,12 +1,14 @@
 interface DiagnosisErrorProps {
   title?: string;
   description?: string;
+  actionLabel?: string;
   onRetry: () => void;
 }
 
 export function DiagnosisError({
   title = "문제를 불러올 수 없어요",
   description = "네트워크 연결을 확인하고 다시 시도해주세요.",
+  actionLabel = "다시 시도하기",
   onRetry,
 }: DiagnosisErrorProps) {
   return (
@@ -18,7 +20,7 @@ export function DiagnosisError({
           onClick={onRetry}
           className="tactile-btn tactile-btn--teal tactile-btn--lg mt-8"
         >
-          다시 시도하기
+          {actionLabel}
         </button>
       </div>
     </div>

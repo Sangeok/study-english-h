@@ -1,8 +1,11 @@
-export { DiagnosisTest, DiagnosisResult } from "./ui";
+export {
+  DiagnosisResult,
+  DiagnosisTest,
+  GuestDiagnosisMigrationNotice,
+} from "./ui";
 export { WeaknessAreas } from "./ui/result/weakness-areas-list";
 export { normalizeWeaknessAreas } from "./lib/normalize-weakness-areas";
 export { useDiagnosisStatus } from "./hooks/use-diagnosis-status";
-export { useGuestDiagnosisMigration } from "./model/use-guest-diagnosis-migration";
 export type {
   DiagnosisResult as DiagnosisResultType,
   DiagnosisResultDetail,

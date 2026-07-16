@@ -1,6 +1,13 @@
 // @vitest-environment node
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
-import { validateVocabularySource } from "./validate-vocabulary-source";
+import { VOCAB_ARTIFACT } from "./lib/load-artifact";
+import {
+  validateVocabularySource,
+  writeVocabularyValidationReport,
+} from "./validate-vocabulary-source";
 import type { VocabSourceRecord } from "./lib/vocab-source";
 
 function rec(record: unknown, index = 0, file = "vocabularies.json"): VocabSourceRecord {
@@ -50,5 +57,26 @@ describe("validateVocabularySource", () => {
     expect(report.passed).toBe(false);
     expect(report.errors[0].file).toBe("vocabularies-extra-inline.json");
     expect(report.errors[0].index).toBe(7);
+  });
+
+  it("hard fail report를 기록하고 stale vocabulary artifact를 제거한다", () => {
+    const root = mkdtempSync(path.join(tmpdir(), "study-eng-vocab-validation-"));
+    const artifactPath = path.join(root, VOCAB_ARTIFACT.relPath);
+    mkdirSync(path.dirname(artifactPath), { recursive: true });
+    writeFileSync(artifactPath, "stale", "utf8");
+
+    try {
+      const report = writeVocabularyValidationReport(root, [
+        rec({ ...valid, category: "idioms" }),
+      ]);
+
+      expect(report.passed).toBe(false);
+      expect(existsSync(artifactPath)).toBe(false);
+      expect(
+        existsSync(path.join(root, "prisma/data/generated/vocabularies-validation.report.json"))
+      ).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 });
