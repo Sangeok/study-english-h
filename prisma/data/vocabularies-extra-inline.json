@@ -328,14 +328,6 @@
     "level": "A2"
   },
   {
-    "word": "arrive",
-    "meaning": "도착하다",
-    "pronunciation": "əˈraɪv",
-    "exampleSentence": "We arrived late.",
-    "category": "travel",
-    "level": "A2"
-  },
-  {
     "word": "leave",
     "meaning": "떠나다",
     "pronunciation": "liːv",
@@ -496,14 +488,6 @@
     "level": "B1"
   },
   {
-    "word": "colleague",
-    "meaning": "동료",
-    "pronunciation": "ˈkɑː.liːɡ",
-    "exampleSentence": "She's my colleague.",
-    "category": "business",
-    "level": "B1"
-  },
-  {
     "word": "consequence",
     "meaning": "결과",
     "pronunciation": "ˈkɑːn.sə.kwens",
@@ -605,14 +589,6 @@
     "pronunciation": "kənˈstɪtʃ.u.ənt",
     "exampleSentence": "The constituent parts are complex.",
     "category": "daily",
-    "level": "B2"
-  },
-  {
-    "word": "constraint",
-    "meaning": "제약",
-    "pronunciation": "kənˈstreɪnt",
-    "exampleSentence": "We face budget constraints.",
-    "category": "business",
     "level": "B2"
   },
   {
@@ -781,14 +757,6 @@
     "pronunciation": "pərˈveɪ.sɪv",
     "exampleSentence": "The problem is pervasive.",
     "category": "daily",
-    "level": "C2"
-  },
-  {
-    "word": "substantiate",
-    "meaning": "입증하다",
-    "pronunciation": "səbˈstæn.ʃi.eɪt",
-    "exampleSentence": "You must substantiate your claims.",
-    "category": "business",
     "level": "C2"
   },
   {
