@@ -24,6 +24,10 @@ export interface QuizSummary {
     partialHintCorrect: number;
     fullHintCorrect: number;
   };
+  // 오답 편입 결과. null = 편입 실패(부분 편입 후 실패 포함), enrolledCount 0 = 편입 대상 없음.
+  // features/flashcard 타입을 import 하지 않도록 구조를 인라인으로 둔다(동일 레이어 의존 회피).
+  // SrsEnrollmentResult(features/flashcard/lib/srs-enrollment.ts)와 구조를 반드시 함께 바꾼다.
+  srs: { enrolledCount: number } | null;
 }
 
 import type { QuizQuestion } from "@/entities/question";

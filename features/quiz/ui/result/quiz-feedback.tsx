@@ -7,6 +7,7 @@ import type { QuizSubmitResponse } from "../../types";
 import { QuizFeedbackHeader } from "./quiz-feedback-header";
 import { QuizAccuracyCard } from "./quiz-accuracy-card";
 import { QuizHintStats } from "./quiz-hint-stats";
+import { QuizSrsNotice } from "./quiz-srs-notice";
 import { QuizDetailResults } from "./quiz-detail-results";
 import { QuizFeedbackActions } from "./quiz-feedback-actions";
 import { Confetti } from "@/shared/ui";
@@ -69,6 +70,10 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
             hintStats={summary.hintStats}
             xpPenaltyFromHints={summary.xpPenaltyFromHints}
             isExtraPractice={isExtraPractice}
+          />
+          <QuizSrsNotice
+            srs={summary.srs}
+            onGoReview={() => router.push("/flashcard?mode=review")}
           />
           <QuizDetailResults
             results={results}
