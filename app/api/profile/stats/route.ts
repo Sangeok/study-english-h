@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { calculateEffectiveCurrentStreak, type ProfileStats } from "@/entities/user";
+import { calculateEffectiveCurrentStreak, getVocabularyStats, type ProfileStats } from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+
+// 어휘 진행률 (숙달 단어 / 전체 학습 단어). 두 응답 분기가 공유한다.
+function calculateVocabularyProgress(totalWordLearned: number, masteredWords: number): number {
+  return totalWordLearned > 0 ? Math.round((masteredWords / totalWordLearned) * 100) : 0;
+}
 
 /**
  * GET /api/profile/stats
@@ -19,10 +24,19 @@ export async function GET(req: Request) {
     const userId = session.user.id;
 
     // 병렬로 필요한 데이터 조회
-    const [profile, diagnosisStatus, todayQuizCount] = await Promise.all([
-      // 사용자 프로필
+    const [profile, diagnosisStatus, todayQuizCount, vocabStats] = await Promise.all([
+      // 사용자 프로필 — select 로 어휘 3컬럼을 타입에서 제외한다.
+      //   낡은 컬럼(profile.reviewNeeded 등)을 실수로 읽으면 컴파일 에러가 나도록 만드는 것이 목적이다.
       prisma.userProfile.findUnique({
         where: { userId },
+        select: {
+          level: true,
+          totalXP: true,
+          longestStreak: true,
+          currentStreak: true,
+          lastStudyDate: true,
+          weaknessAreas: true,
+        },
       }),
       // 진단 완료 여부
       prisma.levelDiagnosis.findFirst({
@@ -33,7 +47,12 @@ export async function GET(req: Request) {
       prisma.userQuizAttempt.count({
         where: { userId, attemptedAt: getTodayKSTRange() },
       }),
+      // 어휘 통계 라이브 집계 (컬럼 캐시 아님 — 근거는 getVocabularyStats 주석)
+      getVocabularyStats(userId),
     ]);
+
+    // 어휘 3필드는 컬럼이 아니라 이 라이브 집계에서 온다.
+    const { totalWordLearned, masteredWords, reviewNeeded } = vocabStats;
 
     // 프로필이 없으면 기본값 생성
     if (!profile) {
@@ -50,20 +69,17 @@ export async function GET(req: Request) {
         totalXP: 0,
         streak: 0,
         longestStreak: 0,
-        totalWordLearned: 0,
-        masteredWords: 0,
-        reviewNeeded: 0,
+        totalWordLearned,
+        masteredWords,
+        reviewNeeded,
         hasCompletedDiagnosis: false,
         weaknessAreas: null,
-        vocabularyProgress: 0,
+        vocabularyProgress: calculateVocabularyProgress(totalWordLearned, masteredWords),
         lastStudyDate: null,
         hasCompletedTodayQuiz: todayQuizCount > 0,
       } satisfies ProfileStats);
     }
 
-    // 어휘 진행률 계산 (숙달 단어 / 전체 학습 단어)
-    const vocabularyProgress =
-      profile.totalWordLearned > 0 ? Math.round((profile.masteredWords / profile.totalWordLearned) * 100) : 0;
     const effectiveStreak = calculateEffectiveCurrentStreak(
       profile.lastStudyDate,
       profile.currentStreak
@@ -74,12 +90,12 @@ export async function GET(req: Request) {
       totalXP: profile.totalXP,
       streak: effectiveStreak,
       longestStreak: profile.longestStreak,
-      totalWordLearned: profile.totalWordLearned,
-      masteredWords: profile.masteredWords,
-      reviewNeeded: profile.reviewNeeded,
+      totalWordLearned,
+      masteredWords,
+      reviewNeeded,
       hasCompletedDiagnosis: !!diagnosisStatus,
       weaknessAreas: profile.weaknessAreas as Record<string, number> | null,
-      vocabularyProgress,
+      vocabularyProgress: calculateVocabularyProgress(totalWordLearned, masteredWords),
       lastStudyDate: profile.lastStudyDate?.toISOString() ?? null,
       hasCompletedTodayQuiz: todayQuizCount > 0,
     } satisfies ProfileStats);

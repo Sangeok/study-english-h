@@ -1,4 +1,5 @@
 export const ROUTES = {
+  // views/main 이 렌더하는 홈. /main 라우트는 존재하지 않는다 — 경로 리터럴 대신 이 상수를 쓸 것.
   HOME: "/",
   LOGIN: "/login",
   QUIZ: "/quiz",
