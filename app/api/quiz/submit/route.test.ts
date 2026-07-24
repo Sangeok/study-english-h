@@ -209,4 +209,18 @@ describe("POST /api/quiz/submit — SRS 오답 편입", () => {
     expect(body.summary.correct).toBe(2);
     expect(transactionClient.userQuizAttempt.createMany).toHaveBeenCalledOnce();
   });
+
+  it("게이미피케이션이 실패해도 오답 편입은 먼저 실행된다 (편입/게이미피케이션 순서 회귀 방어)", async () => {
+    // processGamificationRewards 는 실패 격리가 없어 throw 하면 500 이 되지만,
+    // 편입은 자기완결(비-throw)이라 게이미피케이션보다 먼저 실행돼 그 실패에 종속되지 않아야 한다.
+    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    processGamificationRewardsMock.mockRejectedValue(new Error("gamification down"));
+
+    const response = await POST(createSubmitRequest());
+
+    expect(response.status).toBe(500); // 게이미피케이션 실패 자체는 여전히 500
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, WRONG_WORDS); // 그러나 편입은 실행됨
+
+    consoleErrorSpy.mockRestore();
+  });
 });
