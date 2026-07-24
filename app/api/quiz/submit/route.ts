@@ -12,6 +12,7 @@ import { POINT_EVENTS } from "@/features/gamification/config/point-events";
 import { selectFreeHintTargets } from "@/features/shop/lib/select-free-hint-targets";
 import { QUIZ_BOOST_MULTIPLIER } from "@/features/shop/config/shop-items";
 import { isPrismaCheckConstraintError } from "@/features/shop/lib/prisma-errors";
+import { enrollWordsToSrs } from "@/features/flashcard/lib/srs-enrollment";
 
 export async function POST(req: Request) {
   try {
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
     const hintStats = { noHintCorrect: 0, partialHintCorrect: 0, fullHintCorrect: 0 };
     const results: QuizResult[] = [];
     const attemptData: Prisma.UserQuizAttemptCreateManyInput[] = [];
+    const wrongWords: string[] = []; // 오답 englishWord 수집 (SRS 편입 후보)
 
     const txResult = await prisma.$transaction(async (tx) => {
       const todayAttemptCount = await tx.userQuizAttempt.count({
@@ -82,6 +84,11 @@ export async function POST(req: Request) {
         if (!question) continue;
         const correctOption = question.options.find((opt) => opt.isCorrect);
         const isCorrect = correctOption?.text === answer.selectedAnswer;
+
+        // 추가 연습 여부와 무관하게 수집 — 오답은 보상이 아니라 학습 신호다.
+        if (!isCorrect) {
+          wrongWords.push(question.englishWord);
+        }
 
         hintedAnswers.push({
           questionId: answer.questionId,
@@ -191,7 +198,7 @@ export async function POST(req: Request) {
       return { isExtraPractice, boostMultiplier, xpPenaltyFromHints };
     });
 
-    // --- 트랜잭션 이후: 게임화 보상 + 응답 ---
+    // --- 트랜잭션 이후: 게임화 보상 + 오답 편입 + 응답 ---
 
     const correctCount = results.filter((r) => r.isCorrect).length;
     const accuracy = results.length > 0 ? (correctCount / results.length) * 100 : 0;
@@ -209,6 +216,9 @@ export async function POST(req: Request) {
       });
     }
 
+    // 오답 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
+    const srs = await enrollWordsToSrs(userId, wrongWords);
+
     return NextResponse.json({
       results,
       summary: {
@@ -218,6 +228,7 @@ export async function POST(req: Request) {
         xpEarned: totalXP,
         xpPenaltyFromHints: txResult.xpPenaltyFromHints,
         hintStats,
+        srs,
       },
       gamification: gamificationResult,
       isExtraPractice: txResult.isExtraPractice,
