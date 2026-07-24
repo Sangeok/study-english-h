@@ -13,6 +13,7 @@ import { QuizFeedbackActions } from "./quiz-feedback-actions";
 import { Confetti } from "@/shared/ui";
 import { queryKeys, useAnimatedCounter } from "@/shared/lib";
 import { QUIZ_CONFETTI, QUIZ_PERFORMANCE_THRESHOLDS } from "@/shared/constants/quiz";
+import { ROUTES } from "@/shared/constants";
 
 interface QuizFeedbackProps {
   result: QuizSubmitResponse;
@@ -81,7 +82,7 @@ export function QuizFeedback({ result }: QuizFeedbackProps) {
             onToggle={() => setShowDetails((prev) => !prev)}
           />
           <QuizFeedbackActions
-            onGoMain={() => router.push("/main")}
+            onGoMain={() => router.push(ROUTES.HOME)}
             onRetry={() => router.push("/quiz")}
             isExtraPractice={isExtraPractice}
           />

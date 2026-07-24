@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/shared/lib";
 import { Confetti } from "@/shared/ui";
+import { ROUTES } from "@/shared/constants";
 import { fetchDiagnosisResult } from "../../api/diagnosis-api";
 import { DiagnosisError } from "../status/diagnosis-error";
 import { DiagnosisLoading } from "../status/diagnosis-loading";
@@ -58,7 +59,7 @@ export function DiagnosisResult({ diagnosisId }: DiagnosisResultProps) {
 
           <ResultActions
             onStartStudy={() => router.push("/dashboard")}
-            onGoHome={() => router.push("/main")}
+            onGoHome={() => router.push(ROUTES.HOME)}
           />
         </div>
       </div>

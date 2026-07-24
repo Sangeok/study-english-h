@@ -6,18 +6,24 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // (Phase 1.5 에서 exact-only 를 잠갔고, Phase 4 에서 adjacent fallback 도입에 맞춰 의식적으로 갱신했다.)
 vi.mock("@/lib/db", () => ({
   default: {
-    userVocabulary: { findMany: vi.fn() },
+    userVocabulary: { findMany: vi.fn(), groupBy: vi.fn(), count: vi.fn() },
     vocabulary: { findMany: vi.fn() },
+    userProfile: { update: vi.fn() },
   },
 }));
 
 import prisma from "@/lib/db";
 import { buildAdjacentPriority } from "@/shared/constants";
-import { getNewVocabularies } from "./srs-service";
+import { getNewVocabularies, updateProfileStats } from "./srs-service";
 
 const db = prisma as unknown as {
-  userVocabulary: { findMany: ReturnType<typeof vi.fn> };
+  userVocabulary: {
+    findMany: ReturnType<typeof vi.fn>;
+    groupBy: ReturnType<typeof vi.fn>;
+    count: ReturnType<typeof vi.fn>;
+  };
   vocabulary: { findMany: ReturnType<typeof vi.fn> };
+  userProfile: { update: ReturnType<typeof vi.fn> };
 };
 
 beforeEach(() => {
@@ -108,5 +114,26 @@ describe("getNewVocabularies (adjacent fallback, Phase 4)", () => {
     const result = await getNewVocabularies("user-1", "A1", 20);
 
     expect(result).toEqual([{ id: "v1", word: "apple", level: "A1", userProgress: null }]);
+  });
+});
+
+describe("updateProfileStats (컬럼 위임)", () => {
+  const USER_ID = "user-1";
+
+  it("집계 결과를 그대로 UserProfile 컬럼에 기록한다", async () => {
+    db.userVocabulary.groupBy.mockResolvedValue([
+      { masteryLevel: "mastered", _count: 2 },
+      { masteryLevel: "learning", _count: 3 },
+    ]);
+    db.userVocabulary.count.mockResolvedValue(4);
+
+    await updateProfileStats(USER_ID);
+
+    // getVocabularyStats(entities)를 모킹하지 않고 같은 @/lib/db 목 위에서 실제 실행시켜
+    // 위임 결과가 그대로 컬럼 payload 로 전달되는지 확인한다.
+    expect(db.userProfile.update).toHaveBeenCalledWith({
+      where: { userId: USER_ID },
+      data: { totalWordLearned: 5, masteredWords: 2, reviewNeeded: 4 },
+    });
   });
 });

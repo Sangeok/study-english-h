@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/shared/lib";
+import { ROUTES } from "@/shared/constants";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { submitQuiz } from "../api/quiz-api";
@@ -66,7 +67,7 @@ export function QuizContainer() {
   }, [answers]);
 
   if (!currentQuestion) {
-    return <QuizEmpty onGoMain={() => router.push("/main")} />;
+    return <QuizEmpty onGoMain={() => router.push(ROUTES.HOME)} />;
   }
 
   if (submitMutation.isSuccess && submitMutation.data) {

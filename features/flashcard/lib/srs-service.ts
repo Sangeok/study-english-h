@@ -7,6 +7,7 @@
 
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
+import { getVocabularyStats } from "@/entities/user";
 import { buildAdjacentPriority, type CefrLevel } from "@/shared/constants";
 import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 import type { MasteryLevel, ReviewQuality } from "../types";
@@ -200,41 +201,16 @@ export async function recordReview(
 }
 
 /**
- * Update user profile statistics based on vocabulary progress
+ * 어휘 통계를 UserProfile 컬럼에 기록한다.
  *
- * @param userId - User ID
+ * 컬럼 쓰기는 업적 판정(gamification-engine 이 totalWordLearned 컬럼을 읽음) 때문에 유지한다.
+ * 그러나 masteredWords·reviewNeeded 컬럼은 이 변경 이후 읽는 곳이 없다 —
+ * 표시용 진실 원천은 getVocabularyStats(entities/user)다. 새 소비자는 이 컬럼들을 읽지 말 것.
  */
 export async function updateProfileStats(userId: string): Promise<void> {
-  // Count vocabularies by mastery level
-  const stats = await prisma.userVocabulary.groupBy({
-    by: ["masteryLevel"],
-    where: { userId },
-    _count: true,
-  });
+  const { totalWordLearned, masteredWords, reviewNeeded } =
+    await getVocabularyStats(userId);
 
-  // Calculate statistics
-  let totalWordLearned = 0;
-  let masteredWords = 0;
-
-  for (const stat of stats) {
-    totalWordLearned += stat._count;
-
-    if (stat.masteryLevel === "mastered") {
-      masteredWords += stat._count;
-    }
-  }
-
-  // Count vocabularies due for review
-  const reviewNeeded = await prisma.userVocabulary.count({
-    where: {
-      userId,
-      nextReviewDate: {
-        lte: new Date(),
-      },
-    },
-  });
-
-  // Update user profile
   await prisma.userProfile.update({
     where: { userId },
     data: {
