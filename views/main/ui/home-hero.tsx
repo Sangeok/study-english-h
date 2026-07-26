@@ -16,6 +16,8 @@ interface HomeHeroProps {
   diagnosisCompleted: boolean;
   level: string;
   streak: number;
+  /** 복습 도래 단어 수 — 0이면 개수를 감춘다. */
+  reviewCount: number;
   onStartSession: () => void;
   onReviewOnly: () => void;
   onDiagnosis: () => void;
@@ -26,6 +28,7 @@ export function HomeHero({
   diagnosisCompleted,
   level,
   streak,
+  reviewCount,
   onStartSession,
   onReviewOnly,
   onDiagnosis,
@@ -66,7 +69,13 @@ export function HomeHero({
                   onClick={onReviewOnly}
                   className="tactile-btn tactile-btn--lg border-chamber-line bg-transparent text-[#c7d3e8] hover:border-chamber-soft hover:text-white"
                 >
-                  복습만 하기
+                  {/* 개수를 붙여야 "복습할 게 있는지" 를 홈에서 알 수 있다 */}
+                  <span>복습만 하기</span>
+                  {reviewCount > 0 && (
+                    <span className="ml-1 rounded-full bg-cobalt-lt px-2 py-0.5 text-xs font-bold tabular-nums text-white">
+                      {reviewCount}
+                    </span>
+                  )}
                 </button>
               </div>
             </>

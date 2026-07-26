@@ -24,6 +24,7 @@ const DEFAULT_STATS = {
   streak: 0,
   totalWordLearned: 0,
   vocabularyProgress: 0,
+  reviewNeeded: 0,
   level: "A1",
 } as const;
 
@@ -71,8 +72,9 @@ function MainPageContent({ isAuthenticated }: MainPageProps) {
         diagnosisCompleted={diagnosisCompleted}
         level={stats.level}
         streak={stats.streak}
+        reviewCount={stats.reviewNeeded}
         onStartSession={handlers.handleQuizClick}
-        onReviewOnly={handlers.handleFlashcardClick}
+        onReviewOnly={handlers.handleReviewClick}
         onDiagnosis={handlers.handleDiagnosisClick}
       />
 

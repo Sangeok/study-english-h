@@ -22,7 +22,7 @@ export function ReviewNeededBanner({ count }: ReviewNeededBannerProps) {
             <p className="text-sm text-ink-soft">지금 복습하면 기억이 오래가요</p>
           </div>
         </div>
-        <Link href={ROUTES.FLASHCARD_MODES} className={tactileButtonClass("gold")}>
+        <Link href={ROUTES.FLASHCARD_REVIEW} className={tactileButtonClass("gold")}>
           복습 시작
         </Link>
       </div>

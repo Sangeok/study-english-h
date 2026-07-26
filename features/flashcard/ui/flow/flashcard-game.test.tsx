@@ -57,6 +57,7 @@ async function renderGame(): Promise<void> {
   await act(async () => {
     root.render(
       <FlashcardGame
+        sessionLabel="복습"
         cards={[CARD]}
         isPending={false}
         onSubmitReviews={vi.fn()}
@@ -82,6 +83,40 @@ async function clickButton(label: string): Promise<void> {
     await Promise.resolve();
   });
 }
+
+describe("FlashcardGame session label", () => {
+  beforeEach(() => {
+    vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
+    mocks.useFlashcardGameFlow.mockReset();
+    mocks.useFlashcardGameFlow.mockReturnValue({
+      currentIndex: 0,
+      isFlipped: false,
+      currentCard: CARD,
+      progress: 0,
+      handleFlip: vi.fn(),
+      handleReview: vi.fn(),
+    });
+    container = document.createElement("div");
+    document.body.append(container);
+    root = createRoot(container);
+  });
+
+  afterEach(() => {
+    act(() => {
+      root.unmount();
+    });
+    container.remove();
+    vi.unstubAllGlobals();
+  });
+
+  // 세션 화면만 보고 지금 뭘 하는지 알 수 있어야 한다 — 이전에는 mode 표시가 전혀 없었다.
+  it("진행 바에 세션 종류를 표시한다", async () => {
+    await renderGame();
+
+    expect(container.textContent).toContain("복습");
+    expect(container.textContent).toContain("1");
+  });
+});
 
 describe("FlashcardGame audio playback", () => {
   beforeEach(() => {

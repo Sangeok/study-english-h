@@ -11,6 +11,8 @@ import { MasteryBadge } from "./mastery-badge";
 import type { VocabularyCard, ReviewEntry } from "../../types";
 
 interface FlashcardGameProps {
+  /** 세션 종류 라벨("복습") — 진행 바에 그대로 노출된다. */
+  sessionLabel: string;
   cards: VocabularyCard[];
   isPending: boolean;
   onSubmitReviews: (reviews: ReviewEntry[], duration: number) => void;
@@ -20,6 +22,7 @@ interface FlashcardGameProps {
 }
 
 export function FlashcardGame({
+  sessionLabel,
   cards,
   isPending,
   onSubmitReviews,
@@ -56,6 +59,7 @@ export function FlashcardGame({
     <div className="relative min-h-screen overflow-hidden bg-chamber px-4 py-8">
       <div className="relative">
         <FlashcardProgressBar
+          label={sessionLabel}
           current={currentIndex + 1}
           total={cards.length}
           progress={progress}

@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { FLASHCARD_ROUTES } from "../config";
+import { useSearchParams } from "next/navigation";
 import { useFlashcardSession } from "../hooks/use-flashcard-session";
 import { useFlashcardReview } from "../hooks/use-flashcard-review";
 import { useFlashcardTimer } from "../hooks/use-flashcard-timer";
@@ -14,9 +13,11 @@ import { FlashcardGame } from "./flow/flashcard-game";
 
 export function FlashcardContainer() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const rawMode = searchParams.get("mode");
+  // mode=new(신규 카드 진도)는 사용자 동선에서 제거됐고 URL 로만 도달한다 — 보류 상태(ADR 0002).
+  // 새 단어를 만나는 경로는 데일리 퀴즈뿐이므로 기본값은 항상 복습이다.
   const mode: SessionMode = rawMode === "new" ? "new" : "review";
+  const sessionLabel = mode === "review" ? "복습" : "새 단어";
 
   const { data, isLoading, error, refetch } = useFlashcardSession(mode);
   const reviewMutation = useFlashcardReview();
@@ -27,7 +28,7 @@ export function FlashcardContainer() {
   }, [resetSessionTimer]);
 
   if (isLoading) {
-    return <FlashcardLoading message="플래시카드를 준비하는 중..." />;
+    return <FlashcardLoading message={`${sessionLabel} 카드를 준비하는 중...`} />;
   }
 
   if (error) {
@@ -35,16 +36,12 @@ export function FlashcardContainer() {
   }
 
   if (!data || data.vocabularies.length === 0) {
-    return (
-      <FlashcardEmpty
-        mode={mode}
-        onSwitchMode={(m) => router.push(`${FLASHCARD_ROUTES.session}?mode=${m}`)}
-      />
-    );
+    return <FlashcardEmpty mode={mode} />;
   }
 
   return (
     <FlashcardGame
+      sessionLabel={sessionLabel}
       cards={data.vocabularies}
       isPending={reviewMutation.isPending}
       onSubmitReviews={(reviews, duration) =>

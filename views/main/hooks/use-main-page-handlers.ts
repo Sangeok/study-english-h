@@ -59,13 +59,14 @@ export function useMainPageHandlers({
     toast(`재진단은 ${days}일 후에 가능합니다. 지금은 퀴즈로 학습을 이어가면 돼요`);
   }, [diagnosisCompleted, diagnosisStatus, isAuthenticated, router, toast]);
 
-  const handleFlashcardClick = useCallback(() => {
+  const handleReviewClick = useCallback(() => {
     if (!isAuthenticated) {
       redirectToLogin();
       return;
     }
 
-    router.push(ROUTES.FLASHCARD_MODES);
+    // 형식 선택 화면을 거치지 않고 복습 세션으로 직행한다(ADR 0002).
+    router.push(ROUTES.FLASHCARD_REVIEW);
   }, [isAuthenticated, redirectToLogin, router]);
 
   const handleComingSoon = useCallback(
@@ -82,7 +83,7 @@ export function useMainPageHandlers({
   return {
     handleQuizClick,
     handleDiagnosisClick,
-    handleFlashcardClick,
+    handleReviewClick,
     handleComingSoon,
   };
 }
