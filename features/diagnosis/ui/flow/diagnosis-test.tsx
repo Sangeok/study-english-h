@@ -135,18 +135,28 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
   const [guestCacheStatus, setGuestCacheStatus] =
     useState<GuestDiagnosisCacheState["status"]>("saving");
 
+  // 응답 상태는 반드시 "지금 내려온 문항" 기준으로만 센다.
+  // answers 는 문항 id 로 쌓이는데, 문항 세트가 교체되면(쿼리 리페치) 이전 세트의 키가
+  // 남는다. 그걸 그대로 세면 응답 수가 총 문항 수를 넘어(예: 21/20) 제출이 영구 차단된다.
+  const answeredFlags = questions.map((question) => Boolean(answers[question.id]));
+  const answeredCount = answeredFlags.filter(Boolean).length;
+  const firstUnansweredIndex = answeredFlags.findIndex((answered) => !answered);
+  // 순서대로 답해야 진행되므로 이동 가능한 마지막 위치는 "첫 미응답 문항"이다.
+  // (전부 응답했다면 마지막 문항)
+  const maxReachableIndex =
+    firstUnansweredIndex === -1 ? questions.length - 1 : firstUnansweredIndex;
+
   const handleSubmit = useCallback(() => {
     submit(answers);
   }, [submit, answers]);
 
   const handleTimerExpire = useCallback(() => {
-    const answeredCount = Object.keys(answers).length;
     if (answeredCount >= MIN_DIAGNOSIS_ANSWERS) {
       submit(answers);
       return;
     }
     setTimerExpiredInsufficient(true);
-  }, [submit, answers]);
+  }, [submit, answers, answeredCount]);
 
   const { minutes, seconds, timePercentage, isTimeWarning } =
     useDiagnosisTimer(timeLimit, handleTimerExpire, retryCount);
@@ -201,20 +211,19 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
     }
   }, [isSubmitSuccess, submitResult, isGuest, saveGuestResult, router]);
 
-  const navigateQuestion = useCallback(
-    (direction: "next" | "prev") => {
+  const goToQuestion = useCallback(
+    (index: number) => {
+      // 상한을 maxReachableIndex 로 고정 — 미응답 문항을 건너뛴 이동(다음 버튼·진행 바
+      // 점프)을 한곳에서 차단한다. 뒤로 되돌아가는 이동은 그대로 허용.
+      const target = Math.max(0, Math.min(maxReachableIndex, index));
+      if (target === currentIndex) return;
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentIndex((previousIndex) => {
-          if (direction === "next") {
-            return Math.min(questions.length - 1, previousIndex + 1);
-          }
-          return Math.max(0, previousIndex - 1);
-        });
+        setCurrentIndex(target);
         setIsTransitioning(false);
       }, TRANSITION_DURATION_MS);
     },
-    [questions.length]
+    [currentIndex, maxReachableIndex]
   );
 
   const handleAnswer = useCallback((questionId: string, answer: string) => {
@@ -246,6 +255,14 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
     );
   }
 
+  // 인증 경로는 결과 라우트로 이동이 끝날 때까지 이 컴포넌트가 살아 있다.
+  // 그동안 퀴즈를 계속 조작할 수 있으면 제출 뒤의 클릭이 답안에 섞이므로 화면을 닫는다.
+  if (!isGuest && isSubmitSuccess) {
+    return (
+      <DiagnosisLoading title="제출 완료" description="결과 페이지로 이동하고 있어요" />
+    );
+  }
+
   if (isLoading) {
     return <DiagnosisLoading />;
   }
@@ -263,7 +280,7 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
   if (timerExpiredInsufficient) {
     return (
       <DiagnosisExpired
-        answeredCount={Object.keys(answers).length}
+        answeredCount={answeredCount}
         requiredCount={MIN_DIAGNOSIS_ANSWERS}
         onGoHome={() => router.push("/")}
         onRetry={handleRetry}
@@ -272,7 +289,6 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
   }
 
   const currentQuestion = questions[currentIndex];
-  const answeredCount = Object.keys(answers).length;
   const isLastQuestion = currentIndex === questions.length - 1;
   const canSubmit = answeredCount === questions.length;
 
@@ -285,7 +301,12 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
               currentIndex,
               totalQuestions: questions.length,
               answeredCount,
-              percentage: ((currentIndex + 1) / questions.length) * 100,
+              // 진행률은 "현재 위치"가 아니라 "실제 답한 개수" 기준.
+              // (위치 기준이면 마지막 문항 도달 시 미답변이 있어도 100%로 표시돼
+              //  "19/20 완료"·제출 비활성과 어긋난다)
+              percentage: (answeredCount / questions.length) * 100,
+              answeredFlags,
+              maxReachableIndex,
             }}
             timer={{
               minutes,
@@ -293,6 +314,7 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
               percentage: timePercentage,
               isWarning: isTimeWarning,
             }}
+            onJump={goToQuestion}
           />
 
           <DiagnosisQuestionCard
@@ -310,8 +332,8 @@ function DiagnosisQuizFlow({ isAuthenticated }: DiagnosisTestProps) {
             canSubmit={canSubmit}
             isSubmitting={isSubmitting}
             hasCurrentAnswer={Boolean(answers[currentQuestion.id])}
-            onPrevious={() => navigateQuestion("prev")}
-            onNext={() => navigateQuestion("next")}
+            onPrevious={() => goToQuestion(currentIndex - 1)}
+            onNext={() => goToQuestion(currentIndex + 1)}
             onSubmit={handleSubmit}
           />
         </div>

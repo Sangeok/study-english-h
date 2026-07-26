@@ -6,6 +6,10 @@ interface QuizProgress {
   totalQuestions: number;
   answeredCount: number;
   percentage: number;
+  // index별 응답 여부 — 점 색으로 미응답 문항을 드러낸다.
+  answeredFlags: boolean[];
+  // 이동 가능한 마지막 index — 그 뒤 문항은 잠근다(순서대로 답해야 진행).
+  maxReachableIndex: number;
 }
 
 interface TimerState {
@@ -18,17 +22,29 @@ interface TimerState {
 interface DiagnosisProgressBarProps {
   progress: QuizProgress;
   timer: TimerState;
+  onJump?: (index: number) => void;
 }
 
-function getProgressDotClassName(idx: number, currentIndex: number): string {
-  if (idx < currentIndex) return "bg-cobalt-lt scale-110";
-  if (idx === currentIndex) return "bg-white scale-150 animate-pulse";
+function getProgressDotClassName(isAnswered: boolean, isCurrent: boolean): string {
+  if (isCurrent) return "bg-white scale-150 animate-pulse";
+  if (isAnswered) return "bg-cobalt-lt scale-110";
   return "bg-[#2a3b5c]";
+}
+
+function getProgressDotLabel(
+  index: number,
+  isAnswered: boolean,
+  isLocked: boolean
+): string {
+  const position = `${index + 1}번 문항`;
+  if (isLocked) return `${position} · 앞 문항에 답해야 이동할 수 있어요`;
+  return `${position}${isAnswered ? " · 응답함" : " · 미응답"}으로 이동`;
 }
 
 export function DiagnosisProgressBar({
   progress,
   timer,
+  onJump,
 }: DiagnosisProgressBarProps) {
   return (
     <div className="mb-6 animate-slide-down">
@@ -72,15 +88,30 @@ export function DiagnosisProgressBar({
                 />
               </div>
               <div className="pointer-events-none absolute inset-0 flex items-center justify-between px-1.5">
-                {Array.from({ length: progress.totalQuestions }).map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={cn(
-                      "h-1.5 w-1.5 rounded-full transition-all duration-300",
-                      getProgressDotClassName(idx, progress.currentIndex)
-                    )}
-                  />
-                ))}
+                {Array.from({ length: progress.totalQuestions }).map((_, idx) => {
+                  const isCurrent = idx === progress.currentIndex;
+                  const isAnswered = progress.answeredFlags[idx] ?? false;
+                  const isLocked = idx > progress.maxReachableIndex;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => onJump?.(idx)}
+                      disabled={isLocked}
+                      aria-label={getProgressDotLabel(idx, isAnswered, isLocked)}
+                      aria-current={isCurrent ? "step" : undefined}
+                      // -m-1.5 p-1.5: 레이아웃은 그대로 두고 클릭 영역만 넓힌다.
+                      className="pointer-events-auto -m-1.5 grid place-items-center p-1.5 disabled:cursor-not-allowed"
+                    >
+                      <span
+                        className={cn(
+                          "h-1.5 w-1.5 rounded-full transition-all duration-300",
+                          getProgressDotClassName(isAnswered, isCurrent)
+                        )}
+                      />
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

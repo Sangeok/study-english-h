@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys, ApiError } from "@/shared/lib";
 import { DIAGNOSIS_TIME_LIMIT_SECONDS } from "@/shared/constants";
 import type { DiagnosisSubmitAnswer } from "@/entities/question";
@@ -17,6 +18,9 @@ import {
  * @param isGuest 게스트(미인증)면 채점만 하는 preview로, 인증이면 저장하는 submit으로 제출한다.
  */
 export function useDiagnosisQuiz(isGuest: boolean) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: queryKeys.diagnosis.start(),
     queryFn: fetchDiagnosisQuestions,
@@ -40,6 +44,24 @@ export function useDiagnosisQuiz(isGuest: boolean) {
     { answers: DiagnosisSubmitAnswer[] }
   >({
     mutationFn: (body) => (isGuest ? previewDiagnosis(body) : submitDiagnosis(body)),
+    onSuccess: () => {
+      // 게스트 경로는 preview(미저장)라 갱신할 서버 상태가 없다.
+      if (isGuest) return;
+      // 재진단으로 프로필 레벨·약점이 갱신됐으므로 이를 소비하는 클라이언트 캐시를
+      // 무효화하고(useProfileStats 등), 서버 렌더된 헤더 레벨 뱃지를 재실행한다.
+      // 이게 없으면 DB엔 새 레벨이 저장돼도 화면엔 이전 레벨(예: A1)이 남는다.
+      queryClient.invalidateQueries({ queryKey: queryKeys.profile.all });
+      // 진단 캐시는 stale 표시만 한다(refetchType: "none").
+      // ["diagnosis"] 는 진행 중 문항 쿼리 ["diagnosis","start"] 의 접두사라,
+      // 즉시 리페치하면 아직 마운트돼 있는 퀴즈의 문항 세트가 통째로 교체되고
+      // (start 는 매 호출 새로 셔플한다) 로컬 답안과 어긋난다.
+      // 다음 마운트에서 어차피 새로 받으므로 최신성은 그대로다.
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.diagnosis.all,
+        refetchType: "none",
+      });
+      router.refresh();
+    },
   });
 
   const questions = useMemo(() => data?.questions ?? [], [data?.questions]);
