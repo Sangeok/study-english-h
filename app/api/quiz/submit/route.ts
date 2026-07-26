@@ -198,10 +198,16 @@ export async function POST(req: Request) {
       return { isExtraPractice, boostMultiplier, xpPenaltyFromHints };
     });
 
-    // --- 트랜잭션 이후: 게임화 보상 + 오답 편입 + 응답 ---
+    // --- 트랜잭션 이후: 오답 편입 → 게임화 보상 → 응답 ---
 
     const correctCount = results.filter((r) => r.isCorrect).length;
     const accuracy = results.length > 0 ? (correctCount / results.length) * 100 : 0;
+
+    // 오답 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
+    //   게이미피케이션보다 먼저 실행한다: enrollWordsToSrs 는 자체 try/catch 로 비-throw(진짜 best-effort)지만
+    //   processGamificationRewards 는 실패 격리가 없어(내부 $transaction 이 던지면 그대로 전파) 뒤에 두면
+    //   게이미피케이션 실패가 편입까지 스킵시킨다. 순서를 당겨 편입을 게이미피케이션 성공에서 분리한다.
+    const srs = await enrollWordsToSrs(userId, wrongWords);
 
     let gamificationResult;
     if (!txResult.isExtraPractice) {
@@ -215,9 +221,6 @@ export async function POST(req: Request) {
         boostMultiplier: txResult.boostMultiplier,
       });
     }
-
-    // 오답 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
-    const srs = await enrollWordsToSrs(userId, wrongWords);
 
     return NextResponse.json({
       results,
