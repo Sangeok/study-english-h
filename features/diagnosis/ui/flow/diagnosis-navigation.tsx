@@ -10,6 +10,9 @@ interface DiagnosisNavigationProps {
   onSubmit: () => void;
 }
 
+// 미응답 안내 문구 = 다음·제출 버튼이 비활성인 사유. aria-describedby 로 연결한다.
+const UNANSWERED_HINT_ID = "diagnosis-unanswered-hint";
+
 function SubmitButton({
   canSubmit,
   isSubmitting,
@@ -23,6 +26,7 @@ function SubmitButton({
     <button
       onClick={onSubmit}
       disabled={!canSubmit || isSubmitting}
+      aria-describedby={canSubmit ? undefined : UNANSWERED_HINT_ID}
       className="tactile-btn tactile-btn--teal tactile-btn--lg"
     >
       {isSubmitting && (
@@ -35,16 +39,20 @@ function SubmitButton({
 }
 
 function NextButton({
+  hasCurrentAnswer,
   isSubmitting,
   onNext,
 }: {
+  hasCurrentAnswer: boolean;
   isSubmitting: boolean;
   onNext: () => void;
 }) {
   return (
     <button
       onClick={onNext}
-      disabled={isSubmitting}
+      // 답을 고르지 않은 문항은 건너뛸 수 없다 — 진단 점수의 빈칸을 원천 차단.
+      disabled={!hasCurrentAnswer || isSubmitting}
+      aria-describedby={hasCurrentAnswer ? undefined : UNANSWERED_HINT_ID}
       className="tactile-btn tactile-btn--teal tactile-btn--lg"
     >
       <span>다음</span>
@@ -76,8 +84,11 @@ export function DiagnosisNavigation({
 
       <div className="flex-1 text-center">
         {!hasCurrentAnswer && (
-          <p className="animate-pulse text-sm font-medium text-chamber-soft">
-            답을 골라주세요
+          <p
+            id={UNANSWERED_HINT_ID}
+            className="animate-pulse text-sm font-medium text-chamber-soft"
+          >
+            답을 골라야 다음 문항으로 넘어가요
           </p>
         )}
       </div>
@@ -90,7 +101,11 @@ export function DiagnosisNavigation({
         />
       )}
       {!isLastQuestion && (
-        <NextButton isSubmitting={isSubmitting} onNext={onNext} />
+        <NextButton
+          hasCurrentAnswer={hasCurrentAnswer}
+          isSubmitting={isSubmitting}
+          onNext={onNext}
+        />
       )}
     </div>
   );
