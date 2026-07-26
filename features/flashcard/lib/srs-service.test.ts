@@ -6,7 +6,13 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // (Phase 1.5 에서 exact-only 를 잠갔고, Phase 4 에서 adjacent fallback 도입에 맞춰 의식적으로 갱신했다.)
 vi.mock("@/lib/db", () => ({
   default: {
-    userVocabulary: { findMany: vi.fn(), groupBy: vi.fn(), count: vi.fn() },
+    userVocabulary: {
+      findMany: vi.fn(),
+      groupBy: vi.fn(),
+      count: vi.fn(),
+      findUnique: vi.fn(),
+      upsert: vi.fn(),
+    },
     vocabulary: { findMany: vi.fn() },
     userProfile: { update: vi.fn() },
   },
@@ -14,13 +20,15 @@ vi.mock("@/lib/db", () => ({
 
 import prisma from "@/lib/db";
 import { buildAdjacentPriority } from "@/shared/constants";
-import { getNewVocabularies, updateProfileStats } from "./srs-service";
+import { getNewVocabularies, recordReview, updateProfileStats } from "./srs-service";
 
 const db = prisma as unknown as {
   userVocabulary: {
     findMany: ReturnType<typeof vi.fn>;
     groupBy: ReturnType<typeof vi.fn>;
     count: ReturnType<typeof vi.fn>;
+    findUnique: ReturnType<typeof vi.fn>;
+    upsert: ReturnType<typeof vi.fn>;
   };
   vocabulary: { findMany: ReturnType<typeof vi.fn> };
   userProfile: { update: ReturnType<typeof vi.fn> };
@@ -31,6 +39,8 @@ beforeEach(() => {
   // 기본값: 조회 결과 없음. 각 테스트가 필요 시 override 한다.
   db.userVocabulary.findMany.mockResolvedValue([]);
   db.vocabulary.findMany.mockResolvedValue([]);
+  db.userVocabulary.findUnique.mockResolvedValue(null);
+  db.userVocabulary.upsert.mockResolvedValue({});
 });
 
 describe("getNewVocabularies (adjacent fallback, Phase 4)", () => {
@@ -135,5 +145,62 @@ describe("updateProfileStats (컬럼 위임)", () => {
       where: { userId: USER_ID },
       data: { totalWordLearned: 5, masteredWords: 2, reviewNeeded: 4 },
     });
+  });
+});
+
+describe("recordReview (첫 편입 시드)", () => {
+  const USER_ID = "user-1";
+
+  // 퀴즈 편입은 확신도에 따라 첫 복습 간격을 나눈다(ADR 0002).
+  // SM-2 의 repetitions 1·2·3 이 곧 1일·3일·7일이라, 시드로 그 간격을 얻는다.
+  it("기존 진행도가 없으면 initialRepetitions 를 시작점으로 삼는다 (무힌트 정답 → 7일)", async () => {
+    await recordReview(USER_ID, "v1", "normal", true, 2);
+
+    const payload = db.userVocabulary.upsert.mock.calls[0][0];
+    expect(payload.create.repetitions).toBe(3);
+    expect(payload.create.interval).toBe(7);
+    expect(payload.create.masteryLevel).toBe("reviewing");
+  });
+
+  it("힌트를 쓴 정답 시드는 3일로 이어진다", async () => {
+    await recordReview(USER_ID, "v1", "hard", true, 1);
+
+    const payload = db.userVocabulary.upsert.mock.calls[0][0];
+    expect(payload.create.repetitions).toBe(2);
+    expect(payload.create.interval).toBe(3);
+  });
+
+  it("이미 편입된 단어면 시드를 무시하고 기존 진행도에서 이어간다", async () => {
+    db.userVocabulary.findUnique.mockResolvedValue({
+      repetitions: 5,
+      easeFactor: 2.5,
+      interval: 40,
+      lastReviewDate: new Date("2026-07-01T00:00:00.000Z"),
+      masteryLevel: "reviewing",
+    });
+
+    await recordReview(USER_ID, "v1", "normal", true, 2);
+
+    const payload = db.userVocabulary.upsert.mock.calls[0][0];
+    // 시드(2)가 아니라 기존 5 에서 +1, 간격도 40 × easeFactor 로 이어진다
+    expect(payload.update.repetitions).toBe(6);
+    expect(payload.update.interval).toBe(100);
+  });
+
+  it("오답은 시드와 무관하게 1일로 리셋된다", async () => {
+    db.userVocabulary.findUnique.mockResolvedValue({
+      repetitions: 5,
+      easeFactor: 2.5,
+      interval: 40,
+      lastReviewDate: new Date("2026-07-01T00:00:00.000Z"),
+      masteryLevel: "reviewing",
+    });
+
+    await recordReview(USER_ID, "v1", "forgot", false, 0);
+
+    const payload = db.userVocabulary.upsert.mock.calls[0][0];
+    expect(payload.update.repetitions).toBe(0);
+    expect(payload.update.interval).toBe(1);
+    expect(payload.update.easeFactor).toBeCloseTo(2.3);
   });
 });

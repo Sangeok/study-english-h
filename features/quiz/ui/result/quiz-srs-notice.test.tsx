@@ -61,10 +61,11 @@ describe("QuizSrsNotice", () => {
   it("편입된 단어가 있으면 개수와 CTA를 표시한다", async () => {
     await renderNotice({ enrolledCount: 3 });
 
-    expect(container.textContent).toContain("틀린 단어");
+    // enrolledCount 는 정답 단어를 포함하므로 "틀린 단어 N개"로 표기하면 실제 오답 수와 어긋난다.
+    expect(container.textContent).toContain("오늘 만난 단어");
     expect(container.textContent).toContain("3개");
-    expect(container.textContent).toContain("복습에 추가되었어요");
-    expect(getCtaButton().textContent).toContain("복습하러 가기");
+    expect(container.textContent).toContain("복습에 등록되었어요");
+    expect(getCtaButton().textContent).toContain("복습 화면 열기");
   });
 
   it("CTA 클릭 시 주입된 onGoReview 콜백을 호출한다 (리프는 라우터를 모른다)", async () => {

@@ -61,6 +61,10 @@ export async function getDueVocabularies(
 /**
  * Get new vocabularies that user hasn't learned yet.
  *
+ * 보류(ADR 0002) — 신규 카드 진도는 사용자 동선에서 제거됐다. 새 단어를 만나는 경로는
+ * 데일리 퀴즈뿐이며 이 함수는 `?mode=new` URL 로만 도달한다. 죽은 코드가 아니라 되돌릴 수
+ * 있게 남겨둔 것이므로 삭제하지 말 것 — 진도 채널을 되살릴 때 진입점만 다시 붙이면 된다.
+ *
  * exact level 을 먼저 채우고, 부족분만 인접 하위→상위 레벨로 확장한다(adjacent fallback, RFC §7).
  * 신규 카드 고갈 체감을 줄인다. tier 별 반복 쿼리 대신 단일 쿼리로 후보를 모으고 in-memory 우선순위 정렬한다.
  *
@@ -123,13 +127,18 @@ export async function getNewVocabularies(
  * @param vocabularyId - Vocabulary ID
  * @param quality - Review quality rating
  * @param isCorrect - Whether the answer was correct
+ * @param initialRepetitions - 기존 진행도가 없을 때만 쓰는 시작 repetitions.
+ *   퀴즈 편입이 확신도에 따라 첫 복습 간격을 나누는 데 쓴다(ADR 0002) — SM-2 의
+ *   repetitions 1·2·3 이 곧 DEFAULT_INTERVALS 의 1일·3일·7일이라 새 상수가 필요 없다.
+ *   이미 편입된 단어라면 무시되고 기존 진행도에서 이어진다.
  * @returns Updated user vocabulary record
  */
 export async function recordReview(
   userId: string,
   vocabularyId: string,
   quality: ReviewQuality,
-  isCorrect: boolean
+  isCorrect: boolean,
+  initialRepetitions: number = 0
 ): Promise<UserVocabulary> {
   // Get current user vocabulary record or create new one
   const userVocab = await prisma.userVocabulary.findUnique({
@@ -143,7 +152,7 @@ export async function recordReview(
 
   // Build current SRS card state
   const currentCard = {
-    repetitions: userVocab?.repetitions ?? 0,
+    repetitions: userVocab?.repetitions ?? initialRepetitions,
     easeFactor: userVocab?.easeFactor ?? DEFAULT_EASE_FACTOR,
     interval: userVocab?.interval ?? 1,
     lastReviewDate: userVocab?.lastReviewDate ?? null,

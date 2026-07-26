@@ -1,8 +1,9 @@
 // @vitest-environment node
 /**
- * 퀴즈 제출 라우트 — SRS 오답 편입 배선 회귀 방어.
+ * 퀴즈 제출 라우트 — SRS 퀴즈 편입 배선 회귀 방어.
  *
- * 지키는 것: 라우트가 오답을 어떻게 모아 편입에 넘기고, 결과를 응답에 싣는가.
+ * 지키는 것: 라우트가 만난 단어를 어떻게 모아(정답 여부·힌트 사용 포함) 편입에 넘기고,
+ * 결과를 응답에 싣는가.
  * 편입 실패는 UI에서 카드를 숨기는 것으로 흡수되므로(quiz-srs-notice.tsx) 배선이 끊겨도
  * 에러도 화면 변화도 없다 — 이 파일이 유일한 신호다.
  *
@@ -90,7 +91,14 @@ const ANSWERS = [
   { questionId: "q-bogus", selectedAnswer: "무엇이든", hintLevel: 0 as const, timeSpent: 5 },
 ];
 
-const WRONG_WORDS = ["banana", "cherry"];
+// 정답·오답을 가리지 않고 만난 단어 전부가 편입 후보다(ADR 0002).
+// 확신도는 편입 여부가 아니라 첫 복습 시점을 가르므로 isCorrect·usedHint 가 함께 전달돼야 한다.
+const ENROLL_OUTCOMES = [
+  { word: "apple", isCorrect: true, usedHint: false },
+  { word: "banana", isCorrect: false, usedHint: false },
+  { word: "cherry", isCorrect: false, usedHint: true },
+  { word: "durian", isCorrect: true, usedHint: false },
+];
 
 const STREAK_DATA = {
   lastStudyDate: new Date("2026-07-24T00:00:00.000Z"),
@@ -163,19 +171,19 @@ beforeEach(() => {
   } as Awaited<ReturnType<typeof getSessionFromRequest>>);
   getStreakUpdateDataMock.mockResolvedValue(STREAK_DATA);
   processGamificationRewardsMock.mockResolvedValue(GAMIFICATION_RESULT);
-  enrollWordsToSrsMock.mockResolvedValue({ enrolledCount: WRONG_WORDS.length });
+  enrollWordsToSrsMock.mockResolvedValue({ enrolledCount: ENROLL_OUTCOMES.length });
 });
 
-describe("POST /api/quiz/submit — SRS 오답 편입", () => {
-  it("오답 단어만 편입 후보로 전달한다 (정답·미존재 questionId 제외)", async () => {
+describe("POST /api/quiz/submit — SRS 퀴즈 편입", () => {
+  it("만난 단어 전부를 확신도(정답 여부·힌트 사용)와 함께 전달한다 (미존재 questionId 제외)", async () => {
     const response = await POST(createSubmitRequest());
 
     expect(response.status).toBe(200);
     expect(enrollWordsToSrsMock).toHaveBeenCalledOnce();
-    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, WRONG_WORDS);
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, ENROLL_OUTCOMES);
   });
 
-  it("추가 연습에서도 오답을 편입한다 (오답은 보상이 아니라 학습 신호)", async () => {
+  it("추가 연습에서도 편입한다 (편입은 보상이 아니라 학습 신호)", async () => {
     // 오늘 이미 제출함 → isExtraPractice=true → XP 는 0 이지만 편입은 그대로 수행되어야 한다
     transactionClient.userQuizAttempt.count.mockResolvedValue(1);
 
@@ -185,7 +193,7 @@ describe("POST /api/quiz/submit — SRS 오답 편입", () => {
     expect(response.status).toBe(200);
     expect(body.isExtraPractice).toBe(true);
     expect(body.summary.xpEarned).toBe(0);
-    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, WRONG_WORDS);
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, ENROLL_OUTCOMES);
   });
 
   it("편입 결과를 summary.srs 로 응답한다", async () => {
@@ -210,7 +218,7 @@ describe("POST /api/quiz/submit — SRS 오답 편입", () => {
     expect(transactionClient.userQuizAttempt.createMany).toHaveBeenCalledOnce();
   });
 
-  it("게이미피케이션이 실패해도 오답 편입은 먼저 실행된다 (편입/게이미피케이션 순서 회귀 방어)", async () => {
+  it("게이미피케이션이 실패해도 편입은 먼저 실행된다 (편입/게이미피케이션 순서 회귀 방어)", async () => {
     // processGamificationRewards 는 실패 격리가 없어 throw 하면 500 이 되지만,
     // 편입은 자기완결(비-throw)이라 게이미피케이션보다 먼저 실행돼 그 실패에 종속되지 않아야 한다.
     const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -219,7 +227,7 @@ describe("POST /api/quiz/submit — SRS 오답 편입", () => {
     const response = await POST(createSubmitRequest());
 
     expect(response.status).toBe(500); // 게이미피케이션 실패 자체는 여전히 500
-    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, WRONG_WORDS); // 그러나 편입은 실행됨
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, ENROLL_OUTCOMES); // 그러나 편입은 실행됨
 
     consoleErrorSpy.mockRestore();
   });
