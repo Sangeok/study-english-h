@@ -4,35 +4,8 @@ import { useRouter } from "next/navigation";
 import { FullPageSpinner, tactileButtonClass } from "@/shared/ui";
 import { PROMOTION, ROUTES } from "@/shared/constants";
 import { usePromotionTest } from "../model/use-promotion-test";
-import { isRestartableFailure, type PromotionFailure } from "../lib/promotion-failure";
+import { isRestartableFailure, promotionFailureCopy } from "../lib/promotion-failure";
 import { PromotionResult } from "./promotion-result";
-
-/** 재응시까지 남은 일수 — 올림해서 D-1 이 "오늘 중"을 뜻하지 않도록 한다. */
-function daysUntil(isoDate: string): number {
-  const remainingMs = new Date(isoDate).getTime() - Date.now();
-  return Math.max(1, Math.ceil(remainingMs / (24 * 60 * 60 * 1000)));
-}
-
-function failureCopy(failure: PromotionFailure): string {
-  switch (failure.kind) {
-    case "locked":
-      return "아직 준비도가 100%가 아니에요.";
-    case "cooldown":
-      return failure.availableAt
-        ? `재응시는 D-${daysUntil(failure.availableAt)} 후에 가능해요.`
-        : `재응시는 ${PROMOTION.RETRY_COOLDOWN_DAYS}일 뒤에 가능해요.`;
-    case "max-level":
-      return "이미 최고 레벨이에요.";
-    case "content-unavailable":
-      return "지금은 시험을 준비할 수 없어요. 잠시 후 다시 시도해 주세요.";
-    case "session-invalid":
-      return "응시 시간이 만료됐어요. 처음부터 다시 시작해 주세요.";
-    case "level-changed":
-      return "레벨이 바뀌어 이번 응시는 무효예요. 다시 시작해 주세요.";
-    default:
-      return "문제가 생겼어요. 잠시 후 다시 시도해 주세요.";
-  }
-}
 
 export function PromotionTest() {
   const router = useRouter();
@@ -47,7 +20,7 @@ export function PromotionTest() {
     return (
       <div className="mx-auto max-w-xl px-6 py-16 text-center">
         <h1 className="font-display text-2xl font-bold text-ink">승급 시험</h1>
-        <p className="mt-3 text-ink-soft">{failureCopy(failure)}</p>
+        <p className="mt-3 text-ink-soft">{promotionFailureCopy(failure)}</p>
         <div className="mt-8 flex justify-center gap-3">
           {isRestartableFailure(failure) && (
             <button onClick={restart} className={tactileButtonClass("gold", "lg")}>
