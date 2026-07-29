@@ -69,6 +69,15 @@ export function useMainPageHandlers({
     router.push(ROUTES.FLASHCARD_REVIEW);
   }, [isAuthenticated, redirectToLogin, router]);
 
+  const handlePromotionClick = useCallback(() => {
+    if (!isAuthenticated) {
+      redirectToLogin();
+      return;
+    }
+
+    router.push(ROUTES.PROMOTION);
+  }, [isAuthenticated, redirectToLogin, router]);
+
   const handleComingSoon = useCallback(
     (feature?: string) => {
       if (feature) {
@@ -85,5 +94,6 @@ export function useMainPageHandlers({
     handleDiagnosisClick,
     handleReviewClick,
     handleComingSoon,
+    handlePromotionClick,
   };
 }

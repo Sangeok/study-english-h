@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { calculateEffectiveCurrentStreak, getVocabularyStats, type ProfileStats } from "@/entities/user";
+import {
+  calculateEffectiveCurrentStreak,
+  derivePromotionStatus,
+  getLevelProgress,
+  getVocabularyStats,
+  type ProfileStats,
+} from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 
 // 어휘 진행률 (숙달 단어 / 전체 학습 단어). 두 응답 분기가 공유한다.
 function calculateVocabularyProgress(totalWordLearned: number, masteredWords: number): number {
@@ -54,6 +61,25 @@ export async function GET(req: Request) {
     // 어휘 3필드는 컬럼이 아니라 이 라이브 집계에서 온다.
     const { totalWordLearned, masteredWords, reviewNeeded } = vocabStats;
 
+    // P4: 레벨 진행률과 승급 상태 — profile.level 확정 후 조회 (level 의존이라 위 Promise.all 에 못 넣음).
+    //   level 은 자유 String 컬럼이라 신뢰 불가 → getUserLevel(quiz/daily:54-62) 선례대로
+    //   cefrLevelSchema.safeParse 로 정규화한 CefrLevel 만 getLevelProgress(enum 필터)에 넘긴다.
+    const parsedLevel = cefrLevelSchema.safeParse(profile?.level);
+    const level = parsedLevel.success ? parsedLevel.data : "A1";
+    const [levelProgress, lastFailedPromotion] = await Promise.all([
+      getLevelProgress(userId, level),
+      prisma.levelPromotionAttempt.findFirst({
+        where: { userId, passed: false },
+        orderBy: { createdAt: "desc" },
+        select: { createdAt: true },
+      }),
+    ]);
+    const promotion = derivePromotionStatus(
+      level,
+      levelProgress,
+      lastFailedPromotion?.createdAt ?? null
+    );
+
     // 프로필이 없으면 기본값 생성
     if (!profile) {
       const newProfile = await prisma.userProfile.create({
@@ -77,6 +103,9 @@ export async function GET(req: Request) {
         vocabularyProgress: calculateVocabularyProgress(totalWordLearned, masteredWords),
         lastStudyDate: null,
         hasCompletedTodayQuiz: todayQuizCount > 0,
+        levelProgress,
+        promotionStatus: promotion.status,
+        promotionAvailableAt: promotion.availableAt?.toISOString() ?? null,
       } satisfies ProfileStats);
     }
 
@@ -98,6 +127,9 @@ export async function GET(req: Request) {
       vocabularyProgress: calculateVocabularyProgress(totalWordLearned, masteredWords),
       lastStudyDate: profile.lastStudyDate?.toISOString() ?? null,
       hasCompletedTodayQuiz: todayQuizCount > 0,
+      levelProgress,
+      promotionStatus: promotion.status,
+      promotionAvailableAt: promotion.availableAt?.toISOString() ?? null,
     } satisfies ProfileStats);
   } catch (error) {
     console.error("Profile stats error:", error);

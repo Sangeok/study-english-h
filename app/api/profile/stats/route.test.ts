@@ -12,8 +12,14 @@ vi.mock("@/lib/db", () => ({
   default: {
     userProfile: { findUnique: vi.fn(), create: vi.fn() },
     levelDiagnosis: { findFirst: vi.fn() },
-    userQuizAttempt: { count: vi.fn() },
+    // P4: findMany 는 진행률 B 성분(최근 정답률), count 는 기존 데일리 완료 판정
+    userQuizAttempt: { count: vi.fn(), findMany: vi.fn() },
+    // P4: count 는 reviewNeeded(getVocabularyStats)와 reviewDebt(getLevelProgress)가 공유한다
     userVocabulary: { groupBy: vi.fn(), count: vi.fn() },
+    // P4: 진행률 A 성분(성숙도) — Vocabulary 조인이 필요해 raw SQL
+    $queryRaw: vi.fn(),
+    // P4: 쿨다운 판정용 최근 실패 응시
+    levelPromotionAttempt: { findFirst: vi.fn() },
   },
 }));
 
@@ -24,6 +30,7 @@ vi.mock("@/shared/lib/get-session", () => ({
 
 import prisma from "@/lib/db";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
+import { PROMOTION } from "@/shared/constants";
 import { GET } from "./route";
 
 const USER_ID = "user-1";
@@ -45,8 +52,10 @@ const STALE_PROFILE = {
 const db = prisma as unknown as {
   userProfile: { findUnique: ReturnType<typeof vi.fn>; create: ReturnType<typeof vi.fn> };
   levelDiagnosis: { findFirst: ReturnType<typeof vi.fn> };
-  userQuizAttempt: { count: ReturnType<typeof vi.fn> };
+  userQuizAttempt: { count: ReturnType<typeof vi.fn>; findMany: ReturnType<typeof vi.fn> };
   userVocabulary: { groupBy: ReturnType<typeof vi.fn>; count: ReturnType<typeof vi.fn> };
+  $queryRaw: ReturnType<typeof vi.fn>;
+  levelPromotionAttempt: { findFirst: ReturnType<typeof vi.fn> };
 };
 const getSessionMock = vi.mocked(getSessionFromRequest);
 let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
@@ -69,6 +78,11 @@ beforeEach(() => {
     { masteryLevel: "learning", _count: 3 },
   ]);
   db.userVocabulary.count.mockResolvedValue(4);
+  // P4: 학습 이력 없음 → levelProgress 0, 실패 이력 없음 → locked.
+  //   기존 12필드 단언은 이 값들과 무관하게 불변이어야 한다(계약 하위호환의 증거).
+  db.$queryRaw.mockResolvedValue([]);
+  db.userQuizAttempt.findMany.mockResolvedValue([]);
+  db.levelPromotionAttempt.findFirst.mockResolvedValue(null);
   getSessionMock.mockResolvedValue({
     user: { id: USER_ID },
   } as Awaited<ReturnType<typeof getSessionFromRequest>>);
@@ -142,5 +156,62 @@ describe("GET /api/profile/stats — 어휘 통계 라이브 집계", () => {
     expect(response.status).toBe(500);
     expect(body).toEqual({ error: "통계 조회 중 오류가 발생했습니다" });
     expect(consoleErrorSpy).toHaveBeenCalledWith("Profile stats error:", expect.any(Error));
+  });
+});
+
+describe("GET /api/profile/stats — P4 진행률·승급 상태 (additive 3필드)", () => {
+  it("학습 이력이 없으면 levelProgress 0 · locked · availableAt null 이다", async () => {
+    const response = await GET(createStatsRequest());
+    const body = await response.json();
+
+    expect(body.levelProgress).toBe(0);
+    expect(body.promotionStatus).toBe("locked");
+    expect(body.promotionAvailableAt).toBeNull();
+  });
+
+  it("최근 실패 응시가 있으면 cooldown 과 ISO availableAt 을 반환한다", async () => {
+    // 쿨다운 창 안 — derivePromotionStatus 가 진행률보다 쿨다운을 먼저 본다
+    const failedAt = new Date(Date.now() - 60 * 1000);
+    db.levelPromotionAttempt.findFirst.mockResolvedValue({ createdAt: failedAt });
+
+    const response = await GET(createStatsRequest());
+    const body = await response.json();
+
+    expect(body.promotionStatus).toBe("cooldown");
+    expect(body.promotionAvailableAt).toBe(
+      new Date(failedAt.getTime() + PROMOTION.RETRY_COOLDOWN_DAYS * 24 * 60 * 60 * 1000).toISOString()
+    );
+  });
+
+  it("최상위 레벨(C2)은 max-level 이다", async () => {
+    db.userProfile.findUnique.mockResolvedValue({ ...STALE_PROFILE, level: "C2" });
+
+    const response = await GET(createStatsRequest());
+    const body = await response.json();
+
+    expect(body.promotionStatus).toBe("max-level");
+  });
+
+  it("비정규 level 컬럼은 A1 로 정규화해 조회한다 (자유 String 방어)", async () => {
+    // getUserLevel(quiz/daily) 선례 — 정규화 없이 enum 필터에 넣으면 쿼리가 터진다
+    db.userProfile.findUnique.mockResolvedValue({ ...STALE_PROFILE, level: "쓰레기값" });
+
+    const response = await GET(createStatsRequest());
+
+    expect(response.status).toBe(200);
+    expect(db.userQuizAttempt.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { userId: USER_ID, question: { difficulty: "A1" } } })
+    );
+  });
+
+  it("프로필 신규 생성 경로에서도 3필드가 채워진다", async () => {
+    db.userProfile.findUnique.mockResolvedValue(null);
+
+    const response = await GET(createStatsRequest());
+    const body = await response.json();
+
+    expect(body.levelProgress).toBe(0);
+    expect(body.promotionStatus).toBe("locked");
+    expect(body.promotionAvailableAt).toBeNull();
   });
 });

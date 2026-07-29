@@ -8,6 +8,8 @@ import {
 } from "@/features/diagnosis";
 import { ApiError } from "@/shared/lib";
 import { useProfileStats } from "@/entities/user/model/use-profile-stats";
+// 배럴 @/entities/user 가 아니라 직접 경로 — 그 배럴은 @/lib/db 를 무는 서버 리더도 export 한다.
+import type { ProfileStats } from "@/entities/user/types";
 import { useMainPageHandlers } from "../hooks/use-main-page-handlers";
 import { useDiagnosisToast } from "../hooks/use-diagnosis-toast";
 import { HomeHero } from "./home-hero";
@@ -19,6 +21,8 @@ interface MainPageProps {
   isAuthenticated: boolean;
 }
 
+// 두 갈래(profileStats | DEFAULT_STATS)의 교집합만 안전하게 읽을 수 있다 — 필드 삭제 금지.
+// satisfies 는 additive 필드 오타·유니온 드리프트를 먼 HomeHero prop 지점이 아니라 여기서 잡는다.
 const DEFAULT_STATS = {
   totalXP: 0,
   streak: 0,
@@ -26,7 +30,10 @@ const DEFAULT_STATS = {
   vocabularyProgress: 0,
   reviewNeeded: 0,
   level: "A1",
-} as const;
+  levelProgress: 0,
+  promotionStatus: "locked",
+  promotionAvailableAt: null,
+} as const satisfies Partial<ProfileStats>;
 
 function isAuthError(error: unknown): boolean {
   return error instanceof ApiError && error.status === 401;
@@ -73,9 +80,13 @@ function MainPageContent({ isAuthenticated }: MainPageProps) {
         level={stats.level}
         streak={stats.streak}
         reviewCount={stats.reviewNeeded}
+        levelProgress={stats.levelProgress}
+        promotionStatus={stats.promotionStatus}
+        promotionAvailableAt={stats.promotionAvailableAt}
         onStartSession={handlers.handleQuizClick}
         onReviewOnly={handlers.handleReviewClick}
         onDiagnosis={handlers.handleDiagnosisClick}
+        onStartPromotion={handlers.handlePromotionClick}
       />
 
       <div className="mx-auto max-w-6xl px-6 pb-16 pt-4 md:px-10">

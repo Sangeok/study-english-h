@@ -8,6 +8,7 @@ export const ROUTES = {
   FLASHCARD_REVIEW: "/flashcard?mode=review",
   // 형식 선택 화면. 매칭·타이핑·리스닝이 실제로 생기기 전까지 어디서도 링크하지 않는다(ADR 0002).
   FLASHCARD_MODES: "/flashcard/modes",
+  PROMOTION: "/promotion",
   DASHBOARD: "/dashboard",
   ACHIEVEMENTS: "/achievements",
   LEAGUE: "/league",

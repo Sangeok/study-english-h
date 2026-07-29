@@ -32,6 +32,10 @@ model User {
 
   // Phase 2: 상점
   purchases    UserPurchase[]
+
+  // P4: 승급 시험
+  promotionAttempts LevelPromotionAttempt[]
+  promotionSessions LevelPromotionSession[]
 }
 
 model Account {
@@ -332,4 +336,39 @@ model UserPurchase {
 
   @@index([userId, purchasedAt])
   @@index([userId, itemCode])
+}
+
+// P4: 승급 시험 응시 기록 — 쿨다운 판정과 이력의 근거.
+// UserQuizAttempt 에 기록하지 않는 이유: 데일리 퀴즈 완료 판정(hasCompletedTodayQuiz)이
+// UserQuizAttempt 카운트라서 시험 응시가 "오늘 퀴즈 완료"로 오인된다.
+model LevelPromotionAttempt {
+  id           String   @id @default(cuid())
+  userId       String
+  fromLevel    String   // 제출 트랜잭션의 락 안에서 다시 읽은 현재 레벨 (= CAS 조건값). 시작 시점 값이 아니다
+  toLevel      String   // 목표 레벨 (fromLevel 의 다음)
+  correctCount Int      // 10문항 중 정답 수
+  passed       Boolean
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+// P4: 응시 세션 — "진행률 100% 관문을 통과했다"는 서버 측 증거이자 채점 대상 문항의 고정.
+// 이 모델이 없으면 start(자격 검증)를 건너뛰고 submit 만 직접 호출해 진행률 0% 에서도 승급할 수 있고,
+// 제출 문항을 사용자가 임의로 고를 수 있다 — difficulty 검증은 "다음 레벨 문항인가"만 보장한다.
+// Attempt 와 분리하는 이유: 쿨다운 질의가 LevelPromotionAttempt{passed:false} 를 세므로,
+// 시작 시점에 attempt 행을 만들면 응시 시작만으로 쿨다운에 걸린다.
+model LevelPromotionSession {
+  id           String    @id @default(cuid())
+  userId       String
+  toLevel      String    // 발급 시점의 목표 레벨 (제출 시 getNextLevel(현재 레벨)과 대조)
+  questionIds  String[]  // 발급한 10문항 — 제출 집합이 이것과 정확히 일치해야 한다
+  createdAt    DateTime  @default(now())
+  consumedAt   DateTime? // 채점된 제출로 소진된 시각(통과·미달 무관). 가드 거절은 롤백이라 채우지 않는다
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }

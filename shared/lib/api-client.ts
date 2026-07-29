@@ -1,7 +1,11 @@
 class ApiError extends Error {
   constructor(
     public status: number,
-    message: string
+    message: string,
+    /** 파싱된 오류 응답 body. 같은 status 안에서 `reason` 으로 화면이 갈리는 계약
+     *  (승급 403/409)에 필요하다. 3번째 인자가 선택적이라 `new ApiError(409, "…")` 인
+     *  기존 소비자·테스트는 그대로 컴파일된다. */
+    public body?: unknown
   ) {
     super(message);
   }
@@ -17,7 +21,8 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
     const body = await response.json().catch(() => ({}));
     throw new ApiError(
       response.status,
-      body.error ?? `요청 실패 (${response.status})`
+      body.error ?? `요청 실패 (${response.status})`,
+      body
     );
   }
 

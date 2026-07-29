@@ -8,6 +8,14 @@ export const CEFR_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 
 export type CefrLevel = (typeof CEFR_ORDER)[number];
 
+/** 다음 CEFR 레벨. 입력이 유효 CefrLevel 이 아니거나 최상위(C2)면 null.
+ *  자유 String 인 profile.level 을 그대로 받도록 string 을 받아(호출부 캐스팅 불필요) 내부 판정한다 —
+ *  승급 시험·홈 서사·눈금자가 "다음 레벨 없음"을 이 한 곳에서 공유한다. */
+export function getNextLevel(level: string): CefrLevel | null {
+  const index = (CEFR_ORDER as readonly string[]).indexOf(level);
+  return index >= 0 && index < CEFR_ORDER.length - 1 ? CEFR_ORDER[index + 1] : null;
+}
+
 /**
  * 기준 레벨의 fallback 우선순위 레벨 목록(전체 6레벨을 우선순위 순으로).
  *

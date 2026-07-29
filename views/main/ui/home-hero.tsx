@@ -1,16 +1,9 @@
 "use client";
 
 import { Flame } from "lucide-react";
-import { CefrRuler } from "./cefr-ruler";
-
-const NEXT_LEVEL: Record<string, string> = {
-  A1: "A2",
-  A2: "B1",
-  B1: "B2",
-  B2: "C1",
-  C1: "C2",
-  C2: "C2",
-};
+import { getNextLevel } from "@/shared/constants";
+import type { ProfileStats } from "@/entities/user/types";
+import { LevelProgressPanel } from "./level-progress-panel";
 
 interface HomeHeroProps {
   diagnosisCompleted: boolean;
@@ -18,9 +11,14 @@ interface HomeHeroProps {
   streak: number;
   /** 복습 도래 단어 수 — 0이면 개수를 감춘다. */
   reviewCount: number;
+  /** 현재 레벨 준비도 0-100 */
+  levelProgress: number;
+  promotionStatus: ProfileStats["promotionStatus"];
+  promotionAvailableAt: string | null;
   onStartSession: () => void;
   onReviewOnly: () => void;
   onDiagnosis: () => void;
+  onStartPromotion: () => void;
 }
 
 /** 훈련장 입구 — 퀴즈 챔버와 같은 네이비 재질의 홈 히어로 */
@@ -29,11 +27,17 @@ export function HomeHero({
   level,
   streak,
   reviewCount,
+  levelProgress,
+  promotionStatus,
+  promotionAvailableAt,
   onStartSession,
   onReviewOnly,
   onDiagnosis,
+  onStartPromotion,
 }: HomeHeroProps) {
-  const next = NEXT_LEVEL[level] ?? "B1";
+  // canonical 헬퍼 — 로컬 NEXT_LEVEL 맵은 C2 를 자기 자신으로 매핑해
+  // "다음 목표는 C2예요" 라는 어색한 문장을 만들었다.
+  const next = getNextLevel(level);
 
   return (
     <section className="bg-chamber text-chamber-ink" aria-label="오늘의 학습">
@@ -53,7 +57,7 @@ export function HomeHero({
               <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.1] tracking-tight text-white md:text-5xl">
                 지금 <em className="not-italic text-cobalt-lt">{level}</em>,
                 <br />
-                다음 목표는 {next}예요.
+                {next ? `다음 목표는 ${next}예요.` : "최고 레벨을 유지하고 있어요."}
               </h1>
               <p className="mt-4 max-w-xl text-chamber-soft">
                 오늘 세션은 퀴즈 10문제 · 약 7분이면 돼요.
@@ -122,7 +126,14 @@ export function HomeHero({
             </div>
           </div>
           <div className="mt-7">
-            <CefrRuler level={diagnosisCompleted ? level : null} />
+            <LevelProgressPanel
+              diagnosisCompleted={diagnosisCompleted}
+              level={level}
+              levelProgress={levelProgress}
+              promotionStatus={promotionStatus}
+              promotionAvailableAt={promotionAvailableAt}
+              onStartPromotion={onStartPromotion}
+            />
           </div>
         </div>
       </div>
