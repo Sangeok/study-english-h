@@ -12,7 +12,10 @@ import { POINT_EVENTS } from "@/features/gamification/config/point-events";
 import { selectFreeHintTargets } from "@/features/shop/lib/select-free-hint-targets";
 import { QUIZ_BOOST_MULTIPLIER } from "@/features/shop/config/shop-items";
 import { isPrismaCheckConstraintError } from "@/features/shop/lib/prisma-errors";
-import { enrollWordsToSrs } from "@/features/flashcard/lib/srs-enrollment";
+import {
+  enrollWordsToSrs,
+  type QuizWordOutcome,
+} from "@/features/flashcard/lib/srs-enrollment";
 
 export async function POST(req: Request) {
   try {
@@ -61,7 +64,9 @@ export async function POST(req: Request) {
     const hintStats = { noHintCorrect: 0, partialHintCorrect: 0, fullHintCorrect: 0 };
     const results: QuizResult[] = [];
     const attemptData: Prisma.UserQuizAttemptCreateManyInput[] = [];
-    const wrongWords: string[] = []; // 오답 englishWord 수집 (SRS 편입 후보)
+    // 퀴즈에서 만난 단어 전부를 편입 후보로 모은다 — 정답 여부·힌트 사용은
+    // 편입 여부가 아니라 첫 복습 시점을 가른다(ADR 0002).
+    const quizWordOutcomes: QuizWordOutcome[] = [];
 
     const txResult = await prisma.$transaction(async (tx) => {
       const todayAttemptCount = await tx.userQuizAttempt.count({
@@ -85,10 +90,13 @@ export async function POST(req: Request) {
         const correctOption = question.options.find((opt) => opt.isCorrect);
         const isCorrect = correctOption?.text === answer.selectedAnswer;
 
-        // 추가 연습 여부와 무관하게 수집 — 오답은 보상이 아니라 학습 신호다.
-        if (!isCorrect) {
-          wrongWords.push(question.englishWord);
-        }
+        // 추가 연습 여부와 무관하게 수집 — 편입은 보상이 아니라 학습 신호다.
+        // 힌트 2단계는 한국어 뜻을 공개하므로, 힌트를 쓴 정답은 확신도가 낮게 다뤄진다.
+        quizWordOutcomes.push({
+          word: question.englishWord,
+          isCorrect,
+          usedHint: answer.hintLevel > 0,
+        });
 
         hintedAnswers.push({
           questionId: answer.questionId,
@@ -198,16 +206,16 @@ export async function POST(req: Request) {
       return { isExtraPractice, boostMultiplier, xpPenaltyFromHints };
     });
 
-    // --- 트랜잭션 이후: 오답 편입 → 게임화 보상 → 응답 ---
+    // --- 트랜잭션 이후: 퀴즈 편입 → 게임화 보상 → 응답 ---
 
     const correctCount = results.filter((r) => r.isCorrect).length;
     const accuracy = results.length > 0 ? (correctCount / results.length) * 100 : 0;
 
-    // 오답 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
+    // 퀴즈 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
     //   게이미피케이션보다 먼저 실행한다: enrollWordsToSrs 는 자체 try/catch 로 비-throw(진짜 best-effort)지만
     //   processGamificationRewards 는 실패 격리가 없어(내부 $transaction 이 던지면 그대로 전파) 뒤에 두면
     //   게이미피케이션 실패가 편입까지 스킵시킨다. 순서를 당겨 편입을 게이미피케이션 성공에서 분리한다.
-    const srs = await enrollWordsToSrs(userId, wrongWords);
+    const srs = await enrollWordsToSrs(userId, quizWordOutcomes);
 
     let gamificationResult;
     if (!txResult.isExtraPractice) {

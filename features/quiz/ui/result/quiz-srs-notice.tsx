@@ -23,18 +23,22 @@ export function QuizSrsNotice({ srs, onGoReview }: QuizSrsNoticeProps) {
           </div>
           <div>
             <h3 className="font-display font-bold text-2xl md:text-3xl text-ink tracking-tight">복습 목록</h3>
-            {/* 편입 단어는 interval 1일 — 오늘 복습 세션이 아니라 내일 도래한다 */}
+            {/* 가장 이른 편입도 interval 1일 — 오늘 복습 세션이 아니라 내일 이후 도래한다 */}
             <p className="text-sm text-ink-soft">내일부터 다시 만나요</p>
           </div>
         </div>
 
         <div className="p-4 bg-gold-tint rounded-2xl border border-gold mb-6">
+          {/* enrolledCount 는 정답 단어를 포함한다 — "틀린 단어 N개"로 읽히면 실제 오답 수와 어긋난다 */}
           <p className="text-sm text-ink text-center">
-            틀린 단어{" "}
+            오늘 만난 단어{" "}
             <span className="text-gold-edge font-display font-bold tabular-nums text-base">
               {srs.enrolledCount}개
             </span>
-            가 복습에 추가되었어요
+            가 복습에 등록되었어요
+          </p>
+          <p className="mt-1 text-xs text-ink-soft text-center">
+            틀린 단어는 내일, 맞힌 단어는 3~7일 뒤에 다시 나와요
           </p>
         </div>
 
@@ -43,7 +47,7 @@ export function QuizSrsNotice({ srs, onGoReview }: QuizSrsNoticeProps) {
           onClick={onGoReview}
           className="tactile-btn tactile-btn--gold tactile-btn--block"
         >
-          <span>복습하러 가기</span>
+          <span>복습 화면 열기</span>
         </button>
       </div>
     </section>

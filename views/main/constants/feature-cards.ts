@@ -8,7 +8,7 @@ import {
 export interface MainPageHandlers {
   handleQuizClick: () => void;
   handleDiagnosisClick: () => void;
-  handleFlashcardClick: () => void;
+  handleReviewClick: () => void;
   handleComingSoon: (feature?: string) => void;
 }
 
@@ -91,11 +91,12 @@ export const FEATURE_CARDS: FeatureCardConfig[] = [
 
   {
     id: "flashcard",
-    title: "플래시카드",
-    handlerKey: "handleFlashcardClick",
+    // 형식("플래시카드")이 아니라 목적으로 부른다 — 새 단어는 퀴즈에서만 만난다(CONTEXT.md).
+    title: "복습",
+    handlerKey: "handleReviewClick",
 
-    getDescription: () => "SRS 알고리즘으로 효과적인 암기",
-    getActionLabel: () => "학습 시작하기",
+    getDescription: () => "퀴즈에서 만난 단어를 잊기 전에 다시",
+    getActionLabel: () => "복습 시작하기",
     getStatus: () => "available"
   },
 

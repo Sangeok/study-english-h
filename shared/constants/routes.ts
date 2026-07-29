@@ -4,7 +4,11 @@ export const ROUTES = {
   LOGIN: "/login",
   QUIZ: "/quiz",
   DIAGNOSIS: "/diagnosis",
+  // 복습 세션 직행. 진입점은 전부 이 경로를 쓴다(ADR 0002) — 목적(복습)이 URL 에 드러난다.
+  FLASHCARD_REVIEW: "/flashcard?mode=review",
+  // 형식 선택 화면. 매칭·타이핑·리스닝이 실제로 생기기 전까지 어디서도 링크하지 않는다(ADR 0002).
   FLASHCARD_MODES: "/flashcard/modes",
+  PROMOTION: "/promotion",
   DASHBOARD: "/dashboard",
   ACHIEVEMENTS: "/achievements",
   LEAGUE: "/league",

@@ -2,6 +2,10 @@
  * Study Mode Selection Page
  *
  * Displays available study modes for vocabulary learning
+ *
+ * 보류(ADR 0002) — 어디서도 링크하지 않는다. 5개 중 4개가 "준비 중"이라 선택지가 없는
+ * 선택 화면이었고, 목적(복습) 축이 이 화면에 없어 사용자가 복습을 찾지 못하는 원인이었다.
+ * 매칭·타이핑·리스닝이 실제로 구현되면 "목적 → 형식" 2단 구조로 다시 세운다.
  */
 
 "use client";

@@ -5,7 +5,8 @@
  *
  * Fetches vocabularies for a flashcard session based on mode:
  * - review: Get due vocabularies for review
- * - new: Get new vocabularies to learn
+ * - new: 보류(ADR 0002) — 신규 카드 진도는 사용자 동선에서 제거됐다.
+ *   UI 진입점이 없고 URL 로만 도달한다. 되돌릴 수 있게 남긴 분기이므로 삭제하지 말 것.
  */
 
 import { NextRequest, NextResponse } from "next/server";

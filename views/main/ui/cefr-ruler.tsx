@@ -1,3 +1,5 @@
+import { getNextLevel } from "@/shared/constants";
+
 const LEVEL_POSITION: Record<string, number> = {
   A1: 0,
   A2: 20,
@@ -9,18 +11,34 @@ const LEVEL_POSITION: Record<string, number> = {
 
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 
+const SEGMENT_WIDTH_PERCENT = 20; // LEVEL_POSITION 이 레벨당 20%씩 증가하는 구간 폭
+
 interface CefrRulerProps {
   /** null이면 미진단 상태 — 눈금만 보여주고 마커를 숨긴다 */
   level: string | null;
+  /** 현재 레벨 구간 내 진행률 0-100. null(로딩 등)이면 마커를 숨긴다(가짜 값 금지). */
+  progress?: number | null;
+}
+
+/**
+ * 마커 위치(%). 네 갈래를 이른 반환으로 분리하고 마지막에 명시적으로 100 클램프한다.
+ */
+function computeMarkerPercent(level: string | null, progress: number | null): number | null {
+  if (level === null) return null; // 미진단 — 마커 숨김
+  if (getNextLevel(level) === null) return 100; // 최상위 레벨(다음 없음) — 리터럴 "C2" 대신 단일 출처
+  if (progress === null) return null; // 진행 데이터 없음 — 마커 숨김(가짜 폴백 완전 제거)
+  const position = LEVEL_POSITION[level] ?? 0;
+  const filled = (Math.max(0, Math.min(100, progress)) / 100) * SEGMENT_WIDTH_PERCENT;
+  return Math.min(100, position + filled); // 상한 명시 클램프
 }
 
 /**
  * CEFR 눈금자 — 시그니처 계측기 (ADR-0001).
- * 세부 진행 데이터가 없으므로 마커는 현재 레벨 구간의 중간(+10%)에 둔다.
+ * P4: 마커 = 레벨 구간 시작 + 구간 폭 × 진행률. 최상위 레벨은 100 고정, 진행 데이터 없으면 숨김.
  */
-export function CefrRuler({ level }: CefrRulerProps) {
-  const position = level ? (LEVEL_POSITION[level] ?? 0) : null;
-  const marker = position === null ? null : Math.min(position + 10, 100);
+export function CefrRuler({ level, progress = null }: CefrRulerProps) {
+  const position = level ? (LEVEL_POSITION[level] ?? 0) : null; // 하단 LEVELS.map "done" 하이라이트용
+  const marker = computeMarkerPercent(level, progress);
 
   return (
     <div role="img" aria-label={level ? `CEFR 진행도: 현재 ${level}` : "CEFR 진행도: 미진단"}>

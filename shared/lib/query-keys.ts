@@ -9,6 +9,10 @@ export const queryKeys = {
     status: () => [...queryKeys.diagnosis.all, "status"] as const,
     detail: (id: string) => [...queryKeys.diagnosis.all, id] as const,
   },
+  promotion: {
+    all: ["promotion"] as const,
+    start: () => [...queryKeys.promotion.all, "start"] as const,
+  },
   flashcard: {
     all: ["flashcard"] as const,
     session: (mode: string) => [...queryKeys.flashcard.all, "session", mode] as const,

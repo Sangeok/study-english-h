@@ -43,6 +43,8 @@ export default function DashboardPage() {
           streak={profile?.streak ?? 0}
           totalXP={profile?.totalXP ?? 0}
           hasCompletedDiagnosis={profile?.hasCompletedDiagnosis ?? false}
+          levelProgress={profile?.levelProgress ?? 0}
+          promotionStatus={profile?.promotionStatus ?? "locked"}
         />
 
         {/* 벤토 통계 타일 */}
