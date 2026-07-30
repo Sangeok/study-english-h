@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import type { QuizQuestion } from "@/entities/question";
-import type { QuizSubmission } from "../types";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { DailyQuizItem, QuizSubmission } from "../types";
 import { getMaxHintLevel } from "../lib/quiz-hint-logic";
+import { getListeningMaxHintLevel } from "../lib/listening-hint-logic";
 import { useQuizTimer } from "./use-quiz-timer";
 
 const STORAGE_KEY = "quiz-answers-in-progress";
@@ -19,12 +19,15 @@ function loadFromStorage(): Record<string, QuizSubmission> {
 }
 
 export function useQuizAnswers(
-  questions: QuizQuestion[],
+  questions: DailyQuizItem[],
   currentIndex: number,
   isQuizSubmitted: boolean
 ) {
   const [answers, setAnswers] = useState<Record<string, QuizSubmission>>(loadFromStorage);
   const [hintLevels, setHintLevels] = useState<Record<string, 0 | 1 | 2>>({});
+  // 재생 실패로 강등된 문항. 상태가 아니라 ref 인 것은 렌더에 쓰이지 않고
+  //   제출 shape 를 만들 때만 읽히기 때문이다.
+  const degradedRef = useRef<Set<string>>(new Set());
   const { startTimer, getElapsedSeconds } = useQuizTimer();
 
   useEffect(() => {
@@ -48,32 +51,69 @@ export function useQuizAnswers(
     }
   }, [answers, isQuizSubmitted]);
 
+  /**
+   * 답안 저장. **`id → vocabularyId` 리맵이 일어나는 유일한 지점이다** — 다른 곳에서 또
+   * 매핑하면 두 이름이 코드 전반에 퍼진다.
+   *
+   * 키는 두 유형 모두 `question.id` 를 그대로 쓴다: 답안·힌트·타이머가 이 키를 공유하므로
+   * 리스닝만 다른 키를 쓰면 세 자료구조가 어긋난다. 필드명이 바뀌는 건 제출 body 뿐이다.
+   */
   const handleAnswer = useCallback(
     (questionId: string, answer: string) => {
       const timeSpent = getElapsedSeconds(questionId);
+      const hintLevel = hintLevels[questionId] ?? 0;
+      const isListening =
+        questions.find((question) => question.id === questionId)?.type === "listening";
+
       setAnswers((prev) => ({
         ...prev,
-        [questionId]: {
-          questionId,
-          selectedAnswer: answer,
-          timeSpent,
-          hintLevel: hintLevels[questionId] ?? 0,
-        },
+        [questionId]: isListening
+          ? {
+              type: "listening",
+              vocabularyId: questionId,
+              selectedMeaning: answer,
+              timeSpent,
+              hintLevel,
+              ...(degradedRef.current.has(questionId) ? { autoDegraded: true as const } : {}),
+            }
+          : {
+              type: "reading",
+              questionId,
+              selectedAnswer: answer,
+              timeSpent,
+              hintLevel,
+            },
       }));
     },
-    [hintLevels, getElapsedSeconds]
+    [hintLevels, getElapsedSeconds, questions]
   );
 
-  const handleHintRequest = useCallback(() => {
+  /**
+   * 무인자 호출은 기존 동작(한 단계 상승) 그대로 — `<QuizQuestion onHintRequest>` 는 무수정이다.
+   * 재생 실패 시에만 리스닝 컴포넌트가 목표를 명시한다: `handleHintRequest(2)`.
+   * 그 강등은 프리 힌트 대상에서 빼야 하므로 따로 표시해 둔다(정렬이 hintLevel 내림차순이라
+   * 강등이 사용자가 직접 고른 힌트를 앞지른다).
+   */
+  const handleHintRequest = useCallback((targetLevel?: 1 | 2) => {
     const currentQuestion = questions[currentIndex];
     if (!currentQuestion) return;
 
+    if (targetLevel !== undefined) {
+      degradedRef.current.add(currentQuestion.id);
+    }
+
     setHintLevels((prev) => {
       const current = prev[currentQuestion.id] ?? 0;
-      const maxLevel = getMaxHintLevel(currentQuestion.contextHint);
+      // 리스닝은 contextHint 가 없어 읽기 사다리를 그대로 쓰면 1단계에서 막힌다 —
+      //   접근성 탈출구(철자)·XP ×0.6 경로·힌트 엔드포인트 호출이 전부 죽는다.
+      const maxLevel =
+        currentQuestion.type === "listening"
+          ? getListeningMaxHintLevel()
+          : getMaxHintLevel(currentQuestion.contextHint);
+      const next = targetLevel ?? current + 1;
       return {
         ...prev,
-        [currentQuestion.id]: Math.min(current + 1, maxLevel) as 0 | 1 | 2,
+        [currentQuestion.id]: Math.min(next, maxLevel) as 0 | 1 | 2,
       };
     });
   }, [currentIndex, questions]);

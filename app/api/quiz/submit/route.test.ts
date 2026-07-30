@@ -17,6 +17,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/db", () => ({
   default: {
     quizQuestion: { findMany: vi.fn() },
+    // 리스닝 채점의 서버 재조회 — 트랜잭션 *이전* 에 일어나므로 db 목이지 tx 목이 아니다.
+    vocabulary: { findMany: vi.fn() },
     $transaction: vi.fn(),
   },
 }));
@@ -125,10 +127,12 @@ type TransactionClientMock = {
     findUnique: ReturnType<typeof vi.fn>;
     upsert: ReturnType<typeof vi.fn>;
   };
+  quizSession: { create: ReturnType<typeof vi.fn> };
 };
 
 const db = prisma as unknown as {
   quizQuestion: { findMany: ReturnType<typeof vi.fn> };
+  vocabulary: { findMany: ReturnType<typeof vi.fn> };
   $transaction: ReturnType<typeof vi.fn>;
 };
 const getSessionMock = vi.mocked(getSessionFromRequest);
@@ -159,9 +163,12 @@ beforeEach(() => {
       findUnique: vi.fn().mockResolvedValue({ freeHintCount: 0, xpBoostCharges: 0 }),
       upsert: vi.fn().mockResolvedValue({ id: "profile-1", userId: USER_ID }),
     },
+    // 세션 기록 — 트랜잭션 말미의 새 쓰기 경로. 목이 없으면 전 케이스가 500 으로 깨진다.
+    quizSession: { create: vi.fn().mockResolvedValue({ id: "session-1" }) },
   };
 
   db.quizQuestion.findMany.mockResolvedValue(QUESTIONS);
+  db.vocabulary.findMany.mockResolvedValue([]);
   db.$transaction.mockImplementation(
     async (callback: (client: TransactionClientMock) => Promise<unknown>) =>
       callback(transactionClient)
@@ -230,5 +237,183 @@ describe("POST /api/quiz/submit — SRS 퀴즈 편입", () => {
     expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, ENROLL_OUTCOMES); // 그러나 편입은 실행됨
 
     consoleErrorSpy.mockRestore();
+  });
+});
+
+/**
+ * 리스닝 합류 — 유형 분리·집계 합계화·프리 힌트 우선순위의 회귀.
+ *
+ * 위 블록이 `type` 없는 옛 형태로 제출하고 단언 수정 없이 통과하는 것이 하위호환의 증거다.
+ * 여기부터는 리스닝이 섞인 제출을 다룬다.
+ */
+const VOCABULARIES = [
+  { id: "v1", word: "borrow", meaning: "빌리다" },
+  { id: "v2", word: "freeze", meaning: "얼다" },
+  { id: "v3", word: "launch", meaning: "출시하다" },
+];
+
+function listeningAnswer(
+  vocabularyId: string,
+  selectedMeaning: string,
+  hintLevel: 0 | 1 | 2 = 0,
+  autoDegraded?: true
+) {
+  return {
+    type: "listening" as const,
+    vocabularyId,
+    selectedMeaning,
+    timeSpent: 5,
+    hintLevel,
+    ...(autoDegraded ? { autoDegraded } : {}),
+  };
+}
+
+function createMixedRequest(
+  listening: ReturnType<typeof listeningAnswer>[],
+  reading: unknown[] = ANSWERS
+): Request {
+  return new Request("http://localhost/api/quiz/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ answers: [...reading, ...listening] }),
+  });
+}
+
+describe("POST /api/quiz/submit — 리스닝 합류", () => {
+  beforeEach(() => {
+    db.vocabulary.findMany.mockResolvedValue(VOCABULARIES);
+  });
+
+  it("리스닝 답안은 UserQuizAttempt 에 들어가지 않는다", async () => {
+    await POST(createMixedRequest([listeningAnswer("v1", "빌리다")]));
+
+    const created = transactionClient.userQuizAttempt.createMany.mock.calls[0][0].data;
+    expect(created).toHaveLength(4); // 읽기 4건(q-bogus 제외)뿐
+    expect(created.map((a: { questionId: string }) => a.questionId)).not.toContain("v1");
+  });
+
+  it("채점은 클라이언트 주장이 아니라 Vocabulary.meaning 재조회로 한다", async () => {
+    // 클라이언트가 "빌리다" 를 골랐다고 보내도, v2 의 실제 뜻은 "얼다" 라 오답이다.
+    const response = await POST(createMixedRequest([listeningAnswer("v2", "빌리다")]));
+    const body = await response.json();
+
+    expect(body.summary.listeningCount).toBe(1);
+    expect(body.summary.listeningCorrect).toBe(0);
+  });
+
+  it("summary 의 total·correct·accuracy 가 읽기+듣기 합계다", async () => {
+    // 읽기: 4문항 채점, 2정답. 듣기: 2문항, 1정답 → 6문항 중 3정답 = 50%
+    const response = await POST(
+      createMixedRequest([listeningAnswer("v1", "빌리다"), listeningAnswer("v2", "빌리다")])
+    );
+    const body = await response.json();
+
+    expect(body.results).toHaveLength(4); // results 는 읽기 행만 담는다
+    expect(body.summary.total).toBe(6); // 그런데 total 은 6이다 — 의도된 차이
+    expect(body.summary.correct).toBe(3);
+    expect(body.summary.accuracy).toBe(50);
+  });
+
+  it("읽기 전승·리스닝 전패면 게이미피케이션이 100%가 아닌 값을 받는다", async () => {
+    // 이 단언이 없으면 perfect_day·accuracy_80 배지와 퍼펙트 보너스가 리스닝 오답을 못 본다.
+    // 셋 다 회수 경로가 없다(배지는 재평가되지 않고 리그 티어는 단방향이다).
+    const allCorrectReading = [
+      { questionId: "q1", selectedAnswer: correctTextOf("q1"), hintLevel: 0, timeSpent: 5 },
+      { questionId: "q2", selectedAnswer: correctTextOf("q2"), hintLevel: 0, timeSpent: 5 },
+    ];
+
+    await POST(createMixedRequest([listeningAnswer("v1", "틀린 뜻")], allCorrectReading));
+
+    expect(processGamificationRewardsMock).toHaveBeenCalledWith(
+      USER_ID,
+      expect.objectContaining({ correctCount: 2, totalCount: 3, accuracy: (2 / 3) * 100 })
+    );
+  });
+
+  it("편입은 읽기·듣기 단어를 한 번의 호출로 받는다", async () => {
+    await POST(createMixedRequest([listeningAnswer("v1", "빌리다")]));
+
+    expect(enrollWordsToSrsMock).toHaveBeenCalledOnce();
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, [
+      ...ENROLL_OUTCOMES,
+      { word: "borrow", isCorrect: true, usedHint: false },
+    ]);
+  });
+
+  it("QuizSession 이 1건 생성되고 유형별 수가 맞다", async () => {
+    await POST(
+      createMixedRequest([listeningAnswer("v1", "빌리다"), listeningAnswer("v2", "빌리다")])
+    );
+
+    expect(transactionClient.quizSession.create).toHaveBeenCalledOnce();
+    expect(transactionClient.quizSession.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        userId: USER_ID,
+        readingCount: 4,
+        readingCorrect: 2,
+        listeningCount: 2,
+        listeningCorrect: 1,
+      }),
+    });
+  });
+
+  it("durationSec 은 두 유형의 timeSpent 합계다", async () => {
+    await POST(createMixedRequest([listeningAnswer("v1", "빌리다")]));
+
+    // 읽기 4건 × 5초 + 듣기 1건 × 5초 = 25
+    expect(transactionClient.quizSession.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({ durationSec: 25 }),
+    });
+  });
+
+  it("hintStats 가 리스닝 정답을 포함한다", async () => {
+    const response = await POST(createMixedRequest([listeningAnswer("v1", "빌리다", 2)]));
+    const body = await response.json();
+
+    // 읽기 정답 2건(무힌트) + 리스닝 정답 1건(힌트 2단계)
+    expect(body.summary.hintStats.noHintCorrect).toBe(2);
+    expect(body.summary.hintStats.fullHintCorrect).toBe(1);
+  });
+
+  it("자동 강등된 리스닝 정답은 프리 힌트를 소비하지 않는다", async () => {
+    // 프리 힌트 1장 · 읽기에 1단계 힌트를 쓴 정답 1건 · 강등된 리스닝 정답 1건.
+    // 정렬이 hintLevel 내림차순이라, 강등을 거르지 않으면 레벨 2 가 레벨 1 을 앞질러
+    // 사용자가 직접 고른 힌트 대신 네트워크 실패에 아이템이 쓰인다.
+    transactionClient.userProfile.findUnique.mockResolvedValue({
+      freeHintCount: 1,
+      xpBoostCharges: 0,
+    });
+    const hintedReading = [
+      { questionId: "q1", selectedAnswer: correctTextOf("q1"), hintLevel: 1, timeSpent: 5 },
+    ];
+
+    await POST(createMixedRequest([listeningAnswer("v1", "빌리다", 2, true)], hintedReading));
+
+    // 프리 힌트가 읽기(q1)에 적용됐다면 그 문항의 페널티가 사라져 xpPenaltyFromHints 가 0 이다.
+    const upsert = transactionClient.userProfile.upsert.mock.calls[0][0];
+    expect(upsert.update.freeHintCount).toEqual({ decrement: 1 });
+  });
+
+  it("리스닝만 제출하면 400 이다 — 읽기 0건 세션은 데일리 완료 판정이 죽는다", async () => {
+    const response = await POST(createMixedRequest([listeningAnswer("v1", "빌리다")], []));
+
+    expect(response.status).toBe(400);
+  });
+
+  it("존재하지 않는 vocabularyId 는 채점 대상에서 조용히 빠지되 분모에도 안 들어간다", async () => {
+    const response = await POST(createMixedRequest([listeningAnswer("v-bogus", "빌리다")]));
+    const body = await response.json();
+
+    expect(body.summary.listeningCount).toBe(0);
+    expect(body.summary.total).toBe(4); // 읽기 4건만
+  });
+
+  it("timeSpent 가 비정상적으로 크면 상한으로 잘린다 — durationSec Int 오버플로 방지", async () => {
+    const huge = { type: "listening" as const, vocabularyId: "v1", selectedMeaning: "빌리다", timeSpent: 1e12, hintLevel: 0 as const };
+
+    await POST(createMixedRequest([huge]));
+
+    const data = transactionClient.quizSession.create.mock.calls[0][0].data;
+    expect(data.durationSec).toBeLessThan(2_147_483_647);
   });
 });

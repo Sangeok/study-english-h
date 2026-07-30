@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { QuizContainer, QuizErrorBoundary, QuizLoading } from "@/features/quiz";
+import { QuizEntryGate, QuizErrorBoundary, QuizLoading } from "@/features/quiz";
 import { requireDiagnosis } from "@/shared/lib/diagnosis-guards";
 
 export default async function QuizPage() {
@@ -8,7 +8,7 @@ export default async function QuizPage() {
   return (
     <Suspense fallback={<QuizLoading />}>
       <QuizErrorBoundary>
-        <QuizContainer />
+        <QuizEntryGate />
       </QuizErrorBoundary>
     </Suspense>
   );

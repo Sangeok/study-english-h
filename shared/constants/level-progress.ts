@@ -8,7 +8,11 @@ export const LEVEL_PROGRESS = {
   ACCURACY_WEIGHT: 0.4,
   /** A 만점 기준: 완전 마스터 100단어 상당의 성숙 점수 합 */
   TARGET_WORD_UNITS: 100,
-  /** B 집계 창: 현재 레벨 최근 시도 수 */
+  /** B 집계 창: 현재 레벨 최근 시도 수.
+   *  **B 는 "최근 *읽기* 정답률"이다** — 창에 들어오는 것은 UserQuizAttempt 행뿐이고,
+   *  리스닝 문항은 그 테이블에 기록되지 않는다(questionId 가 QuizQuestion 에 대한
+   *  non-nullable FK). 이름이 "정답률"이라 전체 정답률로 오해되기 쉬워 여기 적어둔다.
+   *  리스닝 비율을 3에서 올리면 B 의 표본이 줄어 오차가 커지므로 그때 정의를 다시 판단한다. */
   ACCURACY_WINDOW: 50,
   /** B 볼륨 감쇠 기준 — 이 미만이면 시도수 비례로 감쇠 */
   ACCURACY_MIN_VOLUME: 20,

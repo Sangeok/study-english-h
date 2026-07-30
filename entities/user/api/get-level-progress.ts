@@ -25,6 +25,8 @@ export async function getLevelProgress(
       WHERE uv."userId" = ${userId} AND v."level" = ${level}
       GROUP BY uv."masteryLevel"
     `,
+    // B 성분의 표본 — **읽기 문항만** 들어온다. question 조인이 필수 FK 라 리스닝은
+    //   애초에 이 테이블에 없다(§P2-1 결정 3). "최근 정답률"이 아니라 "최근 읽기 정답률"이다.
     prisma.userQuizAttempt.findMany({
       where: { userId, question: { difficulty: level } },
       orderBy: { attemptedAt: "desc" },
@@ -34,6 +36,10 @@ export async function getLevelProgress(
     // 복습 부채 — "복습 도래" 술어(nextReviewDate ≤ now)는 get-vocabulary-stats.ts 의 reviewNeeded 와
     //   동일 정의를 공동 소유한다. 둘 중 하나에서 술어가 바뀌면 반드시 함께 바꿀 것 —
     //   진행률 페널티 D 와 화면의 "복습 N개"가 조용히 어긋나지 않도록(F3).
+    //   세 번째 사용처가 있다: 리스닝 캐스케이드 1단계(app/api/quiz/daily/route.ts).
+    //   **시간 조건만 공유하고 레벨 스코프는 리스닝만 갖는다** — 여기와 get-vocabulary-stats 는
+    //   사용자의 전 레벨 도래 단어를 세고, 캐스케이드는 현재 레벨로 좁힌다.
+    //   "일관성"을 이유로 어느 한쪽의 레벨 필터를 지우거나 넣지 말 것.
     prisma.userVocabulary.count({
       where: { userId, nextReviewDate: { lte: now } },
     }),

@@ -1,1 +1,1 @@
-export { QuizContainer, QuizErrorBoundary, QuizLoading } from "./ui";
+export { QuizContainer, QuizEntryGate, QuizErrorBoundary, QuizLoading } from "./ui";

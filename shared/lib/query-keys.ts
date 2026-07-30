@@ -1,7 +1,8 @@
 export const queryKeys = {
   quiz: {
     all: ["quiz"] as const,
-    daily: () => [...queryKeys.quiz.all, "daily"] as const,
+    daily: (listeningIncluded: boolean) =>
+      [...queryKeys.quiz.all, "daily", listeningIncluded] as const,
   },
   diagnosis: {
     all: ["diagnosis"] as const,
@@ -35,6 +36,7 @@ export const queryKeys = {
     all: ["dashboard"] as const,
     periodStats: (period: string) =>
       [...queryKeys.dashboard.all, "period-stats", period] as const,
+    listeningGap: () => [...queryKeys.dashboard.all, "listening-gap"] as const,
   },
   shop: {
     all: ["shop"] as const,

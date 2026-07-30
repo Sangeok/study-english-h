@@ -8,6 +8,7 @@ import { OverviewStats } from "./overview-stats";
 import { GamificationSummary } from "./gamification-summary";
 import { StudySummarySection } from "./study-summary-section";
 import { ReviewNeededBanner } from "./review-needed-banner";
+import { ListeningGapCard } from "./listening-gap-card";
 
 // recharts는 SSR 비호환 — 동적 import로 클라이언트 전용 로드
 const PeriodChartSection = dynamic(
@@ -29,9 +30,11 @@ export default function DashboardPage() {
     profile,
     periodStats,
     league,
+    listeningGap,
     isProfileLoading,
     isPeriodLoading,
     isLeagueLoading,
+    isListeningGapLoading,
   } = useDashboardData(period);
 
   return (
@@ -65,6 +68,9 @@ export default function DashboardPage() {
           leaguePoints={league?.leaguePoints ?? 0}
           isLoading={isLeagueLoading}
         />
+
+        {/* 읽기 대비 듣기 갭 — 표본이 부족하면 카드가 스스로 null 을 반환한다 */}
+        <ListeningGapCard gap={listeningGap} isLoading={isListeningGapLoading} />
 
         {/* 복습 필요 알림 */}
         {profile && profile.reviewNeeded > 0 && (

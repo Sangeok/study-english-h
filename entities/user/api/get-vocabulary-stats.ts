@@ -13,6 +13,11 @@ export type VocabularyStats = Pick<
  *
  * reviewNeeded 는 시간 의존 값(nextReviewDate 경과로 증가)이라 쓰기 시점 컬럼 캐시로는
  * 정확할 수 없다 — 읽기 시점에 이 함수를 호출해야 한다. 이 근거의 정본은 여기 하나다.
+ *
+ * "복습 도래" 술어(nextReviewDate ≤ now)는 get-level-progress.ts(진행률 페널티 D)와
+ * 리스닝 캐스케이드 1단계(app/api/quiz/daily/route.ts)가 함께 쓴다. 다만 **시간 조건만
+ * 공유하고 레벨 스코프는 리스닝만 갖는다** — 여기와 진행률 D 는 전 레벨을 세고 캐스케이드는
+ * 현재 레벨로 좁힌다. 셋 중 하나에서 시간 조건이 바뀌면 반드시 함께 바꿀 것.
  * 두 쿼리 모두 인덱스 집계이며(@@index([userId, masteryLevel]), @@index([userId, nextReviewDate]))
  * 서로 독립이라 병렬 실행한다.
  *

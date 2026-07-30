@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import type { QuizQuestion } from "@/entities/question";
-import type { QuizSubmission } from "../types";
+import type { DailyQuizItem, QuizSubmission } from "../types";
 
+// 읽기 전용 필드에 접근하지 않는다 — currentQuestion.id 만 쓰므로 좁히기 없이 유니온을 받는다.
 export function useQuizState(
-  questions: QuizQuestion[],
+  questions: DailyQuizItem[],
   currentIndex: number,
   answers: Record<string, QuizSubmission>,
   hintLevels: Record<string, 0 | 1 | 2>
