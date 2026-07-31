@@ -60,6 +60,32 @@ export interface DiagnosisAnswer {
  * @see features/quiz — 퀴즈 플로우 구현
  */
 export interface QuizQuestion extends BaseQuestion {
-  /** 상황 설명 힌트 (DB 필드명: contextHintKo). hint level 1에서 표시 */
-  readonly contextHint?: string;
+  /**
+   * 상황 설명 힌트 (DB 필드명: contextHintKo). hint level 1에서 표시.
+   *
+   * null 을 허용하는 이유: daily 라우트의 createQuizQuestionResponse 가
+   * `contextHintKo ?? null` 을 내려보낸다. 응답을 타입에 묶는 순간(DailyQuizItem)
+   * string|undefined 로는 받을 수 없다. 소비처는 이미 null 을 견딘다 —
+   * quiz-hint-logic 의 술어들이 전부 `contextHint?: string | null` 시그니처다.
+   */
+  readonly contextHint?: string | null;
+}
+
+/**
+ * 리스닝 문제 (단어 오디오 → 한국어 뜻 4지선다)
+ *
+ * BaseQuestion 을 상속하지 않는다 — sentence·koreanHint·difficulty·category 가 없다.
+ *
+ * id 는 세션 내 문항 식별자이고 그 값이 곧 vocabularyId 다. 답안·힌트·타이머 상태가
+ * 전부 question.id 로 키잉돼 있어(use-quiz-answers·use-quiz-state·useQuizTimer)
+ * 이 필드를 vocabularyId 로만 두면 그 셋이 통째로 깨진다. 이름이 vocabularyId 로
+ * 바뀌는 곳은 제출 body 뿐이고, 그 리맵은 handleAnswer 한 곳에서만 일어난다.
+ *
+ * word(철자)·meaning(정답)은 담지 않는다 — 응답에 실리면 DevTools 로 정답을 읽을 수 있어
+ * 리스닝 문항이 아니게 된다. 철자는 힌트 2단계에서 별도 엔드포인트로만 나간다.
+ */
+export interface ListeningQuestion {
+  readonly id: string;
+  readonly audioUrl: string;
+  readonly options: readonly QuestionOption[];
 }

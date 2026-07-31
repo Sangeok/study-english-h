@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { submitQuiz } from "../api/quiz-api";
 import type { QuizSubmission } from "../types";
 import { QuizQuestion } from "./game/quiz-question";
+import { ListeningQuestion } from "./game/listening-question";
 import { QuizFeedback } from "./result/quiz-feedback";
 import { QuizHeader } from "./game/quiz-header";
 import { QuizNavigation } from "./game/quiz-navigation";
@@ -19,9 +20,37 @@ import { useQuizAnswers } from "../hooks/use-quiz-answers";
 import { useQuizNavigation } from "../hooks/use-quiz-navigation";
 import { useQuizState } from "../hooks/use-quiz-state";
 
-export function QuizContainer() {
+/**
+ * 답안 맵의 값이 판별 유니온이라 좁히기 전에는 `.selectedAnswer` 를 읽을 수 없다.
+ * 읽기 분기에서만 쓰이므로 리스닝 답안은 undefined 로 떨어뜨린다.
+ */
+function readAnswerOf(answer: QuizSubmission | undefined): string | undefined {
+  if (!answer || answer.type === "listening") {
+    return undefined;
+  }
+
+  return answer.selectedAnswer;
+}
+
+/** 리스닝 분기의 대응물 — 선택된 한국어 뜻. */
+function readMeaningOf(answer: QuizSubmission | undefined): string | undefined {
+  if (answer?.type !== "listening") {
+    return undefined;
+  }
+
+  return answer.selectedMeaning;
+}
+
+interface QuizContainerProps {
+  /** 게이트가 소유한다 — 컨테이너가 스스로 localStorage 를 읽으면 안 된다.
+   *  첫 훅이 이미 서스펜드라 읽을 시점이 없고, 서버/클라이언트 값이 갈리면 쿼리 키가 어긋난다. */
+  listeningEnabled: boolean;
+}
+
+export function QuizContainer({ listeningEnabled }: QuizContainerProps) {
   const router = useRouter();
-  const { questions, userLevel, hasCompletedToday, freeHintCount } = useDailyQuiz();
+  const { questions, userLevel, hasCompletedToday, freeHintCount } =
+    useDailyQuiz(listeningEnabled);
   const answersRef = useRef<Record<string, QuizSubmission>>({});
   const queryClient = useQueryClient();
   const { showRewards } = useRewardToast();
@@ -29,7 +58,7 @@ export function QuizContainer() {
   const submitMutation = useMutation({
     mutationFn: submitQuiz,
     onSuccess: (data) => {
-      queryClient.removeQueries({ queryKey: queryKeys.quiz.daily() });
+      queryClient.removeQueries({ queryKey: queryKeys.quiz.daily(listeningEnabled) });
       queryClient.invalidateQueries({ queryKey: queryKeys.profile.stats() });
       if (data.gamification && !data.isExtraPractice) {
         showRewards(data.gamification);
@@ -44,6 +73,7 @@ export function QuizContainer() {
     const answerList = Object.values(answersRef.current);
     submitMutation.mutate(answerList);
   }, [submitMutation]);
+
 
   const { currentIndex, isTransitioning, goNext, goPrevious } = useQuizNavigation(
     questions.length,
@@ -103,16 +133,27 @@ export function QuizContainer() {
               isTransitioning && "opacity-0 scale-95"
             )}
           >
-            <QuizQuestion
-              question={currentQuestion}
-              selectedAnswer={answers[currentQuestion.id]?.selectedAnswer}
-              onAnswer={handleAnswer}
-              disabled={submitMutation.isPending}
-              hintLevel={currentHintLevel}
-              onHintRequest={handleHintRequest}
-              freeHintCount={freeHintCount}
-              hintedCount={hintedCount}
-            />
+            {currentQuestion.type === "listening" ? (
+              <ListeningQuestion
+                question={currentQuestion}
+                selectedMeaning={readMeaningOf(answers[currentQuestion.id])}
+                onAnswer={handleAnswer}
+                disabled={submitMutation.isPending}
+                hintLevel={currentHintLevel}
+                onHintRequest={handleHintRequest}
+              />
+            ) : (
+              <QuizQuestion
+                question={currentQuestion}
+                selectedAnswer={readAnswerOf(answers[currentQuestion.id])}
+                onAnswer={handleAnswer}
+                disabled={submitMutation.isPending}
+                hintLevel={currentHintLevel}
+                onHintRequest={handleHintRequest}
+                freeHintCount={freeHintCount}
+                hintedCount={hintedCount}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String   @id
   name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
+  email         String   @unique
+  emailVerified Boolean  @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // 소셜 로그인 연결
-  accounts      Account[]
-  sessions      Session[]
+  accounts Account[]
+  sessions Session[]
 
-  profile       UserProfile?
-  diagnoses     LevelDiagnosis[]
-  quizAttempts  UserQuizAttempt[]
+  profile           UserProfile?
+  diagnoses         LevelDiagnosis[]
+  quizAttempts      UserQuizAttempt[]
   vocabularies      UserVocabulary[]
   flashcardSessions FlashcardSession[]
 
@@ -31,46 +31,49 @@ model User {
   achievements UserAchievement[]
 
   // Phase 2: 상점
-  purchases    UserPurchase[]
+  purchases UserPurchase[]
 
   // P4: 승급 시험
   promotionAttempts LevelPromotionAttempt[]
   promotionSessions LevelPromotionSession[]
+
+  // P2-1: 리스닝
+  quizSessions QuizSession[]
 }
 
 model Account {
-  id            String    @id
-  userId        String
-  providerId    String   
-  accountId     String    
-  accessToken   String?   @db.Text
-  refreshToken  String?   @db.Text
-  idToken       String?   @db.Text
+  id                    String    @id
+  userId                String
+  providerId            String
+  accountId             String
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
   accessTokenExpiresAt  DateTime?
   refreshTokenExpiresAt DateTime?
-  scope         String?
-  password      String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([providerId, accountId])
   @@index([userId])
 }
 
 model Session {
-  id            String    @id
-  token         String    @unique
-  expiresAt     DateTime 
+  id        String   @id
+  token     String   @unique
+  expiresAt DateTime
 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  ipAddress     String?
-  userAgent     String?
-  
-  userId        String
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -88,16 +91,16 @@ model Verification {
 }
 
 model UserProfile {
-  id              String    @id @default(cuid())
-  userId          String    @unique
-  level           String    @default("A1")    // CEFR 레벨
-  totalXP         Int       @default(0)
-  lastStudyDate   DateTime?
-  currentStreak   Int       @default(0)
-  longestStreak   Int       @default(0)
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  level         String    @default("A1") // CEFR 레벨
+  totalXP       Int       @default(0)
+  lastStudyDate DateTime?
+  currentStreak Int       @default(0)
+  longestStreak Int       @default(0)
 
   // 약점 영역 (JSON): {"동사": 45.5, "형용사": 30.0}
-  weaknessAreas   Json?
+  weaknessAreas Json?
 
   // 어휘 학습 통계
   totalWordLearned Int @default(0)
@@ -111,16 +114,16 @@ model UserProfile {
   dailyGoalWords       Int @default(15)
 
   // Phase 2: 상점 통화 (소비 가능 XP — totalXP와 별개로 차감됨)
-  spendableXP     Int @default(0)
+  spendableXP Int @default(0)
 
   // Phase 2-v2: 상점 v2 소모품 재고
-  freeHintCount       Int @default(0)  // 프리 힌트 보유량 (힌트 팩 구매로 증가)
-  xpBoostCharges      Int @default(0)  // 퀴즈 2배 충전권 보유량 (퀴즈 완료 시 자동 소비)
+  freeHintCount  Int @default(0) // 프리 힌트 보유량 (힌트 팩 구매로 증가)
+  xpBoostCharges Int @default(0) // 퀴즈 2배 충전권 보유량 (퀴즈 완료 시 자동 소비)
 
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
@@ -142,90 +145,90 @@ enum QuestionCategory {
   idioms
 }
 
-model QuizQuestion { // 퀴즈 질문
-  id              String   @id @default(cuid())
-  koreanHint      String   // 한글 힌트
-  contextHintKo   String?  // 상황 설명 힌트 (한국어)
-  englishWord     String   // 정답 영어 단어
-  sentence        String   // 문맥 문장 (빈칸 포함)
+model QuizQuestion {
+  id               String             @id @default(cuid())
+  koreanHint       String // 한글 힌트
+  contextHintKo    String? // 상황 설명 힌트 (한국어)
+  englishWord      String // 정답 영어 단어
+  sentence         String // 문맥 문장 (빈칸 포함)
   sentenceAudioUrl String? // 완성 문장(빈칸→정답) 발음 오디오 R2 URL
-  difficulty      QuestionDifficulty
-  category        QuestionCategory
+  difficulty       QuestionDifficulty
+  category         QuestionCategory
 
-  options         QuizOption[]
-  attempts        UserQuizAttempt[]
+  options  QuizOption[]
+  attempts UserQuizAttempt[]
 
-  createdAt       DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@unique([difficulty, englishWord])
   @@index([difficulty, category])
 }
 
 model UserQuizAttempt {
-  id              String   @id @default(cuid())
-  userId          String
-  questionId      String
-  selectedAnswer  String
-  isCorrect       Boolean
-  timeSpent       Int      // 초 단위
-  hintLevel       Int      @default(0)  // 0(없음), 1(상황), 2(전체)
-  attemptedAt     DateTime @default(now())
+  id             String   @id @default(cuid())
+  userId         String
+  questionId     String
+  selectedAnswer String
+  isCorrect      Boolean
+  timeSpent      Int // 초 단위
+  hintLevel      Int      @default(0) // 0(없음), 1(상황), 2(전체)
+  attemptedAt    DateTime @default(now())
 
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@index([userId, attemptedAt])
 }
 
-model WeaknessArea { // 약점 영역(카테고리별 정확도)
-  id              String   @id @default(cuid())
-  diagnosisId     String
-  category        String   // 동사, 형용사, 명사 등(약점 영역)
-  accuracy        Float    // 정확도 %
+model WeaknessArea {
+  id          String @id @default(cuid())
+  diagnosisId String
+  category    String // 동사, 형용사, 명사 등(약점 영역)
+  accuracy    Float // 정확도 %
 
-  diagnosis       LevelDiagnosis @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
+  diagnosis LevelDiagnosis @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
 
   @@index([diagnosisId])
 }
 
 model LevelDiagnosis {
-  id              String    @id @default(cuid())
-  userId          String
-  totalScore      Int       // 0-100
-  cefrLevel       String    // A1, A2, B1, B2, C1, C2
-  completedAt     DateTime  @default(now())
+  id          String   @id @default(cuid())
+  userId      String
+  totalScore  Int // 0-100
+  cefrLevel   String // A1, A2, B1, B2, C1, C2
+  completedAt DateTime @default(now())
 
-  weaknessAreas   WeaknessArea[]
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weaknessAreas WeaknessArea[]
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
-model QuizOption { // 퀴즈 문제의 선택지
-  id              String   @id @default(cuid())
-  questionId      String
-  text            String
-  isCorrect       Boolean
-  order           Int      // 1-4
+model QuizOption {
+  id         String  @id @default(cuid())
+  questionId String
+  text       String
+  isCorrect  Boolean
+  order      Int // 1-4
 
-  question        QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@index([questionId])
 }
 
 // 어휘 콘텐츠 모델
 model Vocabulary {
-  id              String   @id @default(cuid())
-  word            String   @unique
+  id              String           @id @default(cuid())
+  word            String           @unique
   meaning         String
   pronunciation   String?
   exampleSentence String?
-  category        String   // daily, business, toeic, travel
-  level           String   // A1-C2
+  category        String // daily, business, toeic, travel
+  level           String // A1-C2
   audioUrl        String?
   exampleAudioUrl String?
   userProgress    UserVocabulary[]
-  createdAt       DateTime @default(now())
+  createdAt       DateTime         @default(now())
 
   @@index([level, category])
   @@map("vocabularies")
@@ -233,22 +236,22 @@ model Vocabulary {
 
 // 사용자 어휘 진행 상황 (SRS 핵심)
 model UserVocabulary {
-  id              String   @id @default(cuid())
-  userId          String
-  vocabularyId    String
-  masteryLevel    String   @default("new")
-  repetitions     Int      @default(0)
-  easeFactor      Float    @default(2.5)
-  interval        Int      @default(1)
-  lastReviewDate  DateTime?
-  nextReviewDate  DateTime @default(now())
-  totalReviews    Int      @default(0)
-  correctCount    Int      @default(0)
-  incorrectCount  Int      @default(0)
-  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  vocabulary      Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id             String     @id @default(cuid())
+  userId         String
+  vocabularyId   String
+  masteryLevel   String     @default("new")
+  repetitions    Int        @default(0)
+  easeFactor     Float      @default(2.5)
+  interval       Int        @default(1)
+  lastReviewDate DateTime?
+  nextReviewDate DateTime   @default(now())
+  totalReviews   Int        @default(0)
+  correctCount   Int        @default(0)
+  incorrectCount Int        @default(0)
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vocabulary     Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
   @@unique([userId, vocabularyId])
   @@index([userId, nextReviewDate])
@@ -328,11 +331,11 @@ model FlashcardSession {
 model UserPurchase {
   id          String   @id @default(cuid())
   userId      String
-  itemCode    String   // shop-items.ts의 code와 매칭
-  xpCost      Int      // 구매 시점 가격 기록
+  itemCode    String // shop-items.ts의 code와 매칭
+  xpCost      Int // 구매 시점 가격 기록
   purchasedAt DateTime @default(now())
 
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, purchasedAt])
   @@index([userId, itemCode])
@@ -344,13 +347,13 @@ model UserPurchase {
 model LevelPromotionAttempt {
   id           String   @id @default(cuid())
   userId       String
-  fromLevel    String   // 제출 트랜잭션의 락 안에서 다시 읽은 현재 레벨 (= CAS 조건값). 시작 시점 값이 아니다
-  toLevel      String   // 목표 레벨 (fromLevel 의 다음)
-  correctCount Int      // 10문항 중 정답 수
+  fromLevel    String // 제출 트랜잭션의 락 안에서 다시 읽은 현재 레벨 (= CAS 조건값). 시작 시점 값이 아니다
+  toLevel      String // 목표 레벨 (fromLevel 의 다음)
+  correctCount Int // 10문항 중 정답 수
   passed       Boolean
   createdAt    DateTime @default(now())
 
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
 }
@@ -361,14 +364,40 @@ model LevelPromotionAttempt {
 // Attempt 와 분리하는 이유: 쿨다운 질의가 LevelPromotionAttempt{passed:false} 를 세므로,
 // 시작 시점에 attempt 행을 만들면 응시 시작만으로 쿨다운에 걸린다.
 model LevelPromotionSession {
-  id           String    @id @default(cuid())
-  userId       String
-  toLevel      String    // 발급 시점의 목표 레벨 (제출 시 getNextLevel(현재 레벨)과 대조)
-  questionIds  String[]  // 발급한 10문항 — 제출 집합이 이것과 정확히 일치해야 한다
-  createdAt    DateTime  @default(now())
-  consumedAt   DateTime? // 채점된 제출로 소진된 시각(통과·미달 무관). 가드 거절은 롤백이라 채우지 않는다
+  id          String    @id @default(cuid())
+  userId      String
+  toLevel     String // 발급 시점의 목표 레벨 (제출 시 getNextLevel(현재 레벨)과 대조)
+  questionIds String[] // 발급한 10문항 — 제출 집합이 이것과 정확히 일치해야 한다
+  createdAt   DateTime  @default(now())
+  consumedAt  DateTime? // 채점된 제출로 소진된 시각(통과·미달 무관). 가드 거절은 롤백이라 채우지 않는다
 
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+}
+
+// 데일리 퀴즈 세션 기록 — 리스닝 도입 후 "듣기를 얼마나·얼마나 잘 하는가"의 유일한 관측 지점.
+//   UserQuizAttempt 는 문항 단위 기록이라 유형별 집계를 담지 못하고, 리스닝은 애초에
+//   그 테이블에 기록되지 않는다(questionId 가 QuizQuestion 에 대한 non-nullable FK).
+//   로드맵 P2 종료 조건의 "세션 기록"에 대응하되 mode enum 이 아니라 유형별 카운트로 만족시킨다 —
+//   한 세션에 읽기·듣기가 섞이므로 FlashcardSession.mode 같은 단일 enum 은 표현할 수 없다.
+model QuizSession {
+  id               String   @id @default(cuid())
+  userId           String
+  readingCount     Int // 채점된 읽기 문항 수
+  readingCorrect   Int
+  listeningCount   Int // 0 이면 오디오 토글로 껐거나 재료가 없던 세션
+  listeningCorrect Int
+  // 세션 소요 시간(초). 제출 body 에 세션 단위 duration 이 없으므로 서버가 answers 의
+  //   timeSpent 를 합산해 채운다 — 클라이언트 계약 무변경.
+  //   (플래시카드는 body 로 duration 을 받는다: flashcard/review/route.ts. 퀴즈 제출 body 는
+  //    { answers } 뿐이라 같은 방식을 쓰려면 계약을 바꿔야 한다.)
+  durationSec      Int
+  createdAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // 갭 집계가 listeningCount > 0 인 세션을 createdAt desc 로 최근 N건만 본다.
+  @@index([userId, createdAt])
+  @@map("quiz_sessions")
 }
