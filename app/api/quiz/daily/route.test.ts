@@ -31,7 +31,7 @@ vi.mock("@/shared/lib/diagnosis-guards", () => ({
 import prisma from "@/lib/db";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
-import { LISTENING_QUESTION_COUNT } from "@/shared/constants";
+import { LISTENING_QUESTION_COUNT, TYPING_QUESTION_COUNT } from "@/shared/constants";
 import { GET } from "./route";
 
 const USER_ID = "user-1";
@@ -71,14 +71,18 @@ const VOCABULARIES = Array.from({ length: 30 }, (_, i) => ({
   word: `vocab${i}`,
   meaning: `뜻${i}`,
   audioUrl: `https://cdn.test/v${i}.mp3`,
+  exampleSentence: `I will vocab${i} it.`,
 }));
+
+/** userVocabulary.findMany 는 { vocabulary: {...} } 모양을 돌려준다. */
+const ENROLLED_ROWS = VOCABULARIES.map((v) => ({ vocabulary: v }));
 
 function request(query: string): Request {
   return new Request(`http://localhost/api/quiz/daily${query}`);
 }
 
 interface ResponseItem {
-  type: "reading" | "listening";
+  type: "reading" | "listening" | "typing";
   id: string;
   [key: string]: unknown;
 }
@@ -246,5 +250,77 @@ describe("인증·진단 가드", () => {
     const response = await GET(request("?count=10"));
 
     expect(response.status).toBe(403);
+  });
+});
+
+describe("타이핑 문항", () => {
+  it("편입 이력이 없으면 타이핑 0문항이다 — 성공 기준 4", async () => {
+    // 리스닝의 3단계(레벨 무작위)에 해당하는 폴백이 **없다**는 것이 요점이다.
+    db.userVocabulary.findMany.mockResolvedValue([]);
+
+    const items = await fetchItems("?count=10");
+
+    expect(items.filter((i) => i.type === "typing")).toHaveLength(0);
+    expect(items).toHaveLength(10);
+  });
+
+  it("편입 이력이 있으면 TYPING_QUESTION_COUNT 개가 나온다", async () => {
+    db.userVocabulary.findMany.mockResolvedValue(ENROLLED_ROWS);
+
+    const items = await fetchItems("?count=10");
+
+    expect(items.filter((i) => i.type === "typing")).toHaveLength(TYPING_QUESTION_COUNT);
+    expect(items.filter((i) => i.type === "reading")).toHaveLength(
+      10 - LISTENING_QUESTION_COUNT - TYPING_QUESTION_COUNT
+    );
+    expect(items).toHaveLength(10);
+  });
+
+  it("타이핑 문항에 word(정답 철자)가 없다", async () => {
+    db.userVocabulary.findMany.mockResolvedValue(ENROLLED_ROWS);
+
+    const items = await fetchItems("?count=10");
+    const typing = items.filter((i) => i.type === "typing");
+
+    expect(typing.length).toBeGreaterThan(0);
+    for (const item of typing) {
+      expect(Object.keys(item).sort()).toEqual(
+        ["audioUrl", "blankedSentence", "id", "meaning", "type"].sort()
+      );
+      expect(JSON.stringify(item)).not.toContain(`"vocab`);
+    }
+  });
+
+  it("blankedSentence 에 정답 단어가 남아 있지 않다", async () => {
+    db.userVocabulary.findMany.mockResolvedValue(ENROLLED_ROWS);
+
+    const items = await fetchItems("?count=10");
+
+    for (const item of items.filter((i) => i.type === "typing")) {
+      const sentence = item.blankedSentence as string | undefined;
+      if (sentence) {
+        expect(sentence).toContain("___");
+      }
+    }
+  });
+
+  it("리스닝과 같은 단어를 뽑지 않는다", async () => {
+    db.userVocabulary.findMany.mockResolvedValue(ENROLLED_ROWS);
+
+    const items = await fetchItems("?count=10");
+    const listeningIds = items.filter((i) => i.type === "listening").map((i) => i.id);
+    const typingIds = items.filter((i) => i.type === "typing").map((i) => i.id);
+
+    expect(typingIds.filter((id) => listeningIds.includes(id))).toEqual([]);
+  });
+
+  it("count 가 작으면 읽기 1개를 남기고 잘린다 — 완료 판정의 전제", async () => {
+    db.userVocabulary.findMany.mockResolvedValue(ENROLLED_ROWS);
+
+    const items = await fetchItems("?count=3&listening=3");
+
+    // 듣기 2(count-1 상한) → 타이핑은 남은 자리 0
+    expect(items.filter((i) => i.type === "reading").length).toBeGreaterThanOrEqual(1);
+    expect(items).toHaveLength(3);
   });
 });

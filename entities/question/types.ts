@@ -89,3 +89,28 @@ export interface ListeningQuestion {
   readonly audioUrl: string;
   readonly options: readonly QuestionOption[];
 }
+
+/**
+ * 타이핑 문제 (한국어 뜻 + 발음 → 영어 철자 입력)
+ *
+ * ListeningQuestion 과 같은 규칙: id 는 세션 내 문항 식별자이고 그 값이 곧 vocabularyId 다.
+ * 답안·힌트·타이머 상태가 전부 question.id 로 키잉돼 있어 이 필드가 없으면 셋이 깨진다.
+ *
+ * **word(정답 철자)를 담지 않는다.** 채점은 서버가 Vocabulary 재조회로 하고,
+ * 힌트 2단계(첫 글자·글자 수)도 별도 엔드포인트로만 나간다.
+ *
+ * audioUrl 은 힌트가 아니라 문항의 일부다 — 뜻이 겹치는 단어가 17.5% 라(goal/target/objective)
+ * 발음 없이는 정답을 유일하게 특정할 수 없고, 그러면 엄격 채점이 불공정해진다.
+ * 무료·선택 재생이라 아는 단어는 안 듣고 쳐서 산출 과제가 보존된다.
+ *
+ * blankedSentence 는 힌트 1단계의 내용이다. optional 인 것은 예문에서 단어 경계로
+ * 일치하지 않는 항목이 123건(7.9%) 있기 때문이다 — 어형변화만 있는 문장을
+ * 빈칸 처리하면 힌트가 아니라 함정이 된다(habit → "Develop good habits").
+ * 없으면 힌트 사다리가 한 단계로 접힌다.
+ */
+export interface TypingQuestion {
+  readonly id: string;
+  readonly meaning: string;
+  readonly audioUrl: string;
+  readonly blankedSentence?: string;
+}

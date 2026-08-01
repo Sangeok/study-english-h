@@ -7,6 +7,7 @@ import {
   normalizeQuizSubmissions,
   splitSubmissions,
 } from "@/features/quiz/lib/normalize-quiz-item";
+import { isTypedAnswerCorrect } from "@/features/quiz/lib/typing-grading";
 import type { QuizResult, QuizSubmission, QuizSubmitResponse } from "@/features/quiz/types";
 import { getStreakUpdateData } from "@/entities/user";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
@@ -55,15 +56,21 @@ export async function POST(req: Request) {
 
     // 판별자 정규화 → 유형 분리. questionIds 수집보다 **먼저** 와야 한다 —
     //   유니온에서는 좁히기 전에 .questionId 에 접근할 수 없다.
-    const { reading: readingAnswers, listening: listeningAnswers } = splitSubmissions(
-      normalizeQuizSubmissions(answers)
-    );
+    const {
+      reading: readingAnswers,
+      listening: listeningAnswers,
+      typing: typingAnswers,
+    } = splitSubmissions(normalizeQuizSubmissions(answers));
 
     // --- 트랜잭션 이전: 문제 조회 + 단어 재조회 + streak 계산 (읽기 전용) ---
 
     const questionIds = Array.from(new Set(readingAnswers.map((answer) => answer.questionId)));
+    // 리스닝·타이핑이 같은 테이블을 보므로 한 번에 조회한다.
     const vocabularyIds = Array.from(
-      new Set(listeningAnswers.map((answer) => answer.vocabularyId))
+      new Set([
+        ...listeningAnswers.map((answer) => answer.vocabularyId),
+        ...typingAnswers.map((answer) => answer.vocabularyId),
+      ])
     );
 
     const [questions, vocabularies] = await Promise.all([
@@ -76,7 +83,14 @@ export async function POST(req: Request) {
       vocabularyIds.length > 0
         ? prisma.vocabulary.findMany({
             where: { id: { in: vocabularyIds } },
-            select: { id: true, word: true, meaning: true },
+            // 타이핑 결과 행이 예문·예문 오디오를 쓴다(§3 결정 7 — QuizResult 모양 재사용).
+            select: {
+              id: true,
+              word: true,
+              meaning: true,
+              exampleSentence: true,
+              exampleAudioUrl: true,
+            },
           })
         : Promise.resolve([]),
     ]);
@@ -109,8 +123,14 @@ export async function POST(req: Request) {
     // 편입 여부가 아니라 첫 복습 시점을 가른다(ADR 0002).
     // 리스닝 단어도 같은 배열에 합류한다 — 편입 호출은 1회다.
     const quizWordOutcomes: QuizWordOutcome[] = [];
+    // results[] 는 이제 읽기 + 타이핑 행을 함께 담으므로 results.length 가 읽기 수가 아니다.
+    //   유형별 수는 명시 카운터로 센다 — 응답 배열의 모양에 집계를 의존시키지 않는다.
+    let readingGraded = 0;
+    let readingCorrectCount = 0;
     let listeningGraded = 0;
     let listeningCorrect = 0;
+    let typingGraded = 0;
+    let typingCorrect = 0;
     let durationSec = 0;
 
     const txResult = await prisma.$transaction(async (tx) => {
@@ -144,6 +164,9 @@ export async function POST(req: Request) {
         const isCorrect = correctOption?.text === answer.selectedAnswer;
         const timeSpent = clampTimeSpent(answer.timeSpent);
         durationSec += timeSpent;
+
+        readingGraded++;
+        if (isCorrect) readingCorrectCount++;
 
         // 추가 연습 여부와 무관하게 수집 — 편입은 보상이 아니라 학습 신호다.
         // 힌트 2단계는 한국어 뜻을 공개하므로, 힌트를 쓴 정답은 확신도가 낮게 다뤄진다.
@@ -214,6 +237,51 @@ export async function POST(req: Request) {
           else if (answer.hintLevel === 1) hintStats.partialHintCorrect++;
           else if (answer.hintLevel === 2) hintStats.fullHintCorrect++;
         }
+      }
+
+      // 타이핑 — 리스닝과 같은 이유로 UserQuizAttempt 를 만들지 않는다.
+      //   다만 **results[] 에는 들어간다**: 철자를 틀렸는데 정답을 안 보여주면 뭐가 맞는지
+      //   모른 채 끝나고 다음날 SRS 가 가져와도 또 틀린다. 리스닝과 달리 기존 QuizResult
+      //   모양에 그대로 맞는다(correctAnswer=정답 철자, explanation=예문).
+      for (const answer of typingAnswers) {
+        const vocabulary = vocabularyMap.get(answer.vocabularyId);
+        if (!vocabulary) continue;
+        const isCorrect = isTypedAnswerCorrect(answer.typedAnswer, vocabulary.word);
+        const timeSpent = clampTimeSpent(answer.timeSpent);
+        durationSec += timeSpent;
+
+        typingGraded++;
+        if (isCorrect) typingCorrect++;
+
+        quizWordOutcomes.push({
+          word: vocabulary.word,
+          isCorrect,
+          usedHint: answer.hintLevel > 0,
+          // 오디오도 힌트도 없이 써냈으면 산출이다 — 소거법이 없는 유일한 유형이라
+          //   퀴즈 경로에서 얻을 수 있는 가장 강한 증거로 취급한다(easy).
+          produced: isCorrect && !answer.audioPlayed && answer.hintLevel === 0,
+        });
+
+        hintedAnswers.push({
+          questionId: answer.vocabularyId,
+          hintLevel: answer.hintLevel,
+          isCorrect,
+          autoDegraded: false,
+        });
+
+        if (isCorrect) {
+          if (answer.hintLevel === 0) hintStats.noHintCorrect++;
+          else if (answer.hintLevel === 1) hintStats.partialHintCorrect++;
+          else if (answer.hintLevel === 2) hintStats.fullHintCorrect++;
+        }
+
+        results.push({
+          questionId: answer.vocabularyId,
+          isCorrect,
+          correctAnswer: vocabulary.word,
+          explanation: vocabulary.exampleSentence ?? "",
+          sentenceAudioUrl: vocabulary.exampleAudioUrl ?? undefined,
+        });
       }
 
       // Set 기반 프리 힌트 대상 선정 — isExtraPractice 시 소비 안 함.
@@ -293,10 +361,12 @@ export async function POST(req: Request) {
       await tx.quizSession.create({
         data: {
           userId,
-          readingCount: results.length,
-          readingCorrect: results.filter((r) => r.isCorrect).length,
+          readingCount: readingGraded,
+          readingCorrect: readingCorrectCount,
           listeningCount: listeningGraded,
           listeningCorrect,
+          typingCount: typingGraded,
+          typingCorrect,
           durationSec,
         },
       });
@@ -316,10 +386,8 @@ export async function POST(req: Request) {
     //   results 는 읽기 행만 담으므로 여기서 파생시키면 자동으로 "읽기 7문항 기준"이 되고,
     //   accuracy === 100 을 보는 퍼펙트 보너스와 accuracy 배지(perfect_day·accuracy_80)가
     //   리스닝 오답을 못 본 채 열린다. 배지·리그 티어는 회수 경로가 없다.
-    const readingGraded = results.length;
-    const readingCorrect = results.filter((r) => r.isCorrect).length;
-    const gradedTotal = readingGraded + listeningGraded;
-    const correctCount = readingCorrect + listeningCorrect;
+    const gradedTotal = readingGraded + listeningGraded + typingGraded;
+    const correctCount = readingCorrectCount + listeningCorrect + typingCorrect;
     const accuracy = gradedTotal > 0 ? (correctCount / gradedTotal) * 100 : 0;
 
     // 퀴즈 편입 — best-effort. 실패 시 null 이 그대로 summary.srs 가 된다.
@@ -352,6 +420,8 @@ export async function POST(req: Request) {
         hintStats,
         listeningCount: listeningGraded,
         listeningCorrect,
+        typingCount: typingGraded,
+        typingCorrect,
         srs,
       },
       gamification: gamificationResult,

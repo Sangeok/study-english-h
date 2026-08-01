@@ -252,6 +252,22 @@ const VOCABULARIES = [
   { id: "v3", word: "launch", meaning: "출시하다" },
 ];
 
+/** 타이핑 결과 행이 예문·예문 오디오를 쓰므로 조회 필드가 더 넓다. */
+const TYPING_VOCABULARIES = VOCABULARIES.map((v) => ({
+  ...v,
+  exampleSentence: `I will ${v.word} it.`,
+  exampleAudioUrl: `https://cdn.test/${v.id}-ex.mp3`,
+}));
+
+function typingAnswer(
+  vocabularyId: string,
+  typedAnswer: string,
+  audioPlayed = false,
+  hintLevel: 0 | 1 | 2 = 0
+) {
+  return { type: "typing" as const, vocabularyId, typedAnswer, audioPlayed, timeSpent: 5, hintLevel };
+}
+
 function listeningAnswer(
   vocabularyId: string,
   selectedMeaning: string,
@@ -268,8 +284,9 @@ function listeningAnswer(
   };
 }
 
+/** 두 번째 인자 이름이 listening 인 것은 유래 때문이고, 지금은 리스닝·타이핑을 함께 받는다. */
 function createMixedRequest(
-  listening: ReturnType<typeof listeningAnswer>[],
+  listening: (ReturnType<typeof listeningAnswer> | ReturnType<typeof typingAnswer>)[],
   reading: unknown[] = ANSWERS
 ): Request {
   return new Request("http://localhost/api/quiz/submit", {
@@ -415,5 +432,127 @@ describe("POST /api/quiz/submit — 리스닝 합류", () => {
 
     const data = transactionClient.quizSession.create.mock.calls[0][0].data;
     expect(data.durationSec).toBeLessThan(2_147_483_647);
+  });
+});
+
+/**
+ * 타이핑 합류 — 채점 엄격도·SRS 4단계·결과 행의 회귀.
+ */
+describe("POST /api/quiz/submit — 타이핑 합류", () => {
+  beforeEach(() => {
+    db.vocabulary.findMany.mockResolvedValue(TYPING_VOCABULARIES);
+  });
+
+  it("채점은 서버 재조회로 하고 오타를 오답 처리한다", async () => {
+    const response = await POST(createMixedRequest([typingAnswer("v1", "borow")]));
+    const body = await response.json();
+
+    expect(body.summary.typingCount).toBe(1);
+    expect(body.summary.typingCorrect).toBe(0);
+  });
+
+  it("대소문자·공백은 흡수한다", async () => {
+    const response = await POST(createMixedRequest([typingAnswer("v1", "  Borrow ")]));
+    const body = await response.json();
+
+    expect(body.summary.typingCorrect).toBe(1);
+  });
+
+  it("타이핑 답안은 UserQuizAttempt 에 들어가지 않는다", async () => {
+    await POST(createMixedRequest([typingAnswer("v1", "borrow")]));
+
+    const created = transactionClient.userQuizAttempt.createMany.mock.calls[0][0].data;
+    expect(created.map((a: { questionId: string }) => a.questionId)).not.toContain("v1");
+  });
+
+  it("결과 행에 정답 철자와 예문이 실린다 — 틀린 철자를 배우는 유일한 지점", async () => {
+    const body = await (
+      await POST(createMixedRequest([typingAnswer("v1", "borow")]))
+    ).json();
+
+    const row = body.results.find((r: { questionId: string }) => r.questionId === "v1");
+    expect(row).toMatchObject({
+      isCorrect: false,
+      correctAnswer: "borrow",
+      explanation: "I will borrow it.",
+      sentenceAudioUrl: "https://cdn.test/v1-ex.mp3",
+    });
+  });
+
+  it("오디오 없이 무힌트 정답은 produced 로 편입된다 — SRS easy 의 유일한 자동 검증", async () => {
+    await POST(createMixedRequest([typingAnswer("v1", "borrow", false, 0)]));
+
+    expect(enrollWordsToSrsMock).toHaveBeenCalledWith(USER_ID, [
+      ...ENROLL_OUTCOMES,
+      { word: "borrow", isCorrect: true, usedHint: false, produced: true },
+    ]);
+  });
+
+  it("오디오를 들었으면 produced 가 false 다 — 인출 단계가 빠졌다", async () => {
+    await POST(createMixedRequest([typingAnswer("v1", "borrow", true, 0)]));
+
+    const outcomes = enrollWordsToSrsMock.mock.calls[0][1];
+    expect(outcomes.at(-1)).toMatchObject({ word: "borrow", produced: false });
+  });
+
+  it("힌트를 썼으면 produced 가 false 다", async () => {
+    await POST(createMixedRequest([typingAnswer("v1", "borrow", false, 2)]));
+
+    const outcomes = enrollWordsToSrsMock.mock.calls[0][1];
+    expect(outcomes.at(-1)).toMatchObject({ usedHint: true, produced: false });
+  });
+
+  it("summary 가 세 유형 합계다", async () => {
+    // 읽기 4문항 중 2정답 + 듣기 1(정답) + 쓰기 1(정답) = 6문항 중 4정답
+    const body = await (
+      await POST(
+        createMixedRequest([listeningAnswer("v2", "얼다"), typingAnswer("v1", "borrow")])
+      )
+    ).json();
+
+    expect(body.summary.total).toBe(6);
+    expect(body.summary.correct).toBe(4);
+    expect(body.summary.typingCount).toBe(1);
+  });
+
+  it("QuizSession 에 유형별 수가 기록된다", async () => {
+    await POST(
+      createMixedRequest([listeningAnswer("v2", "얼다"), typingAnswer("v1", "borrow")])
+    );
+
+    expect(transactionClient.quizSession.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        readingCount: 4,
+        readingCorrect: 2,
+        listeningCount: 1,
+        listeningCorrect: 1,
+        typingCount: 1,
+        typingCorrect: 1,
+      }),
+    });
+  });
+
+  it("존재하지 않는 vocabularyId 는 분모에 안 들어간다", async () => {
+    const body = await (
+      await POST(createMixedRequest([typingAnswer("v-bogus", "borrow")]))
+    ).json();
+
+    expect(body.summary.typingCount).toBe(0);
+    expect(body.summary.total).toBe(4);
+  });
+
+  it("게이미피케이션이 타이핑을 포함한 합계를 받는다", async () => {
+    const allCorrectReading = [
+      { questionId: "q1", selectedAnswer: correctTextOf("q1"), hintLevel: 0, timeSpent: 5 },
+    ];
+
+    await POST(createMixedRequest([typingAnswer("v1", "borow")], allCorrectReading));
+
+    // 읽기 1정답 + 쓰기 1오답 = 2문항 중 1정답 = 50%. 읽기만 세면 100% 가 되어
+    // perfect_day 배지와 퍼펙트 보너스가 잘못 열린다(회수 경로 없음).
+    expect(processGamificationRewardsMock).toHaveBeenCalledWith(
+      USER_ID,
+      expect.objectContaining({ correctCount: 1, totalCount: 2, accuracy: 50 })
+    );
   });
 });

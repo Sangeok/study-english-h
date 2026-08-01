@@ -1,7 +1,13 @@
-import type { ListeningSubmission, QuizSubmission, ReadingSubmission } from "../types";
+import type {
+  ListeningSubmission,
+  QuizSubmission,
+  ReadingSubmission,
+  TypingSubmission,
+} from "../types";
 
 /** 판별자가 채워진 답안 — 하위 소비처는 이 형태만 본다. */
-export type NormalizedSubmission = (ReadingSubmission & { type: "reading" }) | ListeningSubmission;
+export type NormalizedReading = ReadingSubmission & { type: "reading" };
+export type NormalizedSubmission = NormalizedReading | ListeningSubmission | TypingSubmission;
 
 /**
  * 판별자 정규화의 **유일한 지점**.
@@ -15,7 +21,7 @@ export type NormalizedSubmission = (ReadingSubmission & { type: "reading" }) | L
  * 나중에 type 을 필수로 바꾸거나 세 번째 유형을 더할 때 고칠 자리가 하나다.
  */
 export function normalizeQuizSubmission(answer: QuizSubmission): NormalizedSubmission {
-  if (answer.type === "listening") {
+  if (answer.type === "listening" || answer.type === "typing") {
     return answer;
   }
 
@@ -28,19 +34,23 @@ export function normalizeQuizSubmissions(answers: readonly QuizSubmission[]): No
 
 /** 정규화된 답안을 유형별로 가른다. 라우트가 questionIds 를 모으기 **전에** 이걸 먼저 부른다. */
 export function splitSubmissions(answers: readonly NormalizedSubmission[]): {
-  reading: (ReadingSubmission & { type: "reading" })[];
+  reading: NormalizedReading[];
   listening: ListeningSubmission[];
+  typing: TypingSubmission[];
 } {
-  const reading: (ReadingSubmission & { type: "reading" })[] = [];
+  const reading: NormalizedReading[] = [];
   const listening: ListeningSubmission[] = [];
+  const typing: TypingSubmission[] = [];
 
   for (const answer of answers) {
     if (answer.type === "listening") {
       listening.push(answer);
+    } else if (answer.type === "typing") {
+      typing.push(answer);
     } else {
       reading.push(answer);
     }
   }
 
-  return { reading, listening };
+  return { reading, listening, typing };
 }

@@ -5,6 +5,7 @@ export type {
   DiagnosisQuestion,
   QuizQuestion,
   ListeningQuestion,
+  TypingQuestion,
   QuestionDifficulty,
   QuestionCategory,
 } from "./types";

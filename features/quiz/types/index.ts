@@ -1,4 +1,4 @@
-import type { ListeningQuestion, QuizQuestion } from "@/entities/question";
+import type { ListeningQuestion, QuizQuestion, TypingQuestion } from "@/entities/question";
 import type { GamificationResult } from "@/entities/gamification";
 
 /**
@@ -12,7 +12,8 @@ import type { GamificationResult } from "@/entities/gamification";
  */
 export type DailyQuizItem =
   | ({ type: "reading" } & QuizQuestion)
-  | ({ type: "listening" } & ListeningQuestion);
+  | ({ type: "listening" } & ListeningQuestion)
+  | ({ type: "typing" } & TypingQuestion);
 
 /**
  * 제출 답안 — 읽기 arm 에서만 `type` 이 선택적이다.
@@ -48,7 +49,25 @@ export interface ListeningSubmission {
   autoDegraded?: true;
 }
 
-export type QuizSubmission = ReadingSubmission | ListeningSubmission;
+export interface TypingSubmission {
+  type: "typing";
+  vocabularyId: string;
+  /** 사용자가 친 그대로. 정규화는 서버가 한다(typing-grading). */
+  typedAnswer: string;
+  /**
+   * 발음을 재생했는가.
+   *
+   * XP 에는 영향이 없다 — 오디오는 힌트가 아니라 문항의 일부이고, 감점하면
+   * 안 누르고 틀리는 유인이 생긴다. **SRS 확신도에만 쓴다**: 안 듣고 맞혔으면
+   * 뜻→인출→철자를 혼자 해낸 것이고(easy), 듣고 맞혔으면 인출 단계가 빠진 것이다(normal).
+   * 사용자에게 보이지 않는 측정이라 최적화 유인이 없다.
+   */
+  audioPlayed: boolean;
+  timeSpent: number;
+  hintLevel: 0 | 1 | 2;
+}
+
+export type QuizSubmission = ReadingSubmission | ListeningSubmission | TypingSubmission;
 
 export interface QuizResult {
   questionId: string;
@@ -76,6 +95,8 @@ export interface QuizSummary {
   //   그 차이를 이 두 값이 메운다("듣기 3문항 중 2정답").
   listeningCount: number;
   listeningCorrect: number;
+  typingCount: number;
+  typingCorrect: number;
   // 오답 편입 결과. null = 편입 실패(부분 편입 후 실패 포함), enrolledCount 0 = 편입 대상 없음.
   // features/flashcard 타입을 import 하지 않도록 구조를 인라인으로 둔다(동일 레이어 의존 회피).
   // SrsEnrollmentResult(features/flashcard/lib/srs-enrollment.ts)와 구조를 반드시 함께 바꾼다.

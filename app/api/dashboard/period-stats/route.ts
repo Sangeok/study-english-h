@@ -34,21 +34,27 @@ export async function GET(req: Request) {
 
     const [
       quizAggregate,
-      correctCount,
       flashcardAggregate,
       dailyQuizRows,
       dailyFlashcardRows,
       categoryRows,
     ] = await Promise.all([
-      // 1) 퀴즈 총합 (count + sum) — DB aggregate
-      prisma.userQuizAttempt.aggregate({
-        where: { userId, attemptedAt: { gte: startDate } },
-        _count: { _all: true },
-        _sum: { timeSpent: true },
-      }),
-      // 2) 정답 수 — DB count
-      prisma.userQuizAttempt.count({
-        where: { userId, attemptedAt: { gte: startDate }, isCorrect: true },
+      // 1) 퀴즈 총합 — QuizSession 기반.
+      //    UserQuizAttempt 를 세면 읽기 문항만 잡힌다: 리스닝·타이핑은 그 테이블에
+      //    기록되지 않는다(questionId 가 QuizQuestion 에 대한 non-nullable FK).
+      //    읽기 5 / 듣기 3 / 쓰기 2 구성에서 실제 활동의 50% 만 보여주게 된다.
+      //    QuizSession 은 유형별 문항 수와 세션 소요 시간을 온전히 담는다.
+      prisma.quizSession.aggregate({
+        where: { userId, createdAt: { gte: startDate } },
+        _sum: {
+          readingCount: true,
+          listeningCount: true,
+          typingCount: true,
+          readingCorrect: true,
+          listeningCorrect: true,
+          typingCorrect: true,
+          durationSec: true,
+        },
       }),
       // 3) 플래시카드 총합 (count + sum) — DB aggregate
       prisma.flashcardSession.aggregate({
@@ -64,11 +70,11 @@ export async function GET(req: Request) {
       //    AT TIME ZONE 'Asia/Seoul': timestamptz → naive KST 벽시계
       prisma.$queryRaw<DailyAggregateRow[]>`
         SELECT
-          TO_CHAR("attemptedAt" AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Seoul', 'YYYY-MM-DD') AS date,
-          COUNT(*)::int AS count,
-          COALESCE(SUM("timeSpent"), 0)::int AS total_time
-        FROM "UserQuizAttempt"
-        WHERE "userId" = ${userId} AND "attemptedAt" >= ${startDate}
+          TO_CHAR("createdAt" AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Seoul', 'YYYY-MM-DD') AS date,
+          COALESCE(SUM("readingCount" + "listeningCount" + "typingCount"), 0)::int AS count,
+          COALESCE(SUM("durationSec"), 0)::int AS total_time
+        FROM "quiz_sessions"
+        WHERE "userId" = ${userId} AND "createdAt" >= ${startDate}
         GROUP BY date
       `,
       // 5) 플래시카드 일별 집계 (KST) — raw SQL (동일한 이중 변환)
@@ -92,8 +98,14 @@ export async function GET(req: Request) {
       `,
     ]);
 
-    const totalQuizzes = quizAggregate._count._all;
-    const quizStudyTimeSec = quizAggregate._sum.timeSpent ?? 0;
+    // 문항 수는 세션 수가 아니라 **세 유형 문항의 합**이다 — 이관 전 UserQuizAttempt 행 수와
+    //   같은 의미를 유지한다(사용자가 푼 문항 개수).
+    const sums = quizAggregate._sum;
+    const totalQuizzes =
+      (sums.readingCount ?? 0) + (sums.listeningCount ?? 0) + (sums.typingCount ?? 0);
+    const correctCount =
+      (sums.readingCorrect ?? 0) + (sums.listeningCorrect ?? 0) + (sums.typingCorrect ?? 0);
+    const quizStudyTimeSec = sums.durationSec ?? 0;
     const quizAccuracy = totalQuizzes > 0
       ? Math.round((correctCount / totalQuizzes) * 100)
       : 0;
