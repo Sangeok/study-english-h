@@ -41,6 +41,18 @@ const LISTENING: DailyQuizItem = {
 /** contextHint 가 없는 읽기 문항 — 읽기 사다리는 1단계에서 접히는 게 정상이다. */
 const READING_NO_CONTEXT: DailyQuizItem = { ...READING, id: "q2", contextHint: null };
 
+/** 예문이 있는 타이핑 문항 — 사다리가 2단계다. */
+const TYPING: DailyQuizItem = {
+  type: "typing",
+  id: "t1",
+  meaning: "빌리다",
+  audioUrl: "https://cdn.test/t1.mp3",
+  blankedSentence: "I need to ___ a book.",
+};
+
+/** 예문이 없는 타이핑 문항 — 사다리가 1단계로 접힌다. */
+const TYPING_NO_SENTENCE: DailyQuizItem = { ...TYPING, id: "t2", blankedSentence: undefined };
+
 let container: HTMLDivElement;
 let root: Root;
 let hookRef: RefObject<HookResult | null>;
@@ -163,5 +175,85 @@ describe("handleAnswer — 유형별 제출 shape", () => {
 
     expect(hookRef.current?.answers["v1"]).not.toHaveProperty("autoDegraded");
     expect(hookRef.current?.answers["v1"]?.hintLevel).toBe(2);
+  });
+});
+
+describe("타이핑 — 힌트 사다리 접힘", () => {
+  it("예문이 있으면 2단계까지 오른다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.handleHintRequest());
+    expect(hookRef.current?.hintLevels["t1"]).toBe(1);
+
+    await act(async () => hookRef.current?.handleHintRequest());
+    expect(hookRef.current?.hintLevels["t1"]).toBe(2);
+  });
+
+  it("예문이 없으면 1단계에서 멈춘다 — 더 줄 게 없다", async () => {
+    await render([TYPING_NO_SENTENCE]);
+
+    await act(async () => hookRef.current?.handleHintRequest());
+    await act(async () => hookRef.current?.handleHintRequest());
+
+    expect(hookRef.current?.hintLevels["t2"]).toBe(1);
+  });
+});
+
+describe("타이핑 — 제출 shape", () => {
+  it("친 문자열을 정규화 없이 그대로 보낸다 — 채점 규칙은 서버 한 곳에만 둔다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.handleAnswer("t1", "  BorRow "));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({
+      type: "typing",
+      vocabularyId: "t1",
+      typedAnswer: "  BorRow ",
+    });
+  });
+
+  it("맵의 키는 question.id 다 — 답안·힌트·타이머가 이 키를 공유한다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+
+    expect(Object.keys(hookRef.current?.answers ?? {})).toEqual(["t1"]);
+  });
+
+  it("발음을 안 들었으면 audioPlayed 가 false 다 — SRS easy 의 조건", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({ audioPlayed: false });
+  });
+
+  it("발음을 들었으면 audioPlayed 가 true 다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.markAudioPlayed("t1"));
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({ audioPlayed: true });
+  });
+
+  it("다른 문항의 재생 표시가 섞이지 않는다", async () => {
+    await render([TYPING, TYPING_NO_SENTENCE]);
+
+    await act(async () => hookRef.current?.markAudioPlayed("t1"));
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+    await act(async () => hookRef.current?.handleAnswer("t2", "freeze"));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({ audioPlayed: true });
+    expect(hookRef.current?.answers["t2"]).toMatchObject({ audioPlayed: false });
+  });
+
+  it("입력을 고쳐 치면 마지막 값이 남는다 — 매 키 입력마다 저장된다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.handleAnswer("t1", "bor"));
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({ typedAnswer: "borrow" });
   });
 });

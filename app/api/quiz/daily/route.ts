@@ -10,6 +10,7 @@ import {
   RECENT_EXCLUSION_RATIO,
   RECENT_EXCLUSION_MAX,
   LISTENING_QUESTION_COUNT,
+  TYPING_QUESTION_COUNT,
 } from "@/shared/constants";
 import {
   buildListeningQuestions,
@@ -17,6 +18,13 @@ import {
   type ListeningCandidate,
   type ListeningDraft,
 } from "@/features/quiz/lib/listening-selection";
+import {
+  buildTypingQuestions,
+  collectUsedWords,
+  selectTypingWords,
+  type TypingCandidate,
+  type TypingDraft,
+} from "@/features/quiz/lib/typing-selection";
 import type { DailyQuizItem } from "@/features/quiz/types";
 import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
@@ -266,6 +274,90 @@ async function selectListeningDrafts(
   }));
 }
 
+
+/**
+ * 타이핑 문항 선정 — 2단계 캐스케이드(도래 → 편입).
+ *
+ * **리스닝의 3단계(레벨 무작위)가 없다.** 처음 보는 단어를 타이핑으로 내면 찍을 수 없어
+ * 사실상 100% 오답이고, 그 오답이 SRS 에 1일 간격 부채로 매일 쌓인다.
+ * 편입 이력이 없는 사용자(진단 직후)는 타이핑 0문항이고 읽기가 그만큼 늘어난다.
+ *
+ * excludedWords 로 **리스닝이 뽑은 단어**를 받는다 — 겹치면 한 단어를 두 방식으로 묻게 되어
+ * 실질 문항 수가 준다.
+ */
+async function selectTypingDrafts(
+  userId: string,
+  level: QuestionDifficulty,
+  count: number,
+  excludedWords: readonly string[],
+  now: Date = new Date()
+): Promise<(TypingDraft & { word: string })[]> {
+  if (count <= 0) {
+    return [];
+  }
+
+  const vocabularySelect = {
+    id: true,
+    word: true,
+    meaning: true,
+    audioUrl: true,
+    exampleSentence: true,
+  };
+  // audioUrl ≠ null 을 두 단계 모두에 건다 — 발음이 변별 수단이라 없으면 문항이 성립하지 않는다.
+  const audible = { level, audioUrl: { not: null } };
+
+  const [dueRows, enrolledRows] = await Promise.all([
+    prisma.userVocabulary.findMany({
+      where: { userId, nextReviewDate: { lte: now }, vocabulary: audible },
+      orderBy: { nextReviewDate: "asc" },
+      take: count * 4,
+      select: { vocabulary: { select: vocabularySelect } },
+    }),
+    prisma.userVocabulary.findMany({
+      where: { userId, vocabulary: audible },
+      take: count * 8,
+      select: { vocabulary: { select: vocabularySelect } },
+    }),
+  ]);
+
+  const toCandidates = (
+    rows: {
+      id: string;
+      word: string;
+      meaning: string;
+      audioUrl: string | null;
+      exampleSentence: string | null;
+    }[]
+  ): TypingCandidate[] =>
+    rows.flatMap((row) =>
+      row.audioUrl
+        ? [
+            {
+              id: row.id,
+              word: row.word,
+              meaning: row.meaning,
+              audioUrl: row.audioUrl,
+              exampleSentence: row.exampleSentence,
+            },
+          ]
+        : []
+    );
+
+  const answers = selectTypingWords({
+    due: toCandidates(dueRows.map((row) => row.vocabulary)),
+    enrolled: toCandidates(enrolledRows.map((row) => row.vocabulary)),
+    excludedWords,
+    count,
+  });
+
+  const wordById = new Map(answers.map((answer) => [answer.id, answer.word]));
+
+  return buildTypingQuestions(answers).map((draft) => ({
+    ...draft,
+    word: wordById.get(draft.id) ?? "",
+  }));
+}
+
 export async function GET(req: Request) {
   try {
     const session = await getSessionFromRequest(req);
@@ -306,18 +398,35 @@ export async function GET(req: Request) {
     const userLevel = getUserLevel(profile?.level);
     const weaknessCategories = getWeaknessCategories(profile?.weaknessAreas);
 
-    // --- 리스닝 문항 선정 (읽기보다 먼저 — 읽기 문항 수가 여기서 정해진다) ---
+    // --- 리스닝·타이핑 선정 (읽기보다 먼저 — 읽기 문항 수가 여기서 정해진다) ---
     const requestedListeningCount = getListeningCount(searchParams, count);
     const listeningDrafts = await selectListeningDrafts(
       session.user.id,
       userLevel,
       requestedListeningCount
     );
-    const listeningWords = new Set(listeningDrafts.map((draft) => draft.word));
+
+    // 타이핑은 리스닝 뒤에 뽑는다 — 같은 단어를 두 방식으로 묻지 않도록 리스닝 단어를 배제한다.
+    //   상한은 남은 자리(count - 1 - 듣기)와 TYPING_QUESTION_COUNT 중 작은 쪽이다.
+    //   count - 1 은 읽기 최소 1개를 지킨다: 읽기가 0이면 UserQuizAttempt 행이 없어
+    //   그날 데일리 완료 판정이 죽는다(리스닝·타이핑 모두 그 테이블에 안 들어간다).
+    const typingCeiling = Math.max(
+      0,
+      Math.min(TYPING_QUESTION_COUNT, count - 1 - listeningDrafts.length)
+    );
+    const typingDrafts = await selectTypingDrafts(
+      session.user.id,
+      userLevel,
+      typingCeiling,
+      listeningDrafts.map((draft) => draft.word)
+    );
+
+    // 읽기 후보에서 걸러낼 단어 — 두 유형이 뽑은 것을 합친다.
+    const listeningWords = collectUsedWords(listeningDrafts, typingDrafts);
 
     // 캐스케이드가 요청분을 못 채우면 읽기가 그만큼 더 나온다 —
     //   requested 로 빼면 총 문항이 count 에 못 미친다.
-    const readingCount = count - listeningDrafts.length;
+    const readingCount = count - listeningDrafts.length - typingDrafts.length;
 
     // Fix 4: 비율 기반 sliding window — 최근 풀이 문제 제외
     const poolSize = await prisma.quizQuestion.count({
@@ -411,6 +520,18 @@ export async function GET(req: Request) {
           id: draft.id,
           audioUrl: draft.audioUrl,
           options: draft.options,
+        })
+      ),
+      // 타이핑 arm 에는 word 가 없다 — 정답이기 때문이다.
+      //   blankedSentence 는 힌트 1단계 내용이지만 정답이 아니라 응답에 실어도 된다
+      //   (읽기의 koreanHint·contextHint 가 이미 그렇게 실려 있다).
+      ...typingDrafts.map(
+        (draft): DailyQuizItem => ({
+          type: "typing",
+          id: draft.id,
+          meaning: draft.meaning,
+          audioUrl: draft.audioUrl,
+          ...(draft.blankedSentence ? { blankedSentence: draft.blankedSentence } : {}),
         })
       ),
     ]);

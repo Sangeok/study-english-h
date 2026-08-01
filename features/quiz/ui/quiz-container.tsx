@@ -10,6 +10,7 @@ import { submitQuiz } from "../api/quiz-api";
 import type { QuizSubmission } from "../types";
 import { QuizQuestion } from "./game/quiz-question";
 import { ListeningQuestion } from "./game/listening-question";
+import { TypingQuestion } from "./game/typing-question";
 import { QuizFeedback } from "./result/quiz-feedback";
 import { QuizHeader } from "./game/quiz-header";
 import { QuizNavigation } from "./game/quiz-navigation";
@@ -25,11 +26,20 @@ import { useQuizState } from "../hooks/use-quiz-state";
  * 읽기 분기에서만 쓰이므로 리스닝 답안은 undefined 로 떨어뜨린다.
  */
 function readAnswerOf(answer: QuizSubmission | undefined): string | undefined {
-  if (!answer || answer.type === "listening") {
+  if (!answer || answer.type === "listening" || answer.type === "typing") {
     return undefined;
   }
 
   return answer.selectedAnswer;
+}
+
+/** 타이핑 분기의 대응물 — 사용자가 친 문자열. */
+function readTypedOf(answer: QuizSubmission | undefined): string | undefined {
+  if (answer?.type !== "typing") {
+    return undefined;
+  }
+
+  return answer.typedAnswer;
 }
 
 /** 리스닝 분기의 대응물 — 선택된 한국어 뜻. */
@@ -79,7 +89,7 @@ export function QuizContainer({ listeningEnabled }: QuizContainerProps) {
     questions.length,
     handleSubmit
   );
-  const { answers, hintLevels, handleAnswer, handleHintRequest } = useQuizAnswers(
+  const { answers, hintLevels, handleAnswer, handleHintRequest, markAudioPlayed } = useQuizAnswers(
     questions,
     currentIndex,
     submitMutation.isSuccess
@@ -133,7 +143,17 @@ export function QuizContainer({ listeningEnabled }: QuizContainerProps) {
               isTransitioning && "opacity-0 scale-95"
             )}
           >
-            {currentQuestion.type === "listening" ? (
+            {currentQuestion.type === "typing" ? (
+              <TypingQuestion
+                question={currentQuestion}
+                typedAnswer={readTypedOf(answers[currentQuestion.id])}
+                onAnswer={handleAnswer}
+                onAudioPlay={markAudioPlayed}
+                disabled={submitMutation.isPending}
+                hintLevel={currentHintLevel}
+                onHintRequest={handleHintRequest}
+              />
+            ) : currentQuestion.type === "listening" ? (
               <ListeningQuestion
                 question={currentQuestion}
                 selectedMeaning={readMeaningOf(answers[currentQuestion.id])}

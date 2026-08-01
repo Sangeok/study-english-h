@@ -11,6 +11,7 @@ export {
   LISTENING_GAP_MIN_SESSIONS,
   LISTENING_GAP_WINDOW,
 } from "./listening";
+export { TYPING_QUESTION_COUNT } from "./typing";
 export { ROUTES, QUERY_PARAMS } from "./routes";
 export { CEFR_ORDER, buildAdjacentPriority, getNextLevel, type CefrLevel } from "./cefr";
 export { LEVEL_PROGRESS, MASTERY_SCORE, PROMOTION } from "./level-progress";
