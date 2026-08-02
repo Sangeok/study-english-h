@@ -74,3 +74,6 @@ next-env.d.ts
 
 # doc-validation-pipeline snapshots
 /.validation-snapshots
+
+# playwright mcp 산출물(스냅샷·콘솔 로그·스크린샷)
+/.playwright-mcp

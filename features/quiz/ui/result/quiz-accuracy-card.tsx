@@ -119,6 +119,7 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
                 <p className="text-lg font-medium tabular-nums text-ink">
                   {summary.correct} / {summary.total} 정답
                 </p>
+                <TypeBreakdown summary={summary} />
               </div>
             </div>
 
@@ -151,3 +152,38 @@ export function QuizAccuracyCard({ summary, xpCounter, isExtraPractice, currentS
   );
 }
 
+/**
+ * 유형별 집계.
+ *
+ * **이 줄이 없으면 화면이 거짓말을 한다.** 위의 "N / 10 정답"은 읽기+듣기+쓰기 합계인데
+ * 상세 결과에는 읽기 행만 나온다(리스닝·타이핑은 QuizResult 유니온을 넓히지 않기로 했다).
+ * 그 차이를 메우는 것이 이 줄의 유일한 일이다 — 사용자가 "나머지 3문항은 어디 갔지?"를
+ * 겪지 않게 한다.
+ *
+ * 해당 유형을 안 푼 세션에서는 그 항목을 감춘다(0문항을 "0/0"으로 보여주지 않는다).
+ */
+function TypeBreakdown({ summary }: { summary: QuizSummary }) {
+  const readingCount = summary.total - summary.listeningCount - summary.typingCount;
+  const readingCorrect = summary.correct - summary.listeningCorrect - summary.typingCorrect;
+
+  const rows = [
+    { label: "읽기", count: readingCount, correct: readingCorrect },
+    { label: "듣기", count: summary.listeningCount, correct: summary.listeningCorrect },
+    { label: "쓰기", count: summary.typingCount, correct: summary.typingCorrect },
+  ].filter((row) => row.count > 0);
+
+  // 유형이 하나뿐이면 위의 총계와 같은 말이라 중복이다.
+  if (rows.length < 2) {
+    return null;
+  }
+
+  return (
+    <div className="mt-2 flex justify-center gap-4">
+      {rows.map((row) => (
+        <span key={row.label} className="text-sm tabular-nums text-ink-soft">
+          {row.label} {row.correct}/{row.count}
+        </span>
+      ))}
+    </div>
+  );
+}
