@@ -32,6 +32,18 @@ function normalizeWord(word: string): string {
 }
 
 /**
+ * 다어절 항목은 타이핑에서 뺀다. 리스닝·읽기에서는 그대로 쓴다.
+ *
+ * 구현 당시 사전에 다어절이 0개라 "단일 단어"를 전제로 만든 과제인데, ADR 0002 로 관용구
+ * 169종이 편입되면서 "let the cat out of the bag" 같은 후보가 생겼다. 채점은
+ * normalizeTypedAnswer(lowercase+trim)로 완전일치만 보므로 공백 하나만 틀려도 오답이고,
+ * 그 오답이 SRS 에 "모른다"로 새겨져 1일 간격 부채가 쌓인다.
+ */
+function isSingleWord(word: string): boolean {
+  return !/\s/.test(word.trim());
+}
+
+/**
  * 예문에서 정답 단어를 빈칸으로 바꾼다.
  *
  * **단어 경계로 일치할 때만** 처리한다(실측 1,427/1,550 = 92.1%). 어형변화만 있는 문장은
@@ -86,6 +98,10 @@ export function selectTypingWords(params: {
     for (const candidate of stage) {
       if (picked.length >= count) {
         return picked;
+      }
+
+      if (!isSingleWord(candidate.word)) {
+        continue;
       }
 
       const key = normalizeWord(candidate.word);

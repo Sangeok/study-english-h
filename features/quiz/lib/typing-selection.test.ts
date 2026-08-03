@@ -88,6 +88,27 @@ describe("selectTypingWords — 2단계 캐스케이드", () => {
     expect(picked.map((c) => c.id)).toEqual(["d1", "e1"]);
   });
 
+  it("다어절 관용구는 뽑히지 않는다 — 철자 입력은 단일 단어를 전제로 만든 과제다", () => {
+    const idiom = word("i1", "a piece of cake", "식은 죽 먹기");
+    const picked = selectTypingWords({ due: [idiom, DUE[0]], enrolled: EMPTY, count: 2 });
+
+    expect(picked.map((c) => c.id)).toEqual(["d1"]);
+  });
+
+  it("다어절이 걸러져 부족해도 다음 단계가 자리를 메운다", () => {
+    const idiom = word("i1", "let the cat out of the bag", "비밀을 누설하다");
+    const picked = selectTypingWords({ due: [idiom], enrolled: ENROLLED, count: 2 });
+
+    expect(picked.map((c) => c.id)).toEqual(["e1", "e2"]);
+  });
+
+  it("하이픈 단어는 남는다 — 공백이 없으면 한 단어로 칠 수 있다", () => {
+    const hyphenated = word("h1", "well-known", "잘 알려진");
+    const picked = selectTypingWords({ due: [hyphenated], enrolled: EMPTY, count: 1 });
+
+    expect(picked.map((c) => c.id)).toEqual(["h1"]);
+  });
+
   it("count 가 0이면 빈 배열이다 — 킬 스위치", () => {
     expect(selectTypingWords({ due: DUE, enrolled: ENROLLED, count: 0 })).toEqual([]);
   });

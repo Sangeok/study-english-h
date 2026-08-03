@@ -60,7 +60,7 @@ describe("buildVocabularyArtifact", () => {
   });
 
   it("validate 실패 시 ok=false, artifact 미생성(fail-closed)", () => {
-    const result = buildVocabularyArtifact([rec({ ...apple, category: "idioms" })]);
+    const result = buildVocabularyArtifact([rec({ ...apple, category: "slang" })]);
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.errors).toBeGreaterThan(0);

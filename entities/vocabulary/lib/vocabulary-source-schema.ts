@@ -10,8 +10,10 @@ import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 
 const nonBlank = z.string().refine((s) => s.trim().length > 0, "빈 문자열은 허용되지 않습니다");
 
-// vocab 카테고리 — 공통 4종. idioms 는 quiz 전용이라 제외(RFC 6절 category 분리).
-export const vocabularyCategorySchema = z.enum(["daily", "business", "toeic", "travel"]);
+// vocab 카테고리 — quiz 와 동일한 5종.
+// idioms 는 원래 quiz 전용이었으나(RFC 6절 category 분리) ADR 0002 결정 3 이 뒤집었다:
+// 관용구가 사전에 없으면 퀴즈에서 틀려도 복습 큐에 안 들어가고 결과 화면의 "N개 추가" 숫자가 어긋난다.
+export const vocabularyCategorySchema = z.enum(["daily", "business", "toeic", "travel", "idioms"]);
 
 export const vocabularySourceSchema = z.object({
   word: nonBlank,

@@ -14,6 +14,9 @@ export const VOCAB_SOURCE_FILES = [
   "vocabularies-extra-c1-c2.json",
   "vocabularies-extra-supplement.json",
   "vocabularies-extra-inline.json",
+  // 퀴즈에만 있고 사전에 없던 단어 176종(ADR 0002 결정 3). quiz source 의 뜻·예문을 옮겨 만들었다.
+  // 맨 뒤에 둬야 first-wins dedup 이 기존 정본을 이긴다.
+  "vocabularies-extra-idioms.json",
 ] as const;
 
 export interface VocabSourceRecord {

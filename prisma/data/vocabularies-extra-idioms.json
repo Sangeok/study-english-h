@@ -1,0 +1,1234 @@
+[
+  {
+    "word": "thank you",
+    "meaning": "감사합니다",
+    "exampleSentence": "Thank you for helping me!",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "you're welcome",
+    "meaning": "천만에요",
+    "exampleSentence": "\"Thanks for the gift!\" \"You're welcome!\"",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "excuse me",
+    "meaning": "실례합니다",
+    "exampleSentence": "Excuse me, where is the restroom?",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "good night",
+    "meaning": "잘 자",
+    "exampleSentence": "Good night, sweet dreams!",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "it's okay",
+    "meaning": "괜찮아",
+    "exampleSentence": "\"I'm sorry I'm late.\" \"It's okay. Don't worry.\"",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "somehow",
+    "meaning": "어떻게든",
+    "exampleSentence": "I somehow managed to finish the homework on time.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "eventually",
+    "meaning": "결국",
+    "exampleSentence": "After many tries, I eventually passed the driving test.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "on the other hand",
+    "meaning": "반면에",
+    "exampleSentence": "Pizza is quick. On the other hand, cooking at home is healthier.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "give it a try",
+    "meaning": "한번 해볼게",
+    "exampleSentence": "I've never surfed before, but I'll give it a try.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "watch out",
+    "meaning": "조심해",
+    "exampleSentence": "Watch out! There's a car coming!",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "keep it up",
+    "meaning": "계속해",
+    "exampleSentence": "Great job on the test! Keep it up!",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "deal with",
+    "meaning": "다루다",
+    "exampleSentence": "I need to deal with this problem before it gets worse.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "a piece of cake",
+    "meaning": "그건 식은 죽 먹기야",
+    "exampleSentence": "Don't worry about the exam. It'll be a piece of cake.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "let the cat out of the bag",
+    "meaning": "비밀을 누설하다",
+    "exampleSentence": "She accidentally let the cat out of the bag about the surprise party.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "blow out of proportion",
+    "meaning": "과장하다",
+    "exampleSentence": "He tends to blow out of proportion every small problem.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "hit the nail on the head",
+    "meaning": "핵심을 찌르다",
+    "exampleSentence": "Your analysis hit the nail on the head. That's exactly the issue.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "burn the midnight oil",
+    "meaning": "밤새 공부하다",
+    "exampleSentence": "I had to burn the midnight oil to finish the project on time.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "beat around the bush",
+    "meaning": "돌려 말하다",
+    "exampleSentence": "Stop beating around the bush and tell me what happened.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "kill two birds with one stone",
+    "meaning": "일석이조",
+    "exampleSentence": "By biking to work, I exercise and save gas — I kill two birds with one stone.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "break the ice",
+    "meaning": "서먹함을 깨다",
+    "exampleSentence": "A simple joke can help break the ice at a new meeting.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "weigh the pros and cons",
+    "meaning": "장단점을 따지다",
+    "exampleSentence": "Before accepting the offer, you should weigh the pros and cons.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "hindsight is 20/20",
+    "meaning": "뒷북치다",
+    "exampleSentence": "I should have studied harder. Well, hindsight is 20/20.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "armchair expert",
+    "meaning": "탁상공론",
+    "exampleSentence": "He criticizes every decision but never acts — a true armchair expert.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "double-edged sword",
+    "meaning": "양날의 검",
+    "exampleSentence": "Social media is a double-edged sword; it connects but also distracts.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "cut to the chase",
+    "meaning": "본론으로 들어가다",
+    "exampleSentence": "We don't have much time, so let's cut to the chase.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "hang in there",
+    "meaning": "견디다",
+    "exampleSentence": "The project is tough, but hang in there. It'll get easier.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "add fuel to the fire",
+    "meaning": "상황을 악화시키다",
+    "exampleSentence": "His rude comment only added fuel to the fire during the argument.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "seize the opportunity",
+    "meaning": "기회를 잡다",
+    "exampleSentence": "When the position opened up, she seized the opportunity immediately.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "meet halfway",
+    "meaning": "타협하다",
+    "exampleSentence": "Neither side got everything, but they agreed to meet halfway.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "wild goose chase",
+    "meaning": "헛수고",
+    "exampleSentence": "Searching for that old file was a complete wild goose chase.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "pass the buck",
+    "meaning": "책임을 전가하다",
+    "exampleSentence": "Stop trying to pass the buck — take responsibility for the error.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "bottleneck",
+    "meaning": "병목현상",
+    "exampleSentence": "The approval process is the main bottleneck in our workflow.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "alignment",
+    "meaning": "동의어",
+    "exampleSentence": "Strategic alignment between departments improves overall efficiency.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "genericization",
+    "meaning": "고유명사화",
+    "exampleSentence": "The genericization of brand names like 'Xerox' is a trademark risk.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "corporate governance",
+    "meaning": "기업 지배구조",
+    "exampleSentence": "Strong corporate governance ensures transparency and accountability.",
+    "category": "business",
+    "level": "C1"
+  },
+  {
+    "word": "immersion",
+    "meaning": "몰입",
+    "exampleSentence": "Cultural immersion is the best way to learn a foreign language.",
+    "category": "travel",
+    "level": "C1"
+  },
+  {
+    "word": "homesickness",
+    "meaning": "향수병",
+    "exampleSentence": "Many exchange students experience homesickness during their first month.",
+    "category": "travel",
+    "level": "C1"
+  },
+  {
+    "word": "elephant in the room",
+    "meaning": "코끼리를 무시하다",
+    "exampleSentence": "The budget crisis is the elephant in the room that nobody wants to discuss.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "butter someone up",
+    "meaning": "감언이설",
+    "exampleSentence": "He's just trying to butter up the boss to get a promotion.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "wolf in sheep's clothing",
+    "meaning": "양의 탈을 쓴 늑대",
+    "exampleSentence": "That friendly salesman turned out to be a wolf in sheep's clothing.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "cost an arm and a leg",
+    "meaning": "터무니없는 금액",
+    "exampleSentence": "That luxury car costs an arm and a leg; I could never afford it.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "last resort",
+    "meaning": "마지막 수단",
+    "exampleSentence": "Surgery should only be considered as a last resort.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "foot in the door",
+    "meaning": "문 앞의 발",
+    "exampleSentence": "This internship is a great way to get your foot in the door.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "in the same boat",
+    "meaning": "같은 처지",
+    "exampleSentence": "Don't worry — we're all in the same boat with this deadline.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "double standard",
+    "meaning": "이중잣대",
+    "exampleSentence": "Punishing only junior staff for lateness is a clear double standard.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "bite off more than one can chew",
+    "meaning": "허세를 부리다",
+    "exampleSentence": "He bit off more than he could chew by volunteering to lead three projects simultaneously.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "reap what you sow",
+    "meaning": "뿌린 대로 거두다",
+    "exampleSentence": "He ignored all warnings. Now he's reaping what he sowed.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "tax avoidance",
+    "meaning": "탈세 방지",
+    "exampleSentence": "The government introduced new legislation to combat corporate tax avoidance.",
+    "category": "business",
+    "level": "C2"
+  },
+  {
+    "word": "the chickens come home to roost",
+    "meaning": "바닥을 드러내다",
+    "exampleSentence": "After years of cutting corners, the chickens have come home to roost — the product recalls are massive.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "open pandora's box",
+    "meaning": "판도라의 상자",
+    "exampleSentence": "Releasing that data could open Pandora's box of privacy concerns.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "between a rock and a hard place",
+    "meaning": "사면초가",
+    "exampleSentence": "The CEO is between a rock and a hard place — cut jobs or risk bankruptcy.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "pyrrhic victory",
+    "meaning": "피로스의 승리",
+    "exampleSentence": "Winning the lawsuit was a pyrrhic victory — the legal fees bankrupted the company.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "now or never",
+    "meaning": "절호의 기회",
+    "exampleSentence": "The market window is closing — it's now or never for this launch.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "cross the rubicon",
+    "meaning": "루비콘 강을 건너다",
+    "exampleSentence": "By announcing the merger publicly, the CEO has crossed the Rubicon.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "straw man argument",
+    "meaning": "허수아비 논증",
+    "exampleSentence": "That's a straw man argument; I never said we should eliminate all regulations.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "slippery slope",
+    "meaning": "미끄러운 비탈길",
+    "exampleSentence": "Arguing that remote work leads to company collapse is a slippery slope fallacy.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "pay lip service",
+    "meaning": "눈 가리고 아웅",
+    "exampleSentence": "The company pays lip service to diversity but made no real policy changes.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "poisoned chalice",
+    "meaning": "독이 든 성배",
+    "exampleSentence": "The CEO position at the failing firm turned out to be a poisoned chalice.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "silence is consent",
+    "meaning": "침묵은 동의",
+    "exampleSentence": "In this context, silence is consent — if you disagree, speak up now.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "hoist with one's own petard",
+    "meaning": "자충수",
+    "exampleSentence": "The politician who leaked the scandal was hoist with his own petard when his own secrets emerged.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "all right",
+    "meaning": "괜찮은",
+    "exampleSentence": "She fell on the path, but she stood up and said she was all right.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "come in",
+    "meaning": "들어오세요",
+    "exampleSentence": "When I heard a knock, I opened the door and invited the visitor to come in.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "good luck",
+    "meaning": "행운을 빌어",
+    "exampleSentence": "Before my sister's exam, I wished her good luck.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "have fun",
+    "meaning": "즐겁게 보내",
+    "exampleSentence": "As the children left for the party, their father told them to have fun.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "good morning",
+    "meaning": "좋은 아침입니다",
+    "exampleSentence": "I said good morning to my coworkers when I arrived at 9 a.m.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "at first",
+    "meaning": "처음에는",
+    "exampleSentence": "The new job was difficult at first, but it became easier with practice.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "by accident",
+    "meaning": "실수로",
+    "exampleSentence": "I picked up the wrong bag by accident at the station.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "for a while",
+    "meaning": "잠시 동안",
+    "exampleSentence": "We waited in the café for a while until our train arrived.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "by the way",
+    "meaning": "그런데 말이야",
+    "exampleSentence": "by the way, have you decided where we should have lunch?",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "for example",
+    "meaning": "예를 들어",
+    "exampleSentence": "You can choose a healthy snack; for example, fruit and yogurt are good options.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "keep an eye on",
+    "meaning": "지켜보다",
+    "exampleSentence": "Could you keep an eye on my bag while I buy a ticket?",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "make up your mind",
+    "meaning": "결심하다",
+    "exampleSentence": "We need to book tonight, so please make up your mind about which hotel you prefer.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "make a difference",
+    "meaning": "도움이 되다, 변화를 만들다",
+    "exampleSentence": "Even a small weekly donation can make a difference for the shelter.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "look forward to",
+    "meaning": "기대하다",
+    "exampleSentence": "The children look forward to their first trip abroad next month.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "make ends meet",
+    "meaning": "수입에 맞춰 생계를 꾸리다",
+    "exampleSentence": "With rent rising, the family took extra jobs to make ends meet.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "out of the question",
+    "meaning": "고려할 수 없는, 불가능한",
+    "exampleSentence": "Because the runway is closed for repairs, taking off tonight is out of the question.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "on thin ice",
+    "meaning": "위태로운 상황에 처한",
+    "exampleSentence": "After missing a third deadline, his manager warned him that he was on thin ice.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "miss the point",
+    "meaning": "요점을 놓치다",
+    "exampleSentence": "The proposal is about workplace safety, so focusing only on a minor typo would make you miss the point.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "sweep under the rug",
+    "meaning": "문제를 감추다, 은폐하다",
+    "exampleSentence": "Without an independent audit, repeated safety complaints may be easy to sweep under the rug.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "take the bull by the horns",
+    "meaning": "정면으로 맞서다",
+    "exampleSentence": "Rather than postpone the dispute, the director decided to take the bull by the horns.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "throw someone under the bus",
+    "meaning": "남을 희생양으로 삼다",
+    "exampleSentence": "To protect his reputation, the manager was willing to throw someone under the bus by blaming a junior employee.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "wear many hats",
+    "meaning": "여러 역할을 맡다",
+    "exampleSentence": "At a small startup, each employee must wear many hats and handle several functions.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "weather the storm",
+    "meaning": "어려운 시기를 견뎌 내다",
+    "exampleSentence": "The emergency fund helped the company weather the storm until demand recovered.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "steal a march on someone",
+    "meaning": "남보다 한발 앞서다",
+    "exampleSentence": "Filing a patent before a rival reacts is one way to steal a march on someone.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "throw down the gauntlet",
+    "meaning": "도전장을 내밀다",
+    "exampleSentence": "The challenger decided to throw down the gauntlet by publicly demanding a debate.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "tilt at windmills",
+    "meaning": "가상의 적과 헛되이 싸우다",
+    "exampleSentence": "Critics said the task force continued to tilt at windmills by fighting imaginary threats.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "separate the wheat from the chaff",
+    "meaning": "좋은 것과 나쁜 것을 가려내다",
+    "exampleSentence": "Careful due diligence helps investors separate the wheat from the chaff when reviewing hundreds of speculative proposals.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "sound the death knell for",
+    "meaning": "~의 종말을 알리다",
+    "exampleSentence": "Analysts warned that the new ban could sound the death knell for several small operators.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "see you later",
+    "meaning": "나중에 봐",
+    "exampleSentence": "I have to go now. See you later!",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "take care",
+    "meaning": "조심히 가",
+    "exampleSentence": "It is raining on your way home, so take care.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "here you are",
+    "meaning": "여기 있습니다",
+    "exampleSentence": "The server handed me the menu and said, “Here you are.”",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "nice to meet you",
+    "meaning": "만나서 반가워요",
+    "exampleSentence": "I shook my new classmate's hand and said, “Nice to meet you.”",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "help yourself",
+    "meaning": "마음껏 드세요",
+    "exampleSentence": "There are cookies on the table, so help yourself.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "in a hurry",
+    "meaning": "서둘러",
+    "exampleSentence": "I was in a hurry, so I ran to catch the bus.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "right away",
+    "meaning": "즉시",
+    "exampleSentence": "The customer needs help, so please call the manager right away.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "no problem",
+    "meaning": "문제없어",
+    "exampleSentence": "When I thanked her, she smiled and replied, no problem.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "on time",
+    "meaning": "제시간에",
+    "exampleSentence": "The train arrived on time despite the heavy rain.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "once in a while",
+    "meaning": "가끔",
+    "exampleSentence": "We eat at that restaurant once in a while, but not every week.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "call it a day",
+    "meaning": "그만하고 마무리하다",
+    "exampleSentence": "We have finished the urgent tasks, so let's call it a day and continue tomorrow.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "get along with",
+    "meaning": "~와 잘 지내다",
+    "exampleSentence": "Despite their different habits, the two roommates get along with each other.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "run out of",
+    "meaning": "~을 다 써버리다",
+    "exampleSentence": "If we run out of printer paper, extra boxes are stored in the supply room.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "lend a hand",
+    "meaning": "도움을 주다",
+    "exampleSentence": "Could you lend a hand while I carry these chairs into the meeting room?",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "keep in mind",
+    "meaning": "명심하다",
+    "exampleSentence": "When booking the meeting, please keep in mind the eight-hour time difference.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "get the ball rolling",
+    "meaning": "일을 시작하다, 분위기를 띄우다",
+    "exampleSentence": "To get the ball rolling, the chair asked everyone to introduce one practical idea.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "go the extra mile",
+    "meaning": "기대 이상으로 노력하다",
+    "exampleSentence": "Our support agents often go the extra mile to solve difficult customer problems.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "be on the same page",
+    "meaning": "서로 같은 생각을 하다",
+    "exampleSentence": "Before signing the contract, both teams need to be on the same page about the delivery schedule.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "read between the lines",
+    "meaning": "숨은 뜻을 파악하다",
+    "exampleSentence": "The memo never states it directly, but experienced staff can read between the lines.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "back to square one",
+    "meaning": "원점으로 돌아가다",
+    "exampleSentence": "When the prototype failed the safety test, the design team was back to square one.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "move the goalposts",
+    "meaning": "기준을 계속 바꾸다",
+    "exampleSentence": "Every time the team met a requirement, the client would move the goalposts by introducing a new one.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "put the cart before the horse",
+    "meaning": "일의 순서를 거꾸로 하다",
+    "exampleSentence": "Designing the advertising campaign before testing the product would put the cart before the horse.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "keep one's cards close to one's chest",
+    "meaning": "계획이나 속내를 감추다",
+    "exampleSentence": "The negotiator tends to keep their cards close to their chest until the other side reveals its priorities.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "pull the rug out from under someone",
+    "meaning": "갑자기 기반이나 지원을 빼앗다",
+    "exampleSentence": "The sudden withdrawal of funding could pull the rug out from under the team just as the research enters its final phase.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "the final straw",
+    "meaning": "더는 참을 수 없게 만드는 마지막 사건",
+    "exampleSentence": "The third unexplained delay was the final straw, and the client canceled the contract.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "a faustian bargain",
+    "meaning": "큰 이득을 위해 원칙을 희생하는 거래",
+    "exampleSentence": "Accepting unlimited funding in exchange for editorial control would amount to a Faustian bargain.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "an albatross around one's neck",
+    "meaning": "오랫동안 벗어나기 힘든 큰 부담",
+    "exampleSentence": "The abandoned stadium became an albatross around the city's neck, draining the city's budget for decades.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "cast pearls before swine",
+    "meaning": "가치를 모르는 이에게 귀한 것을 주다",
+    "exampleSentence": "Explaining the manuscript's subtle symbolism to an audience determined to mock it felt like trying to cast pearls before swine.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "cut the gordian knot",
+    "meaning": "복잡한 문제를 과감히 단번에 해결하다",
+    "exampleSentence": "Rather than amend the failing system again, the minister chose to cut the Gordian knot by replacing it entirely.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "have feet of clay",
+    "meaning": "존경받는 사람에게도 숨은 결점이나 약점이 있다",
+    "exampleSentence": "Despite the professor's formidable reputation, the scandal revealed that even admired scholars can have feet of clay.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "good afternoon",
+    "meaning": "안녕하세요(오후 인사)",
+    "exampleSentence": "It is two o'clock, so the teacher says, “good afternoon.”",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "see you tomorrow",
+    "meaning": "내일 봐",
+    "exampleSentence": "We have class again tomorrow. see you tomorrow!",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "welcome back",
+    "meaning": "다시 와서 반가워",
+    "exampleSentence": "You were away last week. welcome back!",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "of course",
+    "meaning": "물론이지",
+    "exampleSentence": "“Can I use this chair?” “of course, you can.”",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "just a moment",
+    "meaning": "잠시만요",
+    "exampleSentence": "“Can I speak to Mr. Lee?” “just a moment, please.”",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "get ready",
+    "meaning": "준비하다",
+    "exampleSentence": "We leave in ten minutes, so please get ready.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "have a good time",
+    "meaning": "즐거운 시간을 보내다",
+    "exampleSentence": "Enjoy the festival and have a good time!",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "make sure",
+    "meaning": "반드시 확인하다",
+    "exampleSentence": "Before you leave, make sure the door is locked.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "take your time",
+    "meaning": "천천히 하다",
+    "exampleSentence": "There is no hurry, so take your time.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "as usual",
+    "meaning": "평소처럼",
+    "exampleSentence": "The bus arrived at eight, as usual.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "get the hang of",
+    "meaning": "요령을 터득하다, 익숙해지다",
+    "exampleSentence": "After a few practice sessions, I began to get the hang of the editing software.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "on the same page",
+    "meaning": "같은 이해나 의견을 갖고 있는",
+    "exampleSentence": "Before the presentation, let's make sure everyone is on the same page.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "under the weather",
+    "meaning": "몸이 좋지 않은",
+    "exampleSentence": "Jiho stayed home with a fever because he was feeling under the weather.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "miss the boat",
+    "meaning": "기회를 놓치다",
+    "exampleSentence": "Submit your application by noon, or you may miss the boat.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "pull your weight",
+    "meaning": "자기 몫을 다하다",
+    "exampleSentence": "In a group project, every member is expected to pull your weight.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "cut corners",
+    "meaning": "시간이나 돈을 아끼려고 절차를 생략하다",
+    "exampleSentence": "The contractor tried to cut corners by using cheaper materials.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "keep someone in the loop",
+    "meaning": "누군가에게 진행 상황을 계속 알려 주다",
+    "exampleSentence": "A clear weekly update can keep someone in the loop throughout a long project.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "get cold feet",
+    "meaning": "막판에 겁이 나서 주저하다",
+    "exampleSentence": "He began to get cold feet the night before signing the major contract.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "jump to conclusions",
+    "meaning": "성급하게 결론을 내리다",
+    "exampleSentence": "Do not jump to conclusions before you have heard both sides of the story.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "keep a straight face",
+    "meaning": "웃음을 참으며 진지한 표정을 유지하다",
+    "exampleSentence": "The absurd excuse was so funny that I could barely keep a straight face.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "throw a curveball",
+    "meaning": "예상하지 못한 문제를 안겨 주다",
+    "exampleSentence": "The client decided to throw a curveball by demanding a complete redesign two days before launch.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "take it with a grain of salt",
+    "meaning": "어떤 말을 곧이곧대로 믿지 않다",
+    "exampleSentence": "Because the claim comes from an anonymous source, researchers should take it with a grain of salt.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "go down a rabbit hole",
+    "meaning": "한 주제에 깊이 빠져 끝없이 파고들다",
+    "exampleSentence": "I intended to verify one citation, but began to go down a rabbit hole and spent hours reading related papers.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "the elephant in the room",
+    "meaning": "모두 알지만 언급을 피하는 명백한 문제",
+    "exampleSentence": "Everyone discussed minor expenses but avoided discussing the elephant in the room: the company might be insolvent.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "a hobson's choice",
+    "meaning": "선택권이 있는 듯하지만 사실상 한 가지뿐인 선택",
+    "exampleSentence": "The supplier's ultimatum left us with a Hobson's choice: accept the contract exactly as written or receive nothing.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "a poisoned chalice",
+    "meaning": "겉보기에는 매력적이나 큰 위험이나 부담이 따르는 것",
+    "exampleSentence": "The prestigious post proved to be a poisoned chalice because every predecessor had been blamed for impossible targets.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "a pyrrhic victory",
+    "meaning": "대가가 너무 커서 사실상 손해인 승리",
+    "exampleSentence": "Winning the lawsuit after spending more than the award amounted to a Pyrrhic victory.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "bell the cat",
+    "meaning": "위험을 감수하고 어려운 일을 맡다",
+    "exampleSentence": "Everyone agreed that the director must be confronted, but no one volunteered to bell the cat.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "rob peter to pay paul",
+    "meaning": "한쪽 빚을 갚으려고 다른 쪽의 돈을 끌어 쓰다",
+    "exampleSentence": "Using the pension fund to cover short-term payroll would merely rob Peter to pay Paul.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "i'm sorry",
+    "meaning": "미안해요",
+    "exampleSentence": "I stepped on Tom's foot, so I said i'm sorry to him.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "well done",
+    "meaning": "잘했어",
+    "exampleSentence": "The coach said well done after we completed the exercise perfectly.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "happy birthday",
+    "meaning": "생일 축하해",
+    "exampleSentence": "We sang happy birthday to Mia before she blew out the candles.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "bless you",
+    "meaning": "재채기한 사람에게 하는 인사",
+    "exampleSentence": "When Leo sneezed, everyone said bless you.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "me too",
+    "meaning": "나도 그래",
+    "exampleSentence": "Nina said she loved the song, and I said me too because I loved it too.",
+    "category": "idioms",
+    "level": "A1"
+  },
+  {
+    "word": "sounds good",
+    "meaning": "좋네, 괜찮네",
+    "exampleSentence": "Your plan sounds good, so let's try it.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "at the moment",
+    "meaning": "지금, 현재",
+    "exampleSentence": "The manager cannot speak with you at the moment; please call again after lunch.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "a little bit",
+    "meaning": "조금, 약간",
+    "exampleSentence": "The soup is almost ready, but it needs a little bit more salt.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "one more time",
+    "meaning": "한 번 더",
+    "exampleSentence": "I did not hear the number, so please say it one more time.",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "how about",
+    "meaning": "~은 어때?, ~하는 게 어때?",
+    "exampleSentence": "For dinner, how about the new Italian restaurant?",
+    "category": "idioms",
+    "level": "A2"
+  },
+  {
+    "word": "on purpose",
+    "meaning": "일부러, 고의로",
+    "exampleSentence": "Jin spilled the water by accident, not on purpose.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "pull someone's leg",
+    "meaning": "농담으로 누군가를 속이다, 놀리다",
+    "exampleSentence": "To pull someone's leg means to tease a person by making them believe something untrue.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "change your mind",
+    "meaning": "생각을 바꾸다",
+    "exampleSentence": "You can change your mind if you decide the blue jacket suits you better.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "give someone a hand",
+    "meaning": "누군가를 도와주다",
+    "exampleSentence": "To give someone a hand means to help a person with a task.",
+    "category": "idioms",
+    "level": "B1"
+  },
+  {
+    "word": "bite off more than you can chew",
+    "meaning": "감당할 수 있는 것보다 너무 많은 일을 맡다",
+    "exampleSentence": "By accepting three freelance jobs while studying full-time, you may bite off more than you can chew.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "keep an eye on something",
+    "meaning": "무언가를 계속 지켜보다, 주의 깊게 살피다",
+    "exampleSentence": "To keep an eye on something means to watch it carefully for a period of time.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "jump on the bandwagon",
+    "meaning": "유행하거나 성공하는 흐름에 편승하다",
+    "exampleSentence": "Once the rival app became popular, several companies rushed to jump on the bandwagon.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "leave someone in the lurch",
+    "meaning": "누군가를 곤경에 빠뜨린 채 버리다",
+    "exampleSentence": "To leave someone in the lurch means to abandon a person when they need help.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "make the most of something",
+    "meaning": "무언가를 최대한 활용하다",
+    "exampleSentence": "To make the most of something means to use an opportunity or situation as effectively as possible.",
+    "category": "idioms",
+    "level": "B2"
+  },
+  {
+    "word": "pull no punches",
+    "meaning": "거리낌 없이 직설적으로 말하다",
+    "exampleSentence": "The independent panel promised to pull no punches when assessing the minister's failures.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "take the wind out of someone's sails",
+    "meaning": "남의 자신감이나 의욕을 꺾다",
+    "exampleSentence": "To take the wind out of someone's sails is to undermine another person's confidence or enthusiasm.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "get the short end of the stick",
+    "meaning": "불공평하게 불리한 몫을 받다",
+    "exampleSentence": "Temporary workers often get the short end of the stick when benefits are allocated.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "muddy the waters",
+    "meaning": "상황을 더 혼란스럽게 만들다",
+    "exampleSentence": "Introducing unrelated allegations will only muddy the waters and delay a clear decision.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "steal someone's thunder",
+    "meaning": "남이 받을 관심이나 공을 가로채다",
+    "exampleSentence": "To steal someone's thunder is to take attention or credit that another person expected to receive.",
+    "category": "idioms",
+    "level": "C1"
+  },
+  {
+    "word": "a curate's egg",
+    "meaning": "장단점이 뒤섞여 평가가 엇갈리는 것",
+    "exampleSentence": "The reform is a curate's egg: its transparency provisions are excellent, but its enforcement mechanism is unworkable.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "beard the lion in his den",
+    "meaning": "상대의 본거지에서 권력자에게 정면으로 맞서다",
+    "exampleSentence": "Few auditors were willing to beard the lion in his den by challenging the governor in his own office.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "strain at a gnat and swallow a camel",
+    "meaning": "작은 문제는 따지면서 훨씬 큰 잘못은 받아들이다",
+    "exampleSentence": "Rejecting a twenty-dollar expense while approving an unreviewed million-dollar contract is to strain at a gnat and swallow a camel.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "a rod for one's own back",
+    "meaning": "스스로 만든 골칫거리",
+    "exampleSentence": "The phrase a rod for one's own back describes a problem that someone creates for themselves through an unwise decision.",
+    "category": "idioms",
+    "level": "C2"
+  },
+  {
+    "word": "ride roughshod over",
+    "meaning": "남의 권리나 의견을 난폭하게 무시하다",
+    "exampleSentence": "The chair cannot ride roughshod over local objections merely because the deadline is tight.",
+    "category": "idioms",
+    "level": "C2"
+  }
+]
