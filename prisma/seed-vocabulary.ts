@@ -6,11 +6,18 @@ import type { VocabularySource } from "@/entities/vocabulary";
 import { PrismaClient } from "../lib/generated/prisma/client";
 import { loadArtifact, VOCAB_ARTIFACT } from "./scripts/lib/load-artifact";
 
-const SEED_TRANSACTION_TIMEOUT_MS = 5 * 60 * 1_000;
+/**
+ * 원격 DB 왕복이 200ms 안팎이라 4,650건을 순차 upsert 하면 16분이 걸린다.
+ * 단일 트랜잭션으로 감싸면 5분 제한에 걸려 전량 롤백되므로(P2028) 트랜잭션을 걷어내고
+ * 소규모 병렬 배치로 나눈다. upsert 는 word 단위 멱등이라 중간에 끊겨도 재실행하면 이어진다.
+ */
+const UPSERT_CONCURRENCY = 10;
+const PROGRESS_INTERVAL = 500;
 
 function createPrismaClient(): PrismaClient {
   const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
+    max: UPSERT_CONCURRENCY,
   });
 
   return new PrismaClient({ adapter });
@@ -26,11 +33,14 @@ async function main(): Promise<void> {
   const prisma = createPrismaClient();
 
   try {
-    await prisma.$transaction(
-      async (transaction) => {
-        for (const vocabulary of vocabularies) {
-          await transaction.vocabulary.upsert({
+    for (let offset = 0; offset < vocabularies.length; offset += UPSERT_CONCURRENCY) {
+      const batch = vocabularies.slice(offset, offset + UPSERT_CONCURRENCY);
+
+      await Promise.all(
+        batch.map((vocabulary) =>
+          prisma.vocabulary.upsert({
             where: { word: vocabulary.word },
+            // 오디오 URL(audioUrl·exampleAudioUrl)은 소스에 없다. update 에서 빼야 기존 음성이 지워지지 않는다.
             update: {
               meaning: vocabulary.meaning,
               pronunciation: vocabulary.pronunciation ?? null,
@@ -46,11 +56,15 @@ async function main(): Promise<void> {
               category: vocabulary.category,
               level: vocabulary.level,
             },
-          });
-        }
-      },
-      { timeout: SEED_TRANSACTION_TIMEOUT_MS }
-    );
+          })
+        )
+      );
+
+      const processed = offset + batch.length;
+      if (processed % PROGRESS_INTERVAL === 0 || processed === vocabularies.length) {
+        console.log(`   ... ${processed}/${vocabularies.length}`);
+      }
+    }
 
     const [finalCount, levelCounts, categoryCounts] = await Promise.all([
       prisma.vocabulary.count(),
