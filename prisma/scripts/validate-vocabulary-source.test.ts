@@ -42,8 +42,14 @@ describe("validateVocabularySource", () => {
     expect(report.errors[0].word).toBe("apple");
   });
 
-  it("vocab 카테고리는 idioms 를 허용하지 않는다(quiz 전용) — hard fail", () => {
+  it("vocab 카테고리는 idioms 를 허용한다 — ADR 0002 가 quiz 전용 규칙을 뒤집었다", () => {
+    // 관용구가 사전에 없으면 퀴즈에서 틀려도 복습 큐에 안 들어간다. 그래서 편입했다.
     const report = validateVocabularySource([rec({ ...valid, category: "idioms" })]);
+    expect(report.passed).toBe(true);
+  });
+
+  it("정의되지 않은 카테고리는 여전히 hard fail", () => {
+    const report = validateVocabularySource([rec({ ...valid, category: "slang" })]);
     expect(report.passed).toBe(false);
   });
 
@@ -67,7 +73,7 @@ describe("validateVocabularySource", () => {
 
     try {
       const report = writeVocabularyValidationReport(root, [
-        rec({ ...valid, category: "idioms" }),
+        rec({ ...valid, category: "slang" }),
       ]);
 
       expect(report.passed).toBe(false);

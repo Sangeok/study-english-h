@@ -223,7 +223,7 @@ model Vocabulary {
   meaning         String
   pronunciation   String?
   exampleSentence String?
-  category        String // daily, business, toeic, travel
+  category        String // daily, business, toeic, travel, idioms
   level           String // A1-C2
   audioUrl        String?
   exampleAudioUrl String?

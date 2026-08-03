@@ -5,13 +5,19 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import type { QuizQuestionSource } from "@/entities/question/lib/quiz-source-schema";
 import { PrismaClient } from "../lib/generated/prisma/client";
 import { loadArtifact, QUIZ_ARTIFACT } from "./scripts/lib/load-artifact";
-import { resolveQuizSeedMode, seedQuizQuestions } from "./scripts/lib/quiz-seed";
+import { QUIZ_SEED_CONCURRENCY, resolveQuizSeedMode, seedQuizQuestions } from "./scripts/lib/quiz-seed";
 
-const SEED_TRANSACTION_TIMEOUT_MS = 5 * 60 * 1_000;
-
+/**
+ * 단일 트랜잭션으로 감싸지 않는다 — 887문항이 5분 제한을 넘겨 전량 롤백된다(seed-vocabulary 와 같은 이유).
+ *
+ * 대가: reset 모드가 원자적이지 않다. 삭제 후 적재 도중 끊기면 문항이 부분만 남는다.
+ * upsert 가 멱등이라 재실행으로 복구되고, reset 은 어차피 UserQuizAttempt 까지 cascade 로
+ * 지우는 명시적 파괴 작업이라 감수한다.
+ */
 function createPrismaClient(): PrismaClient {
   const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
+    max: QUIZ_SEED_CONCURRENCY,
   });
 
   return new PrismaClient({ adapter });
@@ -29,47 +35,49 @@ async function main(): Promise<void> {
   const prisma = createPrismaClient();
 
   try {
-    const seededCount = await prisma.$transaction(
-      async (transaction) =>
-        seedQuizQuestions({
-          questions: quizQuestions,
-          mode,
-          operations: {
-            deleteExisting: () => transaction.quizQuestion.deleteMany({}),
-            upsert: (question) =>
-              transaction.quizQuestion.upsert({
-                where: {
-                  difficulty_englishWord: {
-                    difficulty: question.difficulty,
-                    englishWord: question.englishWord,
-                  },
-                },
-                update: {
-                  koreanHint: question.koreanHint,
-                  contextHintKo: question.contextHintKo,
-                  sentence: question.sentence,
-                  category: question.category,
-                  options: {
-                    deleteMany: {},
-                    create: question.options,
-                  },
-                },
-                create: {
-                  koreanHint: question.koreanHint,
-                  contextHintKo: question.contextHintKo,
-                  englishWord: question.englishWord,
-                  sentence: question.sentence,
-                  difficulty: question.difficulty,
-                  category: question.category,
-                  options: {
-                    create: question.options,
-                  },
-                },
-              }),
-          },
-        }),
-      { timeout: SEED_TRANSACTION_TIMEOUT_MS }
-    );
+    const seededCount = await seedQuizQuestions({
+      questions: quizQuestions,
+      mode,
+      onProgress: (processed, total) => {
+        if (processed % 100 === 0 || processed === total) {
+          console.log(`   ... ${processed}/${total}`);
+        }
+      },
+      operations: {
+        deleteExisting: () => prisma.quizQuestion.deleteMany({}),
+        upsert: (question) =>
+          prisma.quizQuestion.upsert({
+            where: {
+              difficulty_englishWord: {
+                difficulty: question.difficulty,
+                englishWord: question.englishWord,
+              },
+            },
+            // sentenceAudioUrl 은 소스에 없다. update 에서 빼야 기존 문장 음성이 지워지지 않는다.
+            update: {
+              koreanHint: question.koreanHint,
+              contextHintKo: question.contextHintKo,
+              sentence: question.sentence,
+              category: question.category,
+              options: {
+                deleteMany: {},
+                create: question.options,
+              },
+            },
+            create: {
+              koreanHint: question.koreanHint,
+              contextHintKo: question.contextHintKo,
+              englishWord: question.englishWord,
+              sentence: question.sentence,
+              difficulty: question.difficulty,
+              category: question.category,
+              options: {
+                create: question.options,
+              },
+            },
+          }),
+      },
+    });
 
     const [totalCount, byDifficulty, byCategory] = await Promise.all([
       prisma.quizQuestion.count(),

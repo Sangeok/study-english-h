@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { QuizQuestionSource } from "@/entities/question/lib/quiz-source-schema";
 import packageJson from "../../../package.json";
-import { resolveQuizSeedMode, seedQuizQuestions } from "./quiz-seed";
+import { QUIZ_SEED_CONCURRENCY, resolveQuizSeedMode, seedQuizQuestions } from "./quiz-seed";
 
 const question: QuizQuestionSource = {
   koreanHint: "사과",
@@ -79,9 +79,53 @@ describe("seedQuizQuestions", () => {
     expect(calls).toEqual(["delete", "upsert"]);
   });
 
-  it("should propagate an upsert error and stop processing later questions", async () => {
+  it("should propagate an upsert error and stop before the next batch", async () => {
+    // 배치 처리라 "실패 직후 즉시 중단"보다 약하다 — 같은 배치는 끝까지 가고, 다음 배치가 없다.
     const upsertError = new Error("upsert failed");
     const upsert = vi.fn().mockRejectedValue(upsertError);
+    const questions = Array.from({ length: QUIZ_SEED_CONCURRENCY + 5 }, (_, index) => ({
+      ...question,
+      englishWord: `word-${index}`,
+    }));
+
+    const result = seedQuizQuestions({
+      questions,
+      mode: "upsert",
+      operations: { deleteExisting: vi.fn(), upsert },
+    });
+
+    await expect(result).rejects.toBe(upsertError);
+    expect(upsert).toHaveBeenCalledTimes(QUIZ_SEED_CONCURRENCY);
+  });
+
+  it("should report progress per batch so a long seed is observable", async () => {
+    const onProgress = vi.fn();
+    const questions = Array.from({ length: QUIZ_SEED_CONCURRENCY + 3 }, (_, index) => ({
+      ...question,
+      englishWord: `word-${index}`,
+    }));
+
+    await seedQuizQuestions({
+      questions,
+      mode: "upsert",
+      operations: { deleteExisting: vi.fn(), upsert: vi.fn().mockResolvedValue(undefined) },
+      onProgress,
+    });
+
+    expect(onProgress.mock.calls).toEqual([
+      [QUIZ_SEED_CONCURRENCY, questions.length],
+      [questions.length, questions.length],
+    ]);
+  });
+
+  it("should surface only the first rejection when several fail together", async () => {
+    // allSettled 로 받지 않으면 나머지 거부가 unhandled 로 샌다.
+    const first = new Error("first");
+    const upsert = vi
+      .fn()
+      .mockRejectedValueOnce(first)
+      .mockRejectedValueOnce(new Error("second"))
+      .mockResolvedValue(undefined);
 
     const result = seedQuizQuestions({
       questions: [question, { ...question, englishWord: "banana" }],
@@ -89,7 +133,6 @@ describe("seedQuizQuestions", () => {
       operations: { deleteExisting: vi.fn(), upsert },
     });
 
-    await expect(result).rejects.toBe(upsertError);
-    expect(upsert).toHaveBeenCalledOnce();
+    await expect(result).rejects.toBe(first);
   });
 });
