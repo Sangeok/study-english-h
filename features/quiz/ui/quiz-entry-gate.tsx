@@ -3,6 +3,7 @@
 import { useState, useSyncExternalStore } from "react";
 import { QuizContainer } from "./quiz-container";
 import { AudioToggle } from "./audio-toggle";
+import { readQuizSession, type QuizSessionSnapshot } from "../lib/quiz-session-storage";
 
 const STORAGE_KEY = "quiz-listening-enabled";
 
@@ -70,9 +71,30 @@ export function QuizEntryGate() {
     () => true // 서버 스냅샷 — 기본은 "듣기 포함"
   );
   const [started, setStarted] = useState(false);
+  const [restoredSession, setRestoredSession] = useState<QuizSessionSnapshot | null>(null);
+
+  /**
+   * 진행 중 세션은 **여기서, 클릭 시점에 한 번만** 읽는다.
+   *
+   * 렌더 중에 읽으면 위 주석이 경고하는 하이드레이션 불일치가 그대로 재현되고,
+   * useSyncExternalStore 로 감싸려면 매 호출마다 새 객체를 만들지 않도록 캐시를 따로 들어야 한다.
+   * 클릭 핸들러는 서버에서 실행되지 않으므로 둘 다 피한다.
+   */
+  function handleStart() {
+    const result = readQuizSession();
+    setRestoredSession(result.status === "ready" ? result.session : null);
+    setStarted(true);
+  }
 
   if (started) {
-    return <QuizContainer listeningEnabled={isListeningEnabled} />;
+    return (
+      <QuizContainer
+        // 복원본이 있으면 그쪽 값이 이긴다 — 진행 중 세션의 문항 구성은 바꿀 수 없다.
+        //   토글 변경은 다음 퀴즈부터 반영된다.
+        listeningEnabled={restoredSession?.listeningEnabled ?? isListeningEnabled}
+        restoredSession={restoredSession}
+      />
+    );
   }
 
   return (
@@ -96,7 +118,7 @@ export function QuizEntryGate() {
         </div>
 
         <button
-          onClick={() => setStarted(true)}
+          onClick={handleStart}
           className="tactile-btn tactile-btn--block tactile-btn--lg mt-6 bg-cobalt-lt text-white"
         >
           시작하기
