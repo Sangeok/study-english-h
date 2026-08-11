@@ -62,7 +62,9 @@ export async function processGamificationRewards(
       {
         totalWordLearned: profile?.totalWordLearned ?? 0,
         currentStreak: event.currentStreak,
-        recentAccuracy: event.accuracy,
+        // 플래시카드는 채점이 없다 — event.accuracy 는 "잊음이 아닌 비율"(자기평가)이라
+        // 정확도 배지의 근거가 될 수 없으므로 판정에서 뺀다.
+        recentAccuracy: event.type === "flashcard" ? undefined : event.accuracy,
         leagueTier: league?.tier ?? 0,
       },
       tx,

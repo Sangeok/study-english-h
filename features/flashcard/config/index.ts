@@ -4,7 +4,13 @@ export {
   MASTERY_RESULT_CARDS,
   type MasteryResultCardStyle,
 } from "./mastery";
-export { DIFFICULTY_OPTIONS, type DifficultyOption } from "./difficulty";
+export {
+  DIFFICULTY_OPTIONS,
+  QUALITY_RESULT_ORDER,
+  QUALITY_RESULT_CARDS,
+  type DifficultyOption,
+  type QualityResultCardStyle,
+} from "./difficulty";
 export { FLASHCARD_ROUTES } from "./routes";
 export { FLASHCARD_STORAGE_KEYS } from "./storage";
 export {

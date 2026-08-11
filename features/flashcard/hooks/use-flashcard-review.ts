@@ -13,7 +13,7 @@ import { useToast } from "@/shared/ui";
 import { useRewardToast } from "@/features/gamification";
 import { submitReviews } from "../api/flashcard-api";
 import { FLASHCARD_ROUTES, FLASHCARD_STORAGE_KEYS } from "../config";
-import type { ReviewRequest } from "../types";
+import type { ReviewRequest, SessionResult } from "../types";
 
 export function useFlashcardReview() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export function useFlashcardReview() {
 
   return useMutation({
     mutationFn: (data: ReviewRequest) => submitReviews(data),
-    onSuccess: (response) => {
+    onSuccess: (response, variables) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.flashcard.all,
       });
@@ -34,11 +34,13 @@ export function useFlashcardReview() {
       }
 
       // 2) 결과 화면 표시 데이터 저장 (gamification은 결과 화면이 소비하지 않으므로 제외)
-      const resultData = {
+      //    duration 은 응답에 없고 요청에만 있으므로 variables 에서 가져온다.
+      const resultData: SessionResult = {
         xp: response.summary.xpEarned,
-        accuracy: response.summary.accuracy,
         total: response.summary.total,
-        correct: response.summary.correct,
+        remembered: response.summary.remembered,
+        durationSec: variables.duration,
+        breakdown: response.summary.breakdown,
         results: response.results,
       };
 
@@ -51,11 +53,13 @@ export function useFlashcardReview() {
         console.error("Failed to store flashcard result:", e);
       }
 
+      // 새로고침 대비 fallback — 난이도 분포/카드별 결과는 sessionStorage 에만 있고
+      // URL 로는 복원되지 않는다(결과 화면이 해당 블록을 숨긴다).
       const params = new URLSearchParams({
         xp: String(response.summary.xpEarned),
-        accuracy: String(response.summary.accuracy),
         total: String(response.summary.total),
-        correct: String(response.summary.correct),
+        remembered: String(response.summary.remembered),
+        duration: String(variables.duration),
       });
 
       router.push(`${FLASHCARD_ROUTES.result}?${params.toString()}`);

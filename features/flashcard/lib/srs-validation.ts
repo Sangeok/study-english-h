@@ -22,6 +22,11 @@ export const studyModeSchema = z.enum([
 export const reviewEntrySchema = z.object({
   vocabularyId: z.string().min(1, "Vocabulary ID is required"),
   quality: reviewQualitySchema,
+  /**
+   * 받기만 하고 **서버가 무시한다** — 플래시카드에는 채점이 없어 quality 에서 파생하는
+   * 값이며, 파생은 서버가 한다(app/api/flashcard/review/route.ts).
+   * 클라이언트가 더 이상 보내지 않게 되면 이 필드를 제거할 것.
+   */
   isCorrect: z.boolean(),
   timeSpent: z.number().int().min(0, "Time spent must be non-negative"),
 });

@@ -84,7 +84,8 @@ function evaluateAchievement(
     case "streak":
       return ctx.currentStreak >= def.requirement;
     case "accuracy":
-      return ctx.recentAccuracy >= def.requirement;
+      // 정확도 미측정 세션(자기평가 기반 플래시카드)은 판정 대상에서 제외한다.
+      return ctx.recentAccuracy !== undefined && ctx.recentAccuracy >= def.requirement;
     case "league":
       return ctx.leagueTier >= def.requirement;
     case "special":

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import { formatSessionDuration } from "../../lib/format-session-duration";
 
-type StatTone = "ocean" | "gold" | "teal" | "coral";
+type StatTone = "gold" | "ocean" | "grape";
 
 interface StatItem {
   id: string;
@@ -11,48 +12,42 @@ interface StatItem {
 }
 
 interface StatsGridProps {
-  accuracy: number;
   xp: number;
-  correct: number;
+  durationSec: number;
   total: number;
 }
 
 const toneSurface: Record<StatTone, string> = {
-  ocean: "bg-ocean border-ocean-edge",
   gold: "bg-gold border-gold-edge",
-  teal: "bg-teal border-teal-edge",
-  coral: "bg-coral border-coral-edge",
+  ocean: "bg-ocean border-ocean-edge",
+  grape: "bg-grape border-grape-edge",
 };
 
-export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
+export function StatsGrid({ xp, durationSec, total }: StatsGridProps) {
+  const averageSec = total > 0 ? Math.round(durationSec / total) : 0;
+
   const stats: StatItem[] = [
-    {
-      id: "accuracy",
-      label: "정답률",
-      value: `${accuracy.toFixed(1)}%`,
-      subtext: "이번 세션 정답률",
-      tone: "ocean",
-    },
     {
       id: "xp",
       label: "획득 XP",
       value: `+${xp}`,
-      subtext: "정답당 5 XP",
+      // xpEarned = 기억한 카드 수 × 5 (app/api/flashcard/review/route.ts)
+      subtext: "기억한 카드당 5 XP",
       tone: "gold",
     },
     {
-      id: "correct",
-      label: "정답",
-      value: String(correct),
-      subtext: `총 ${total}문제`,
-      tone: "teal",
+      id: "duration",
+      label: "학습 시간",
+      value: formatSessionDuration(durationSec),
+      subtext: `카드 ${total}장`,
+      tone: "ocean",
     },
     {
-      id: "total",
-      label: "전체",
-      value: String(total),
-      subtext: "이번 세션 완료",
-      tone: "coral",
+      id: "average",
+      label: "카드당 평균",
+      value: formatSessionDuration(averageSec),
+      subtext: "한 장에 쓴 시간",
+      tone: "grape",
     },
   ];
 
@@ -60,7 +55,7 @@ export function StatsGrid({ accuracy, xp, correct, total }: StatsGridProps) {
   const isGold = (tone: StatTone) => tone === "gold";
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {stats.map((stat, idx) => (
         <div
           key={stat.id}

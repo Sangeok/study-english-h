@@ -7,11 +7,12 @@ import { countBy } from "@/shared/lib/array-utils";
 import { FLASHCARD_RESULT_MESSAGES, FLASHCARD_ROUTES, FLASHCARD_STORAGE_KEYS } from "../../config";
 import type { MasteryLevel, SessionResult } from "../../types";
 import { MasteryBreakdown } from "./mastery-breakdown";
+import { QualityBreakdownCard } from "./quality-breakdown";
 import { StatsGrid } from "./stats-grid";
 
-function getResultHeader(accuracy: number) {
+function getResultHeader(retention: number) {
   return (
-    FLASHCARD_RESULT_MESSAGES.find((entry) => accuracy >= entry.minAccuracy) ??
+    FLASHCARD_RESULT_MESSAGES.find((entry) => retention >= entry.minRetention) ??
     FLASHCARD_RESULT_MESSAGES[FLASHCARD_RESULT_MESSAGES.length - 1]
   );
 }
@@ -35,14 +36,16 @@ export function SessionResultContent() {
 
     return {
       xp: Number(searchParams.get("xp") || 0),
-      accuracy: Number(searchParams.get("accuracy") || 0),
       total: Number(searchParams.get("total") || 0),
-      correct: Number(searchParams.get("correct") || 0),
+      remembered: Number(searchParams.get("remembered") || 0),
+      durationSec: Number(searchParams.get("duration") || 0),
     };
   });
 
-  const { xp, accuracy, total, correct, results } = sessionResult;
-  const resultHeader = getResultHeader(accuracy);
+  const { xp, total, remembered, durationSec, breakdown, results } = sessionResult;
+  // 회상률 — 헤드라인 문구와 진행바에만 쓰는 내부 비율이다. 화면에 %로 노출하지 않는다.
+  const retention = total > 0 ? (remembered / total) * 100 : 0;
+  const resultHeader = getResultHeader(retention);
 
   const masteryBreakdown = (
     results ? countBy(results, (result) => result.masteryLevel) : {}
@@ -59,7 +62,8 @@ export function SessionResultContent() {
       <div className="pointer-events-none absolute -right-24 top-40 h-64 w-64 rounded-full bg-gold-tint blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-4xl space-y-6">
-        {/* Celebratory hero — accuracy as giant display % */}
+        {/* Celebratory hero — 기억한 카드 수를 그대로 보여준다.
+            플래시카드는 채점이 없으므로 정답률(%)을 만들어 내지 않는다. */}
         <div className="relative overflow-hidden rounded-[28px] border border-teal-edge bg-teal p-8 text-white animate-[pop-in]">
           <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/10" aria-hidden />
           <div className="absolute right-24 -bottom-10 h-32 w-32 rounded-full bg-white/10" aria-hidden />
@@ -76,11 +80,11 @@ export function SessionResultContent() {
             </div>
             <div className="text-right">
               <p className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/70">
-                정답률
+                기억한 카드
               </p>
               <p className="font-display text-6xl font-bold leading-none tabular-nums md:text-7xl">
-                {accuracy.toFixed(0)}
-                <span className="text-3xl">%</span>
+                {remembered}
+                <span className="text-3xl text-white/70"> / {total}</span>
               </p>
             </div>
           </div>
@@ -89,13 +93,18 @@ export function SessionResultContent() {
             <div className="tactile-progress border-white/30 bg-white/20">
               <div
                 className="tactile-progress__fill"
-                style={{ width: `${accuracy}%`, background: "var(--gold)" }}
+                style={{ width: `${retention}%`, background: "var(--gold)" }}
               />
             </div>
+            <p className="mt-2 text-xs text-white/75">
+              &quot;잊음&quot;을 누르지 않은 카드예요. 점수가 아니라 스스로 매긴 기억 여부예요.
+            </p>
           </div>
         </div>
 
-        <StatsGrid accuracy={accuracy} xp={xp} correct={correct} total={total} />
+        <StatsGrid xp={xp} durationSec={durationSec} total={total} />
+
+        {breakdown && <QualityBreakdownCard breakdown={breakdown} />}
 
         {Object.keys(masteryBreakdown).length > 0 && (
           <MasteryBreakdown breakdown={masteryBreakdown} />
