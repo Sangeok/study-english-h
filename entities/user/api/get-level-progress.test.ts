@@ -54,6 +54,12 @@ describe("getLevelProgress (집계 배선)", () => {
     });
   });
 
+  it("부채 비율의 분모로 전체 보유 수를 센다 — 도래 수와 같은 스코프(레벨 무관)여야 한다", async () => {
+    await getLevelProgress(USER_ID, "B1", NOW);
+
+    expect(db.userVocabulary.count).toHaveBeenCalledWith({ where: { userId: USER_ID } });
+  });
+
   it("성숙도 raw SQL 에 userId 와 레벨을 바인딩한다", async () => {
     await getLevelProgress(USER_ID, "B1", NOW);
 

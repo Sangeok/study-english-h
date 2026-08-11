@@ -16,7 +16,7 @@ export async function getLevelProgress(
   level: CefrLevel,
   now: Date = new Date()
 ): Promise<number> {
-  const [maturityRows, recentAttempts, reviewDebt] = await Promise.all([
+  const [maturityRows, recentAttempts, reviewDebt, totalWords] = await Promise.all([
     // 성숙도는 Vocabulary.level 조인 groupBy 가 필요해 raw SQL (period-stats 선례).
     // 테이블명은 @@map 기준: user_vocabularies, vocabularies.
     prisma.$queryRaw<MaturityRow[]>`
@@ -43,6 +43,9 @@ export async function getLevelProgress(
     prisma.userVocabulary.count({
       where: { userId, nextReviewDate: getReviewDueFilter(now) },
     }),
+    // 부채 비율의 분모 — reviewDebt 와 **같은 스코프(레벨 무관 전체)** 여야 비율이 성립한다.
+    //   여기에 레벨 필터를 넣으면 분자는 전 레벨, 분모는 현재 레벨이 되어 비율이 1 을 넘는다.
+    prisma.userVocabulary.count({ where: { userId } }),
   ]);
 
   let maturityScoreSum = 0;
@@ -57,5 +60,6 @@ export async function getLevelProgress(
     recentAttemptCount: recentAttempts.length,
     recentCorrectCount,
     reviewDebt,
+    totalWords,
   });
 }
