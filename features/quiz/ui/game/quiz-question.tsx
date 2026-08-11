@@ -150,7 +150,10 @@ export function QuizQuestion({
 
           {canRequestMoreHint && (
             <button
-              onClick={onHintRequest}
+              // 화살표로 감싸야 한다 — onClick 에 직접 넘기면 React 가 MouseEvent 를
+              //   handleHintRequest(targetLevel?) 의 첫 인자로 밀어넣어 hintLevel 이 NaN 이 되고,
+              //   제출 시 JSON 이 null 로 직렬화돼 Prisma 가 500 을 낸다(비널 Int 컬럼).
+              onClick={() => onHintRequest()}
               disabled={disabled}
               aria-label={hintButtonAriaLabel}
               className="tactile-btn tactile-btn--ghost tactile-btn--block tactile-btn--sm mb-4 border-chamber-line text-chamber-soft hover:border-chamber-soft hover:text-chamber-ink"
