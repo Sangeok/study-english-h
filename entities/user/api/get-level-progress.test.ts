@@ -15,6 +15,7 @@ vi.mock("@/lib/db", () => ({
 
 import prisma from "@/lib/db";
 import { LEVEL_PROGRESS } from "@/shared/constants";
+import { getReviewDueFilter } from "../lib/review-due";
 import { getLevelProgress } from "./get-level-progress";
 
 const db = prisma as unknown as {
@@ -49,7 +50,7 @@ describe("getLevelProgress (집계 배선)", () => {
     await getLevelProgress(USER_ID, "B1", NOW);
 
     expect(db.userVocabulary.count).toHaveBeenCalledWith({
-      where: { userId: USER_ID, nextReviewDate: { lte: NOW } },
+      where: { userId: USER_ID, nextReviewDate: getReviewDueFilter(NOW) },
     });
   });
 

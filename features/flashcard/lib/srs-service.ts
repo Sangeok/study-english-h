@@ -7,7 +7,7 @@
 
 import prisma from "@/lib/db";
 import { Vocabulary, UserVocabulary } from "@/lib/generated/prisma/client";
-import { getVocabularyStats } from "@/entities/user";
+import { getReviewDueFilter, getVocabularyStats } from "@/entities/user";
 import { buildAdjacentPriority, type CefrLevel } from "@/shared/constants";
 import { cefrLevelSchema } from "@/shared/constants/cefr-schema";
 import type { MasteryLevel, ReviewQuality } from "../types";
@@ -38,9 +38,7 @@ export async function getDueVocabularies(
   const userVocabularies = await prisma.userVocabulary.findMany({
     where: {
       userId,
-      nextReviewDate: {
-        lte: now,
-      },
+      nextReviewDate: getReviewDueFilter(now),
     },
     include: {
       vocabulary: true,

@@ -29,6 +29,7 @@ import {
   type TypingCandidate,
 } from "../features/quiz/lib/typing-selection";
 import { TYPING_QUESTION_COUNT } from "../shared/constants";
+import { getReviewDueFilter } from "../entities/user/lib/review-due";
 
 const email = process.argv[2];
 
@@ -102,7 +103,7 @@ async function main() {
   try {
     [dueRows, enrolledRows] = await Promise.all([
       prisma.userVocabulary.findMany({
-        where: { userId: user.id, nextReviewDate: { lte: now }, vocabulary: audible },
+        where: { userId: user.id, nextReviewDate: getReviewDueFilter(now), vocabulary: audible },
         orderBy: { nextReviewDate: "asc" },
         take: TYPING_QUESTION_COUNT * 4,
         select: { vocabulary: { select: vocabularySelect } },
