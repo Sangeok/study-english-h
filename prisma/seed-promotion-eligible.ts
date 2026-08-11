@@ -22,6 +22,7 @@
 import prisma from "../lib/db";
 import { getLevelProgress } from "../entities/user/api/get-level-progress";
 import { derivePromotionStatus } from "../entities/user/lib/level-progress";
+import { getReviewDueFilter } from "../entities/user/lib/review-due";
 import { cefrLevelSchema } from "../shared/constants/cefr-schema";
 import { LEVEL_PROGRESS, PROMOTION, getNextLevel } from "../shared/constants";
 
@@ -94,7 +95,7 @@ async function main() {
       select: { isCorrect: true },
     }),
     prisma.userVocabulary.count({
-      where: { userId: user.id, nextReviewDate: { lte: now } },
+      where: { userId: user.id, nextReviewDate: getReviewDueFilter(now) },
     }),
     prisma.levelPromotionAttempt.findFirst({
       where: { userId: user.id, passed: false },
@@ -261,7 +262,7 @@ async function main() {
 
   if (reviewDebt > 0 && deferReviews) {
     const updated = await prisma.userVocabulary.updateMany({
-      where: { userId: user.id, nextReviewDate: { lte: now } },
+      where: { userId: user.id, nextReviewDate: getReviewDueFilter(now) },
       data: { nextReviewDate: new Date(now.getTime() + MS_PER_DAY) },
     });
     console.log(`  복습 ${updated.count}건을 내일로 이동`);

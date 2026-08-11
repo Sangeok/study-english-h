@@ -33,6 +33,7 @@ import {
   type ListeningCandidate,
 } from "../features/quiz/lib/listening-selection";
 import { getListeningGap } from "../entities/user/api/get-listening-gap";
+import { getReviewDueFilter } from "../entities/user/lib/review-due";
 import { LISTENING_QUESTION_COUNT, CEFR_ORDER } from "../shared/constants";
 
 const email = process.argv[2];
@@ -86,7 +87,7 @@ async function main() {
   let dueRows: { vocabulary: { id: string; word: string; meaning: string; audioUrl: string | null } }[] = [];
   try {
     dueRows = await prisma.userVocabulary.findMany({
-      where: { userId: user.id, nextReviewDate: { lte: now }, vocabulary: audible },
+      where: { userId: user.id, nextReviewDate: getReviewDueFilter(now), vocabulary: audible },
       orderBy: { nextReviewDate: "asc" },
       take: LISTENING_QUESTION_COUNT * 4,
       select: { vocabulary: { select: vocabularySelect } },

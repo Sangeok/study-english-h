@@ -1,6 +1,7 @@
 import prisma from "@/lib/db";
 import { MASTERY_SCORE, LEVEL_PROGRESS, type CefrLevel } from "@/shared/constants";
 import { calculateLevelProgress } from "../lib/level-progress";
+import { getReviewDueFilter } from "../lib/review-due";
 
 interface MaturityRow {
   mastery: string;
@@ -33,15 +34,14 @@ export async function getLevelProgress(
       take: LEVEL_PROGRESS.ACCURACY_WINDOW,
       select: { isCorrect: true },
     }),
-    // 복습 부채 — "복습 도래" 술어(nextReviewDate ≤ now)는 get-vocabulary-stats.ts 의 reviewNeeded 와
-    //   동일 정의를 공동 소유한다. 둘 중 하나에서 술어가 바뀌면 반드시 함께 바꿀 것 —
-    //   진행률 페널티 D 와 화면의 "복습 N개"가 조용히 어긋나지 않도록(F3).
-    //   세 번째 사용처가 있다: 리스닝 캐스케이드 1단계(app/api/quiz/daily/route.ts).
+    // 복습 부채 — "복습 도래" 술어의 정본은 ../lib/review-due 의 getReviewDueFilter 다.
+    //   get-vocabulary-stats.ts 의 reviewNeeded·리스닝 캐스케이드 1단계가 같은 헬퍼를 쓴다.
+    //   여기서 시간 조건을 직접 쓰면 진행률 페널티 D 와 화면의 "복습 N개"가 조용히 어긋난다(F3).
     //   **시간 조건만 공유하고 레벨 스코프는 리스닝만 갖는다** — 여기와 get-vocabulary-stats 는
     //   사용자의 전 레벨 도래 단어를 세고, 캐스케이드는 현재 레벨로 좁힌다.
     //   "일관성"을 이유로 어느 한쪽의 레벨 필터를 지우거나 넣지 말 것.
     prisma.userVocabulary.count({
-      where: { userId, nextReviewDate: { lte: now } },
+      where: { userId, nextReviewDate: getReviewDueFilter(now) },
     }),
   ]);
 

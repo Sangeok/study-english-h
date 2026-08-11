@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
 import type { ProfileStats } from "../types";
+import { getReviewDueFilter } from "../lib/review-due";
 
 // 응답 계약(ProfileStats)의 어휘 3필드에서 파생한다 — 구조를 손으로 복제하면 계약이 바뀔 때
 // 생산자가 아니라 소비자(라우트)에서 깨진다.
@@ -14,10 +15,11 @@ export type VocabularyStats = Pick<
  * reviewNeeded 는 시간 의존 값(nextReviewDate 경과로 증가)이라 쓰기 시점 컬럼 캐시로는
  * 정확할 수 없다 — 읽기 시점에 이 함수를 호출해야 한다. 이 근거의 정본은 여기 하나다.
  *
- * "복습 도래" 술어(nextReviewDate ≤ now)는 get-level-progress.ts(진행률 페널티 D)와
- * 리스닝 캐스케이드 1단계(app/api/quiz/daily/route.ts)가 함께 쓴다. 다만 **시간 조건만
- * 공유하고 레벨 스코프는 리스닝만 갖는다** — 여기와 진행률 D 는 전 레벨을 세고 캐스케이드는
- * 현재 레벨로 좁힌다. 셋 중 하나에서 시간 조건이 바뀌면 반드시 함께 바꿀 것.
+ * "복습 도래" 술어의 정본은 ../lib/review-due 의 getReviewDueFilter 다 — 여기서 시간 조건을
+ * 직접 쓰지 말 것. get-level-progress.ts(진행률 페널티 D)와 리스닝 캐스케이드
+ * 1단계(app/api/quiz/daily/route.ts)가 같은 헬퍼를 쓴다. 다만 **시간 조건만 공유하고
+ * 레벨 스코프는 리스닝만 갖는다** — 여기와 진행률 D 는 전 레벨을 세고 캐스케이드는
+ * 현재 레벨로 좁힌다.
  * 두 쿼리 모두 인덱스 집계이며(@@index([userId, masteryLevel]), @@index([userId, nextReviewDate]))
  * 서로 독립이라 병렬 실행한다.
  *
@@ -44,9 +46,7 @@ export async function getVocabularyStats(
     prisma.userVocabulary.count({
       where: {
         userId,
-        nextReviewDate: {
-          lte: now,
-        },
+        nextReviewDate: getReviewDueFilter(now),
       },
     }),
   ]);

@@ -43,11 +43,17 @@ const EASE_FACTOR_ADJUSTMENTS: Record<ReviewQuality, number> = {
 
 /**
  * Calculate next review date and update SRS parameters based on SM-2 algorithm.
+ *
+ * @param now - 주입 가능한 기준 시각. 시간 의존 헬퍼의 기존 관례를 따른다
+ *   (entities/user/lib/streak.ts 의 getTodayKSTRange·calculateStreakUpdate,
+ *   entities/user/api/get-vocabulary-stats.ts 의 getVocabularyStats).
+ *   주입이 없으면 날짜 경계 동작을 테스트할 방법이 없다.
  */
 export function calculateNextReview(
   card: SRSCard,
   quality: ReviewQuality,
-  isCorrect: boolean
+  isCorrect: boolean,
+  now: Date = new Date()
 ): SRSResult {
   let { repetitions, easeFactor, interval } = card;
 
@@ -60,7 +66,7 @@ export function calculateNextReview(
       repetitions,
       easeFactor,
       interval,
-      nextReviewDate: addDays(new Date(), interval),
+      nextReviewDate: addDays(now, interval),
       masteryLevel: "new",
     };
   }
@@ -82,7 +88,7 @@ export function calculateNextReview(
     repetitions,
     easeFactor,
     interval,
-    nextReviewDate: addDays(new Date(), interval),
+    nextReviewDate: addDays(now, interval),
     masteryLevel: determineMasteryLevel(repetitions, interval),
   };
 }

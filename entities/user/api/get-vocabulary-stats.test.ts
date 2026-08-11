@@ -8,6 +8,7 @@ vi.mock("@/lib/db", () => ({
 }));
 
 import prisma from "@/lib/db";
+import { getReviewDueFilter } from "../lib/review-due";
 import { getVocabularyStats } from "./get-vocabulary-stats";
 
 const db = prisma as unknown as {
@@ -38,7 +39,7 @@ describe("getVocabularyStats (어휘 통계 집계)", () => {
     await getVocabularyStats(USER_ID, NOW);
 
     expect(db.userVocabulary.count).toHaveBeenCalledWith({
-      where: { userId: USER_ID, nextReviewDate: { lte: NOW } },
+      where: { userId: USER_ID, nextReviewDate: getReviewDueFilter(NOW) },
     });
   });
 

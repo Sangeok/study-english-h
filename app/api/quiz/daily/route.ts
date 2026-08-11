@@ -30,6 +30,7 @@ import { checkDiagnosisStatus } from "@/shared/lib/diagnosis-guards";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { shuffleArray } from "@/shared/lib";
 import { getTodayKSTRange } from "@/entities/user/lib/streak";
+import { getReviewDueFilter } from "@/entities/user/lib/review-due";
 
 const QUESTION_INCLUDE = {
   options: {
@@ -233,7 +234,7 @@ async function selectListeningDrafts(
     // 1) 도래 — 시간 조건(lte: now)의 형태는 진행률 페널티 D·화면의 "복습 N개"와 같지만,
     //    그 둘은 레벨을 가리지 않는다. 여기는 레벨 스코프를 자기 것으로 갖는다.
     prisma.userVocabulary.findMany({
-      where: { userId, nextReviewDate: { lte: now }, vocabulary: audible },
+      where: { userId, nextReviewDate: getReviewDueFilter(now), vocabulary: audible },
       orderBy: { nextReviewDate: "asc" },
       take: count * 4,
       select: { vocabulary: { select: vocabularySelect } },
@@ -308,7 +309,7 @@ async function selectTypingDrafts(
 
   const [dueRows, enrolledRows] = await Promise.all([
     prisma.userVocabulary.findMany({
-      where: { userId, nextReviewDate: { lte: now }, vocabulary: audible },
+      where: { userId, nextReviewDate: getReviewDueFilter(now), vocabulary: audible },
       orderBy: { nextReviewDate: "asc" },
       take: count * 4,
       select: { vocabulary: { select: vocabularySelect } },
