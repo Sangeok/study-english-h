@@ -26,15 +26,17 @@ export interface VocabularyWithProgress extends Vocabulary {
  *
  * @param userId - User ID
  * @param limit - Maximum number of vocabularies to return
+ * @param now - 주입 가능한 기준 시각. 시간 의존 헬퍼의 기존 관례를 따른다
+ *   (streak.ts·get-vocabulary-stats.ts·calculateNextReview). 주입이 없으면
+ *   도래 경계 동작을 테스트할 방법이 없다.
  * @returns Array of vocabularies due for review
  */
 export async function getDueVocabularies(
   userId: string,
-  limit: number = 20
+  limit: number = 20,
+  now: Date = new Date()
 ): Promise<VocabularyWithProgress[]> {
-  const now = new Date();
-
-  // Find user vocabularies where nextReviewDate <= now
+  // 도래 술어는 getReviewDueFilter 가 소유한다 — 시점 비교가 아니라 "오늘 안에 도래하는가"다.
   const userVocabularies = await prisma.userVocabulary.findMany({
     where: {
       userId,

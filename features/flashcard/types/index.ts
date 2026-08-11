@@ -42,11 +42,6 @@ export interface SessionResponse {
 export interface ReviewEntry {
   vocabularyId: string;
   quality: ReviewQuality;
-  /**
-   * SRS 내부 신호 — quality !== "forgot" 로 파생된다.
-   * 채점 결과가 아니므로 사용자에게 "정답"으로 노출하지 말 것.
-   */
-  isCorrect: boolean;
   timeSpent: number; // seconds
 }
 
