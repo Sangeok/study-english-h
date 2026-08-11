@@ -24,10 +24,16 @@ vi.mock("@/shared/lib/get-session", () => ({
 }));
 
 import prisma from "@/lib/db";
+import { toKSTDateString } from "@/entities/user/lib/streak";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { GET } from "./route";
 
 const USER_ID = "user-1";
+
+/** 라우트가 KST 자정 기준으로 "오늘부터 N일 전"까지의 날짜 축을 만든다.
+ *  날짜를 고정 문자열로 쓰면 그 날이 축을 벗어나는 순간 테스트가 깨지므로
+ *  실행 시점의 오늘을 그대로 쓴다. */
+const TODAY_KST = toKSTDateString(new Date());
 
 const db = prisma as unknown as {
   quizSession: { aggregate: ReturnType<typeof vi.fn> };
@@ -149,11 +155,11 @@ describe("일별 집계", () => {
   it("하루 문항 수가 세 유형 합계다", async () => {
     db.quizSession.aggregate.mockResolvedValue(quizSums(5, 4, 3, 2, 2, 1, 300));
     // raw SQL 이 이미 합산해 돌려준다(SUM(reading + listening + typing)).
-    givenRawRows([{ date: "2026-08-01", count: 10, total_time: 300 }], [], []);
+    givenRawRows([{ date: TODAY_KST, count: 10, total_time: 300 }], [], []);
 
     const body = await (await GET(request())).json();
     const today = body.dailyStats.find(
-      (d: { date: string }) => d.date === "2026-08-01"
+      (d: { date: string }) => d.date === TODAY_KST
     );
 
     expect(today?.quizCount).toBe(10);
