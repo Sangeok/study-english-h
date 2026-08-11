@@ -20,8 +20,12 @@ export const LEVEL_PROGRESS = {
    *  entities 가 features/diagnosis/config 를 임포트할 수 없어(FSD 상향 금지) 값을 미러링한다.
    *  진단 임계를 바꾸면 여기도 함께 바꿀 것. */
   ACCURACY_FULL_MARK: 80,
-  /** D 상한(%p) */
+  /** D 상한(%p) — 도래 비율이 100% 일 때의 페널티 */
   MAX_REVIEW_DEBT_PENALTY: 15,
+  /** D 볼륨 감쇠 기준 — 보유 단어가 이 미만이면 보유 수 비례로 감쇠.
+   *  3단어 중 3개 도래가 곧바로 최대 페널티가 되면 초기 사용자에게 과하다.
+   *  B 성분의 ACCURACY_MIN_VOLUME 과 같은 방식이며 값도 맞춘다. */
+  DEBT_MIN_VOLUME: 20,
 } as const;
 
 /** masteryLevel 문자열 키 — new 0 · learning 1/3 · reviewing 2/3 · mastered 1.

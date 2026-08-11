@@ -13,6 +13,14 @@ describe("calculateLevelProgress", () => {
     recentAttemptCount: 0,
     recentCorrectCount: 0,
     reviewDebt: 0,
+    totalWords: 0,
+  };
+
+  /** A·B 를 만점으로 채워 D 만 관찰하는 기준선 */
+  const SATURATED_AB = {
+    maturityScoreSum: 999_999,
+    recentAttemptCount: 999_999,
+    recentCorrectCount: 999_999,
   };
 
   it("콜드 스타트(모든 입력 0)는 0이다", () => {
@@ -22,28 +30,44 @@ describe("calculateLevelProgress", () => {
 
   it("상한 포화 입력은 100, 부채만 극단이면 0 — clamp 가드의 경계값", () => {
     // no-computation: min(…,1)·min(100,…)·max(0,…) 가드에서 도출되는 경계값
-    const saturated = {
-      maturityScoreSum: 999_999,
-      recentAttemptCount: 999_999,
-      recentCorrectCount: 999_999,
-      reviewDebt: 0,
-    };
-    expect(calculateLevelProgress(saturated)).toBe(100);
+    expect(calculateLevelProgress({ ...SATURATED_AB, reviewDebt: 0, totalWords: 100 })).toBe(100);
+    // 보유 0 에 부채만 있는 것은 모순 입력이다 — 비율을 만들 수 없으므로 페널티가 없다.
     expect(calculateLevelProgress({ ...EMPTY, reviewDebt: 999_999 })).toBe(0);
   });
 
-  it("복습 부채 페널티는 MAX_REVIEW_DEBT_PENALTY 에서 포화한다", () => {
-    // Tier B: min(reviewDebt, cap) 계약 — cap 초과 부채는 결과를 더 낮추지 못한다
-    const base = {
-      maturityScoreSum: 999_999,
-      recentAttemptCount: 999_999,
-      recentCorrectCount: 999_999,
-    };
-    const atCap = calculateLevelProgress({
-      ...base,
-      reviewDebt: LEVEL_PROGRESS.MAX_REVIEW_DEBT_PENALTY,
+  it("복습 부채 페널티는 도래 개수가 아니라 도래 비율에 비례한다", () => {
+    // 절대 개수로 재면 보유 단어가 늘수록 자동으로 상한에 붙어, 밀린 사용자와 성실히
+    // 복습하는 사용자를 구분하지 못한다(정상 상태의 하루 도래는 Σ(1/interval) 이라
+    // 어휘가 수백 개만 돼도 상한을 넘는다). 그래서 비율로 잰다.
+    const quarter = calculateLevelProgress({ ...SATURATED_AB, totalWords: 100, reviewDebt: 25 });
+    const half = calculateLevelProgress({ ...SATURATED_AB, totalWords: 100, reviewDebt: 50 });
+    const all = calculateLevelProgress({ ...SATURATED_AB, totalWords: 100, reviewDebt: 100 });
+
+    // 비율 100% 에서 상한에 닿는다
+    expect(100 - all).toBe(LEVEL_PROGRESS.MAX_REVIEW_DEBT_PENALTY);
+    // 비율이 낮을수록 페널티가 작다 (반올림 위치에 무관한 단조성으로 검증)
+    expect(quarter).toBeGreaterThan(half);
+    expect(half).toBeGreaterThan(all);
+  });
+
+  it("같은 도래 개수라도 보유 단어가 많으면 페널티가 작다", () => {
+    // 옛 계약(개수 기반)에서는 이 둘이 같은 값이었다.
+    const small = calculateLevelProgress({ ...SATURATED_AB, totalWords: 40, reviewDebt: 20 });
+    const large = calculateLevelProgress({ ...SATURATED_AB, totalWords: 400, reviewDebt: 20 });
+
+    expect(large).toBeGreaterThan(small);
+  });
+
+  it("보유 단어가 DEBT_MIN_VOLUME 미만이면 전부 도래여도 감쇠된다", () => {
+    // 3단어 중 3개 도래가 곧바로 최대 페널티가 되면 초기 사용자에게 과하다.
+    const few = calculateLevelProgress({ ...SATURATED_AB, totalWords: 3, reviewDebt: 3 });
+    const enough = calculateLevelProgress({
+      ...SATURATED_AB,
+      totalWords: LEVEL_PROGRESS.DEBT_MIN_VOLUME,
+      reviewDebt: LEVEL_PROGRESS.DEBT_MIN_VOLUME,
     });
-    expect(calculateLevelProgress({ ...base, reviewDebt: 999_999 })).toBe(atCap);
+
+    expect(few).toBeGreaterThan(enough);
   });
 
   it("성숙도 증가는 진행률을 감소시키지 않는다 (단조성)", () => {
@@ -75,6 +99,7 @@ describe("calculateLevelProgress", () => {
       recentAttemptCount: 21,
       recentCorrectCount: 13,
       reviewDebt: 4,
+      totalWords: 37,
     });
     expect(Number.isInteger(v)).toBe(true);
     expect(v).toBeGreaterThanOrEqual(0);
