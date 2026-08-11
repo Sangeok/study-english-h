@@ -19,8 +19,14 @@ vi.mock("@/lib/db", () => ({
 }));
 
 import prisma from "@/lib/db";
+import { getReviewDueFilter } from "@/entities/user";
 import { buildAdjacentPriority } from "@/shared/constants";
-import { getNewVocabularies, recordReview, updateProfileStats } from "./srs-service";
+import {
+  getDueVocabularies,
+  getNewVocabularies,
+  recordReview,
+  updateProfileStats,
+} from "./srs-service";
 
 const db = prisma as unknown as {
   userVocabulary: {
@@ -41,6 +47,38 @@ beforeEach(() => {
   db.vocabulary.findMany.mockResolvedValue([]);
   db.userVocabulary.findUnique.mockResolvedValue(null);
   db.userVocabulary.upsert.mockResolvedValue({});
+});
+
+describe("getDueVocabularies (도래 조회)", () => {
+  // 시간 의존 헬퍼의 기존 관례(streak·get-vocabulary-stats·calculateNextReview)를 따라
+  // now 를 주입받는다. 주입이 없으면 날짜 경계 동작을 고정할 방법이 없다.
+  // 실행 시점의 오늘과 반드시 다른 날짜여야 한다 — 컷오프는 하루 동안 움직이지 않으므로
+  // 오늘 날짜를 쓰면 주입이 무시돼도 값이 같아져 테스트가 우연히 통과한다.
+  const NOW = new Date("2026-06-15T08:00:00+09:00");
+
+  it("주입한 시각으로 도래 필터를 만든다", async () => {
+    await getDueVocabularies("user-1", 20, NOW);
+
+    expect(db.userVocabulary.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { userId: "user-1", nextReviewDate: getReviewDueFilter(NOW) },
+      })
+    );
+  });
+
+  it("어제 저녁에 학습한 카드를 오늘 아침 조회에 포함한다", async () => {
+    // 6/14 21:00 학습 + interval 1일 → 저장된 도래일은 6/15 21:00.
+    // 시점 비교(lte: now)였다면 6/15 08:00 조회에서 빠진다.
+    const sameDayEvening = new Date("2026-06-15T21:00:00+09:00");
+    // 하루 뒤 도래분은 아직 열리지 않아야 한다 — 이 단언이 컷오프를 NOW 에 묶는다.
+    const nextDayEvening = new Date("2026-06-16T21:00:00+09:00");
+
+    await getDueVocabularies("user-1", 20, NOW);
+
+    const { where } = db.userVocabulary.findMany.mock.calls[0][0];
+    expect(sameDayEvening < where.nextReviewDate.lt).toBe(true);
+    expect(nextDayEvening < where.nextReviewDate.lt).toBe(false);
+  });
 });
 
 describe("getNewVocabularies (adjacent fallback, Phase 4)", () => {

@@ -35,7 +35,6 @@ export function useFlashcardGameFlow({
       const review: ReviewEntry = {
         vocabularyId: currentCard.id,
         quality,
-        isCorrect: quality !== "forgot",
         timeSpent,
       };
 

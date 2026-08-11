@@ -2,9 +2,10 @@
 /**
  * 플래시카드 복습 제출 — 자기평가 신호를 서버가 파생하는지 지킨다.
  *
- * 플래시카드에는 채점이 없다. 클라이언트가 보내는 isCorrect 는 quality 에서 파생된 값일
- * 뿐이므로 서버가 그것을 신뢰하면 quality 와 어긋난 상태가 SRS 에 들어갈 수 있다
- * ("잊음"으로 집계되면서 동시에 간격이 늘어나는 카드). 그 경로를 여기서 막는다.
+ * 플래시카드에는 채점이 없다. isCorrect 는 API 계약에서 제거됐지만(서버가 quality 에서
+ * 파생한다) 구버전 클라이언트나 위조 요청은 여전히 보낼 수 있다. 그것을 zod 가 버리고
+ * 서버가 quality 로 다시 파생하는지를 지킨다 — 신뢰하면 "잊음"으로 집계되면서 동시에
+ * 간격이 늘어나는 카드가 생긴다.
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { NextRequest } from "next/server";
