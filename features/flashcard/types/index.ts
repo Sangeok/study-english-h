@@ -42,9 +42,16 @@ export interface SessionResponse {
 export interface ReviewEntry {
   vocabularyId: string;
   quality: ReviewQuality;
+  /**
+   * SRS 내부 신호 — quality !== "forgot" 로 파생된다.
+   * 채점 결과가 아니므로 사용자에게 "정답"으로 노출하지 말 것.
+   */
   isCorrect: boolean;
   timeSpent: number; // seconds
 }
+
+// 세션에서 사용자가 스스로 매긴 난이도 분포
+export type QualityBreakdown = Record<ReviewQuality, number>;
 
 // Review submission request
 export interface ReviewRequest {
@@ -67,9 +74,10 @@ export interface SubmitResponse {
   success: boolean;
   summary: {
     total: number;
-    correct: number;
-    accuracy: number;
+    /** "잊음"이 아닌 카드 수. 채점이 아니라 사용자의 자기평가 기준이다. */
+    remembered: number;
     xpEarned: number;
+    breakdown: QualityBreakdown;
   };
   results: ReviewResult[];
   gamification?: GamificationResult;
@@ -78,8 +86,10 @@ export interface SubmitResponse {
 // Session result (from review submission, stored in sessionStorage)
 export interface SessionResult {
   xp: number;
-  accuracy: number;
   total: number;
-  correct: number;
+  remembered: number;
+  durationSec: number;
+  /** URL fallback(새로고침) 경로에서는 전달되지 않는다. */
+  breakdown?: QualityBreakdown;
   results?: ReviewResult[];
 }

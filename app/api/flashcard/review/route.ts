@@ -13,6 +13,7 @@ import { getStreakUpdateData } from "@/entities/user";
 import { getSessionFromRequest } from "@/shared/lib/get-session";
 import { recordReview, updateProfileStats } from "@/features/flashcard/lib/srs-service";
 import { reviewRequestSchema } from "@/features/flashcard/lib/srs-validation";
+import type { QualityBreakdown } from "@/features/flashcard/types";
 import { processGamificationRewards } from "@/features/gamification/lib/gamification-engine";
 import prisma from "@/lib/db";
 
@@ -44,30 +45,28 @@ export async function POST(req: NextRequest) {
 
     // 3. Process each review
     const results = [];
-    let correctCount = 0;
-    let easyCount = 0;
-    let normalCount = 0;
-    let hardCount = 0;
-    let forgotCount = 0;
+    // 플래시카드는 채점이 없다 — rememberedCount 는 "잊음"을 누르지 않은 카드 수(자기평가)다.
+    let rememberedCount = 0;
+    const breakdown: QualityBreakdown = { easy: 0, normal: 0, hard: 0, forgot: 0 };
 
     for (const review of reviews) {
+      // 클라이언트가 보낸 isCorrect 는 신뢰하지 않는다 — 플래시카드에는 채점이 없어
+      // quality 에서 파생된 값일 뿐이다. 서버가 다시 파생해, 두 값이 어긋난 카드가
+      // ("잊음"으로 집계되면서 간격은 늘어나는 상태) SRS 에 들어가는 것을 막는다.
+      const remembered = review.quality !== "forgot";
+
       const userVocab = await recordReview(
         userId,
         review.vocabularyId,
         review.quality,
-        review.isCorrect
+        remembered
       );
 
-      if (review.isCorrect) {
-        correctCount++;
+      if (remembered) {
+        rememberedCount++;
       }
 
-      switch (review.quality) {
-        case "easy": easyCount++; break;
-        case "normal": normalCount++; break;
-        case "hard": hardCount++; break;
-        case "forgot": forgotCount++; break;
-      }
+      breakdown[review.quality]++;
 
       results.push({
         vocabularyId: review.vocabularyId,
@@ -80,11 +79,13 @@ export async function POST(req: NextRequest) {
     await updateProfileStats(userId);
 
     // 4. Calculate session statistics
-    const totalReviews = reviews.length;
-    const accuracy = (correctCount / totalReviews) * 100;
+    //    retention = 회상률(잊지 않은 비율). SRS 내부 지표이며 정답률이 아니다 —
+    //    FlashcardSession.accuracy 컬럼 이름은 스키마 호환을 위해 유지하되 사용자에게 노출하지 않는다.
+    const totalReviews = reviews.length; // reviewRequestSchema 가 min(1) 보장
+    const retention = (rememberedCount / totalReviews) * 100;
 
     // 5-7. FlashcardSession 생성 + UserProfile 업데이트를 단일 트랜잭션으로 처리
-    const xpEarned = correctCount * 5;
+    const xpEarned = rememberedCount * 5;
     const streakData = await getStreakUpdateData(userId);
 
     await prisma.$transaction(async (tx) => {
@@ -93,12 +94,12 @@ export async function POST(req: NextRequest) {
           userId,
           mode,
           vocabularyCount: totalReviews,
-          accuracy,
+          accuracy: retention,
           duration,
-          easyCount,
-          normalCount,
-          hardCount,
-          forgotCount,
+          easyCount: breakdown.easy,
+          normalCount: breakdown.normal,
+          hardCount: breakdown.hard,
+          forgotCount: breakdown.forgot,
         },
       });
 
@@ -126,20 +127,22 @@ export async function POST(req: NextRequest) {
 
     const gamificationResult = await processGamificationRewards(userId, {
       type: "flashcard",
-      correctCount,
+      correctCount: rememberedCount,
       totalCount: totalReviews,
-      accuracy,
+      // type === "flashcard" 이므로 정확도 배지 판정에서는 무시된다(자기평가라 근거가 될 수 없음).
+      accuracy: retention,
       currentStreak: streakData.currentStreak,
     });
 
     // 8. Return success response with summary
+    //    정답률은 내려보내지 않는다 — 플래시카드에는 채점이 없다.
     return NextResponse.json({
       success: true,
       summary: {
         total: totalReviews,
-        correct: correctCount,
-        accuracy: Math.round(accuracy * 10) / 10,
+        remembered: rememberedCount,
         xpEarned,
+        breakdown,
       },
       results,
       gamification: gamificationResult,

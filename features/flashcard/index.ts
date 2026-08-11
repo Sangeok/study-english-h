@@ -14,6 +14,7 @@ export type {
   ReviewEntry,
   ReviewRequest,
   ReviewResult,
+  QualityBreakdown,
   SubmitResponse,
   StudyMode,
   SessionResult,
