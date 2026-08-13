@@ -59,6 +59,7 @@ yarn-error.log*
 !/docs/specs/spec-diagnosis-incomplete-exit.md
 !/docs/specs/spec-guest-diagnosis-onboarding.md
 !/docs/specs/spec-english-content-pool-expansion.md
+!/docs/specs/spec-quiz-resume-in-progress-session.md
 !/docs/archive/
 /docs/archive/*
 !/docs/archive/rfc-remove-diagnosis-korean-hint-four-phase-plan.md

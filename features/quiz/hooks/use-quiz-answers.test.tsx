@@ -15,6 +15,13 @@ import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useQuizAnswers } from "./use-quiz-answers";
+import {
+  QUIZ_SESSION_STORAGE_KEY,
+  readQuizSession,
+  saveQuizSession,
+  type QuizSessionSnapshot,
+  type QuizSessionSnapshotInput,
+} from "../lib/quiz-session-storage";
 import type { DailyQuizItem } from "../types";
 
 type HookResult = ReturnType<typeof useQuizAnswers>;
@@ -57,27 +64,65 @@ let container: HTMLDivElement;
 let root: Root;
 let hookRef: RefObject<HookResult | null>;
 
+interface HarnessProps {
+  questions: DailyQuizItem[];
+  currentIndex: number;
+  isQuizSubmitted?: boolean;
+  restored?: QuizSessionSnapshot | null;
+}
+
 function Harness({
   questions,
   currentIndex,
-}: {
-  questions: DailyQuizItem[];
-  currentIndex: number;
-}): null {
-  const result = useQuizAnswers(questions, currentIndex, false);
+  isQuizSubmitted = false,
+  restored = null,
+}: HarnessProps): null {
+  const result = useQuizAnswers({
+    questions,
+    currentIndex,
+    isQuizSubmitted,
+    restored,
+    listeningEnabled: true,
+    userLevel: "A1",
+    hasCompletedToday: false,
+    freeHintCount: 0,
+  });
   useImperativeHandle(hookRef, () => result, [result]);
   return null;
 }
 
-async function render(questions: DailyQuizItem[], currentIndex = 0): Promise<void> {
+async function render(
+  questions: DailyQuizItem[],
+  currentIndex = 0,
+  extra: Omit<HarnessProps, "questions" | "currentIndex"> = {}
+): Promise<void> {
   await act(async () => {
-    root.render(<Harness questions={questions} currentIndex={currentIndex} />);
+    root.render(<Harness questions={questions} currentIndex={currentIndex} {...extra} />);
   });
+}
+
+/** 저장소를 거쳐 만든 복원본 — 테스트가 스냅샷 내부 필드(schemaVersion 등)를 흉내내지 않는다. */
+function restoredFrom(input: Partial<QuizSessionSnapshotInput> & { questions: DailyQuizItem[] }) {
+  saveQuizSession({
+    listeningEnabled: true,
+    userLevel: "A1",
+    hasCompletedToday: false,
+    freeHintCount: 0,
+    answers: {},
+    hintLevels: {},
+    degradedIds: [],
+    audioPlayedIds: [],
+    currentIndex: 0,
+    ...input,
+  });
+  const result = readQuizSession();
+  if (result.status !== "ready") throw new Error(`expected ready, got ${result.status}`);
+  return result.session;
 }
 
 beforeEach(() => {
   vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
-  sessionStorage.clear();
+  localStorage.clear();
 
   container = document.createElement("div");
   document.body.append(container);
@@ -255,5 +300,129 @@ describe("타이핑 — 제출 shape", () => {
     await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
 
     expect(hookRef.current?.answers["t1"]).toMatchObject({ typedAnswer: "borrow" });
+  });
+});
+
+describe("복원 — 스냅샷이 초기 상태가 된다", () => {
+  it("답안과 힌트 레벨을 시드로 받는다", async () => {
+    const restored = restoredFrom({
+      questions: [READING],
+      answers: {
+        q1: {
+          type: "reading",
+          questionId: "q1",
+          selectedAnswer: "borrow",
+          timeSpent: 5,
+          hintLevel: 1,
+        },
+      },
+      hintLevels: { q1: 1 },
+    });
+
+    await render([READING], 0, { restored });
+
+    expect(hookRef.current?.answers["q1"]).toMatchObject({ selectedAnswer: "borrow" });
+    expect(hookRef.current?.hintLevels["q1"]).toBe(1);
+  });
+
+  it("복원 후 답을 고치면 새 값이 이긴다 — 시드가 다시 덮어쓰지 않는다", async () => {
+    const restored = restoredFrom({
+      questions: [READING],
+      answers: {
+        q1: {
+          type: "reading",
+          questionId: "q1",
+          selectedAnswer: "borrow",
+          timeSpent: 5,
+          hintLevel: 0,
+        },
+      },
+    });
+
+    await render([READING], 0, { restored });
+    await act(async () => hookRef.current?.handleAnswer("q1", "freeze"));
+
+    expect(hookRef.current?.answers["q1"]).toMatchObject({ selectedAnswer: "freeze" });
+  });
+
+  it("강등 표시를 복원한다 — 되살아난 문항의 autoDegraded 가 살아 있다", async () => {
+    const restored = restoredFrom({ questions: [LISTENING], degradedIds: ["v1"] });
+
+    await render([LISTENING], 0, { restored });
+    await act(async () => hookRef.current?.handleAnswer("v1", "빌리다"));
+
+    expect(hookRef.current?.answers["v1"]).toMatchObject({ autoDegraded: true });
+  });
+
+  it("발음 청취 표시를 복원한다 — SRS 확신도가 과대평가되지 않는다", async () => {
+    const restored = restoredFrom({ questions: [TYPING], audioPlayedIds: ["t1"] });
+
+    await render([TYPING], 0, { restored });
+    await act(async () => hookRef.current?.handleAnswer("t1", "borrow"));
+
+    expect(hookRef.current?.answers["t1"]).toMatchObject({ audioPlayed: true });
+  });
+});
+
+describe("저장 — 흔적이 있을 때만", () => {
+  it("아무것도 하지 않으면 저장하지 않는다 — 시작만으로 그날 세트가 고정되면 안 된다", async () => {
+    await render([READING]);
+
+    expect(localStorage.getItem(QUIZ_SESSION_STORAGE_KEY)).toBeNull();
+  });
+
+  it("답을 고르면 문항과 함께 저장한다", async () => {
+    await render([READING, LISTENING]);
+
+    await act(async () => hookRef.current?.handleAnswer("q1", "borrow"));
+
+    const result = readQuizSession();
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.session.questions).toHaveLength(2);
+    expect(result.session.answers["q1"]).toMatchObject({ selectedAnswer: "borrow" });
+  });
+
+  it("힌트만 열어도 저장한다 — 힌트 레벨은 XP 페널티로 이어진다", async () => {
+    await render([READING]);
+
+    await act(async () => hookRef.current?.handleHintRequest());
+
+    const result = readQuizSession();
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.session.hintLevels["q1"]).toBe(1);
+  });
+
+  it("발음만 들어도 저장한다 — ref 는 리렌더를 일으키지 않으므로 직접 저장해야 한다", async () => {
+    await render([TYPING]);
+
+    await act(async () => hookRef.current?.markAudioPlayed("t1"));
+
+    const result = readQuizSession();
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.session.audioPlayedIds).toEqual(["t1"]);
+  });
+
+  it("진행 인덱스를 함께 저장한다", async () => {
+    await render([READING, LISTENING], 1);
+
+    await act(async () => hookRef.current?.handleAnswer("v1", "빌리다"));
+
+    const result = readQuizSession();
+    expect(result.status).toBe("ready");
+    if (result.status !== "ready") return;
+    expect(result.session.currentIndex).toBe(1);
+  });
+
+  it("제출에 성공하면 지운다", async () => {
+    await render([READING]);
+    await act(async () => hookRef.current?.handleAnswer("q1", "borrow"));
+    expect(localStorage.getItem(QUIZ_SESSION_STORAGE_KEY)).not.toBeNull();
+
+    await render([READING], 0, { isQuizSubmitted: true });
+
+    expect(localStorage.getItem(QUIZ_SESSION_STORAGE_KEY)).toBeNull();
   });
 });

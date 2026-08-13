@@ -1,12 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/shared/lib";
 import { ROUTES } from "@/shared/constants";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { submitQuiz } from "../api/quiz-api";
+import {
+  toDailyQuizResponse,
+  type QuizSessionSnapshot,
+} from "../lib/quiz-session-storage";
 import type { QuizSubmission } from "../types";
 import { QuizQuestion } from "./game/quiz-question";
 import { ListeningQuestion } from "./game/listening-question";
@@ -55,12 +59,22 @@ interface QuizContainerProps {
   /** 게이트가 소유한다 — 컨테이너가 스스로 localStorage 를 읽으면 안 된다.
    *  첫 훅이 이미 서스펜드라 읽을 시점이 없고, 서버/클라이언트 값이 갈리면 쿼리 키가 어긋난다. */
   listeningEnabled: boolean;
+  /** 진행 중이던 세션. 게이트가 "시작하기" 시점에 한 번 읽어 넘긴다. */
+  restoredSession: QuizSessionSnapshot | null;
 }
 
-export function QuizContainer({ listeningEnabled }: QuizContainerProps) {
+export function QuizContainer({ listeningEnabled, restoredSession }: QuizContainerProps) {
   const router = useRouter();
-  const { questions, userLevel, hasCompletedToday, freeHintCount } =
-    useDailyQuiz(listeningEnabled);
+  // 렌더마다 새 객체를 만들지 않는다 — react-query 는 캐시가 빌 때만 initialData 를 읽으므로
+  //   기능상 무해하지만, restoredSession 이 불변인데 매번 새로 만들 이유가 없다.
+  const initialQuiz = useMemo(
+    () => (restoredSession ? toDailyQuizResponse(restoredSession) : undefined),
+    [restoredSession]
+  );
+  const { questions, userLevel, hasCompletedToday, freeHintCount } = useDailyQuiz(
+    listeningEnabled,
+    initialQuiz
+  );
   const answersRef = useRef<Record<string, QuizSubmission>>({});
   const queryClient = useQueryClient();
   const { showRewards } = useRewardToast();
@@ -87,13 +101,19 @@ export function QuizContainer({ listeningEnabled }: QuizContainerProps) {
 
   const { currentIndex, isTransitioning, goNext, goPrevious } = useQuizNavigation(
     questions.length,
-    handleSubmit
+    handleSubmit,
+    restoredSession?.currentIndex ?? 0
   );
-  const { answers, hintLevels, handleAnswer, handleHintRequest, markAudioPlayed } = useQuizAnswers(
+  const { answers, hintLevels, handleAnswer, handleHintRequest, markAudioPlayed } = useQuizAnswers({
     questions,
     currentIndex,
-    submitMutation.isSuccess
-  );
+    isQuizSubmitted: submitMutation.isSuccess,
+    restored: restoredSession,
+    listeningEnabled,
+    userLevel,
+    hasCompletedToday,
+    freeHintCount,
+  });
   const { currentQuestion, currentHintLevel, answeredCount, isLastQuestion, isAnswered, canSubmit } =
     useQuizState(questions, currentIndex, answers, hintLevels);
 
